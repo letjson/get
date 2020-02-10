@@ -1,8 +1,9 @@
-# Load
-Load JS files
-
 [![License Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=true)](http://www.apache.org/licenses/LICENSE-2.0)
 [![gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
+
+# Load JS files
+https://unitapi.github.io/Load/
+
 
 ## Apiunit.Load
 rozwiązanie dla programistów szukających prostych rozwiązań
@@ -50,9 +51,19 @@ możliwość wyłączenia cache-owania
     .cacheOff()
     
     
-## Przykladowa implementacja we frameworku laravel
+## Przykladowa implementacja
 
-    {!! Html::script('js/load.js') !!}    
+aplikacja html 
+    
+     <script src="https://unitapi.github.io/Load/load.js"></script>
+ 
+
+framework laravel
+
+    {!! Html::script('https://unitapi.github.io/Load/load.js') !!}
+
+
+        
 
 ---
 [gitter]: https://gitter.im/UnitApi/community    

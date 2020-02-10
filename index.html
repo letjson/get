@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UnitApi.Load</title>
+    <script src="https://unitapi.github.io/Load/load.js"></script>
+
+    <script>
+        // Configuration
+        var success = function (data) {
+            console.log('loaded', data);
+        };
+        var error = function (data) {
+            console.error('!loaded', data);
+        };
+        var unitapi = new Load(document.body, success, error);
+
+    </script>
+
+    <script>
+        unitapi.js([
+            "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js",
+            "//code.jquery.com/jquery-git.min.js",
+        ]);
+    </script>
+
+    <script>
+        unitapi.cacheOff().css([
+            "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
+            "//code.jquery.com/ui/1.12.0/jquery-ui.min.js",
+            "/default.css",
+        ]);
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

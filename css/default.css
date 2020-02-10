@@ -1,11 +1,15 @@
 body {
-    font-family: Calibri;
     font-size: 16px;
     margin: 20px;
 }
 button {
     display: block;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
+    width: 15%;
+    padding: 10px;
+}
+.pink {
+    color: blueviolet;
 }

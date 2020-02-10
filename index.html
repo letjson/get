@@ -19,8 +19,8 @@
 
     <script>
         unitapi.js([
-            "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
             "//code.jquery.com/jquery-git.min.js",
+            "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
         ]);
     </script>
 
@@ -31,8 +31,8 @@
 
         function loadDefaultCss(){
             unitapi.cacheOff().css([
-                "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
                 "//code.jquery.com/ui/1.12.1/jquery-ui.min.js",
+                "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css",
                 "css/default.css",
             ]);
         }
@@ -52,7 +52,7 @@
 </head>
 <body>
 
-    <button onclick="loadPinkCss()">Load Pink</button>
+    <button onclick="loadPinkCss()" class="pink">Load Pink</button>
     <button onclick="loadBlackCss()">Load Black</button>
 
 </body>

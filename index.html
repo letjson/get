@@ -19,21 +19,41 @@
 
     <script>
         unitapi.js([
-            "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js",
+            "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
             "//code.jquery.com/jquery-git.min.js",
         ]);
     </script>
 
     <script>
-        unitapi.cacheOff().css([
-            "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
-            "//code.jquery.com/ui/1.12.1/jquery-ui.min.js",
-            "/style.css",
-        ]);
+        document.addEventListener("DOMContentLoaded", function(event) {
+            loadDefaultCss();
+        });
+
+        function loadDefaultCss(){
+            unitapi.cacheOff().css([
+                "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
+                "//code.jquery.com/ui/1.12.1/jquery-ui.min.js",
+                "css/default.css",
+            ]);
+        }
+        function loadPinkCss(){
+            unitapi.cacheOff().css([
+                "css/pink.css",
+            ]);
+        }
+        function loadBlackCss(){
+            unitapi.cacheOff().css([
+                "css/black.css",
+            ]);
+        }
+
     </script>
 
 </head>
 <body>
+
+    <button onclick="loadPinkCss()">Load Pink</button>
+    <button onclick="loadBlackCss()">Load Black</button>
 
 </body>
 </html>

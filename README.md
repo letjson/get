@@ -63,7 +63,35 @@ framework laravel
     {!! Html::script('https://unitapi.github.io/Load/load.js') !!}
 
 
-        
+### TODO
+### Funkcje
++ informacja przy kazdej funkcji skad pochodzi i jaka to wersja.
++ ladowanie plikow z roznych zrodel w zaleznosci od wersji: local/test/cdn
+
+### Serwer, uslugi
+nodejs: 
++ OpenApi
++ deploy on api.unitapi.com
++ ograniczenia dla ilosci requestow z jednego IP
++ kazdy kto publikuje - za darmo
++ plany platne dla tych, ktorzy wykorzytsuja devops, 1EUR/msc | lifetime 10EUR
+    + ulatwienie automatycznego deployu biblitoeki w npmjs
+    + edytor online
+    + funkcja copy paste dla tych, ktorzy szukaja inspiracji
+    + platforma uruchamianie kodu JS
+    
+W przszlosci wapka
+    + mozna wybirac licencje, mozlwiosc generowania licencji, 
+    + shop, market, aplikacji sprzedawanie swojego kodu, praw
+    + 
+
+Calls:
++ generator jednego pliku dla loadera z listy, get request
+    + format url:  one.js?name=version&name=version&...
++ wyswietlanie dokumentacji konkretnej biblioteki
+    + format url:  doc.html?name=version&name=version&...
+
++ 
 
 ---
 [gitter]: https://gitter.im/UnitApi/community    

@@ -69,6 +69,20 @@ framework laravel
 + ladowanie plikow z roznych zrodel w zaleznosci od wersji: local/test/cdn
 
 ### Serwer, uslugi
++ odwrocone edytowanie, forkowanie
++ tworzenie wlasnych zestawow projektow
++ historia zmian, bazowanie na repozytoriach git
+    + polaczenie z gitem
+        + user
+        + fork
+Tworzenie w locei, poprzez APi i requesty
+mozna wykorzystac bezposrednio zdefiniowane API/postman
+wywolanie nawet z konsolie, zeby bylo mozna latwo obrabiac kod, zmieniac, doklejac
+        
+mozliwosc generowania wlasnego kodu online i dolaczania do projektu
+lub bazujac na obcym kodzie zmienic go i wygenerowac link w ktorym bedzie mozna
+go potem dalej edytowac,  
+
 nodejs: 
 + OpenApi
 + deploy on api.unitapi.com
@@ -79,6 +93,7 @@ nodejs:
     + edytor online
     + funkcja copy paste dla tych, ktorzy szukaja inspiracji
     + platforma uruchamianie kodu JS
+    
     
 W przszlosci wapka
     + mozna wybirac licencje, mozlwiosc generowania licencji, 

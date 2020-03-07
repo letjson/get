@@ -5,7 +5,7 @@
 https://jloads.github.io/Load/
 
 
-## Apiunit.Load
+## jLoads.Load
 rozwiązanie dla programistów szukających prostych rozwiązań
 a nie wchodzących co chwilę w nowe technologie a potem wszelkie zmiany i konflikty sprawiają dużo pośrednich problemów
 

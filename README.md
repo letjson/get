@@ -41,7 +41,7 @@ zmienne w zależności od środowiska
             "domain": "//localhost:63342/"
         },
         "production":{
-            "domain": "//js.apiunit.com/"
+            "domain": "//js.jloads.com/"
         }
     })
 
@@ -55,12 +55,12 @@ możliwość wyłączenia cache-owania
 
 aplikacja html 
     
-     <script src="https://unitapi.github.io/Load/load.js"></script>
+     <script src="https://jloads.github.io/Load/load.js"></script>
  
 
 framework laravel
 
-    {!! Html::script('https://unitapi.github.io/Load/load.js') !!}
+    {!! Html::script('https://jloads.github.io/Load/load.js') !!}
 
 
 ### TODO
@@ -85,7 +85,7 @@ go potem dalej edytowac,
 
 nodejs: 
 + OpenApi
-+ deploy on api.unitapi.com
++ deploy on api.jloads.com
 + ograniczenia dla ilosci requestow z jednego IP
 + kazdy kto publikuje - za darmo
 + plany platne dla tych, ktorzy wykorzytsuja devops, 1EUR/msc | lifetime 10EUR
@@ -109,4 +109,6 @@ Calls:
 + 
 
 ---
-[gitter]: https://gitter.im/UnitApi/community    
+[gitter]: https://gitter.im/UnitApi/community
+[gitter]: https://gitter.im/jloads/community
+

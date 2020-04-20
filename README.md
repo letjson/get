@@ -2,7 +2,10 @@
 [![gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
 # Load JS files
-https://jloads.github.io/Load/
+
+[jloads.github.io/Load/](https://jloads.github.io/Load/)
+
+[load.jloads.com](https://load.jloads.com/)
 
 
 ## jLoads.Load

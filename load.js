@@ -4,6 +4,7 @@ var Load = function (target, success, error) {
     //to be called from the file, location is the location to
     //insert the <script> element
     this.cfg = {};
+    this.cfg.domain = "";
     this.cfg.target = target;
     this.cfg.delay = 0;
     this.cfg.cache = 1;
@@ -13,6 +14,11 @@ var Load = function (target, success, error) {
 
 
     var self = this;
+
+    this.domain = function (domain) {
+        self.cfg.domain = domain;
+        return this;
+    };
 
     this.target = function (target) {
         self.cfg.target = target;
@@ -97,6 +103,7 @@ var Load = function (target, success, error) {
 
     // TODO: check if is loaded
     this.loadJs = function (url, target, success, error) {
+        var domain = self.cfg.domain;
         var suffix = '';
         if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
             suffix = '?' + time();
@@ -107,17 +114,19 @@ var Load = function (target, success, error) {
 
             for (var i in url) {
 
-                console.log('load js url[i]', url[i]);
+                var script_url = domain + url[i] + suffix;
+                console.log('load js script_url', script_url);
 
                 try {
-                    var exe = includeJs(url[i] + suffix, target, success, error);
-                    console.log('load js ', url[i], exe);
+                    var exe = includeJs(script_url, target, success, error);
+                    console.log('load js ', script_url, exe);
                 } catch (err) {
-                    console.error('!load js ', url[i], err);
+                    console.error('!load js ', script_url, err);
                 }
             }
         } else {
-            includeJs(url + suffix, target, success, error);
+            var script_url = domain + url + suffix;
+            includeJs(script_url , target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
 

@@ -3,61 +3,96 @@ var Load = function (target, success, error) {
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
     //insert the <script> element
-    this.cfg = {};
-    this.cfg.domain = "";
-    this.cfg.target = target;
-    this.cfg.delay = 0;
-    this.cfg.cache = 1;
+
+    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
+        throw new TypeError('Object success called on non-object');
+    }
+
+    var cfg = {};
+    cfg.env = {};
+    cfg.env_id = 0;
+    cfg.domain = "";
+    cfg.target = target;
+    cfg.delay = 0;
+    cfg.cache = 1;
 
     this.success = success;
     this.error = error;
 
-
     var self = this;
 
+    this.env = function (domain, name, callback) {
+        cfg.env_id++;
+        cfg.env[cfg.env_id] = {};
+        cfg.env[cfg.env_id]['domain'] = domain;
+        cfg.env[cfg.env_id]['name'] = name;
+        cfg.env[cfg.env_id]['exist'] = callback;
+        return this;
+    };
+
+    this.getEnv = function () {
+
+        if (typeof cfg.env !== 'function' && (typeof cfg.env !== 'object' || cfg.env === null)) {
+            throw new TypeError('Object cfg.env called on non-object');
+        }
+        cfg.env.forEach(function(item, index, array) {
+            console.log(item, index, cfg.env[index], cfg.env[index]['exist']());
+            return cfg.env[index];
+        });
+    };
+
+    this.getEnvById = function (env_id) {
+
+        if (typeof cfg.env !== 'function' && (typeof cfg.env !== 'object' || cfg.env === null)) {
+            throw new TypeError('Object cfg.env called on non-object');
+        }
+
+        return cfg.env[env_id];
+    };
+
     this.domain = function (domain) {
-        self.cfg.domain = domain;
+        cfg.domain = domain;
         return this;
     };
 
     this.target = function (target) {
-        self.cfg.target = target;
+        cfg.target = target;
         return this;
     };
 
     this.delay = function (delay) {
-        self.cfg.delay = delay;
+        cfg.delay = delay;
         return this;
     };
 
     this.cache = function (cache) {
-        self.cfg.cache = cache;
+        cfg.cache = cache;
         return this;
     };
 
     this.cacheOff = function () {
-        self.cfg.cache = 0;
+        cfg.cache = 0;
 
         return this;
     };
 
     this.cacheOn = function () {
-        self.cfg.cache = 1;
+        cfg.cache = 1;
 
         return this;
     };
 
     this.js = function (url) {
-        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+        if (typeof cfg.delay === 'number' && cfg.delay > 1) {
             setTimeout(function () {
-                    console.log('delayed', self.cfg.delay, url);
-                    self.loadJs(url, self.cfg.target, self.success, self.error);
+                    console.log('delayed', cfg.delay, url);
+                    self.loadJs(url, cfg.target, self.success, self.error);
                 },
-                self.cfg.delay
+                cfg.delay
             );
         } else {
             console.log('loaded', url);
-            self.loadJs(url, self.cfg.target, self.success, self.error);
+            self.loadJs(url, cfg.target, self.success, self.error);
         }
         return this;
     };
@@ -66,16 +101,16 @@ var Load = function (target, success, error) {
 
 
     this.css = function (url) {
-        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+        if (typeof cfg.delay === 'number' && cfg.delay > 1) {
             setTimeout(function () {
-                    console.log('delayed', self.cfg.delay, url);
-                    self.loadCss(url, self.cfg.target, self.success, self.error);
+                    console.log('delayed', cfg.delay, url);
+                    self.loadCss(url, cfg.target, self.success, self.error);
                 },
-                self.cfg.delay
+                cfg.delay
             );
         } else {
             console.log('loaded', url);
-            self.loadCss(url, self.cfg.target, self.success, self.error);
+            self.loadCss(url, cfg.target, self.success, self.error);
         }
         return this;
         //
@@ -87,14 +122,14 @@ var Load = function (target, success, error) {
         //         console.log('load js url[i]', url[i]);
         //
         //         try {
-        //             var exe = includeStyle(url[i], self.cfg.target, success, error);
+        //             var exe = includeStyle(url[i], cfg.target, success, error);
         //             console.log('load js ', url[i], exe);
         //         } catch (err) {
         //             console.error('!load js ', url[i], err);
         //         }
         //     }
         // } else {
-        //     includeHtml(url, self.cfg.target, success, error);
+        //     includeHtml(url, cfg.target, success, error);
         //     // console.error('apiunit obj: is not object:', obj);
         // }
         // return this;
@@ -103,9 +138,10 @@ var Load = function (target, success, error) {
 
     // TODO: check if is loaded
     this.loadJs = function (url, target, success, error) {
-        var domain = self.cfg.domain;
+        var domain = self.getEnv().domain;
+
         var suffix = '';
-        if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
+        if (typeof cfg.cache === 'number' && cfg.cache !== 1) {
             suffix = '?' + time();
         }
 
@@ -135,7 +171,7 @@ var Load = function (target, success, error) {
 
     this.loadCss = function (url, target, success, error) {
         var suffix = '';
-        if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
+        if (typeof cfg.cache === 'number' && cfg.cache !== 1) {
             suffix = '?' + time();
         }
 
@@ -171,14 +207,14 @@ var Load = function (target, success, error) {
                 console.log('load js url[i]', url[i]);
 
                 try {
-                    var exe = includeHtml(url[i], self.cfg.target, success, error);
+                    var exe = includeHtml(url[i], cfg.target, success, error);
                     console.log('load js ', url[i], exe);
                 } catch (err) {
                     console.error('!load js ', url[i], err);
                 }
             }
         } else {
-            includeHtml(url, self.cfg.target, success, error);
+            includeHtml(url, cfg.target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
         return this;
@@ -186,16 +222,16 @@ var Load = function (target, success, error) {
 
 
     this.image = function (url) {
-        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+        if (typeof cfg.delay === 'number' && cfg.delay > 1) {
             setTimeout(function () {
-                    console.log('image delayed', self.cfg.delay, url);
-                    self.loadImage(url, self.cfg.target, self.success, self.error);
+                    console.log('image delayed', cfg.delay, url);
+                    self.loadImage(url, cfg.target, self.success, self.error);
                 },
-                self.cfg.delay
+                cfg.delay
             );
         } else {
-            console.log('image loaded', url, self.cfg.delay);
-            self.loadImage(url, self.cfg.target, self.success, self.error);
+            console.log('image loaded', url, cfg.delay);
+            self.loadImage(url, cfg.target, self.success, self.error);
         }
         return this;
     };
@@ -216,7 +252,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            includeImage(url, self.cfg.target, success, error);
+            includeImage(url, cfg.target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
         return this;
@@ -389,10 +425,10 @@ var time = Date.now || function () {
 
 
 var E = function (selector, area, error, success) {
-    this.cfg = {};
-    this.cfg.area = document;
-    this.cfg.selector = selector;
-    this.cfg.exist = false;
+    var cfg = {};
+    cfg.area = document;
+    cfg.selector = selector;
+    cfg.exist = false;
 
     this.success = function (elem) {
         console.log("Element elem: ", elem);
@@ -414,7 +450,7 @@ var E = function (selector, area, error, success) {
     var self = this;
 
     this.selector = function (selector) {
-        self.cfg.selector = selector;
+        cfg.selector = selector;
         return this;
     }
 
@@ -426,17 +462,17 @@ var E = function (selector, area, error, success) {
             error = self.error;
         }
 
-        const elem = document.querySelector(self.cfg.selector);
+        const elem = document.querySelector(cfg.selector);
 
-        console.log('E first self.cfg.selector', self.cfg.selector);
+        console.log('E first cfg.selector', cfg.selector);
         console.log('E first elem', elem);
 
         if (elem !== null) {
-            self.cfg.exist = true;
+            cfg.exist = true;
             success(elem);
             return elem;
         } else {
-            self.cfg.exist = false;
+            cfg.exist = false;
             error();
         }
 
@@ -451,16 +487,16 @@ var E = function (selector, area, error, success) {
             error = self.error;
         }
 
-        const elem = document.querySelectorAll(self.cfg.selector);
+        const elem = document.querySelectorAll(cfg.selector);
 
-        console.log('E all self.cfg.selector', self.cfg.selector);
+        console.log('E all cfg.selector', cfg.selector);
         console.log('E all elem', elem);
 
         if (elem !== null) {
-            self.cfg.exist = true;
+            cfg.exist = true;
             success(elem);
         } else {
-            self.cfg.exist = false;
+            cfg.exist = false;
             error(elem);
         }
 

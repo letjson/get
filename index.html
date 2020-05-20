@@ -13,12 +13,19 @@
         var error = function (data) {
             console.error('!loaded', data);
         };
-        var unitapi = new Load(document.body, success, error);
+        var jloads = new Load(document.body, success, error);
+
+        jloads.env("//localhost:80/", "local", function () {
+            return window.location.hostname === 'localhost';
+        });
+        jloads.env("//js.jloads.com/", "production", function () {
+            return window.location.hostname !== 'localhost';
+        });
 
     </script>
 
     <script>
-        unitapi.js([
+        jloads.js([
             "//code.jquery.com/jquery-git.min.js",
             "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
         ]);
@@ -30,19 +37,19 @@
         });
 
         function loadDefaultCss(){
-            unitapi.cacheOff().css([
+            jloads.cacheOff().css([
                 "//code.jquery.com/ui/1.12.1/jquery-ui.min.js",
                 "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css",
                 "css/default.css",
             ]);
         }
         function loadPinkCss(){
-            unitapi.cacheOff().css([
+            jloads.cacheOff().css([
                 "css/pink.css",
             ]);
         }
         function loadBlackCss(){
-            unitapi.cacheOff().css([
+            jloads.cacheOff().css([
                 "css/black.css",
             ]);
         }

@@ -18,14 +18,14 @@
         var jloads = new Load(document.body, success, error);
 
         // Environment
-        // jloads.env("//localhost:8080/", "local", function () {
-        //     return window.location.hostname === 'localhost';
-        // });
-        // jloads.env("//load.jloads.com/", "production", function () {
-        //     return window.location.hostname !== 'localhost';
-        // });
+        jloads.env("//localhost:8080/", "local", function () {
+            return window.location.hostname === 'localhost';
+        });
+        jloads.env("//load.jloads.com/", "production", function () {
+            return window.location.hostname !== 'localhost';
+        });
 
-        jloads.domain("//load.jloads.com/");
+        // jloads.domain("//load.jloads.com/");
     </script>
 
     <script>
@@ -37,9 +37,7 @@
 
         jloads.js([
             "//code.jquery.com/jquery-3.5.1.min.js",
-        ]);
-
-        jloads.delay(40).js([
+        ]).delay(40).js([
             "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
         ]);
     </script>

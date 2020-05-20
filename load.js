@@ -46,8 +46,13 @@ var Load = function (target, success, error) {
             };
         }
         // console.log('typeof ===', typeof self.cfg.env, self.cfg.env, self.cfg.env.length);
-        if (typeof self.cfg.env !== 'object' || typeof self.cfg.env.length === 'undefined' || self.cfg.env.length < 1) {
-            console.log('environment not exist');
+        if (typeof self.cfg.env !== 'object') {
+            console.log('environment not exist', self.cfg.env);
+            if(isEmpty(self.cfg.domain)){
+                return {
+                    'domain': ''
+                };
+            }
             return {
                 'domain': self.cfg.domain
             };
@@ -118,59 +123,6 @@ var Load = function (target, success, error) {
         return self;
     };
 
-    self.js = function (url) {
-        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
-            setTimeout(function () {
-                    console.log('delayed', self.cfg.delay, url);
-                    self.loadJs(url, self.cfg.target, self.success, self.error);
-                },
-                self.cfg.delay
-            );
-        } else {
-            console.log('loaded', url);
-            self.loadJs(url, self.cfg.target, self.success, self.error);
-        }
-        return self;
-    };
-    self.javascript = self.js;
-    self.script = self.js;
-
-
-    self.css = function (url) {
-        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
-            setTimeout(function () {
-                    console.log('delayed', self.cfg.delay, url);
-                    self.loadCss(url, self.cfg.target, self.success, self.error);
-                },
-                self.cfg.delay
-            );
-        } else {
-            console.log('loaded', url);
-            self.loadCss(url, self.cfg.target, self.success, self.error);
-        }
-        return self;
-        //
-        // if (typeof url === 'object') {
-        //     //console.log('obj:', obj);
-        //
-        //     for (var i in url) {
-        //
-        //         console.log('load js url[i]', url[i]);
-        //
-        //         try {
-        //             var exe = includeStyle(url[i], self.cfg.target, success, error);
-        //             console.log('load js ', url[i], exe);
-        //         } catch (err) {
-        //             console.error('!load js ', url[i], err);
-        //         }
-        //     }
-        // } else {
-        //     includeHtml(url, self.cfg.target, success, error);
-        //     // console.error('apiunit obj: is not object:', obj);
-        // }
-        // return this;
-    };
-    self.style = self.css;
 
     // TODO: check if is loaded
     self.loadJs = function (url, target, success, error) {
@@ -204,6 +156,24 @@ var Load = function (target, success, error) {
 
         return self;
     };
+    self.js = function (url) {
+        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+            setTimeout(function () {
+                    console.log('delayed', self.cfg.delay, url);
+                    self.loadJs(url, self.cfg.target, self.success, self.error);
+                },
+                self.cfg.delay
+            );
+        } else {
+            console.log('loaded', url);
+            self.loadJs(url, self.cfg.target, self.success, self.error);
+        }
+        return self;
+    };
+    self.javascript = self.js;
+    self.script = self.js;
+
+
 
     self.loadCss = function (url, target, success, error) {
 
@@ -237,6 +207,22 @@ var Load = function (target, success, error) {
 
         return self;
     };
+
+    self.css = function (url) {
+        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+            setTimeout(function () {
+                    console.log('delayed', self.cfg.delay, url);
+                    self.loadCss(url, self.cfg.target, self.success, self.error);
+                },
+                self.cfg.delay
+            );
+        } else {
+            console.log('loaded', url);
+            self.loadCss(url, self.cfg.target, self.success, self.error);
+        }
+        return self;
+    };
+    self.style = self.css;
 
 
     self.html = function (url) {
@@ -542,15 +528,15 @@ var E = function (selector, area, error, success) {
         this.error = error;
     }
 
-
     var self = this;
 
-    this.selector = function (selector) {
+
+    self.selector = function (selector) {
         self.cfg.selector = selector;
         return self;
     }
 
-    this.first = function (error, success) {
+    self.first = function (error, success) {
         if (typeof success !== 'function') {
             success = self.success;
         }
@@ -578,7 +564,7 @@ var E = function (selector, area, error, success) {
         return elem;
     }
 
-    this.all = function (error, success) {
+    self.all = function (error, success) {
         if (typeof success !== 'function') {
             success = self.success;
         }

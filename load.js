@@ -252,18 +252,18 @@ var Load = function (target, success, error) {
 
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                console.log('load js script_url', script_url);
+                console.log('load html script_url', script_url);
                 try {
-                    var exe = includeHtml(script_url, self.cfg.target, success, error);
-                    console.log('load js ', script_url, exe);
+                    var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
+                    console.log('load html ', script_url, exe);
                 } catch (err) {
-                    console.error('!load js ', script_url, err);
+                    console.error('!load html ', script_url, err);
                 }
             }
         } else {
             var domain = self.getEnv(url).domain;
             var script_url = domain + url + suffix;
-            includeHtml(script_url, self.cfg.target, success, error);
+            includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
         return self;
@@ -411,7 +411,7 @@ function includeStyle(url, target, success, error) {
 }
 
 
-function includeHtml(url, target, success, error) {
+function includeHtml(url, target, replace, success, error) {
     var xhttp;
 
     try {

@@ -15,7 +15,7 @@
         };
         var jloads = new Load(document.body, success, error);
 
-        jloads.env("//localhost:80/", "local", function () {
+        jloads.env("//localhost:8080/", "local", function () {
             return window.location.hostname === 'localhost';
         });
         jloads.env("//js.jloads.com/", "production", function () {

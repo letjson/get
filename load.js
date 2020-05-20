@@ -30,15 +30,28 @@ var Load = function (target, success, error) {
         return this;
     };
 
-    this.getEnv = function () {
+    this.getEnv = function (url) {
+        var has_domain = url.indexOf('//') === 0 || url.indexOf('http://') === 0 || url.indexOf('https://') === 0;
+        if(has_domain){
+            console.log('url YES:', url);
+            return {
+                'domain':''
+            };
+        }
 
         if (typeof cfg.env !== 'function' && (typeof cfg.env !== 'object' || cfg.env === null)) {
             throw new TypeError('Object cfg.env called on non-object');
         }
-        cfg.env.forEach(function(item, index, array) {
-            console.log(item, index, cfg.env[index], cfg.env[index]['exist']());
-            return cfg.env[index];
-        });
+
+        for (var index in cfg.env) {
+            if( cfg.env.hasOwnProperty( index ) ) {
+                // console.log("o." + index + " = " + cfg.env[index]);
+                var callback = cfg.env[index]['exist'];
+                if(typeof callback === 'function' && callback()){
+                    return cfg.env[index];
+                }
+            }
+        }
     };
 
     this.getEnvById = function (env_id) {
@@ -138,7 +151,6 @@ var Load = function (target, success, error) {
 
     // TODO: check if is loaded
     this.loadJs = function (url, target, success, error) {
-        var domain = self.getEnv().domain;
 
         var suffix = '';
         if (typeof cfg.cache === 'number' && cfg.cache !== 1) {
@@ -149,7 +161,7 @@ var Load = function (target, success, error) {
             //console.log('obj:', obj);
 
             for (var i in url) {
-
+                var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
                 console.log('load js script_url', script_url);
 
@@ -161,6 +173,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
+            var domain = self.getEnv(url).domain;
             var script_url = domain + url + suffix;
             includeJs(script_url , target, success, error);
             // console.error('apiunit obj: is not object:', obj);

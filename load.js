@@ -33,7 +33,7 @@ var Load = function (target, success, error) {
     this.getEnv = function (url) {
         var has_domain = url.indexOf('//') === 0 || url.indexOf('http://') === 0 || url.indexOf('https://') === 0;
         if(has_domain){
-            console.log('url YES:', url);
+            console.log('url has now own domain:', url);
             return {
                 'domain':''
             };
@@ -48,6 +48,7 @@ var Load = function (target, success, error) {
                 // console.log("o." + index + " = " + cfg.env[index]);
                 var callback = cfg.env[index]['exist'];
                 if(typeof callback === 'function' && callback()){
+                    console.log('url use env:', cfg.env[index]['name']);
                     return cfg.env[index];
                 }
             }

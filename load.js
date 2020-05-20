@@ -32,15 +32,19 @@ var Load = function (target, success, error) {
     };
 
     this.getEnv = function (url) {
+
         if (hasDomain(url)) {
             console.log('url has now own domain:', url);
             return {
                 'domain': ''
             };
         }
-
-        if (typeof cfg.env !== 'function' && (typeof cfg.env !== 'object' || cfg.env === null)) {
-            throw new TypeError('Object cfg.env called on non-object');
+        // console.log('typeof ===', typeof cfg.env, cfg.env, cfg.env.length);
+        if (typeof cfg.env !== 'object' || typeof cfg.env.length === 'undefined' || cfg.env.length < 1 ) {
+            console.log('environment not exist');
+            return {
+                'domain': cfg.domain
+            };
         }
 
         for (var index in cfg.env) {
@@ -193,7 +197,7 @@ var Load = function (target, success, error) {
             //console.log('obj:', obj);
 
             for (var i in url) {
-
+                // console.log('url:', url, i, url[i]);
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
                 console.log('load js script_url', script_url);

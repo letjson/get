@@ -240,6 +240,11 @@ var Load = function (target, success, error) {
 
 
     self.html = function (url) {
+        var suffix = '';
+        if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
+            suffix = '?' + time();
+        }
+
         if (typeof url === 'object') {
             //console.log('obj:', obj);
 
@@ -269,24 +274,23 @@ var Load = function (target, success, error) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
                     console.log('image delayed', self.cfg.delay, url);
-                    self.loadImage(url, self.cfg.target, self.success, self.error);
+                    self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
             console.log('image loaded', url, self.cfg.delay);
-            self.loadImage(url, self.cfg.target, self.success, self.error);
+            self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
         }
         return self;
     };
 
-    self.loadImage = function (url, target, success, error) {
+    self.loadImage = function (url, target, replace, success, error) {
 
         var suffix = '';
         if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
             suffix = '?' + time();
         }
-
 
         if (typeof url === 'object') {
             //console.log('obj:', obj);
@@ -297,7 +301,7 @@ var Load = function (target, success, error) {
                 console.log('load img url[i]', url[i]);
 
                 try {
-                    var exe = includeImage(script_url, target, self.cfg.replace, success, error);
+                    var exe = includeImage(script_url, target, replace, success, error);
                     console.log('load img ', script_url, exe);
                 } catch (err) {
                     console.error('!load img ', script_url, err);
@@ -306,7 +310,7 @@ var Load = function (target, success, error) {
         } else {
             var domain = self.getEnv(url).domain;
             var script_url = domain + url + suffix;
-            includeImage(script_url, target, self.cfg.replace, success, error);
+            includeImage(script_url, target, replace, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
         return self;

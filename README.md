@@ -7,6 +7,13 @@
 
 [load.jloads.com](https://load.jloads.com/)
 
+## environment
+
+### production
+[jLoads.Load](https://load.jloads.com/)
+
+### local
+[jLoads.Load](http://localhost:8080/)
 
 ## jLoads.Load
 rozwiązanie dla programistów szukających prostych rozwiązań

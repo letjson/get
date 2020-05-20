@@ -1,4 +1,5 @@
 // TODO: if function not exist try to load from main folder with the name {NameOfFunction}.js
+
 var Load = function (target, success, error) {
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -31,11 +32,10 @@ var Load = function (target, success, error) {
     };
 
     this.getEnv = function (url) {
-        var has_domain = url.indexOf('//') === 0 || url.indexOf('http://') === 0 || url.indexOf('https://') === 0;
-        if(has_domain){
+        if (hasDomain(url)) {
             console.log('url has now own domain:', url);
             return {
-                'domain':''
+                'domain': ''
             };
         }
 
@@ -44,10 +44,10 @@ var Load = function (target, success, error) {
         }
 
         for (var index in cfg.env) {
-            if( cfg.env.hasOwnProperty( index ) ) {
+            if (cfg.env.hasOwnProperty(index)) {
                 // console.log("o." + index + " = " + cfg.env[index]);
                 var callback = cfg.env[index]['exist'];
-                if(typeof callback === 'function' && callback()){
+                if (typeof callback === 'function' && callback()) {
                     console.log('url use env:', cfg.env[index]['name']);
                     return cfg.env[index];
                 }
@@ -176,7 +176,7 @@ var Load = function (target, success, error) {
         } else {
             var domain = self.getEnv(url).domain;
             var script_url = domain + url + suffix;
-            includeJs(script_url , target, success, error);
+            includeJs(script_url, target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
 
@@ -194,17 +194,21 @@ var Load = function (target, success, error) {
 
             for (var i in url) {
 
-                console.log('load CSS url[i]', url[i]);
+                var domain = self.getEnv(url[i]).domain;
+                var script_url = domain + url[i] + suffix;
+                console.log('load js script_url', script_url);
 
                 try {
-                    var exe = includeStyle(url[i] + suffix, target, success, error);
-                    console.log('load CSS ', url[i], exe);
+                    var exe = includeStyle(script_url, target, success, error);
+                    console.log('load CSS ', script_url, exe);
                 } catch (err) {
-                    console.error('!load CSS ', url[i], err);
+                    console.error('!load CSS ', script_url, err);
                 }
             }
         } else {
-            includeStyle(url + suffix, target, success, error);
+            var domain = self.getEnv(url).domain;
+            var script_url = domain + url + suffix;
+            includeStyle(script_url, target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
 
@@ -218,17 +222,20 @@ var Load = function (target, success, error) {
 
             for (var i in url) {
 
-                console.log('load js url[i]', url[i]);
-
+                var domain = self.getEnv(url[i]).domain;
+                var script_url = domain + url[i] + suffix;
+                console.log('load js script_url', script_url);
                 try {
-                    var exe = includeHtml(url[i], cfg.target, success, error);
-                    console.log('load js ', url[i], exe);
+                    var exe = includeHtml(script_url, cfg.target, success, error);
+                    console.log('load js ', script_url, exe);
                 } catch (err) {
-                    console.error('!load js ', url[i], err);
+                    console.error('!load js ', script_url, err);
                 }
             }
         } else {
-            includeHtml(url, cfg.target, success, error);
+            var domain = self.getEnv(url).domain;
+            var script_url = domain + url + suffix;
+            includeHtml(script_url, cfg.target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
         return this;
@@ -517,3 +524,7 @@ var E = function (selector, area, error, success) {
         return elem;
     }
 };
+
+var hasDomain = function (url) {
+    return url.indexOf('//') === 0 || url.indexOf('http://') === 0 || url.indexOf('https://') === 0;
+}

@@ -13,25 +13,29 @@
         var error = function (data) {
             console.error('!loaded', data);
         };
+
+        // Declaration
         var jloads = new Load(document.body, success, error);
 
+        // Environment
         jloads.env("//localhost:8080/", "local", function () {
             return window.location.hostname === 'localhost';
         });
         jloads.env("//load.jloads.com/", "production", function () {
             return window.location.hostname !== 'localhost';
         });
-
     </script>
 
     <script>
+        // Load NOW
         jloads.js([
-            "//code.jquery.com/jquery-git.min.js",
+            "//code.jquery.com/jquery-3.5.1.min.js",
             "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
         ]);
     </script>
 
     <script>
+        // Dynamic loading
         document.addEventListener("DOMContentLoaded", function(event) {
             loadDefaultCss();
         });
@@ -53,7 +57,6 @@
                 "css/black.css",
             ]);
         }
-
     </script>
 
 </head>

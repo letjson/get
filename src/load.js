@@ -155,9 +155,10 @@ var Load = function (target, success, error) {
         if (typeof url === 'object') {
             //JLOADS_DEBUG || console.log('obj:', obj);
             var last = false;
-
+            var len = url.length;
             for (var i in url) {
-                console.log('load js url.length', url.length, i);
+                last = len == i;
+                console.log('load js url.length', len, i, last);
 
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;

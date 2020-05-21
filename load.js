@@ -515,17 +515,25 @@ var Load = function (target, success, error) {
 
         if (typeof url === 'object') {
             //JLOADS_DEBUG || console.log('obj:', obj);
+            var last = false;
 
             for (var i in url) {
+                console.log('load js url.length', url.length, i);
+
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
                 JLOADS_DEBUG || console.log('load js script_url', script_url);
 
                 try {
-                    var exe = includeJs(script_url, target, success, error);
+                    if(last){
+                        var exe = includeJs(script_url, target, success, error);
+                    } else {
+                        var exe = includeJs(script_url, target);
+                    }
                     JLOADS_DEBUG || console.log('load js ', script_url, exe);
                 } catch (err) {
                     console.error('!load js ', script_url, err);
+                    error();
                 }
             }
         } else {

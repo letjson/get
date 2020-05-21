@@ -248,6 +248,11 @@ function includeStyle(url, target, success, error) {
  * @returns {includeHtml|boolean}
  */
 function includeHtml(url, target, replace, success, error) {
+
+    if (typeof HTML_DEBUG === 'undefined') {
+        var HTML_DEBUG = true;
+    }
+
     var xhttp;
 
     try {
@@ -261,22 +266,22 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            JLOADS_DEBUG || console.log('includeHtml success', "included");
+            HTML_DEBUG || console.log('includeHtml success', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            JLOADS_DEBUG || console.log('includeHtml error', "Page not found.");
+            HTML_DEBUG || console.log('includeHtml error', "Page not found.");
         }
     }
-    JLOADS_DEBUG || console.log('includeHtml url', url);
+    HTML_DEBUG || console.log('includeHtml url', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            JLOADS_DEBUG || console.log('includeHtml el_id', target);
+            HTML_DEBUG || console.log('includeHtml el_id', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {
@@ -312,7 +317,12 @@ function includeHtml(url, target, replace, success, error) {
  * @returns {boolean|*}
  */
 function includeImage(url, target, replace, success, error) {
-    JLOADS_DEBUG || console.log('includeImg url: ', url);
+
+    if (typeof IMAGE_DEBUG === 'undefined') {
+        var IMAGE_DEBUG = true;
+    }
+
+    IMAGE_DEBUG || console.log('includeImg url: ', url);
     // JLOADS_DEBUG || console.log('el', el);
     try {
         var el = new E(target);
@@ -322,22 +332,22 @@ function includeImage(url, target, replace, success, error) {
         return false;
     }
     var elmnt = el.first();
-    JLOADS_DEBUG || console.log('include Image elmnt :', elmnt);
+    IMAGE_DEBUG || console.log('include Image elmnt :', elmnt);
 
     let img = new Image;
     img.onload = function () {
-        JLOADS_DEBUG || console.log("include Image onload url: ", url);
-        JLOADS_DEBUG || console.log("include Image replace: ", replace);
+        IMAGE_DEBUG || console.log("include Image onload url: ", url);
+        IMAGE_DEBUG || console.log("include Image replace: ", replace);
 
         if (typeof replace === 'number' && replace === 1) {
             replace = true;
         }
         // JLOADS_DEBUG || console.log('typeof self.cfg.replace', typeof self.cfg.replace);
-        JLOADS_DEBUG || console.log("include Image replace: ", replace);
+        IMAGE_DEBUG || console.log("include Image replace: ", replace);
 
 
         if (replace) {
-            JLOADS_DEBUG || console.log('includeImage elmnt firstChild :', elmnt.firstChild);
+            IMAGE_DEBUG || console.log('includeImage elmnt firstChild :', elmnt.firstChild);
             elmnt.removeChild(elmnt.firstChild);
             // let element = document.getElementById("top");
             // while (element.firstChild) {

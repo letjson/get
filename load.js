@@ -1,5 +1,5 @@
-// TODO: if function not exist try to load from main folder with the name {NameOfFunction}.js
-JLOADS_DEBUG = true;
+// JLOADS_DEBUG = true;
+JLOADS_DEBUG = false;
 var Load = function (target, success, error) {
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to

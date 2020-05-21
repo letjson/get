@@ -1,4 +1,4 @@
-module.exports = function (domain = 'localhost', port = 3000, public_src = "./" ) {
+module.exports = function (application, domain = 'localhost', port = 3000, public_src = "./") {
 
     const express = require('express');
 
@@ -6,7 +6,7 @@ module.exports = function (domain = 'localhost', port = 3000, public_src = "./" 
     port = process.env.PORT || port;
 
     // NEW - Add CORS headers - see https://enable-cors.org/server_expressjs.html
-    app.use(function(req, res, next) {
+    app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header(
             "Access-Control-Allow-Headers",
@@ -30,9 +30,8 @@ module.exports = function (domain = 'localhost', port = 3000, public_src = "./" 
     // });
 
     // app.listen(PORT, () => console.log(`listening on ${PORT}`));
-    var url = 'http://'+domain + ':'+ port;
-
-    app.listen(port, () => console.log('jLoads.js is listening on: ' + url ));
+    var url = 'http://' + domain + ':' + port;
+    app.listen(port, () => console.log(application + ' is listening on: ' + url));
 
     return app;
 };

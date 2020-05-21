@@ -1,5 +1,5 @@
 // TODO: if function not exist try to load from main folder with the name {NameOfFunction}.js
-
+JLOADS_DEBUG = true;
 var Load = function (target, success, error) {
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -40,14 +40,14 @@ var Load = function (target, success, error) {
     this.getEnv = function (url) {
 
         if (hasDomain(url)) {
-            console.log('url has now own domain:', url);
+            JLOADS_DEBUG || console.log('url has now own domain:', url);
             return {
                 'domain': ''
             };
         }
-        // console.log('typeof ===', typeof self.cfg.env, self.cfg.env, self.cfg.env.length);
+        // JLOADS_DEBUG || console.log('typeof ===', typeof self.cfg.env, self.cfg.env, self.cfg.env.length);
         if (typeof self.cfg.env !== 'object') {
-            console.log('environment not exist', self.cfg.env);
+            JLOADS_DEBUG || console.log('environment not exist', self.cfg.env);
             if(isEmpty(self.cfg.domain)){
                 return {
                     'domain': ''
@@ -60,10 +60,10 @@ var Load = function (target, success, error) {
 
         for (var index in self.cfg.env) {
             if (self.cfg.env.hasOwnProperty(index)) {
-                // console.log("o." + index + " = " + self.cfg.env[index]);
+                // JLOADS_DEBUG || console.log("o." + index + " = " + self.cfg.env[index]);
                 var callback = self.cfg.env[index]['exist'];
                 if (typeof callback === 'function' && callback()) {
-                    console.log('url use env:', self.cfg.env[index]['name']);
+                    JLOADS_DEBUG || console.log('url use env:', self.cfg.env[index]['name']);
                     return self.cfg.env[index];
                 }
             }
@@ -133,16 +133,16 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //console.log('obj:', obj);
+            //JLOADS_DEBUG || console.log('obj:', obj);
 
             for (var i in url) {
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                console.log('load js script_url', script_url);
+                JLOADS_DEBUG || console.log('load js script_url', script_url);
 
                 try {
                     var exe = includeJs(script_url, target, success, error);
-                    console.log('load js ', script_url, exe);
+                    JLOADS_DEBUG || console.log('load js ', script_url, exe);
                 } catch (err) {
                     console.error('!load js ', script_url, err);
                 }
@@ -159,13 +159,13 @@ var Load = function (target, success, error) {
     self.js = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    console.log('delayed', self.cfg.delay, url);
+                    JLOADS_DEBUG || console.log('delayed', self.cfg.delay, url);
                     self.loadJs(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            console.log('loaded', url);
+            JLOADS_DEBUG || console.log('loaded', url);
             self.loadJs(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -183,17 +183,17 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //console.log('obj:', obj);
+            //JLOADS_DEBUG || console.log('obj:', obj);
 
             for (var i in url) {
-                // console.log('url:', url, i, url[i]);
+                // JLOADS_DEBUG || console.log('url:', url, i, url[i]);
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                console.log('load CSS script_url', script_url);
+                JLOADS_DEBUG || console.log('load CSS script_url', script_url);
 
                 try {
                     var exe = includeStyle(script_url, target, success, error);
-                    console.log('load CSS ', script_url, exe);
+                    JLOADS_DEBUG || console.log('load CSS ', script_url, exe);
                 } catch (err) {
                     console.error('!load CSS ', script_url, err);
                 }
@@ -211,13 +211,13 @@ var Load = function (target, success, error) {
     self.css = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    console.log('delayed', self.cfg.delay, url);
+                    JLOADS_DEBUG || console.log('delayed', self.cfg.delay, url);
                     self.loadCss(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            console.log('loaded', url);
+            JLOADS_DEBUG || console.log('loaded', url);
             self.loadCss(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -232,16 +232,16 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //console.log('obj:', obj);
+            //JLOADS_DEBUG || console.log('obj:', obj);
 
             for (var i in url) {
 
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                console.log('load html script_url', script_url);
+                JLOADS_DEBUG || console.log('load html script_url', script_url);
                 try {
                     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
-                    console.log('load html ', script_url, exe);
+                    JLOADS_DEBUG || console.log('load html ', script_url, exe);
                 } catch (err) {
                     console.error('!load html ', script_url, err);
                 }
@@ -259,13 +259,13 @@ var Load = function (target, success, error) {
     self.img = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    console.log('image delayed', self.cfg.delay, url);
+                    JLOADS_DEBUG || console.log('image delayed', self.cfg.delay, url);
                     self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            console.log('image loaded', url, self.cfg.delay);
+            JLOADS_DEBUG || console.log('image loaded', url, self.cfg.delay);
             self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
         }
         return self;
@@ -279,16 +279,16 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //console.log('obj:', obj);
+            //JLOADS_DEBUG || console.log('obj:', obj);
 
             for (var i in url) {
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                console.log('load img url[i]', url[i]);
+                JLOADS_DEBUG || console.log('load img url[i]', url[i]);
 
                 try {
                     var exe = includeImage(script_url, target, replace, success, error);
-                    console.log('load img ', script_url, exe);
+                    JLOADS_DEBUG || console.log('load img ', script_url, exe);
                 } catch (err) {
                     console.error('!load img ', script_url, err);
                 }
@@ -324,12 +324,12 @@ function isEmpty(val) {
 
 function getTarget(target) {
 
-    console.log('target',target);
+    JLOADS_DEBUG || console.log('target',target);
     if (isEmpty(target)) {
-        console.log('HEAD');
+        JLOADS_DEBUG || console.log('HEAD');
         target = document.getElementsByTagName('head')[0];
         if (isEmpty(target)) {
-            console.log('BODY');
+            JLOADS_DEBUG || console.log('BODY');
             target = document.body;
         }
     }
@@ -375,7 +375,7 @@ function getXHRObject() {
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
 function includeStyle(url, target, success, error) {
-    // console.log(target, target == null);
+    // JLOADS_DEBUG || console.log(target, target == null);
     // return false;
 
     // var xhrObj = getXHRObject(); // defined in the previous example
@@ -411,22 +411,22 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            console.log('includeHtml success', "included");
+            JLOADS_DEBUG || console.log('includeHtml success', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            console.log('includeHtml error', "Page not found.");
+            JLOADS_DEBUG || console.log('includeHtml error', "Page not found.");
         }
     }
-    console.log('includeHtml url', url);
+    JLOADS_DEBUG || console.log('includeHtml url', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log('includeHtml el_id', target);
+            JLOADS_DEBUG || console.log('includeHtml el_id', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {
@@ -455,8 +455,8 @@ function includeHtml(url, target, replace, success, error) {
 // function includeImage(url, target, success, error) {
 
 function includeImage(url, target, replace, success, error) {
-    console.log('includeImg url: ', url);
-    // console.log('el', el);
+    JLOADS_DEBUG || console.log('includeImg url: ', url);
+    // JLOADS_DEBUG || console.log('el', el);
     try {
         var el = new E(target);
     } catch (err) {
@@ -465,22 +465,22 @@ function includeImage(url, target, replace, success, error) {
         return false;
     }
     var elmnt = el.first();
-    console.log('include Image elmnt :', elmnt);
+    JLOADS_DEBUG || console.log('include Image elmnt :', elmnt);
 
     let img = new Image;
     img.onload = function () {
-        console.log("include Image onload url: ", url);
-        console.log("include Image replace: ", replace );
+        JLOADS_DEBUG || console.log("include Image onload url: ", url);
+        JLOADS_DEBUG || console.log("include Image replace: ", replace );
 
         if (typeof replace === 'number' && replace === 1) {
             replace = true;
         }
-        // console.log('typeof self.cfg.replace', typeof self.cfg.replace);
-        console.log("include Image replace: ", replace );
+        // JLOADS_DEBUG || console.log('typeof self.cfg.replace', typeof self.cfg.replace);
+        JLOADS_DEBUG || console.log("include Image replace: ", replace );
 
 
         if(replace){
-            console.log('includeImage elmnt firstChild :', elmnt.firstChild);
+            JLOADS_DEBUG || console.log('includeImage elmnt firstChild :', elmnt.firstChild);
             elmnt.removeChild(elmnt.firstChild);
             // let element = document.getElementById("top");
             // while (element.firstChild) {
@@ -509,7 +509,7 @@ var E = function (selector, area, error, success) {
 
 
     this.success = function (elem) {
-        console.log("Element func success(): ", elem);
+        JLOADS_DEBUG || console.log("Element func success(): ", elem);
     };
 
     this.error = function (elem) {
@@ -549,8 +549,8 @@ var E = function (selector, area, error, success) {
         }
         const elem = document.querySelector(self.cfg.selector);
 
-        console.log('E first self.cfg.selector', self.cfg.selector);
-        console.log('E first elem', elem);
+        JLOADS_DEBUG || console.log('E first self.cfg.selector', self.cfg.selector);
+        JLOADS_DEBUG || console.log('E first elem', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;
@@ -574,8 +574,8 @@ var E = function (selector, area, error, success) {
 
         const elem = document.querySelectorAll(self.cfg.selector);
 
-        console.log('E all self.cfg.selector', self.cfg.selector);
-        console.log('E all elem', elem);
+        JLOADS_DEBUG || console.log('E all self.cfg.selector', self.cfg.selector);
+        JLOADS_DEBUG || console.log('E all elem', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;

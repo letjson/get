@@ -1,3 +1,13 @@
+// include-image.js
+/**
+ *
+ * @param url
+ * @param target
+ * @param replace
+ * @param success
+ * @param error
+ * @returns {boolean|*}
+ */
 function includeImage(url, target, replace, success, error) {
     JLOADS_DEBUG || console.log('includeImg url: ', url);
     // JLOADS_DEBUG || console.log('el', el);

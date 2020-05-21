@@ -1,6 +1,7 @@
 // xhr.js
-
-
+/**
+ * @returns {boolean}
+ */
 function getXHRObject() {
     var xhrObj = false;
     try {

@@ -1,6 +1,17 @@
-// JLOADS_DEBUG = true;
-JLOADS_DEBUG = false;
+/**
+ *
+ * @param target
+ * @param success
+ * @param error
+ * @returns {Load}
+ * @constructor
+ */
 var Load = function (target, success, error) {
+
+    if (typeof JLOADS_DEBUG === 'undefined') {
+        var JLOADS_DEBUG = true;
+    }
+
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
     //insert the <script> element
@@ -21,6 +32,7 @@ var Load = function (target, success, error) {
     this.cfg.delay = 0;
     this.cfg.cache = 1;
     this.cfg.replace = 0;
+
 
     var self = this;
 
@@ -47,13 +59,13 @@ var Load = function (target, success, error) {
         JLOADS_DEBUG && console.log('.getEnv() url:', url);
 
         if (hasDomain(url)) {
-            JLOADS_DEBUG || console.log('url has now own domain:', url);
+            JLOADS_DEBUG && console.log('url has now own domain:', url);
             return {
                 'domain': ''
             };
         }
         if (self.hasEnv()) {
-            JLOADS_DEBUG || console.log('url has env:', self.cfg.env);
+            JLOADS_DEBUG && console.log('url has env:', self.cfg.env);
             for (var index in self.cfg.env) {
                 if (self.cfg.env.hasOwnProperty(index)) {
                     JLOADS_DEBUG && console.log('.getEnv() function check:', self.cfg.env[index]['name']);

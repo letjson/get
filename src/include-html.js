@@ -1,42 +1,47 @@
-function includeHtml(url, target, error, success) {
+// include-html.js
+/**
+ *
+ * @param url
+ * @param target
+ * @param replace
+ * @param success
+ * @param error
+ * @returns {includeHtml|boolean}
+ */
+function includeHtml(url, target, replace, success, error) {
     var xhttp;
 
-    var el = new E(target);
+    try {
+        var el = new E(target);
+    } catch (err) {
+        console.error('!Element not exist  ', target);
+        return false;
+    }
+
     var elmnt = el.first();
 
     if (typeof success !== 'function') {
         success = function () {
-            console.log('includeHtml success', "included");
+            JLOADS_DEBUG || console.log('includeHtml success', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            console.log('includeHtml error', "Page not found.");
+            JLOADS_DEBUG || console.log('includeHtml error', "Page not found.");
         }
     }
-    console.log('includeHtml url', url);
+    JLOADS_DEBUG || console.log('includeHtml url', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log('includeHtml el_id', target);
+            JLOADS_DEBUG || console.log('includeHtml el_id', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {
-                    // console.log('elmnt', elmnt);
-                    // console.log('responseText', this.responseText);
-                    // elmnt.innerHTML = this.responseText;
-                    // elmnt.appendChild(this.responseText);
-                    // elmnt.insertAdjacentHTML('beforeend', this.responseText);
-                    // var e = document.createElement('div');
-                    // e.innerHTML = this.responseText;
-                    // while(e.firstChild) {
-                    // elmnt.appendChild(e);
-                    // }
 
-                    // elmnt.insertAdjacentHTML('afterend', this.responseText);
                     elmnt.insertAdjacentHTML('beforeend', this.responseText);
 
                     success(this);
@@ -54,4 +59,6 @@ function includeHtml(url, target, error, success) {
         /* Exit the function: */
         return this;
     }
+    return false;
+
 }

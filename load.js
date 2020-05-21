@@ -79,14 +79,14 @@ var Load = function (target, success, error) {
         };
     };
 
-    this.getEnvById = function (env_id) {
-
-        if (typeof self.cfg.env !== 'function' && (typeof self.cfg.env !== 'object' || self.cfg.env === null)) {
-            throw new TypeError('Object self.cfg.env called on non-object');
-        }
-
-        return self.cfg.env[env_id];
-    };
+    // this.getEnvById = function (env_id) {
+    //
+    //     if (typeof self.cfg.env !== 'function' && (typeof self.cfg.env !== 'object' || self.cfg.env === null)) {
+    //         throw new TypeError('Object self.cfg.env called on non-object');
+    //     }
+    //
+    //     return self.cfg.env[env_id];
+    // };
 
     self.domain = function (domain) {
         self.cfg.domain = domain;
@@ -133,7 +133,6 @@ var Load = function (target, success, error) {
     };
 
 
-    // TODO: check if is loaded
     self.loadJs = function (url, target, success, error) {
 
         var suffix = '';

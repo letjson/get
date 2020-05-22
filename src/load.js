@@ -1,9 +1,6 @@
 // load.js
-if (typeof JLOADS_DEBUG !== 'boolean') {
-    var JLOADS_DEBUG = false;
-}
 if (typeof log !== 'function') {
-    var log = console.log;
+    const log = console.log;
 }
 /**
  * @param target
@@ -12,7 +9,7 @@ if (typeof log !== 'function') {
  * @returns {Load}
  * @constructor
  */
-var Load = function (target, success, error, log) {
+var Load = function (target, success, error) {
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -58,30 +55,30 @@ var Load = function (target, success, error, log) {
     };
 
     self.getEnv = function (url) {
-        !JLOADS_DEBUG || log('.getEnv() url:', url);
+        log(this.constructor.name, '.getEnv() url:', url);
 
         if (hasDomain(url)) {
-            !JLOADS_DEBUG || log('url has now own domain:', url);
+            log(this.constructor.name, ' url has now own domain:', url);
             return {
                 'domain': ''
             };
         }
         if (self.hasEnv()) {
-            !JLOADS_DEBUG || log('url has env:', self.cfg.env);
+            log(this.constructor.name, ' url has env:', self.cfg.env);
             for (var index in self.cfg.env) {
                 if (self.cfg.env.hasOwnProperty(index)) {
-                    !JLOADS_DEBUG || log('.getEnv() function check:', self.cfg.env[index]['name']);
+                    log(this.constructor.name, '.getEnv() function check:', self.cfg.env[index]['name']);
 
                     var callback = self.cfg.env[index]['exist'];
                     if (typeof callback === 'function' && callback()) {
-                        !JLOADS_DEBUG || log('.getEnv() url use env:', self.cfg.env[index]['name']);
+                        log(this.constructor.name, '.getEnv() url use env:', self.cfg.env[index]['name']);
                         return self.cfg.env[index];
                     }
                 }
             }
         }
         if (self.getDomain()) {
-            !JLOADS_DEBUG || log('.getEnv() cfg domain exist', self.cfg.domain);
+            log(this.constructor.name, '.getEnv() cfg domain exist', self.cfg.domain);
             return {
                 'domain': self.getDomain()
             };
@@ -104,29 +101,29 @@ var Load = function (target, success, error, log) {
 
 
     self.getDomain = function () {
-        // !JLOADS_DEBUG || log('.getDomain() self.cfg.domain',
+        // log(this.constructor.name, '.getDomain() self.cfg.domain',
         //     self.cfg.domain, typeof self.cfg.domain === 'object' , Object.keys(self.cfg.domain).length === 0);
 
         if (isEmpty(self.cfg.domain)) {
-            !JLOADS_DEBUG || log('.getDomain() isEmpty');
+            log(this.constructor.name, '.getDomain() isEmpty');
             return false;
         }
 
         for (var index in self.cfg.domain) {
 
-            !JLOADS_DEBUG || log('.getDomain() function check:', index, self.cfg.domain[index]);
+            log(this.constructor.name, '.getDomain() function check:', index, self.cfg.domain[index]);
             return self.cfg.domain[index];
 
             if (self.cfg.domain.hasOwnProperty(index)) {
 
                 // var callback = self.cfg.domain[index]['exist'];
                 // if (typeof callback === 'function' && callback()) {
-                //     !JLOADS_DEBUG || log('.getDomain() url use env:', self.cfg.domain[index]);
+                //     log(this.constructor.name, '.getDomain() url use env:', self.cfg.domain[index]);
                 return self.cfg.domain[index];
                 // }
             }
         }
-        !JLOADS_DEBUG || log('.getDomain() for not');
+        log(this.constructor.name, '.getDomain() for not');
         return false;
     };
 
@@ -138,8 +135,8 @@ var Load = function (target, success, error, log) {
         obj[id] = domain;
         Object.assign(self.cfg.domain, obj);
 
-        !JLOADS_DEBUG || log('.addDomain() cfg domain', self.cfg.domain);
-        !JLOADS_DEBUG || log('.addDomain() cfg getDomain()', self.getDomain());
+        log(this.constructor.name, '.addDomain() cfg domain', self.cfg.domain);
+        log(this.constructor.name, '.addDomain() cfg getDomain()', self.getDomain());
 
         // self.cfg.domain = domain;
         return self;
@@ -199,16 +196,16 @@ var Load = function (target, success, error, log) {
         }
 
         if (typeof url === 'object') {
-            //!JLOADS_DEBUG || log('obj:', obj);
+            //log(this.constructor.name, 'obj:', obj);
             var last = false;
             var len = url.length - 1;
             for (var i in url) {
                 last = (len == i);
-                !JLOADS_DEBUG || log('load js url.length', len, i, last);
+                log(this.constructor.name, ' js url.length', len, i, last);
 
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                !JLOADS_DEBUG || log('load js script_url', script_url);
+                log(this.constructor.name, ' js script_url', script_url);
 
                 try {
                     if (last) {
@@ -216,9 +213,9 @@ var Load = function (target, success, error, log) {
                     } else {
                         var exe = includeJs(script_url, target);
                     }
-                    !JLOADS_DEBUG || log('load js ', script_url, exe);
+                    log(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {
-                    console.error('!load js ', script_url, err);
+                    console.error('! js ', script_url, err);
                     error();
                 }
             }
@@ -234,13 +231,13 @@ var Load = function (target, success, error, log) {
     self.js = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    !JLOADS_DEBUG || log('delayed', self.cfg.delay, url);
+                    log(this.constructor.name, ' js delayed', self.cfg.delay, url);
                     self.loadJs(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            !JLOADS_DEBUG || log('loaded', url);
+            log(this.constructor.name, ' js url', url);
             self.loadJs(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -257,17 +254,17 @@ var Load = function (target, success, error, log) {
         }
 
         if (typeof url === 'object') {
-            //!JLOADS_DEBUG || log('obj:', obj);
+            //log(this.constructor.name, 'obj:', obj);
 
             for (var i in url) {
-                // !JLOADS_DEBUG || log('url:', url, i, url[i]);
+                // log(this.constructor.name, ' url:', url, i, url[i]);
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                !JLOADS_DEBUG || log('load CSS script_url', script_url);
+                log(this.constructor.name, ' loadCss script_url', script_url);
 
                 try {
                     var exe = includeStyle(script_url, target, success, error);
-                    !JLOADS_DEBUG || log('load CSS ', script_url, exe);
+                    log(this.constructor.name, ' loadCss exe ', exe);
                 } catch (err) {
                     console.error('!load CSS ', script_url, err);
                 }
@@ -285,13 +282,13 @@ var Load = function (target, success, error, log) {
     self.css = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    !JLOADS_DEBUG || log('delayed', self.cfg.delay, url);
+                    log(this.constructor.name, 'delayed', self.cfg.delay, url);
                     self.loadCss(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            !JLOADS_DEBUG || log('loaded', url);
+            log(this.constructor.name, ' loaded', url);
             self.loadCss(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -306,16 +303,16 @@ var Load = function (target, success, error, log) {
         }
 
         if (typeof url === 'object') {
-            //!JLOADS_DEBUG || log('obj:', obj);
+            //log(this.constructor.name, 'obj:', obj);
 
             for (var i in url) {
 
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                !JLOADS_DEBUG || log('load html script_url', script_url);
+                log(this.constructor.name, ' html script_url', script_url);
                 try {
                     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
-                    !JLOADS_DEBUG || log('load html ', script_url, exe);
+                    log(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
                     console.error('!load html ', script_url, err);
                 }
@@ -333,13 +330,13 @@ var Load = function (target, success, error, log) {
     self.img = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    !JLOADS_DEBUG || log('image delayed', self.cfg.delay, url);
+                    log(this.constructor.name, ' image delayed', self.cfg.delay, url);
                     self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            !JLOADS_DEBUG || log('image loaded', url, self.cfg.delay);
+            log(this.constructor.name, ' image loaded', url, self.cfg.delay);
             self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
         }
         return self;
@@ -353,18 +350,18 @@ var Load = function (target, success, error, log) {
         }
 
         if (typeof url === 'object') {
-            //!JLOADS_DEBUG || log('obj:', obj);
+            //log(this.constructor.name, 'obj:', obj);
 
             for (var i in url) {
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                !JLOADS_DEBUG || log('load img url[i]', url[i]);
+                log(this.constructor.name, ' img url[i]', url[i]);
 
                 try {
                     var exe = includeImage(script_url, target, replace, success, error);
-                    !JLOADS_DEBUG || log('load img ', script_url, exe);
+                    log(this.constructor.name, ' img ', script_url, exe);
                 } catch (err) {
-                    console.error('!load img ', script_url, err);
+                    console.error('! img ', script_url, err);
                 }
             }
         } else {

@@ -1,9 +1,10 @@
 // e.js
-if (typeof E_DEBUG === 'undefined') {
-    var E_DEBUG = true;
-}
 if (typeof log !== 'function') {
-    var log = console.log;
+    const log = console.log;
+}
+
+if (typeof warning !== 'function') {
+    var warning = console.error;
 }
 /**
  *
@@ -16,6 +17,8 @@ if (typeof log !== 'function') {
  */
 var E = function (selector, area, error, success) {
 
+
+
     this.cfg = {};
     this.cfg.area = document;
     this.cfg.selector = selector;
@@ -23,15 +26,15 @@ var E = function (selector, area, error, success) {
 
 
     this.success = function (elem) {
-        !E_DEBUG || log("Element func success(): ", elem);
+        log(this.constructor.name, " Element func success(): ", elem);
     };
 
     this.error = function (elem) {
-        console.error("! Element func error(): ", elem);
+        warning(this.constructor.name, "! Element func error(): ", elem);
     };
 
     if (typeof this.cfg.selector !== 'string') {
-        console.error("! Element selector: ", elem);
+        warning(this.constructor.name, "! Element selector: ", elem);
     }
 
     if (typeof success === 'function') {
@@ -63,8 +66,8 @@ var E = function (selector, area, error, success) {
         }
         const elem = document.querySelector(self.cfg.selector);
 
-        !E_DEBUG || log('E first self.cfg.selector', self.cfg.selector);
-        !E_DEBUG || log('E first elem', elem);
+        log(this.constructor.name, 'first self.cfg.selector', self.cfg.selector);
+        log(this.constructor.name, 'first elem', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;
@@ -88,8 +91,8 @@ var E = function (selector, area, error, success) {
 
         const elem = document.querySelectorAll(self.cfg.selector);
 
-        !E_DEBUG || log('E all self.cfg.selector', self.cfg.selector);
-        !E_DEBUG || log('E all elem', elem);
+        log(this.constructor.name, 'all self.cfg.selector', self.cfg.selector);
+        log(this.constructor.name, 'all elem', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;

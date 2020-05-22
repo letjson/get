@@ -1,10 +1,8 @@
 // include-script.js
-if (typeof TARGET_DEBUG !== 'boolean') {
-    var TARGET_DEBUG = false;
-}
 if (typeof log !== 'function') {
-    var log = console.log;
+    const log = console.log;
 }
+
 /**
  *
  * @param target
@@ -12,12 +10,12 @@ if (typeof log !== 'function') {
  */
 function getTarget(target) {
 
-    !TARGET_DEBUG || log('target', target);
+    log(this.constructor.name, 'target', target);
     if (isEmpty(target)) {
-        !TARGET_DEBUG || log('HEAD');
+        log(this.constructor.name, 'HEAD');
         target = document.getElementsByTagName('head')[0];
         if (isEmpty(target)) {
-            !TARGET_DEBUG || log('BODY');
+            log(this.constructor.name, 'BODY');
             target = document.body;
         }
     }

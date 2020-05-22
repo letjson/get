@@ -1,10 +1,8 @@
 // include-html.js
-if (typeof HTML_DEBUG !== 'boolean') {
-    var HTML_DEBUG = false;
-}
 if (typeof log !== 'function') {
-    var log = console.log;
+    const log = console.log;
 }
+
 /**
  *
  * @param url
@@ -29,22 +27,22 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            !HTML_DEBUG || log('includeHtml success', "included");
+            log(this.constructor.name, 'includeHtml success', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            !HTML_DEBUG || log('includeHtml error', "Page not found.");
+            log(this.constructor.name, 'includeHtml error', "Page not found.");
         }
     }
-    !HTML_DEBUG || log('includeHtml url', url);
+    log(this.constructor.name, 'includeHtml url', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            !HTML_DEBUG || log('includeHtml el_id', target);
+            log(this.constructor.name, 'includeHtml el_id', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {

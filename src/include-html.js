@@ -1,4 +1,7 @@
 // include-html.js
+if (typeof HTML_DEBUG !== 'boolean') {
+    var HTML_DEBUG = false;
+}
 /**
  *
  * @param url
@@ -9,10 +12,6 @@
  * @returns {includeHtml|boolean}
  */
 function includeHtml(url, target, replace, success, error) {
-
-    if (typeof HTML_DEBUG === 'undefined') {
-        var HTML_DEBUG = true;
-    }
 
     var xhttp;
 
@@ -27,22 +26,22 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            HTML_DEBUG || console.log('includeHtml success', "included");
+            !HTML_DEBUG || console.log('includeHtml success', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            HTML_DEBUG || console.log('includeHtml error', "Page not found.");
+            !HTML_DEBUG || console.log('includeHtml error', "Page not found.");
         }
     }
-    HTML_DEBUG || console.log('includeHtml url', url);
+    !HTML_DEBUG || console.log('includeHtml url', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            HTML_DEBUG || console.log('includeHtml el_id', target);
+            !HTML_DEBUG || console.log('includeHtml el_id', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {

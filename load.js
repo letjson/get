@@ -28,8 +28,23 @@ function getXHRObject() {
  * @returns {boolean}
  */
 function isEmpty(val) {
-    return val == null || typeof val === 'undefined' || val.length < 1;
+    return val == null ||
+        typeof val === 'undefined' ||
+        (typeof val === 'string' && val.length < 1) ||
+        (typeof val === 'object' && Object.keys(val).length === 0)
+        // (typeof val !== 'boolean')
+        ;
 }
+//
+// function isEmpty(obj) {
+//     for (var prop in obj) {
+//         if (obj.hasOwnProperty(prop)) {
+//             return false;
+//         }
+//     }
+//
+//     return JSON.stringify(obj) === JSON.stringify({});
+// }
 // has-domain.js
 /**
  * @param url
@@ -147,6 +162,9 @@ var E = function (selector, area, error, success) {
     return self;
 };
 // include-script.js
+if (typeof TARGET_DEBUG !== 'boolean') {
+    var TARGET_DEBUG = false;
+}
 /**
  *
  * @param target
@@ -154,16 +172,12 @@ var E = function (selector, area, error, success) {
  */
 function getTarget(target) {
 
-    if (typeof TARGET_DEBUG === 'undefined') {
-        var TARGET_DEBUG = true;
-    }
-
-    TARGET_DEBUG || console.log('target', target);
+    !TARGET_DEBUG || console.log('target', target);
     if (isEmpty(target)) {
-        TARGET_DEBUG || console.log('HEAD');
+        !TARGET_DEBUG || console.log('HEAD');
         target = document.getElementsByTagName('head')[0];
         if (isEmpty(target)) {
-            TARGET_DEBUG || console.log('BODY');
+            !TARGET_DEBUG || console.log('BODY');
             target = document.body;
         }
     }
@@ -238,6 +252,9 @@ function includeStyle(url, target, success, error) {
 }
 
 // include-html.js
+if (typeof HTML_DEBUG !== 'boolean') {
+    var HTML_DEBUG = false;
+}
 /**
  *
  * @param url
@@ -248,10 +265,6 @@ function includeStyle(url, target, success, error) {
  * @returns {includeHtml|boolean}
  */
 function includeHtml(url, target, replace, success, error) {
-
-    if (typeof HTML_DEBUG === 'undefined') {
-        var HTML_DEBUG = true;
-    }
 
     var xhttp;
 
@@ -266,22 +279,22 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            HTML_DEBUG || console.log('includeHtml success', "included");
+            !HTML_DEBUG || console.log('includeHtml success', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            HTML_DEBUG || console.log('includeHtml error', "Page not found.");
+            !HTML_DEBUG || console.log('includeHtml error', "Page not found.");
         }
     }
-    HTML_DEBUG || console.log('includeHtml url', url);
+    !HTML_DEBUG || console.log('includeHtml url', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            HTML_DEBUG || console.log('includeHtml el_id', target);
+            !HTML_DEBUG || console.log('includeHtml el_id', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {
@@ -307,6 +320,9 @@ function includeHtml(url, target, replace, success, error) {
 
 }
 // include-image.js
+if (typeof IMAGE_DEBUG === 'boolean') {
+    var IMAGE_DEBUG = false;
+}
 /**
  *
  * @param url
@@ -318,11 +334,7 @@ function includeHtml(url, target, replace, success, error) {
  */
 function includeImage(url, target, replace, success, error) {
 
-    if (typeof IMAGE_DEBUG === 'undefined') {
-        var IMAGE_DEBUG = true;
-    }
-
-    IMAGE_DEBUG || console.log('includeImg url: ', url);
+    !IMAGE_DEBUG || console.log('includeImg url: ', url);
     // JLOADS_DEBUG || console.log('el', el);
     try {
         var el = new E(target);
@@ -332,22 +344,22 @@ function includeImage(url, target, replace, success, error) {
         return false;
     }
     var elmnt = el.first();
-    IMAGE_DEBUG || console.log('include Image elmnt :', elmnt);
+    !IMAGE_DEBUG || console.log('include Image elmnt :', elmnt);
 
     let img = new Image;
     img.onload = function () {
-        IMAGE_DEBUG || console.log("include Image onload url: ", url);
-        IMAGE_DEBUG || console.log("include Image replace: ", replace);
+        !IMAGE_DEBUG || console.log("include Image onload url: ", url);
+        !IMAGE_DEBUG || console.log("include Image replace: ", replace);
 
         if (typeof replace === 'number' && replace === 1) {
             replace = true;
         }
         // JLOADS_DEBUG || console.log('typeof self.cfg.replace', typeof self.cfg.replace);
-        IMAGE_DEBUG || console.log("include Image replace: ", replace);
+        !IMAGE_DEBUG || console.log("include Image replace: ", replace);
 
 
         if (replace) {
-            IMAGE_DEBUG || console.log('includeImage elmnt firstChild :', elmnt.firstChild);
+            !IMAGE_DEBUG || console.log('includeImage elmnt firstChild :', elmnt.firstChild);
             elmnt.removeChild(elmnt.firstChild);
             // let element = document.getElementById("top");
             // while (element.firstChild) {
@@ -360,6 +372,9 @@ function includeImage(url, target, replace, success, error) {
     return img.src = url;  // erst nach dem Event Listener!
 }
 // load.js
+if (typeof JLOADS_DEBUG !== 'boolean') {
+    var JLOADS_DEBUG = false;
+}
 /**
  * @param target
  * @param success
@@ -368,10 +383,6 @@ function includeImage(url, target, replace, success, error) {
  * @constructor
  */
 var Load = function (target, success, error) {
-
-    if (typeof JLOADS_DEBUG === 'undefined') {
-        var JLOADS_DEBUG = true;
-    }
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -388,7 +399,7 @@ var Load = function (target, success, error) {
     this.cfg = {};
     this.cfg.env = {};
     this.cfg.env_id = 0;
-    this.cfg.domain = "";
+    this.cfg.domain = {};
     this.cfg.target = target;
     this.cfg.delay = 0;
     this.cfg.cache = 1;
@@ -413,36 +424,36 @@ var Load = function (target, success, error) {
     };
 
     self.hasDomain = function () {
-        return !isEmpty(self.cfg.domain);
+        return !isEmpty(self.getDomain());
     };
 
     self.getEnv = function (url) {
-        JLOADS_DEBUG || console.log('.getEnv() url:', url);
+        !JLOADS_DEBUG || console.log('.getEnv() url:', url);
 
         if (hasDomain(url)) {
-            JLOADS_DEBUG || console.log('url has now own domain:', url);
+            !JLOADS_DEBUG || console.log('url has now own domain:', url);
             return {
                 'domain': ''
             };
         }
         if (self.hasEnv()) {
-            JLOADS_DEBUG || console.log('url has env:', self.cfg.env);
+            !JLOADS_DEBUG || console.log('url has env:', self.cfg.env);
             for (var index in self.cfg.env) {
                 if (self.cfg.env.hasOwnProperty(index)) {
-                    JLOADS_DEBUG || console.log('.getEnv() function check:', self.cfg.env[index]['name']);
+                    !JLOADS_DEBUG || console.log('.getEnv() function check:', self.cfg.env[index]['name']);
 
                     var callback = self.cfg.env[index]['exist'];
                     if (typeof callback === 'function' && callback()) {
-                        JLOADS_DEBUG || console.log('.getEnv() url use env:', self.cfg.env[index]['name']);
+                        !JLOADS_DEBUG || console.log('.getEnv() url use env:', self.cfg.env[index]['name']);
                         return self.cfg.env[index];
                     }
                 }
             }
         }
-        if (self.hasDomain()) {
-            JLOADS_DEBUG || console.log('.getEnv() cfg domain exist', self.cfg.domain);
+        if (self.getDomain()) {
+            !JLOADS_DEBUG || console.log('.getEnv() cfg domain exist', self.cfg.domain);
             return {
-                'domain': self.cfg.domain
+                'domain': self.getDomain()
             };
         }
 
@@ -461,10 +472,54 @@ var Load = function (target, success, error) {
     //     return self.cfg.env[env_id];
     // };
 
-    self.domain = function (domain) {
-        self.cfg.domain = domain;
+
+    self.getDomain = function () {
+        // !JLOADS_DEBUG || console.log('.getDomain() self.cfg.domain',
+        //     self.cfg.domain, typeof self.cfg.domain === 'object' , Object.keys(self.cfg.domain).length === 0);
+
+        if (isEmpty(self.cfg.domain)) {
+            !JLOADS_DEBUG || console.log('.getDomain() isEmpty');
+            return false;
+        }
+
+        for (var index in self.cfg.domain) {
+
+            !JLOADS_DEBUG || console.log('.getDomain() function check:', index, self.cfg.domain[index]);
+            return self.cfg.domain[index];
+
+            if (self.cfg.domain.hasOwnProperty(index)) {
+
+                // var callback = self.cfg.domain[index]['exist'];
+                // if (typeof callback === 'function' && callback()) {
+                //     !JLOADS_DEBUG || console.log('.getDomain() url use env:', self.cfg.domain[index]);
+                return self.cfg.domain[index];
+                // }
+            }
+        }
+        !JLOADS_DEBUG || console.log('.getDomain() for not');
+        return false;
+    };
+
+    self.addDomain = function (domain, id) {
+        var obj = {}
+        if (isEmpty(id)) {
+            var id = time();
+        }
+        obj[id] = domain;
+        Object.assign(self.cfg.domain, obj);
+
+        !JLOADS_DEBUG || console.log('.addDomain() cfg domain', self.cfg.domain);
+        !JLOADS_DEBUG || console.log('.addDomain() cfg getDomain()', self.getDomain());
+
+        // self.cfg.domain = domain;
         return self;
     };
+
+    self.domain = function (domain, id) {
+        return self.addDomain(domain, id);
+    };
+
+
 
     self.target = function (target) {
         self.cfg.target = target;
@@ -514,24 +569,24 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //JLOADS_DEBUG || console.log('obj:', obj);
+            //!JLOADS_DEBUG || console.log('obj:', obj);
             var last = false;
-            var len = url.length;
+            var len = url.length - 1;
             for (var i in url) {
-                last = len == i;
-                JLOADS_DEBUG || console.log('load js url.length', len, i, last);
+                last = (len == i);
+                !JLOADS_DEBUG || console.log('load js url.length', len, i, last);
 
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                JLOADS_DEBUG || console.log('load js script_url', script_url);
+                !JLOADS_DEBUG || console.log('load js script_url', script_url);
 
                 try {
-                    if(last){
+                    if (last) {
                         var exe = includeJs(script_url, target, success, error);
                     } else {
                         var exe = includeJs(script_url, target);
                     }
-                    JLOADS_DEBUG || console.log('load js ', script_url, exe);
+                    !JLOADS_DEBUG || console.log('load js ', script_url, exe);
                 } catch (err) {
                     console.error('!load js ', script_url, err);
                     error();
@@ -549,13 +604,13 @@ var Load = function (target, success, error) {
     self.js = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    JLOADS_DEBUG || console.log('delayed', self.cfg.delay, url);
+                    !JLOADS_DEBUG || console.log('delayed', self.cfg.delay, url);
                     self.loadJs(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            JLOADS_DEBUG || console.log('loaded', url);
+            !JLOADS_DEBUG || console.log('loaded', url);
             self.loadJs(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -572,17 +627,17 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //JLOADS_DEBUG || console.log('obj:', obj);
+            //!JLOADS_DEBUG || console.log('obj:', obj);
 
             for (var i in url) {
-                // JLOADS_DEBUG || console.log('url:', url, i, url[i]);
+                // !JLOADS_DEBUG || console.log('url:', url, i, url[i]);
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                JLOADS_DEBUG || console.log('load CSS script_url', script_url);
+                !JLOADS_DEBUG || console.log('load CSS script_url', script_url);
 
                 try {
                     var exe = includeStyle(script_url, target, success, error);
-                    JLOADS_DEBUG || console.log('load CSS ', script_url, exe);
+                    !JLOADS_DEBUG || console.log('load CSS ', script_url, exe);
                 } catch (err) {
                     console.error('!load CSS ', script_url, err);
                 }
@@ -600,13 +655,13 @@ var Load = function (target, success, error) {
     self.css = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    JLOADS_DEBUG || console.log('delayed', self.cfg.delay, url);
+                    !JLOADS_DEBUG || console.log('delayed', self.cfg.delay, url);
                     self.loadCss(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            JLOADS_DEBUG || console.log('loaded', url);
+            !JLOADS_DEBUG || console.log('loaded', url);
             self.loadCss(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -621,16 +676,16 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //JLOADS_DEBUG || console.log('obj:', obj);
+            //!JLOADS_DEBUG || console.log('obj:', obj);
 
             for (var i in url) {
 
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                JLOADS_DEBUG || console.log('load html script_url', script_url);
+                !JLOADS_DEBUG || console.log('load html script_url', script_url);
                 try {
                     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
-                    JLOADS_DEBUG || console.log('load html ', script_url, exe);
+                    !JLOADS_DEBUG || console.log('load html ', script_url, exe);
                 } catch (err) {
                     console.error('!load html ', script_url, err);
                 }
@@ -648,13 +703,13 @@ var Load = function (target, success, error) {
     self.img = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    JLOADS_DEBUG || console.log('image delayed', self.cfg.delay, url);
+                    !JLOADS_DEBUG || console.log('image delayed', self.cfg.delay, url);
                     self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            JLOADS_DEBUG || console.log('image loaded', url, self.cfg.delay);
+            !JLOADS_DEBUG || console.log('image loaded', url, self.cfg.delay);
             self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
         }
         return self;
@@ -668,16 +723,16 @@ var Load = function (target, success, error) {
         }
 
         if (typeof url === 'object') {
-            //JLOADS_DEBUG || console.log('obj:', obj);
+            //!JLOADS_DEBUG || console.log('obj:', obj);
 
             for (var i in url) {
                 var domain = self.getEnv(url[i]).domain;
                 var script_url = domain + url[i] + suffix;
-                JLOADS_DEBUG || console.log('load img url[i]', url[i]);
+                !JLOADS_DEBUG || console.log('load img url[i]', url[i]);
 
                 try {
                     var exe = includeImage(script_url, target, replace, success, error);
-                    JLOADS_DEBUG || console.log('load img ', script_url, exe);
+                    !JLOADS_DEBUG || console.log('load img ', script_url, exe);
                 } catch (err) {
                     console.error('!load img ', script_url, err);
                 }

@@ -1,4 +1,7 @@
 // include-script.js
+if (typeof TARGET_DEBUG !== 'boolean') {
+    var TARGET_DEBUG = false;
+}
 /**
  *
  * @param target
@@ -6,16 +9,12 @@
  */
 function getTarget(target) {
 
-    if (typeof TARGET_DEBUG === 'undefined') {
-        var TARGET_DEBUG = true;
-    }
-
-    TARGET_DEBUG || console.log('target', target);
+    !TARGET_DEBUG || console.log('target', target);
     if (isEmpty(target)) {
-        TARGET_DEBUG || console.log('HEAD');
+        !TARGET_DEBUG || console.log('HEAD');
         target = document.getElementsByTagName('head')[0];
         if (isEmpty(target)) {
-            TARGET_DEBUG || console.log('BODY');
+            !TARGET_DEBUG || console.log('BODY');
             target = document.body;
         }
     }

@@ -24,7 +24,7 @@ function createTagLink(url, success, error) {
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
 function includeStyle(url, target, success, error) {
-    // JLOADS_DEBUG || console.log(target, target == null);
+    // JLOADS_DEBUG || log(target, target == null);
     // return false;
 
     // var xhrObj = getXHRObject(); // defined in the previous example

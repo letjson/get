@@ -2,6 +2,9 @@
 if (typeof TARGET_DEBUG !== 'boolean') {
     var TARGET_DEBUG = false;
 }
+if (typeof log !== 'function') {
+    var log = console.log;
+}
 /**
  *
  * @param target
@@ -9,12 +12,12 @@ if (typeof TARGET_DEBUG !== 'boolean') {
  */
 function getTarget(target) {
 
-    !TARGET_DEBUG || console.log('target', target);
+    !TARGET_DEBUG || log('target', target);
     if (isEmpty(target)) {
-        !TARGET_DEBUG || console.log('HEAD');
+        !TARGET_DEBUG || log('HEAD');
         target = document.getElementsByTagName('head')[0];
         if (isEmpty(target)) {
-            !TARGET_DEBUG || console.log('BODY');
+            !TARGET_DEBUG || log('BODY');
             target = document.body;
         }
     }

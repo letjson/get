@@ -2,6 +2,9 @@
 if (typeof HTML_DEBUG !== 'boolean') {
     var HTML_DEBUG = false;
 }
+if (typeof log !== 'function') {
+    var log = console.log;
+}
 /**
  *
  * @param url
@@ -26,22 +29,22 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            !HTML_DEBUG || console.log('includeHtml success', "included");
+            !HTML_DEBUG || log('includeHtml success', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            !HTML_DEBUG || console.log('includeHtml error', "Page not found.");
+            !HTML_DEBUG || log('includeHtml error', "Page not found.");
         }
     }
-    !HTML_DEBUG || console.log('includeHtml url', url);
+    !HTML_DEBUG || log('includeHtml url', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            !HTML_DEBUG || console.log('includeHtml el_id', target);
+            !HTML_DEBUG || log('includeHtml el_id', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {

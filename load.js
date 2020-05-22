@@ -58,6 +58,9 @@ var time = Date.now || function () {
     return +new Date;
 };
 // e.js
+if (typeof E_DEBUG === 'undefined') {
+    var E_DEBUG = true;
+}
 /**
  *
  * @param selector
@@ -69,10 +72,6 @@ var time = Date.now || function () {
  */
 var E = function (selector, area, error, success) {
 
-    if (typeof E_DEBUG === 'undefined') {
-        var E_DEBUG = true;
-    }
-
     this.cfg = {};
     this.cfg.area = document;
     this.cfg.selector = selector;
@@ -80,7 +79,7 @@ var E = function (selector, area, error, success) {
 
 
     this.success = function (elem) {
-        E_DEBUG || console.log("Element func success(): ", elem);
+        !E_DEBUG || console.log("Element func success(): ", elem);
     };
 
     this.error = function (elem) {
@@ -120,8 +119,8 @@ var E = function (selector, area, error, success) {
         }
         const elem = document.querySelector(self.cfg.selector);
 
-        E_DEBUG || console.log('E first self.cfg.selector', self.cfg.selector);
-        E_DEBUG || console.log('E first elem', elem);
+        !E_DEBUG || console.log('E first self.cfg.selector', self.cfg.selector);
+        !E_DEBUG || console.log('E first elem', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;
@@ -145,8 +144,8 @@ var E = function (selector, area, error, success) {
 
         const elem = document.querySelectorAll(self.cfg.selector);
 
-        E_DEBUG || console.log('E all self.cfg.selector', self.cfg.selector);
-        E_DEBUG || console.log('E all elem', elem);
+        !E_DEBUG || console.log('E all self.cfg.selector', self.cfg.selector);
+        !E_DEBUG || console.log('E all elem', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;

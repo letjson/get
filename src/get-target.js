@@ -9,7 +9,7 @@ if (typeof log !== 'function') {
  * @returns {HTMLHeadElement}
  */
 function getTarget(target) {
-    log(this.constructor.name, ' target', target);
+    log(this.constructor.name, ' target ', target);
     if (isEmpty(target)) {
         target = document.getElementsByTagName('head')[0];
         log(this.constructor.name, ' HEAD ', target, typeof target);

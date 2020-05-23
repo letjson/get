@@ -57,6 +57,25 @@ var hasDomain = function (url) {
 var time = Date.now || function () {
     return +new Date;
 };
+// get-target.js
+/**
+ *
+ * @param target
+ * @returns {HTMLHeadElement}
+ */
+function getTarget(target) {
+
+    log(this.constructor.name, 'target', target);
+    if (isEmpty(target)) {
+        log(this.constructor.name, 'HEAD');
+        target = document.getElementsByTagName('head')[0];
+        if (isEmpty(target)) {
+            log(this.constructor.name, 'BODY');
+            target = document.body;
+        }
+    }
+    return target;
+}
 // e.js
 if (typeof log !== 'function') {
     const log = console.log;
@@ -167,30 +186,6 @@ var E = function (selector, area, error, success) {
     return self;
 };
 // include-script.js
-if (typeof log !== 'function') {
-    const log = console.log;
-}
-
-/**
- *
- * @param target
- * @returns {HTMLHeadElement}
- */
-function getTarget(target) {
-
-    log(this.constructor.name, 'target', target);
-    if (isEmpty(target)) {
-        log(this.constructor.name, 'HEAD');
-        target = document.getElementsByTagName('head')[0];
-        if (isEmpty(target)) {
-            log(this.constructor.name, 'BODY');
-            target = document.body;
-        }
-    }
-    return target;
-}
-
-
 /**
  *
  * @param url
@@ -199,7 +194,7 @@ function getTarget(target) {
  * @param error
  * @returns {HTMLScriptElement}
  */
-function includeJs(url, target, success, error) {
+function includeScript(url, target, success, error) {
     var scriptTag = document.createElement('script');
     scriptTag.src = url;
     scriptTag.type = 'text/javascript';
@@ -214,11 +209,12 @@ function includeJs(url, target, success, error) {
 /**
  *
  * @param url
+ * @param target
  * @param success
  * @param error
  * @returns {HTMLLinkElement}
  */
-function createTagLink(url, success, error) {
+function includeStyle(url, target, success, error) {
     var link = document.createElement('link');
     link.href = url;
     link.rel = 'stylesheet';
@@ -229,34 +225,11 @@ function createTagLink(url, success, error) {
     link.onload = success;
     link.onreadystatechange = success;
 
-    return link;
+    return getTarget(target).appendChild(link);
 }
-
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
-function includeStyle(url, target, success, error) {
-    // JLOADS_DEBUG || log(target, target == null);
-    // return false;
-
-    // var xhrObj = getXHRObject(); // defined in the previous example
-    // xhrObj.onreadystatechange =
-    //     function () {
-    //         if (xhrObj.readyState == 4) {
-    //             // var scriptElem = document.createElement('script');
-    //             var scriptElem = document.createElement('style');
-    //             document.getElementsByTagName('head')[0].appendChild(scriptElem);
-    //             scriptElem.text = xhrObj.responseText;
-    //         }
-    //     };
-    // xhrObj.open('GET', url, true); // must be same domain as main page
-    // return xhrObj.send('');
-
-
-    var link = createTagLink(url, success, error);
-    return getTarget(target).appendChild(link);
-}
-
 // include-html.js
 if (typeof log !== 'function') {
     const log = console.log;
@@ -589,9 +562,9 @@ var Load = function (target, success, error) {
 
                 try {
                     if (last) {
-                        var exe = includeJs(script_url, target, success, error);
+                        var exe = includeScript(script_url, target, success, error);
                     } else {
-                        var exe = includeJs(script_url, target);
+                        var exe = includeScript(script_url, target);
                     }
                     log(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {
@@ -602,7 +575,7 @@ var Load = function (target, success, error) {
         } else {
             var domain = self.getEnv(url).domain;
             var script_url = domain + url + suffix;
-            includeJs(script_url, target, success, error);
+            includeScript(script_url, target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
 

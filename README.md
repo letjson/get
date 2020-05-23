@@ -9,11 +9,26 @@
 
 ## environment
 
+npm upgrade
+
+    npm install -g npm
+ 
 ### production
 [jLoads.Load - load.jloads.com](https://load.jloads.com/)
 
 ### local
 [jLoads.Load - localhost:8080](http://localhost:8080/)
+
+start 
+    
+    start.bat
+    
+start as process in backgrund
+    
+    npm install forever -g
+    
+    start2.bat    
+    forever start server.js
 
 ## jLoads.Load
 rozwiązanie dla programistów szukających prostych rozwiązań

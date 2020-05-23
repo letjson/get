@@ -209,9 +209,9 @@ var Load = function (target, success, error) {
 
                 try {
                     if (last) {
-                        var exe = includeJs(script_url, target, success, error);
+                        var exe = includeScript(script_url, target, success, error);
                     } else {
-                        var exe = includeJs(script_url, target);
+                        var exe = includeScript(script_url, target);
                     }
                     log(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {
@@ -222,7 +222,7 @@ var Load = function (target, success, error) {
         } else {
             var domain = self.getEnv(url).domain;
             var script_url = domain + url + suffix;
-            includeJs(script_url, target, success, error);
+            includeScript(script_url, target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
 

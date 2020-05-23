@@ -1,4 +1,7 @@
 // get-target.js
+if (typeof log !== 'function') {
+    const log = console.log;
+}
 /**
  *
  * @param target

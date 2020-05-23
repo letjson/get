@@ -68,7 +68,7 @@ if (typeof log !== 'function') {
  * @returns {HTMLHeadElement}
  */
 function getTarget(target) {
-    log(this.constructor.name, ' target', target);
+    log(this.constructor.name, ' target ', target);
     if (isEmpty(target)) {
         target = document.getElementsByTagName('head')[0];
         log(this.constructor.name, ' HEAD ', target, typeof target);
@@ -646,7 +646,7 @@ var Load = function (target, success, error) {
                 self.cfg.delay
             );
         } else {
-            log(this.constructor.name, ' loaded', url);
+            log(this.constructor.name, ' loaded ', url);
             self.loadCss(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -694,7 +694,7 @@ var Load = function (target, success, error) {
                 self.cfg.delay
             );
         } else {
-            log(this.constructor.name, ' image loaded', url, self.cfg.delay);
+            log(this.constructor.name, ' image loaded ', url, self.cfg.delay);
             self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
         }
         return self;

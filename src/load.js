@@ -288,7 +288,7 @@ var Load = function (target, success, error) {
                 self.cfg.delay
             );
         } else {
-            log(this.constructor.name, ' loaded', url);
+            log(this.constructor.name, ' loaded ', url);
             self.loadCss(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -336,7 +336,7 @@ var Load = function (target, success, error) {
                 self.cfg.delay
             );
         } else {
-            log(this.constructor.name, ' image loaded', url, self.cfg.delay);
+            log(this.constructor.name, ' image loaded ', url, self.cfg.delay);
             self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
         }
         return self;

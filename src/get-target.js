@@ -12,7 +12,7 @@ function getTarget(target) {
     log(this.constructor.name, ' target ', target);
     if (isEmpty(target)) {
         target = document.getElementsByTagName('head')[0];
-        log(this.constructor.name, ' HEAD ', target, typeof target);
+        log(this.constructor.name, ' HEAD ', target, typeof target, target.innerHTML !== 'undefined',  target.innerHTML.length, Object.keys(target));
         if (isEmpty(target)) {
             target = document.body;
             log(this.constructor.name, ' BODY ', target);

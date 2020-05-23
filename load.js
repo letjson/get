@@ -31,10 +31,20 @@ function isEmpty(val) {
     return val == null ||
         typeof val === 'undefined' ||
         (typeof val === 'string' && val.length < 1) ||
-        (typeof val === 'object' && !(Object.keys(val).length !== 0 || val.innerText.length !== 0 || val.innerHTML.length !== 0))
+        (typeof val === 'object' &&
+            (
+                !(
+                    (typeof val.innerText !== 'undefined' && val.innerText.length !== 0) ||
+                    (typeof val.innerHTML !== 'undefined' && val.innerHTML.length !== 0)
+                )
+                &&
+                (Object.keys(val).length === 0)
+            )
+        )
         // (typeof val !== 'boolean')
         ;
 }
+
 //
 // function isEmpty(obj) {
 //     for (var prop in obj) {
@@ -71,7 +81,7 @@ function getTarget(target) {
     log(this.constructor.name, ' target ', target);
     if (isEmpty(target)) {
         target = document.getElementsByTagName('head')[0];
-        log(this.constructor.name, ' HEAD ', target, typeof target);
+        log(this.constructor.name, ' HEAD ', target, typeof target, target.innerHTML !== 'undefined',  target.innerHTML.length, Object.keys(target));
         if (isEmpty(target)) {
             target = document.body;
             log(this.constructor.name, ' BODY ', target);

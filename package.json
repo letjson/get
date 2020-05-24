@@ -27,6 +27,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "~4.16.0",
+    "forever": "^3.0.0",
     "node-static": "^0.7.11"
   }
 }

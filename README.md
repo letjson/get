@@ -24,6 +24,7 @@ start
     start.bat
     
 start as process in backgrund
+[forever - npm](https://www.npmjs.com/package/forever)
     
     npm install forever -g
     

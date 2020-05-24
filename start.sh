@@ -1,2 +1,3 @@
 #!/bin/bash
-node server.js
+#node server.js
+forever start server.js

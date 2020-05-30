@@ -111,17 +111,19 @@ var Load = function (target, success, error) {
 
         for (var index in self.cfg.domain) {
 
-            log(this.constructor.name, '.getDomain() function check:', index, self.cfg.domain[index]);
+            log(this.constructor.name, '.getDomain() function check: ', index, self.cfg.domain);
             return self.cfg.domain[index];
-
+/*
             if (self.cfg.domain.hasOwnProperty(index)) {
-
+                console.log('self.cfg.', self.cfg, self.cfg.domain, index);
                 // var callback = self.cfg.domain[index]['exist'];
                 // if (typeof callback === 'function' && callback()) {
                 //     log(this.constructor.name, '.getDomain() url use env:', self.cfg.domain[index]);
                 return self.cfg.domain[index];
                 // }
             }
+            */
+
         }
         log(this.constructor.name, '.getDomain() for not');
         return false;

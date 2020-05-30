@@ -438,7 +438,7 @@ var Load = function (target, success, error) {
                     log(this.constructor.name, '.getEnv() function check:', self.cfg.env[index]['name']);
 
                     var callback = self.cfg.env[index]['exist'];
-                    if (typeof callback === 'function' && callback()) {
+                    if (typeof callback === 'function' && callback(self)) {
                         log(this.constructor.name, '.getEnv() url use env:', self.cfg.env[index]['name']);
                         return self.cfg.env[index];
                     }
@@ -498,7 +498,7 @@ var Load = function (target, success, error) {
     self.addDomain = function (domain, id) {
         var obj = {}
         if (isEmpty(id)) {
-            var id = time();
+            id = time();
         }
         obj[id] = domain;
         Object.assign(self.cfg.domain, obj);

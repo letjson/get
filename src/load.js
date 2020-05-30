@@ -160,19 +160,31 @@ var Load = function (target, success, error) {
         return this;
     };
 
+
     self.cache = function (cache) {
         self.cfg.cache = cache;
         return self;
     };
     self.cacheOff = function () {
         self.cfg.cache = 0;
-
         return self;
     };
     self.cacheOn = function () {
         self.cfg.cache = 1;
-
         return self;
+    };
+    self.hasCache = function () {
+        return typeof self.cfg.cache === 'number' && self.cfg.cache !== 1;
+    };
+    self.getSuffix = function () {
+        var suffix = '';
+        if (self.hasCache()) {
+            suffix = '?' + time();
+        }
+        return suffix;
+    };
+    self.getDomain = function (url) {
+        return self.getEnv(url).domain;
     };
 
 
@@ -192,11 +204,6 @@ var Load = function (target, success, error) {
 
     self.loadJs = function (url, target, success, error) {
 
-        var suffix = '';
-        if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
-            suffix = '?' + time();
-        }
-
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
             var last = false;
@@ -205,8 +212,7 @@ var Load = function (target, success, error) {
                 last = (len == i);
                 log(this.constructor.name, ' js url.length', len, i, last);
 
-                var domain = self.getEnv(url[i]).domain;
-                var script_url = domain + url[i] + suffix;
+                var script_url = self.getDomain(url[i]) + url[i] + self.getSuffix();
                 log(this.constructor.name, ' js script_url', script_url);
 
                 try {
@@ -222,8 +228,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            var domain = self.getEnv(url).domain;
-            var script_url = domain + url + suffix;
+            var script_url = self.getDomain(url) + url + self.getSuffix();
             includeScript(script_url, target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
@@ -250,18 +255,13 @@ var Load = function (target, success, error) {
 
     self.loadCss = function (url, target, success, error) {
 
-        var suffix = '';
-        if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
-            suffix = '?' + time();
-        }
-
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
 
             for (var i in url) {
                 // log(this.constructor.name, ' url:', url, i, url[i]);
-                var domain = self.getEnv(url[i]).domain;
-                var script_url = domain + url[i] + suffix;
+
+                var script_url = self.getDomain(url[i]) + url[i] + self.getSuffix();
                 log(this.constructor.name, ' loadCss script_url', script_url);
 
                 try {
@@ -272,8 +272,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            var domain = self.getEnv(url).domain;
-            var script_url = domain + url + suffix;
+            var script_url = self.getDomain(url) + url + self.getSuffix();
             includeStyle(script_url, target, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
@@ -299,18 +298,13 @@ var Load = function (target, success, error) {
 
 
     self.html = function (url) {
-        var suffix = '';
-        if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
-            suffix = '?' + time();
-        }
 
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
 
             for (var i in url) {
 
-                var domain = self.getEnv(url[i]).domain;
-                var script_url = domain + url[i] + suffix;
+                var script_url = self.getDomain(url[i]) + url[i] + self.getSuffix();
                 log(this.constructor.name, ' html script_url', script_url);
                 try {
                     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
@@ -320,8 +314,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            var domain = self.getEnv(url).domain;
-            var script_url = domain + url + suffix;
+            var script_url = self.getDomain(url) + url + self.getSuffix();
             includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }
@@ -346,17 +339,12 @@ var Load = function (target, success, error) {
 
     self.loadImage = function (url, target, replace, success, error) {
 
-        var suffix = '';
-        if (typeof self.cfg.cache === 'number' && self.cfg.cache !== 1) {
-            suffix = '?' + time();
-        }
-
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
 
             for (var i in url) {
-                var domain = self.getEnv(url[i]).domain;
-                var script_url = domain + url[i] + suffix;
+
+                var script_url = self.getDomain(url[i]) + url[i] + self.getSuffix();
                 log(this.constructor.name, ' img url[i]', url[i]);
 
                 try {
@@ -367,8 +355,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            var domain = self.getEnv(url).domain;
-            var script_url = domain + url + suffix;
+            var script_url = self.getDomain(url) + url + self.getSuffix();
             includeImage(script_url, target, replace, success, error);
             // console.error('apiunit obj: is not object:', obj);
         }

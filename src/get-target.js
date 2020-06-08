@@ -19,6 +19,7 @@ function getTarget(target) {
         }
     }
     log(this.constructor.name, ' target ', target);
+    console.log(' getTarget ', target);
 
     return target;
 }

@@ -88,6 +88,7 @@ function getTarget(target) {
         }
     }
     log(this.constructor.name, ' target ', target);
+    console.log(' getTarget ', target);
 
     return target;
 }
@@ -159,8 +160,8 @@ var E = function (selector, area, error, success) {
         }
         const elem = document.querySelector(self.cfg.selector);
 
-        log(this.constructor.name, 'first self.cfg.selector', self.cfg.selector);
-        log(this.constructor.name, 'first elem', elem);
+        log(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
+        log(this.constructor.name, ' first elem ', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;
@@ -184,8 +185,8 @@ var E = function (selector, area, error, success) {
 
         const elem = document.querySelectorAll(self.cfg.selector);
 
-        log(this.constructor.name, 'all self.cfg.selector', self.cfg.selector);
-        log(this.constructor.name, 'all elem', elem);
+        log(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
+        log(this.constructor.name, ' all elem ', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;
@@ -265,12 +266,6 @@ function includeHtml(url, target, replace, success, error) {
 
     var xhttp;
 
-    try {
-        var el = new E(target);
-    } catch (err) {
-        console.error('!Element not exist  ', target);
-        return false;
-    }
 
     var elmnt = el.first();
 
@@ -331,17 +326,8 @@ if (typeof log !== 'function') {
  */
 const includeImage = function (url, target, replace, success, error) {
 
-    log(this, 'includeImg url: ', url);
+    log(this.constructor.name, ' includeImg url: ', url);
     // JLOADS_DEBUG || log('el', el);
-    try {
-        var el = new E(target);
-    } catch (err) {
-        console.error('!Element not exist  ', target);
-        error();
-        return false;
-    }
-    var elmnt = el.first();
-    log(this.constructor.name,'include Image elmnt :', elmnt);
 
     let img = new Image;
     img.onload = function () {
@@ -356,14 +342,14 @@ const includeImage = function (url, target, replace, success, error) {
 
 
         if (replace) {
-            log(this.constructor.name, 'includeImage elmnt firstChild :', elmnt.firstChild);
+            log(this.constructor.name, 'includeImage elmnt firstChild: ', elmnt.firstChild);
             elmnt.removeChild(elmnt.firstChild);
             // let element = document.getElementById("top");
             // while (element.firstChild) {
             //     element.removeChild(element.firstChild);
             // }
         }
-        elmnt.appendChild(img);
+        getTarget(target).appendChild(img);
     };
 
     return img.src = url;  // erst nach dem Event Listener!
@@ -425,10 +411,10 @@ var Load = function (target, success, error) {
     };
 
     self.getEnv = function (url) {
-        log(this.constructor.name, '.getEnv() url:', url);
+        log(this.constructor.name, '.getEnv() url: ', url);
 
         if (hasDomain(url)) {
-            log(this.constructor.name, ' url has now own domain:', url);
+            log(this.constructor.name, ' url has now own domain: ', url);
             return {
                 'domain': ''
             };
@@ -437,18 +423,18 @@ var Load = function (target, success, error) {
             log(this.constructor.name, ' url has env:', self.cfg.env);
             for (var index in self.cfg.env) {
                 if (self.cfg.env.hasOwnProperty(index)) {
-                    log(this.constructor.name, '.getEnv() function check:', self.cfg.env[index]['name']);
+                    log(this.constructor.name, '.getEnv() function check: ', self.cfg.env[index]['name']);
 
                     var callback = self.cfg.env[index]['exist'];
                     if (typeof callback === 'function' && callback(self)) {
-                        log(this.constructor.name, '.getEnv() url use env:', self.cfg.env[index]['name']);
+                        log(this.constructor.name, '.getEnv() url use env: ', self.cfg.env[index]['name']);
                         return self.cfg.env[index];
                     }
                 }
             }
         }
         if (self.getDomain()) {
-            log(this.constructor.name, '.getEnv() cfg domain exist', self.cfg.domain);
+            log(this.constructor.name, '.getEnv() cfg domain exist ', self.cfg.domain);
             return {
                 'domain': self.getDomain()
             };
@@ -583,10 +569,10 @@ var Load = function (target, success, error) {
             var len = url.length - 1;
             for (var i in url) {
                 last = (len == i);
-                log(this.constructor.name, ' js url.length', len, i, last);
+                log(this.constructor.name, ' js url.length ', len, i, last);
 
                 var script_url = self.getEnvUrl(url[i]);
-                log(this.constructor.name, ' js script_url', script_url);
+                log(this.constructor.name, ' js script_url ', script_url);
 
                 try {
                     if (last) {
@@ -610,13 +596,13 @@ var Load = function (target, success, error) {
     self.js = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    log(this.constructor.name, ' js delayed', self.cfg.delay, url);
+                    log(this.constructor.name, ' js delayed ', self.cfg.delay, url);
                     self.loadJs(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            log(this.constructor.name, ' js url', url);
+            log(this.constructor.name, ' js url ', url);
             self.loadJs(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -634,7 +620,7 @@ var Load = function (target, success, error) {
                 // log(this.constructor.name, ' url:', url, i, url[i]);
 
                 var script_url = self.getEnvUrl(url[i]);
-                log(this.constructor.name, ' loadCss script_url', script_url);
+                log(this.constructor.name, ' loadCss script_url ', script_url);
 
                 try {
                     var exe = includeStyle(script_url, target, success, error);
@@ -654,7 +640,7 @@ var Load = function (target, success, error) {
     self.css = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    log(this.constructor.name, 'delayed', self.cfg.delay, url);
+                    log(this.constructor.name, ' delayed ', self.cfg.delay, url);
                     self.loadCss(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
@@ -676,12 +662,12 @@ var Load = function (target, success, error) {
             for (var i in url) {
 
                 var script_url = self.getEnvUrl(url[i]);
-                log(this.constructor.name, ' html script_url', script_url);
+                log(this.constructor.name, ' html script_url ', script_url);
                 try {
                     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
                     log(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
-                    console.error('!load html ', script_url, err);
+                    console.error(' !load html ', script_url, err);
                 }
             }
         } else {
@@ -734,4 +720,108 @@ var Load = function (target, success, error) {
 
 
     return self;
+};
+// is-array.js
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isArray(val) {
+    return val !== null ||
+        (typeof val === 'object' && Object.keys(val).length > 0)
+        ;
+}
+// load.js
+if (typeof log !== 'function') {
+    const log = console.log;
+}
+
+function getFileExtension(filename) {
+    return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+}
+
+function getFunctionName(url, map) {
+
+    var ext = getFileExtension(url)
+    log(this.constructor.name, ' url ', url);
+    log(this.constructor.name, ' map ', map);
+    return map[ext];
+}
+
+
+
+/**
+ * @param target
+ * @param success
+ * @param error
+ * @returns {Load}
+ * @constructor
+ */
+function loadAll(json, success, error, mapFunction) {
+
+    //url is URL of external file, success is the code
+    //to be called from the file, location is the location to
+    //insert the <script> element
+
+    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
+        // Configuration
+        success = function (data) {
+            console.log('loaded', data);
+        };
+        error = function (data) {
+            console.error('!loaded', data);
+        };
+    }
+
+    if (typeof mapFunction !== 'object') {
+        // Configuration
+        mapFunction = {
+            'js': 'js',
+            'css': 'css',
+            'css2': 'css',
+            'css3': 'css',
+            'png': 'img',
+            'bmp': 'img',
+            'jpg': 'img',
+            'gif': 'img',
+        }
+    }
+
+    for (var i in json) {
+        var object = json[i];
+        console.log(i);
+        const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+
+        if (!isEmpty(elem)) {
+
+            var jloads = new Load(elem, success, error);
+
+            if (isArray(object)) {
+                var url = '';
+                for (var id in object) {
+                    url = object[id];
+                    if (typeof url === 'string') {
+
+                        log(this.constructor.name, 'elem', elem);
+                        var funcName = getFunctionName(url, mapFunction);
+
+                        log(this.constructor.name, 'funcName', funcName);
+                        // console.log(funcName, url, elem);
+
+                        jloads[funcName]([url]);
+                        // jloads.js([url]);
+                        // elem.appendChild(url, funcName);
+                        // success(elem);
+
+                    }
+                }
+            }
+
+        } else {
+            error(elem);
+        }
+
+    }
+
 };

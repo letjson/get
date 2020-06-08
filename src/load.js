@@ -55,10 +55,10 @@ var Load = function (target, success, error) {
     };
 
     self.getEnv = function (url) {
-        log(this.constructor.name, '.getEnv() url:', url);
+        log(this.constructor.name, '.getEnv() url: ', url);
 
         if (hasDomain(url)) {
-            log(this.constructor.name, ' url has now own domain:', url);
+            log(this.constructor.name, ' url has now own domain: ', url);
             return {
                 'domain': ''
             };
@@ -67,18 +67,18 @@ var Load = function (target, success, error) {
             log(this.constructor.name, ' url has env:', self.cfg.env);
             for (var index in self.cfg.env) {
                 if (self.cfg.env.hasOwnProperty(index)) {
-                    log(this.constructor.name, '.getEnv() function check:', self.cfg.env[index]['name']);
+                    log(this.constructor.name, '.getEnv() function check: ', self.cfg.env[index]['name']);
 
                     var callback = self.cfg.env[index]['exist'];
                     if (typeof callback === 'function' && callback(self)) {
-                        log(this.constructor.name, '.getEnv() url use env:', self.cfg.env[index]['name']);
+                        log(this.constructor.name, '.getEnv() url use env: ', self.cfg.env[index]['name']);
                         return self.cfg.env[index];
                     }
                 }
             }
         }
         if (self.getDomain()) {
-            log(this.constructor.name, '.getEnv() cfg domain exist', self.cfg.domain);
+            log(this.constructor.name, '.getEnv() cfg domain exist ', self.cfg.domain);
             return {
                 'domain': self.getDomain()
             };
@@ -213,10 +213,10 @@ var Load = function (target, success, error) {
             var len = url.length - 1;
             for (var i in url) {
                 last = (len == i);
-                log(this.constructor.name, ' js url.length', len, i, last);
+                log(this.constructor.name, ' js url.length ', len, i, last);
 
                 var script_url = self.getEnvUrl(url[i]);
-                log(this.constructor.name, ' js script_url', script_url);
+                log(this.constructor.name, ' js script_url ', script_url);
 
                 try {
                     if (last) {
@@ -240,13 +240,13 @@ var Load = function (target, success, error) {
     self.js = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    log(this.constructor.name, ' js delayed', self.cfg.delay, url);
+                    log(this.constructor.name, ' js delayed ', self.cfg.delay, url);
                     self.loadJs(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            log(this.constructor.name, ' js url', url);
+            log(this.constructor.name, ' js url ', url);
             self.loadJs(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -264,7 +264,7 @@ var Load = function (target, success, error) {
                 // log(this.constructor.name, ' url:', url, i, url[i]);
 
                 var script_url = self.getEnvUrl(url[i]);
-                log(this.constructor.name, ' loadCss script_url', script_url);
+                log(this.constructor.name, ' loadCss script_url ', script_url);
 
                 try {
                     var exe = includeStyle(script_url, target, success, error);
@@ -284,7 +284,7 @@ var Load = function (target, success, error) {
     self.css = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    log(this.constructor.name, 'delayed', self.cfg.delay, url);
+                    log(this.constructor.name, ' delayed ', self.cfg.delay, url);
                     self.loadCss(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
@@ -306,12 +306,12 @@ var Load = function (target, success, error) {
             for (var i in url) {
 
                 var script_url = self.getEnvUrl(url[i]);
-                log(this.constructor.name, ' html script_url', script_url);
+                log(this.constructor.name, ' html script_url ', script_url);
                 try {
                     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
                     log(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
-                    console.error('!load html ', script_url, err);
+                    console.error(' !load html ', script_url, err);
                 }
             }
         } else {

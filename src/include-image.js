@@ -13,17 +13,8 @@ if (typeof log !== 'function') {
  */
 const includeImage = function (url, target, replace, success, error) {
 
-    log(this, 'includeImg url: ', url);
+    log(this.constructor.name, ' includeImg url: ', url);
     // JLOADS_DEBUG || log('el', el);
-    try {
-        var el = new E(target);
-    } catch (err) {
-        console.error('!Element not exist  ', target);
-        error();
-        return false;
-    }
-    var elmnt = el.first();
-    log(this.constructor.name,'include Image elmnt :', elmnt);
 
     let img = new Image;
     img.onload = function () {
@@ -38,14 +29,14 @@ const includeImage = function (url, target, replace, success, error) {
 
 
         if (replace) {
-            log(this.constructor.name, 'includeImage elmnt firstChild :', elmnt.firstChild);
+            log(this.constructor.name, 'includeImage elmnt firstChild: ', elmnt.firstChild);
             elmnt.removeChild(elmnt.firstChild);
             // let element = document.getElementById("top");
             // while (element.firstChild) {
             //     element.removeChild(element.firstChild);
             // }
         }
-        elmnt.appendChild(img);
+        getTarget(target).appendChild(img);
     };
 
     return img.src = url;  // erst nach dem Event Listener!

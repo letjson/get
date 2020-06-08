@@ -16,12 +16,6 @@ function includeHtml(url, target, replace, success, error) {
 
     var xhttp;
 
-    try {
-        var el = new E(target);
-    } catch (err) {
-        console.error('!Element not exist  ', target);
-        return false;
-    }
 
     var elmnt = el.first();
 

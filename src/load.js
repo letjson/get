@@ -365,5 +365,3 @@ var Load = function (target, success, error) {
 
     return self;
 };
-
-

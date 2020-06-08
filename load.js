@@ -212,6 +212,8 @@ var E = function (selector, area, error, success) {
 function includeScript(url, target, success, error) {
     var scriptTag = document.createElement('script');
     scriptTag.src = url;
+    scriptTag.defer = 'defer';
+    // scriptTag.async = 'async';
     scriptTag.type = 'text/javascript';
 
     scriptTag.onerror = error;
@@ -733,5 +735,3 @@ var Load = function (target, success, error) {
 
     return self;
 };
-
-

@@ -746,9 +746,13 @@ function getFunctionName(url, map) {
     var ext = getFileExtension(url)
     log(this.constructor.name, ' url ', url);
     log(this.constructor.name, ' map ', map);
-    return map[ext];
-}
+    var result = map[ext];
 
+    if (isEmpty(result)) {
+        throw new Error('key or Value Is Empty or Key not exits in Map');
+    }
+    return result;
+}
 
 
 /**
@@ -790,7 +794,9 @@ function loadAll(json, success, error, mapFunction) {
 
     for (var i in json) {
         var object = json[i];
-        console.log(i);
+
+        log(this.constructor.name, ' i ', i);
+
         const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
 
         if (!isEmpty(elem)) {
@@ -802,17 +808,19 @@ function loadAll(json, success, error, mapFunction) {
                 for (var id in object) {
                     url = object[id];
                     if (typeof url === 'string') {
+                        try {
+                            var funcName = getFunctionName(url, mapFunction);
+                            log(this.constructor.name, ' funcName ', funcName);
+                            // console.log(funcName, url, elem);
+                            jloads[funcName]([url]);
+                        } catch (e) {
+                            log(this.constructor.name, ' elem ', elem);
+                            log(this.constructor.name, ' ERROR ', e);
+                            error(e);
+                        }
 
-                        log(this.constructor.name, 'elem', elem);
-                        var funcName = getFunctionName(url, mapFunction);
-
-                        log(this.constructor.name, 'funcName', funcName);
-                        // console.log(funcName, url, elem);
-
-                        jloads[funcName]([url]);
                         // jloads.js([url]);
                         // elem.appendChild(url, funcName);
-                        // success(elem);
 
                     }
                 }
@@ -823,5 +831,5 @@ function loadAll(json, success, error, mapFunction) {
         }
 
     }
-
-};
+    success(json);
+}

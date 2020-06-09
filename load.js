@@ -18,6 +18,7 @@ function getXHRObject() {
             break;
         }
     } finally {
+        xhrObj.setRequestHeader("X-Content-Type-Options","nosniff");
         return xhrObj;
     }
 }

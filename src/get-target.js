@@ -19,8 +19,7 @@ function getTarget(target) {
             log(this.constructor.name, ' isEmpty BODY ', target);
         }
     }
-    log(this.constructor.name, ' target ', target);
-    console.log(' getTarget ', target);
+    log(this.constructor.name, ' target: ', target);
 
     return target;
 }

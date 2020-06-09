@@ -266,8 +266,9 @@ function includeHtml(url, target, replace, success, error) {
 
     var xhttp;
 
-
-    var elmnt = el.first();
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
 
     if (typeof success !== 'function') {
         success = function () {
@@ -286,17 +287,15 @@ function includeHtml(url, target, replace, success, error) {
         /* Make an HTTP request using the attribute value as the url name: */
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            log(this.constructor.name, 'includeHtml el_id', target);
+            log(this.constructor.name, ' includeHtml el_id ', target);
 
             if (this.readyState == 4) {
                 if (this.status == 200) {
-
-                    elmnt.insertAdjacentHTML('beforeend', this.responseText);
-
+                    getTarget(target).insertAdjacentHTML('beforeend', this.responseText);
                     success(this);
                 }
                 if (this.status == 404) {
-                    elmnt.innerHTML = "includeHtml Page not found.";
+                    getTarget(target).innerHTML = "includeHtml Page not found.";
                     error(this);
                 }
                 /* Remove the attribute, and call this function once more: */
@@ -655,6 +654,22 @@ var Load = function (target, success, error) {
 
 
 
+    self.html = function (url) {
+
+        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+            setTimeout(function () {
+                    log(this.constructor.name, ' html delayed ', self.cfg.delay, url);
+                    self.loadHtml(url);
+                },
+                self.cfg.delay
+            );
+        } else {
+            log(this.constructor.name, ' html url ', url);
+            self.loadHtml(url);
+        }
+        return self;
+    };
+
     self.loadHtml = function (url) {
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
@@ -686,23 +701,7 @@ var Load = function (target, success, error) {
 
         return self;
     };
-    self.style = self.css;
 
-    self.html = function (url) {
-
-        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
-            setTimeout(function () {
-                    log(this.constructor.name, ' html delayed ', self.cfg.delay, url);
-                    self.loadHtml(url);
-                },
-                self.cfg.delay
-            );
-        } else {
-            log(this.constructor.name, ' html url ', url);
-            self.loadHtml(url);
-        }
-        return self;
-    };
 
 
     self.img = function (url) {

@@ -299,6 +299,22 @@ var Load = function (target, success, error) {
 
 
 
+    self.html = function (url) {
+
+        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+            setTimeout(function () {
+                    log(this.constructor.name, ' html delayed ', self.cfg.delay, url);
+                    self.loadHtml(url);
+                },
+                self.cfg.delay
+            );
+        } else {
+            log(this.constructor.name, ' html url ', url);
+            self.loadHtml(url);
+        }
+        return self;
+    };
+
     self.loadHtml = function (url) {
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
@@ -330,23 +346,7 @@ var Load = function (target, success, error) {
 
         return self;
     };
-    self.style = self.css;
 
-    self.html = function (url) {
-
-        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
-            setTimeout(function () {
-                    log(this.constructor.name, ' html delayed ', self.cfg.delay, url);
-                    self.loadHtml(url);
-                },
-                self.cfg.delay
-            );
-        } else {
-            log(this.constructor.name, ' html url ', url);
-            self.loadHtml(url);
-        }
-        return self;
-    };
 
 
     self.img = function (url) {

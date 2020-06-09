@@ -18,7 +18,8 @@ function getXHRObject() {
             break;
         }
     } finally {
-        xhrObj.setRequestHeader("X-Content-Type-Options","nosniff");
+        xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
         return xhrObj;
     }
 }

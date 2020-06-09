@@ -1,12 +1,12 @@
 // create.js
 
-document.onload = function () {
-    document.getElementById("myForm").addEventListener("submit", function (event) {
-        event.preventDefault();
-        loader();
-        console.log("form is submitted");
-    });
-}
+// document.onload = function () {
+//     document.getElementById("myForm").addEventListener("submit", function (event) {
+//         event.preventDefault();
+//         loader();
+//         console.log("form is submitted");
+//     });
+// }
 
 function loader() {
     var x = document.forms["myForm"]["json"].value;
@@ -26,4 +26,6 @@ function loader() {
     document.head.appendChild(script);
 
     document.forms["myForm"]["url"].value = script.src;
+
+    return false;
 }

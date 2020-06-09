@@ -55,6 +55,9 @@ function loadAll(json, success, error, mapFunction) {
             'bmp': 'img',
             'jpg': 'img',
             'gif': 'img',
+            'htm': 'html',
+            'html': 'html',
+            'html5': 'html'
         }
     }
 

@@ -640,13 +640,13 @@ var Load = function (target, success, error) {
     self.css = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                    log(this.constructor.name, ' delayed ', self.cfg.delay, url);
+                    log(this.constructor.name, ' css delayed ', self.cfg.delay, url);
                     self.loadCss(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-            log(this.constructor.name, ' loaded ', url);
+            log(this.constructor.name, ' css loaded ', url);
             self.loadCss(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -654,25 +654,52 @@ var Load = function (target, success, error) {
     self.style = self.css;
 
 
-    self.html = function (url) {
 
+    self.loadHtml = function (url) {
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
-
+            var last = false;
+            var len = url.length - 1;
             for (var i in url) {
+                last = (len == i);
+                log(this.constructor.name, ' html url.length ', len, i, last);
 
                 var script_url = self.getEnvUrl(url[i]);
                 log(this.constructor.name, ' html script_url ', script_url);
+
                 try {
-                    var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, success, error);
+                    if (last) {
+                        var exe = includeHtml(script_url, target, success, error);
+                    } else {
+                        var exe = includeHtml(script_url, target);
+                    }
                     log(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
-                    console.error(' !load html ', script_url, err);
+                    console.error('! html ', script_url, err);
+                    error();
                 }
             }
         } else {
-            includeHtml(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, success, error);
+            includeHtml(self.getEnvUrl(url), target, success, error);
             // console.error('apiunit obj: is not object:', obj);
+        }
+
+        return self;
+    };
+    self.style = self.css;
+
+    self.html = function (url) {
+
+        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+            setTimeout(function () {
+                    log(this.constructor.name, ' html delayed ', self.cfg.delay, url);
+                    self.loadHtml(url, self.cfg.target, self.success, self.error);
+                },
+                self.cfg.delay
+            );
+        } else {
+            log(this.constructor.name, ' html url ', url);
+            self.loadHtml(url, self.cfg.target, self.success, self.error);
         }
         return self;
     };
@@ -763,7 +790,7 @@ function getFunctionName(url, map) {
  * @constructor
  */
 function loadAll(json, success, error, mapFunction) {
-
+    this.constructor.name = 'loadAll';
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
     //insert the <script> element
@@ -771,10 +798,10 @@ function loadAll(json, success, error, mapFunction) {
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         // Configuration
         success = function (data) {
-            console.log('loaded', data);
+            console.log('loadAll loaded ', data);
         };
         error = function (data) {
-            console.error('!loaded', data);
+            console.error('loadAll !loaded ', data);
         };
     }
 

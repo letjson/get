@@ -29,7 +29,7 @@ function getFunctionName(url, map) {
  * @constructor
  */
 function loadAll(json, success, error, mapFunction) {
-
+    this.constructor.name = 'loadAll';
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
     //insert the <script> element
@@ -37,10 +37,10 @@ function loadAll(json, success, error, mapFunction) {
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         // Configuration
         success = function (data) {
-            console.log('loaded', data);
+            console.log('loadAll loaded ', data);
         };
         error = function (data) {
-            console.error('!loaded', data);
+            console.error('loadAll !loaded ', data);
         };
     }
 

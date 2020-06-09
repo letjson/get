@@ -14,8 +14,6 @@ if (typeof log !== 'function') {
  */
 function includeHtml(url, target, replace, success, error) {
 
-    var xhttp;
-
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }
@@ -35,7 +33,7 @@ function includeHtml(url, target, replace, success, error) {
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
-        xhttp = new XMLHttpRequest();
+        var xhttp = getXHRObject();
         xhttp.onreadystatechange = function () {
             log(this.constructor.name, ' includeHtml el_id ', target);
 

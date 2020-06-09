@@ -18,8 +18,7 @@ function getXHRObject() {
             break;
         }
     } finally {
-        xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
-        xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+
         return xhrObj;
     }
 }
@@ -286,20 +285,25 @@ function includeHtml(url, target, replace, success, error) {
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
-        var xhttp = getXHRObject();
-        xhttp.onreadystatechange = function () {
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
 
-            log(this.constructor.name, ' includeHtml target: ', target);
+            log('includeHtml getXHRObject', ' includeHtml target: ', target);
 
             if (this.readyState == 4) {
-                document.onload = loadHtmlByStatus(this.status, this.responseText, target);
+                // document.onload =
+                loadHtmlByStatus(this.status, this.responseText, target, success, error);
 
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);
             }
         }
-        xhttp.open("GET", url, true);
-        xhttp.send();
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+        xhrObj.send();
         /* Exit the function: */
         return this;
     }
@@ -307,18 +311,21 @@ function includeHtml(url, target, replace, success, error) {
 
 }
 
-function loadHtmlByStatus(status, responseText, target) {
+function loadHtmlByStatus(status, responseText, target, success, error) {
+    this.constructor.name = 'loadHtmlByStatus';
+
     log(this.constructor.name, ' includeHtml waiting for DOM tree ', getTarget(target));
 
     if (status == 200) {
         log(this.constructor.name, ' includeHtml loaded HTML: ', responseText);
         getTarget(target).insertAdjacentHTML('beforeend', responseText);
-        success(this);
+        return success(this);
     }
     if (status == 404) {
         getTarget(target).innerHTML = "includeHtml Page not found.";
-        error(this);
+        return error(this, status);
     }
+    return error(this);
 }
 // include-image.js
 if (typeof log !== 'function') {
@@ -830,45 +837,69 @@ function loadAll(json, success, error, mapFunction) {
             'html5': 'html'
         }
     }
+    console.log(' loadAll', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
-    for (var i in json) {
-        var object = json[i];
-
-        log(this.constructor.name, ' i ', i);
-
-        const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-
-        if (!isEmpty(elem)) {
-
-            var jloads = new Load(elem, success, error);
-
-            if (isArray(object)) {
-                var url = '';
-                for (var id in object) {
-                    url = object[id];
-                    if (typeof url === 'string') {
-                        try {
-                            var funcName = getFunctionName(url, mapFunction);
-                            log(this.constructor.name, ' funcName ', funcName);
-                            // console.log(funcName, url, elem);
-                            jloads[funcName](url);
-                        } catch (e) {
-                            log(this.constructor.name, ' elem ', elem);
-                            log(this.constructor.name, ' ERROR ', e);
-                            error(e);
-                        }
-
-                        // jloads.js([url]);
-                        // elem.appendChild(url, funcName);
-
-                    }
-                }
-            }
-
-        } else {
-            error(elem);
+    if (Object.keys(json).length === 1) {
+        getOne(json, Object.keys(json)[0], mapFunction, success, error)
+    } else {
+        for (var i in json) {
+            var object = json[i];
+            getOne(object, i, mapFunction, success, error)
         }
-
     }
-    success(json);
+    // success(json);
+
+}
+
+function getOne(object, i, mapFunction, success, error) {
+    console.log('loadAll getOne ', ' object i ', object, i);
+
+    const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+    console.log('loadAll getOne ', ' elem ', elem);
+
+    if (!isEmpty(elem)) {
+        loadContentByUrls(object, elem, mapFunction, success, error);
+    } else {
+        document.onload = function () {
+
+            const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+
+            log('loadAll getOne document.onload ', ' wait for DOM tree if not exist jet ', i, e);
+
+            if (!isEmpty(elem)) {
+                loadContentByUrls(object, elem, mapFunction, success, error);
+            } else {
+                error(elem);
+            }
+        }
+    }
+}
+
+function loadContentByUrls(object, elem, mapFunction, success, error) {
+    var jloads = new Load(elem, success, error);
+
+    this.constructor.name = 'loadAll loadContent';
+
+    if (isArray(object)) {
+        var url = '';
+        for (var id in object) {
+            url = object[id];
+            if (typeof url === 'string') {
+                try {
+                    var funcName = getFunctionName(url, mapFunction);
+                    log(this.constructor.name, ' funcName ', funcName);
+                    // console.log(funcName, url, elem);
+                    jloads[funcName](url);
+                    success(url);
+                } catch (e) {
+                    log(this.constructor.name, ' elem ', elem);
+                    log(this.constructor.name, ' ERROR ', e);
+                    error(e);
+                }
+
+                // jloads.js([url]);
+                // elem.appendChild(url, funcName);
+            }
+        }
+    }
 }

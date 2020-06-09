@@ -60,45 +60,69 @@ function loadAll(json, success, error, mapFunction) {
             'html5': 'html'
         }
     }
+    console.log(' loadAll', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
-    for (var i in json) {
-        var object = json[i];
-
-        log(this.constructor.name, ' i ', i);
-
-        const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-
-        if (!isEmpty(elem)) {
-
-            var jloads = new Load(elem, success, error);
-
-            if (isArray(object)) {
-                var url = '';
-                for (var id in object) {
-                    url = object[id];
-                    if (typeof url === 'string') {
-                        try {
-                            var funcName = getFunctionName(url, mapFunction);
-                            log(this.constructor.name, ' funcName ', funcName);
-                            // console.log(funcName, url, elem);
-                            jloads[funcName](url);
-                        } catch (e) {
-                            log(this.constructor.name, ' elem ', elem);
-                            log(this.constructor.name, ' ERROR ', e);
-                            error(e);
-                        }
-
-                        // jloads.js([url]);
-                        // elem.appendChild(url, funcName);
-
-                    }
-                }
-            }
-
-        } else {
-            error(elem);
+    if (Object.keys(json).length === 1) {
+        getOne(json, Object.keys(json)[0], mapFunction, success, error)
+    } else {
+        for (var i in json) {
+            var object = json[i];
+            getOne(object, i, mapFunction, success, error)
         }
-
     }
-    success(json);
+    // success(json);
+
+}
+
+function getOne(object, i, mapFunction, success, error) {
+    console.log('loadAll getOne ', ' object i ', object, i);
+
+    const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+    console.log('loadAll getOne ', ' elem ', elem);
+
+    if (!isEmpty(elem)) {
+        loadContentByUrls(object, elem, mapFunction, success, error);
+    } else {
+        document.onload = function () {
+
+            const elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+
+            log('loadAll getOne document.onload ', ' wait for DOM tree if not exist jet ', i, e);
+
+            if (!isEmpty(elem)) {
+                loadContentByUrls(object, elem, mapFunction, success, error);
+            } else {
+                error(elem);
+            }
+        }
+    }
+}
+
+function loadContentByUrls(object, elem, mapFunction, success, error) {
+    var jloads = new Load(elem, success, error);
+
+    this.constructor.name = 'loadAll loadContent';
+
+    if (isArray(object)) {
+        var url = '';
+        for (var id in object) {
+            url = object[id];
+            if (typeof url === 'string') {
+                try {
+                    var funcName = getFunctionName(url, mapFunction);
+                    log(this.constructor.name, ' funcName ', funcName);
+                    // console.log(funcName, url, elem);
+                    jloads[funcName](url);
+                    success(url);
+                } catch (e) {
+                    log(this.constructor.name, ' elem ', elem);
+                    log(this.constructor.name, ' ERROR ', e);
+                    error(e);
+                }
+
+                // jloads.js([url]);
+                // elem.appendChild(url, funcName);
+            }
+        }
+    }
 }

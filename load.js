@@ -309,8 +309,8 @@ function loadHtmlByStatus(status, responseText, target) {
     log(this.constructor.name, ' includeHtml waiting for DOM tree ', getTarget(target));
 
     if (status == 200) {
-        log(this.constructor.name, ' includeHtml loaded HTML: ', this.responseText);
-        getTarget(target).insertAdjacentHTML('beforeend', this.responseText);
+        log(this.constructor.name, ' includeHtml loaded HTML: ', responseText);
+        getTarget(target).insertAdjacentHTML('beforeend', responseText);
         success(this);
     }
     if (status == 404) {

@@ -270,32 +270,38 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            log(this.constructor.name, 'includeHtml success', "included");
+            log(this.constructor.name, ' includeHtml success ', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            log(this.constructor.name, 'includeHtml error', "Page not found.");
+            log(this.constructor.name, ' includeHtml error ', "Page not found.");
         }
     }
-    log(this.constructor.name, 'includeHtml url', url);
+    log(this.constructor.name, ' includeHtml url ', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
         var xhttp = getXHRObject();
         xhttp.onreadystatechange = function () {
-            log(this.constructor.name, ' includeHtml el_id ', target);
+            log(this.constructor.name, ' includeHtml target: ', target);
 
             if (this.readyState == 4) {
-                if (this.status == 200) {
-                    getTarget(target).insertAdjacentHTML('beforeend', this.responseText);
-                    success(this);
+                window.onload = function () {
+                    log(this.constructor.name, ' includeHtml waiting for DOM tree ', url);
+
+                    if (this.status == 200) {
+                        log(this.constructor.name, ' includeHtml loaded HTML: ', this.responseText);
+                        getTarget(target).insertAdjacentHTML('beforeend', this.responseText);
+                        success(this);
+                    }
+                    if (this.status == 404) {
+                        getTarget(target).innerHTML = "includeHtml Page not found.";
+                        error(this);
+                    }
                 }
-                if (this.status == 404) {
-                    getTarget(target).innerHTML = "includeHtml Page not found.";
-                    error(this);
-                }
+
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);
             }

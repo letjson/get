@@ -10,6 +10,7 @@ if (typeof log !== 'function') {
  */
 function getTarget(target) {
     this.constructor.name = 'getTarget';
+
     // log(this.constructor.name, ' target ', target);
     if (isEmpty(target)) {
         target = document.getElementsByTagName('head')[0];

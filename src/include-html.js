@@ -35,11 +35,13 @@ function includeHtml(url, target, replace, success, error) {
         /* Make an HTTP request using the attribute value as the url name: */
         var xhttp = getXHRObject();
         xhttp.onreadystatechange = function () {
+
             log(this.constructor.name, ' includeHtml target: ', target);
+            console.log(target);
 
             if (this.readyState == 4) {
                 window.onload = function () {
-                    log(this.constructor.name, ' includeHtml waiting for DOM tree ', url);
+                    log(this.constructor.name, ' includeHtml waiting for DOM tree ', url, getTarget(target));
 
                     if (this.status == 200) {
                         log(this.constructor.name, ' includeHtml loaded HTML: ', this.responseText);

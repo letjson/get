@@ -668,11 +668,11 @@ var Load = function (target, success, error) {
                 log(this.constructor.name, ' html script_url ', script_url);
 
                 try {
-                    if (last) {
-                        var exe = includeHtml(script_url, target, success, error);
-                    } else {
-                        var exe = includeHtml(script_url, target);
-                    }
+                    // if (last) {
+                        var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    // } else {
+                    //     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    // }
                     log(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
                     console.error('! html ', script_url, err);
@@ -680,7 +680,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            includeHtml(self.getEnvUrl(url), target, success, error);
+            includeHtml(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
             // console.error('apiunit obj: is not object:', obj);
         }
 
@@ -693,13 +693,13 @@ var Load = function (target, success, error) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
                     log(this.constructor.name, ' html delayed ', self.cfg.delay, url);
-                    self.loadHtml(url, self.cfg.target, self.success, self.error);
+                    self.loadHtml(url);
                 },
                 self.cfg.delay
             );
         } else {
             log(this.constructor.name, ' html url ', url);
-            self.loadHtml(url, self.cfg.target, self.success, self.error);
+            self.loadHtml(url);
         }
         return self;
     };
@@ -709,13 +709,13 @@ var Load = function (target, success, error) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
                     log(this.constructor.name, ' image delayed', self.cfg.delay, url);
-                    self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    self.loadImage(url);
                 },
                 self.cfg.delay
             );
         } else {
             log(this.constructor.name, ' image loaded ', url, self.cfg.delay);
-            self.loadImage(url, self.cfg.target, self.cfg.replace, self.success, self.error);
+            self.loadImage(url);
         }
         return self;
     };
@@ -731,14 +731,14 @@ var Load = function (target, success, error) {
                 log(this.constructor.name, ' img url[i]', url[i]);
 
                 try {
-                    var exe = includeImage(script_url, target, replace, success, error);
+                    var exe = includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     log(this.constructor.name, ' img ', script_url, exe);
                 } catch (err) {
                     console.error('! img ', script_url, err);
                 }
             }
         } else {
-            includeImage(self.getEnvUrl(url), target, replace, success, error);
+            includeImage(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
             // console.error('apiunit obj: is not object:', obj);
         }
         return self;

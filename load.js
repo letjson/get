@@ -842,7 +842,7 @@ function loadAll(json, success, error, mapFunction) {
                             var funcName = getFunctionName(url, mapFunction);
                             log(this.constructor.name, ' funcName ', funcName);
                             // console.log(funcName, url, elem);
-                            jloads[funcName]([url]);
+                            jloads[funcName](url);
                         } catch (e) {
                             log(this.constructor.name, ' elem ', elem);
                             log(this.constructor.name, ' ERROR ', e);

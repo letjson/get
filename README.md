@@ -90,6 +90,13 @@ framework laravel
 
 
 ### TODO
+
+### Environment friendly
++ sprawdzać czy funkcje już istnieją, informować i blokować
++ jeśli już np biblioteka bootstrap załadowana to informować i blokować 
++ jeśli inne pliki css, czy html załadowane, informować i blokować
+
+
 ### Funkcje
 + informacja przy kazdej funkcji skad pochodzi i jaka to wersja.
 + ladowanie plikow z roznych zrodel w zaleznosci od wersji: local/test/cdn

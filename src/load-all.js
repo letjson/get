@@ -3,10 +3,37 @@ if (typeof log !== 'function') {
     const log = console.log;
 }
 
+// PUBLIC
+var elem = document.body;
+var mapFunction = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html'
+}
+
+/**
+ *
+ * @param filename
+ * @returns {any[] | BigUint64Array | Uint8ClampedArray | Uint32Array | Blob | Int16Array | Float64Array | SharedArrayBuffer | string | Uint16Array | ArrayBuffer | Int32Array | Float32Array | BigInt64Array | Uint8Array | Int8Array}
+ */
 function getFileExtension(filename) {
     return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
 }
 
+/**
+ *
+ * @param url
+ * @param map
+ * @returns {*}
+ */
 function getFunctionName(url, map) {
 
     var ext = getFileExtension(url)
@@ -22,11 +49,11 @@ function getFunctionName(url, map) {
 
 
 /**
- * @param target
+ *
+ * @param json
  * @param success
  * @param error
- * @returns {Load}
- * @constructor
+ * @param mapFunction
  */
 function loadAll(json, success, error, mapFunction) {
     this.constructor.name = 'loadAll';
@@ -75,22 +102,15 @@ function loadAll(json, success, error, mapFunction) {
 
 }
 
-var elem = document.body;
-var mapFunction = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html'
-}
-
-
+/**
+ *
+ * @param object
+ * @param i
+ * @param mapFunction
+ * @param success
+ * @param error
+ * @returns {*}
+ */
 function getOne(object, i, mapFunction, success, error) {
     console.log('loadAll getOne ', ' object i ', object, i);
 
@@ -110,6 +130,14 @@ function getOne(object, i, mapFunction, success, error) {
     return error(elem);
 }
 
+/**
+ *
+ * @param object
+ * @param elem
+ * @param mapFunction
+ * @param success
+ * @param error
+ */
 function loadContentByUrls(object, elem, mapFunction, success, error) {
 
     var jloads = new Load(elem, success, error);
@@ -150,6 +178,17 @@ function loadContentByUrls(object, elem, mapFunction, success, error) {
 }
 
 
+/**
+ *
+ * @param object
+ * @param i
+ * @param elem
+ * @param mapFunction
+ * @param success
+ * @param error
+ * @returns {*}
+ * @constructor
+ */
 function ReadyHtml(object, i, elem, mapFunction, success, error) {
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;

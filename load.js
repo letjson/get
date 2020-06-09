@@ -290,7 +290,7 @@ function includeHtml(url, target, replace, success, error) {
             log(this.constructor.name, ' includeHtml target: ', target);
 
             if (this.readyState == 4) {
-                window.onload = loadHtmlByStatus(this.status, this.responseText, target);
+                document.onload = loadHtmlByStatus(this.status, this.responseText, target);
 
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);

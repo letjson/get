@@ -288,22 +288,9 @@ function includeHtml(url, target, replace, success, error) {
         xhttp.onreadystatechange = function () {
 
             log(this.constructor.name, ' includeHtml target: ', target);
-            console.log(target);
 
             if (this.readyState == 4) {
-                window.onload = function () {
-                    log(this.constructor.name, ' includeHtml waiting for DOM tree ', url, getTarget(target));
-
-                    if (this.status == 200) {
-                        log(this.constructor.name, ' includeHtml loaded HTML: ', this.responseText);
-                        getTarget(target).insertAdjacentHTML('beforeend', this.responseText);
-                        success(this);
-                    }
-                    if (this.status == 404) {
-                        getTarget(target).innerHTML = "includeHtml Page not found.";
-                        error(this);
-                    }
-                }
+                window.onload = loadHtmlByStatus(this.status, this.responseText, target);
 
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);
@@ -316,6 +303,20 @@ function includeHtml(url, target, replace, success, error) {
     }
     return false;
 
+}
+
+function loadHtmlByStatus(status, responseText, target) {
+    log(this.constructor.name, ' includeHtml waiting for DOM tree ', getTarget(target));
+
+    if (status == 200) {
+        log(this.constructor.name, ' includeHtml loaded HTML: ', this.responseText);
+        getTarget(target).insertAdjacentHTML('beforeend', this.responseText);
+        success(this);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "includeHtml Page not found.";
+        error(this);
+    }
 }
 // include-image.js
 if (typeof log !== 'function') {

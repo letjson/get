@@ -24,7 +24,7 @@ var mapFunction = {
  * @param filename
  * @returns {string}
  */
-function getFileExtension(filename){
+function getFileExtension(filename) {
     return filename.split("?")[0].split("#")[0].split('.').pop();
 }
 
@@ -94,7 +94,7 @@ function loadAll(json, success, error, mapFunction) {
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];
-         getOne(jloads, json[i], i, mapFunction, success, error)
+        getOne(jloads, json[i], i, mapFunction, success, error)
     } else {
         for (var i in json) {
             var object = json[i];
@@ -121,7 +121,7 @@ function getOne(jloads, object, i, mapFunction, success, error) {
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     console.log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
 
-    if (!isEmpty(elem)) {
+    if (i !== 'head' || !isEmpty(elem)) {
         console.log('loadAll getOne ', ' !isEmpty ', elem, !isEmpty(elem));
         success(elem);
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);

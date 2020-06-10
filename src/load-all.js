@@ -22,10 +22,10 @@ var mapFunction = {
 /**
  *
  * @param filename
- * @returns {any[] | BigUint64Array | Uint8ClampedArray | Uint32Array | Blob | Int16Array | Float64Array | SharedArrayBuffer | string | Uint16Array | ArrayBuffer | Int32Array | Float32Array | BigInt64Array | Uint8Array | Int8Array}
+ * @returns {string}
  */
-function getFileExtension(filename) {
-    return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+function getFileExtension(filename){
+    return filename.split("?")[0].split("#")[0].split('.').pop();
 }
 
 /**
@@ -54,6 +54,7 @@ function getFunctionName(url, map) {
  * @param success
  * @param error
  * @param mapFunction
+ * @returns {Load}
  */
 function loadAll(json, success, error, mapFunction) {
     this.constructor.name = 'loadAll';
@@ -107,12 +108,12 @@ function loadAll(json, success, error, mapFunction) {
 
 /**
  *
+ * @param jloads
  * @param object
  * @param i
  * @param mapFunction
  * @param success
  * @param error
- * @returns {*}
  */
 function getOne(jloads, object, i, mapFunction, success, error) {
     console.log('loadAll getOne ', ' object i ', object, i);
@@ -135,6 +136,7 @@ function getOne(jloads, object, i, mapFunction, success, error) {
 
 /**
  *
+ * @param jloads
  * @param object
  * @param elem
  * @param mapFunction
@@ -181,6 +183,7 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 
 /**
  *
+ * @param jloads
  * @param object
  * @param i
  * @param elem

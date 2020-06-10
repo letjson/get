@@ -68,11 +68,11 @@ function getFileExtension(filename) {
  * @returns {*}
  */
 function getFunctionName(url, map) {
-    this.constructor.name = 'getFunctionName';
+    const f = 'getFunctionName';
 
     var ext = getFileExtension(url)
-    log(this.constructor.name, ' url ', url);
-    log(this.constructor.name, ' map ', map);
+    log(f, ' url ', url);
+    log(f, ' map ', map);
     var result = map[ext];
 
     if (isEmpty(result)) {
@@ -91,7 +91,8 @@ function getFunctionName(url, map) {
  * @returns {Load}
  */
 function loadAll(json, success, error, mapFunction) {
-    this.constructor.name = 'loadAll';
+    const f = 'loadAll';
+
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
     //insert the <script> element
@@ -150,19 +151,19 @@ function loadAll(json, success, error, mapFunction) {
  * @param error
  */
 function getOne(jloads, object, i, mapFunction, success, error) {
-    this.constructor.name = 'loadAll getOne';
+    const f = 'loadAll getOne';
 
-    log(this.constructor.name, ' object i ', object, i);
+    log(f, ' object i ', object, i);
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
 
     if (i === 'head' || !isEmpty(elem)) {
-        log(this.constructor.name, ' !isEmpty ', elem, !isEmpty(elem));
+        log(f, ' !isEmpty ', elem, !isEmpty(elem));
         success(elem);
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);
     } else {
-        log(this.constructor.name, ' wait for DOM tree ', i, elem, !isEmpty(elem));
+        log(f, ' wait for DOM tree ', i, elem, !isEmpty(elem));
         document.addEventListener("DOMContentLoaded", function () {
             ReadyHtml(jloads, object, i, elem, mapFunction, success, error);
         });
@@ -181,7 +182,7 @@ function getOne(jloads, object, i, mapFunction, success, error) {
  */
 function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 
-    var f = 'loadAll loadContentByUrls';
+    const f = 'loadAll loadContentByUrls';
 
     log(f, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
 
@@ -194,7 +195,7 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 
             if (typeof url === 'string') {
                 try {
-                    var funcName = getFunctionName(url, mapFunction);
+                    const funcName = getFunctionName(url, mapFunction);
                     log(f, ' funcName ', funcName);
                     // log(funcName, url, elem);
                     jloads[funcName](url);
@@ -229,9 +230,9 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
  * @constructor
  */
 function ReadyHtml(jloads, object, i, elem, mapFunction, success, error) {
+    const f = 'loadAll ReadyHtml ';
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    var f = 'loadAll ReadyHtml ';
     log(f, ' elem ', elem, !isEmpty(elem));
     log(f, ' i ', i);
 

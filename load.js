@@ -125,6 +125,10 @@ function loadAll(json, success, error, mapFunction) {
     }
     log(' loadAll', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
+
+    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
+
     var jloads = new Load(elem, success, error);
 
     if (Object.keys(json).length === 1) {
@@ -155,17 +159,16 @@ function getOne(jloads, object, i, mapFunction, success, error) {
 
     log(f, ' object i ', object, i);
 
-    elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
 
-    if (i === 'head' || !isEmpty(elem)) {
-        log(f, ' !isEmpty ', elem, !isEmpty(elem));
-        success(elem);
-        loadContentByUrls(jloads, object, elem, mapFunction, success, error);
+    if (i === 'head' || !isEmpty(jloads.getTarget())) {
+        log(f, ' !isEmpty ', jloads.getTarget());
+        success(jloads.getTarget());
+        loadContentByUrls(jloads, object,  mapFunction, success, error);
     } else {
-        log(f, ' wait for DOM tree ', i, elem, !isEmpty(elem));
+        log(f, ' wait for DOM tree i ', i);
+        log(f, ' wait for DOM tree target ', jloads.getTarget());
         document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(jloads, object, i, elem, mapFunction, success, error);
+            ReadyHtml(jloads, object, i, mapFunction, success, error);
         });
     }
     // error(elem);
@@ -175,16 +178,15 @@ function getOne(jloads, object, i, mapFunction, success, error) {
  *
  * @param jloads
  * @param object
- * @param elem
  * @param mapFunction
  * @param success
  * @param error
  */
-function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
+function loadContentByUrls(jloads, object, mapFunction, success, error) {
 
     const f = 'loadAll loadContentByUrls';
 
-    log(f, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
+    log(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
 
     if (isArray(object)) {
         var url = '';
@@ -201,7 +203,7 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
                     jloads[funcName](url);
                     success(url);
                 } catch (e) {
-                    log(f, ' ERROR elem ', elem);
+                    // log(f, ' ERROR elem ', elem);
                     log(f, ' ERROR e ', e);
                     error(e);
                 }
@@ -229,15 +231,15 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
  * @returns {*}
  * @constructor
  */
-function ReadyHtml(jloads, object, i, elem, mapFunction, success, error) {
+function ReadyHtml(jloads, object, i, mapFunction, success, error) {
     const f = 'loadAll ReadyHtml ';
 
-    elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    log(f, ' elem ', elem, !isEmpty(elem));
+    var elem = jloads.getTarget() || document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    log(f, ' elem ', elem);
     log(f, ' i ', i);
 
     if (!isEmpty(elem)) {
-        loadContentByUrls(jloads, object, elem, mapFunction, success, error);
+        loadContentByUrls(jloads, object, mapFunction, success, error);
         success(elem);
     } else {
         error(elem);
@@ -517,16 +519,16 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            log(f, ' includeHtml success ', "included");
+            log(f, ' success ', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            log(f, ' includeHtml error ', "Page not found.");
+            log(f, ' error ', "Page not found.");
         }
     }
-    log(f, ' includeHtml url ', url);
+    log(f, ' url ', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
@@ -535,7 +537,7 @@ function includeHtml(url, target, replace, success, error) {
         // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
         xhrObj.onreadystatechange = function () {
 
-            log('includeHtml getXHRObject', ' includeHtml target: ', target);
+            log(f, ' getXHRObject target: ', target);
 
             if (this.readyState == 4) {
                 // document.onload =
@@ -771,6 +773,9 @@ var Load = function (target, success, error) {
     self.target = function (target) {
         self.cfg.target = target;
         return self;
+    };
+    self.getTarget = function () {
+        return self.cfg.target;
     };
 
     self.delay = function (delay) {

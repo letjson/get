@@ -20,16 +20,16 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            log(f, ' includeHtml success ', "included");
+            log(f, ' success ', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            log(f, ' includeHtml error ', "Page not found.");
+            log(f, ' error ', "Page not found.");
         }
     }
-    log(f, ' includeHtml url ', url);
+    log(f, ' url ', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
@@ -38,7 +38,7 @@ function includeHtml(url, target, replace, success, error) {
         // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
         xhrObj.onreadystatechange = function () {
 
-            log('includeHtml getXHRObject', ' includeHtml target: ', target);
+            log(f, ' getXHRObject target: ', target);
 
             if (this.readyState == 4) {
                 // document.onload =

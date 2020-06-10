@@ -154,6 +154,9 @@ var Load = function (target, success, error) {
         self.cfg.target = target;
         return self;
     };
+    self.getTarget = function () {
+        return self.cfg.target;
+    };
 
     self.delay = function (delay) {
         self.cfg.delay = delay;

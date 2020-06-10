@@ -17,7 +17,7 @@ if (typeof log !== 'function') {
 
 }
 
-if (typeof error !== 'function') {
+if (typeof err !== 'function') {
 
     var print_error = function (arguments) {
         var str = ':: ';
@@ -28,7 +28,7 @@ if (typeof error !== 'function') {
         console.error(str);
         return str;
     }
-    var error = function () {
+    var err = function () {
         return print_error(arguments);
         // arguments[0] === 'Load' || print_log();
     }
@@ -102,7 +102,7 @@ function loadAll(json, success, error, mapFunction) {
             log('loadAll loaded ', data);
         };
         error = function (data) {
-            error('loadAll !loaded ', data);
+            err('loadAll !loaded ', data);
         };
     }
 

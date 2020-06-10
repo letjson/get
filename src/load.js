@@ -226,13 +226,13 @@ var Load = function (target, success, error) {
                     }
                     log(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {
-                    console.error('! js ', script_url, err);
+                    err('! js ', script_url, err);
                     error();
                 }
             }
         } else {
             includeScript(self.getEnvUrl(url), target, success, error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
 
         return self;
@@ -270,12 +270,12 @@ var Load = function (target, success, error) {
                     var exe = includeStyle(script_url, target, success, error);
                     log(this.constructor.name, ' loadCss exe ', exe);
                 } catch (err) {
-                    console.error('!load CSS ', script_url, err);
+                    err('!load CSS ', script_url, err);
                 }
             }
         } else {
             includeStyle(self.getEnvUrl(url), target, success, error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
 
         return self;
@@ -335,13 +335,13 @@ var Load = function (target, success, error) {
                     // }
                     log(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
-                    console.error('! html ', script_url, err);
+                    err('! html ', script_url, err);
                     error();
                 }
             }
         } else {
             includeHtml(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
 
         return self;
@@ -378,12 +378,12 @@ var Load = function (target, success, error) {
                     var exe = includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     log(this.constructor.name, ' img ', script_url, exe);
                 } catch (err) {
-                    console.error('! img ', script_url, err);
+                    err('! img ', script_url, err);
                 }
             }
         } else {
             includeImage(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
         return self;
     };

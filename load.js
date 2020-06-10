@@ -17,7 +17,7 @@ if (typeof log !== 'function') {
 
 }
 
-if (typeof error !== 'function') {
+if (typeof err !== 'function') {
 
     var print_error = function (arguments) {
         var str = ':: ';
@@ -28,7 +28,7 @@ if (typeof error !== 'function') {
         console.error(str);
         return str;
     }
-    var error = function () {
+    var err = function () {
         return print_error(arguments);
         // arguments[0] === 'Load' || print_log();
     }
@@ -102,7 +102,7 @@ function loadAll(json, success, error, mapFunction) {
             log('loadAll loaded ', data);
         };
         error = function (data) {
-            error('loadAll !loaded ', data);
+            err('loadAll !loaded ', data);
         };
     }
 
@@ -344,7 +344,7 @@ if (typeof log !== 'function') {
 }
 
 if (typeof warning !== 'function') {
-    var warning = console.error;
+    var warning = err;
 }
 /**
  *
@@ -842,13 +842,13 @@ var Load = function (target, success, error) {
                     }
                     log(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {
-                    console.error('! js ', script_url, err);
+                    err('! js ', script_url, err);
                     error();
                 }
             }
         } else {
             includeScript(self.getEnvUrl(url), target, success, error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
 
         return self;
@@ -886,12 +886,12 @@ var Load = function (target, success, error) {
                     var exe = includeStyle(script_url, target, success, error);
                     log(this.constructor.name, ' loadCss exe ', exe);
                 } catch (err) {
-                    console.error('!load CSS ', script_url, err);
+                    err('!load CSS ', script_url, err);
                 }
             }
         } else {
             includeStyle(self.getEnvUrl(url), target, success, error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
 
         return self;
@@ -951,13 +951,13 @@ var Load = function (target, success, error) {
                     // }
                     log(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
-                    console.error('! html ', script_url, err);
+                    err('! html ', script_url, err);
                     error();
                 }
             }
         } else {
             includeHtml(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
 
         return self;
@@ -994,12 +994,12 @@ var Load = function (target, success, error) {
                     var exe = includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     log(this.constructor.name, ' img ', script_url, exe);
                 } catch (err) {
-                    console.error('! img ', script_url, err);
+                    err('! img ', script_url, err);
                 }
             }
         } else {
             includeImage(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
-            // console.error('apiunit obj: is not object:', obj);
+            // err('apiunit obj: is not object:', obj);
         }
         return self;
     };

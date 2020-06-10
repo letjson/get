@@ -4,7 +4,7 @@ if (typeof log !== 'function') {
 }
 
 if (typeof warning !== 'function') {
-    var warning = console.error;
+    var warning = err;
 }
 /**
  *

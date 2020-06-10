@@ -89,17 +89,20 @@ function loadAll(json, success, error, mapFunction) {
     }
     console.log(' loadAll', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
+    var jloads = new Load(elem, success, error);
+
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];
-        getOne(json[i], i, mapFunction, success, error)
+         getOne(jloads, json[i], i, mapFunction, success, error)
     } else {
         for (var i in json) {
             var object = json[i];
-            getOne(object, i, mapFunction, success, error)
+            getOne(jloads, object, i, mapFunction, success, error)
         }
     }
     // success(json);
 
+    return jloads;
 }
 
 /**
@@ -111,7 +114,7 @@ function loadAll(json, success, error, mapFunction) {
  * @param error
  * @returns {*}
  */
-function getOne(object, i, mapFunction, success, error) {
+function getOne(jloads, object, i, mapFunction, success, error) {
     console.log('loadAll getOne ', ' object i ', object, i);
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
@@ -119,15 +122,15 @@ function getOne(object, i, mapFunction, success, error) {
 
     if (!isEmpty(elem)) {
         console.log('loadAll getOne ', ' !isEmpty ', elem, !isEmpty(elem));
-        loadContentByUrls(object, elem, mapFunction, success, error);
-        return success(elem);
+        success(elem);
+        loadContentByUrls(jloads, object, elem, mapFunction, success, error);
     } else {
         document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(object, i, elem, mapFunction, success, error);
+            ReadyHtml(jloads, object, i, elem, mapFunction, success, error);
         });
 
     }
-    return error(elem);
+    error(elem);
 }
 
 /**
@@ -138,9 +141,7 @@ function getOne(object, i, mapFunction, success, error) {
  * @param success
  * @param error
  */
-function loadContentByUrls(object, elem, mapFunction, success, error) {
-
-    var jloads = new Load(elem, success, error);
+function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 
     this.constructor.name = 'loadAll loadContent';
 

@@ -979,8 +979,8 @@ function ReadyHtml(jloads, object, i, elem, mapFunction, success, error) {
 
     if (!isEmpty(elem)) {
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);
-        return success(elem);
+        success(elem);
     } else {
-        return error(elem);
+        error(elem);
     }
 }

@@ -48,6 +48,7 @@ function getFileExtension(filename) {
  * @returns {*}
  */
 function getFunctionName(url, map) {
+    this.constructor.name = 'getFunctionName';
 
     var ext = getFileExtension(url)
     log(this.constructor.name, ' url ', url);
@@ -129,17 +130,19 @@ function loadAll(json, success, error, mapFunction) {
  * @param error
  */
 function getOne(jloads, object, i, mapFunction, success, error) {
-    log('loadAll getOne ', ' object i ', object, i);
+    this.constructor.name = 'loadAll getOne';
+
+    log(this.constructor.name, ' object i ', object, i);
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
 
     if (i === 'head' || !isEmpty(elem)) {
-        log('loadAll getOne ', ' !isEmpty ', elem, !isEmpty(elem));
+        log(this.constructor.name, ' !isEmpty ', elem, !isEmpty(elem));
         success(elem);
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);
     } else {
-        log('loadAll getOne ', ' wait for DOM tree ', i, elem, !isEmpty(elem));
+        log(this.constructor.name, ' wait for DOM tree ', i, elem, !isEmpty(elem));
         document.addEventListener("DOMContentLoaded", function () {
             ReadyHtml(jloads, object, i, elem, mapFunction, success, error);
         });
@@ -161,7 +164,6 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
     this.constructor.name = 'loadAll loadContent';
 
     log(this.constructor.name, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
-
 
     if (isArray(object)) {
         var url = '';

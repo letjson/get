@@ -510,23 +510,23 @@ if (typeof log !== 'function') {
  * @returns {includeHtml|boolean}
  */
 function includeHtml(url, target, replace, success, error) {
-
+    const f = 'includeHtml';
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }
 
     if (typeof success !== 'function') {
         success = function () {
-            log(this.constructor.name, ' includeHtml success ', "included");
+            log(f, ' includeHtml success ', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            log(this.constructor.name, ' includeHtml error ', "Page not found.");
+            log(f, ' includeHtml error ', "Page not found.");
         }
     }
-    log(this.constructor.name, ' includeHtml url ', url);
+    log(f, ' includeHtml url ', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
@@ -557,12 +557,12 @@ function includeHtml(url, target, replace, success, error) {
 }
 
 function loadHtmlByStatus(status, responseText, target, success, error) {
-    this.constructor.name = 'loadHtmlByStatus';
+    const f = 'loadHtmlByStatus';
 
-    log(this.constructor.name, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+    log(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
 
     if (status == 200) {
-        log(this.constructor.name, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+        log(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
         getTarget(target).insertAdjacentHTML('beforeend', responseText);
         return success(this);
     }

@@ -62,7 +62,7 @@ function includeHtml(url, target, replace, success, error) {
 function loadHtmlByStatus(status, responseText, target, success, error) {
     this.constructor.name = 'loadHtmlByStatus';
 
-    log(this.constructor.name, ' includeHtml waiting for DOM tree ', getTarget(target));
+    log(this.constructor.name, ' includeHtml waiting for DOM tree ', target, getTarget(target));
 
     if (status == 200) {
         log(this.constructor.name, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));

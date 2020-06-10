@@ -1,6 +1,6 @@
 // load.js
 if (typeof log !== 'function') {
-    const log = log;
+    const log = console.log;
 }
 
 // PUBLIC

@@ -316,6 +316,8 @@ var Load = function (target, success, error) {
     };
 
     self.loadHtml = function (url) {
+        log(this.constructor.name, ' self.cfg.target ', self.cfg.target);
+
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
             var last = false;

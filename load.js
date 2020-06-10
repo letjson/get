@@ -967,15 +967,15 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
  * @returns {*}
  * @constructor
  */
-function ReadyHtml(object, i, elem, mapFunction, success, error) {
+function ReadyHtml(jloads, object, i, elem, mapFunction, success, error) {
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
 
-    console.log('ReadyHtml getOne ', ' elem ', elem, !isEmpty(elem));
-    console.log('ReadyHtml getOne ', ' i ', i);
+    console.log('loadAll ReadyHtml ', ' elem ', elem, !isEmpty(elem));
+    console.log('loadAll ReadyHtml ', ' i ', i);
 
     if (!isEmpty(elem)) {
-        loadContentByUrls(object, elem, mapFunction, success, error);
+        loadContentByUrls(jloads, object, elem, mapFunction, success, error);
         return success(elem);
     } else {
         return error(elem);

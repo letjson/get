@@ -777,7 +777,7 @@ function isArray(val) {
 }
 // load.js
 if (typeof log !== 'function') {
-    const log = console.log;
+    const log = log;
 }
 
 // PUBLIC
@@ -842,10 +842,10 @@ function loadAll(json, success, error, mapFunction) {
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         // Configuration
         success = function (data) {
-            console.log('loadAll loaded ', data);
+            log('loadAll loaded ', data);
         };
         error = function (data) {
-            console.error('loadAll !loaded ', data);
+            error('loadAll !loaded ', data);
         };
     }
 
@@ -865,7 +865,7 @@ function loadAll(json, success, error, mapFunction) {
             'html5': 'html'
         }
     }
-    console.log(' loadAll', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+    log(' loadAll', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
     var jloads = new Load(elem, success, error);
 
@@ -893,17 +893,17 @@ function loadAll(json, success, error, mapFunction) {
  * @param error
  */
 function getOne(jloads, object, i, mapFunction, success, error) {
-    console.log('loadAll getOne ', ' object i ', object, i);
+    log('loadAll getOne ', ' object i ', object, i);
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    console.log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
+    log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
 
     if (i === 'head' || !isEmpty(elem)) {
-        console.log('loadAll getOne ', ' !isEmpty ', elem, !isEmpty(elem));
+        log('loadAll getOne ', ' !isEmpty ', elem, !isEmpty(elem));
         success(elem);
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);
     } else {
-        console.log('loadAll getOne ', ' wait for DOM tree ', i, elem, !isEmpty(elem));
+        log('loadAll getOne ', ' wait for DOM tree ', i, elem, !isEmpty(elem));
         document.addEventListener("DOMContentLoaded", function () {
             ReadyHtml(jloads, object, i, elem, mapFunction, success, error);
         });
@@ -924,26 +924,26 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 
     this.constructor.name = 'loadAll loadContent';
 
-    console.log(this.constructor.name, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
+    log(this.constructor.name, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
 
 
     if (isArray(object)) {
         var url = '';
         for (var id in object) {
-            console.log('loadContentByUrls isArray', ' object ', object);
+            log('loadContentByUrls isArray', ' object ', object);
             url = object[id];
-            console.log('loadContentByUrls isArray', ' url ', url, typeof url === 'string');
+            log('loadContentByUrls isArray', ' url ', url, typeof url === 'string');
 
             if (typeof url === 'string') {
                 try {
                     var funcName = getFunctionName(url, mapFunction);
-                    console.log(this.constructor.name, ' funcName ', funcName);
-                    // console.log(funcName, url, elem);
+                    log(this.constructor.name, ' funcName ', funcName);
+                    // log(funcName, url, elem);
                     jloads[funcName](url);
                     success(url);
                 } catch (e) {
-                    console.log(this.constructor.name, ' ERROR elem ', elem);
-                    console.log(this.constructor.name, ' ERROR e ', e);
+                    log(this.constructor.name, ' ERROR elem ', elem);
+                    log(this.constructor.name, ' ERROR e ', e);
                     error(e);
                 }
 
@@ -952,7 +952,7 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
             }
         }
     } else {
-        console.log(this.constructor.name, ' isArray ERROR object', object);
+        log(this.constructor.name, ' isArray ERROR object', object);
         error(object);
     }
 }
@@ -974,8 +974,8 @@ function ReadyHtml(jloads, object, i, elem, mapFunction, success, error) {
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
 
-    console.log('loadAll ReadyHtml ', ' elem ', elem, !isEmpty(elem));
-    console.log('loadAll ReadyHtml ', ' i ', i);
+    log('loadAll ReadyHtml ', ' elem ', elem, !isEmpty(elem));
+    log('loadAll ReadyHtml ', ' i ', i);
 
     if (!isEmpty(elem)) {
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);

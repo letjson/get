@@ -181,27 +181,27 @@ function getOne(jloads, object, i, mapFunction, success, error) {
  */
 function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 
-    this.constructor.name = 'loadAll loadContentByUrls';
+    var f = 'loadAll loadContentByUrls';
 
-    log(this.constructor.name, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
+    log(f, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
 
     if (isArray(object)) {
         var url = '';
         for (var id in object) {
-            log(this.constructor.name,' isArray', ' id ', id);
+            log(f, ' isArray', ' id ', id);
             url = object[id];
-            log(this.constructor.name,' isArray', ' url ', url);
+            log(f, ' isArray', ' url ', url);
 
             if (typeof url === 'string') {
                 try {
                     var funcName = getFunctionName(url, mapFunction);
-                    log(this.constructor.name, ' funcName ', funcName);
+                    log(f, ' funcName ', funcName);
                     // log(funcName, url, elem);
                     jloads[funcName](url);
                     success(url);
                 } catch (e) {
-                    log(this.constructor.name, ' ERROR elem ', elem);
-                    log(this.constructor.name, ' ERROR e ', e);
+                    log(f, ' ERROR elem ', elem);
+                    log(f, ' ERROR e ', e);
                     error(e);
                 }
 
@@ -210,7 +210,7 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
             }
         }
     } else {
-        log(this.constructor.name, ' isArray ERROR object', object);
+        log(f, ' isArray ERROR object', object);
         error(object);
     }
 }
@@ -231,9 +231,9 @@ function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 function ReadyHtml(jloads, object, i, elem, mapFunction, success, error) {
 
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-
-    log('loadAll ReadyHtml ', ' elem ', elem, !isEmpty(elem));
-    log('loadAll ReadyHtml ', ' i ', i);
+    var f = 'loadAll ReadyHtml ';
+    log(f, ' elem ', elem, !isEmpty(elem));
+    log(f, ' i ', i);
 
     if (!isEmpty(elem)) {
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);

@@ -157,18 +157,18 @@ function loadAll(json, success, error, mapFunction) {
 function getOne(jloads, object, i, mapFunction, success, error) {
     const f = 'loadAll getOne';
 
+    log(f, ' jloads.getTarget() ', jloads.getTarget());
+
+    // if (i === 'head' || !isEmpty(jloads.getTarget())) {
     log(f, ' object i ', object, i);
-
-
-    if (i === 'head' || !isEmpty(jloads.getTarget())) {
-        log(f, ' !isEmpty ', jloads.getTarget());
+    if (i === 'head') {
+        loadContentByUrls(jloads, object, mapFunction, success, error);
         success(jloads.getTarget());
-        loadContentByUrls(jloads, object,  mapFunction, success, error);
     } else {
         log(f, ' wait for DOM tree i ', i);
         log(f, ' wait for DOM tree target ', jloads.getTarget());
         document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(jloads, object, i, mapFunction, success, error);
+            ReadyHtml(object, i, mapFunction, success, error);
         });
     }
     // error(elem);
@@ -221,22 +221,23 @@ function loadContentByUrls(jloads, object, mapFunction, success, error) {
 
 /**
  *
- * @param jloads
  * @param object
  * @param i
- * @param elem
  * @param mapFunction
  * @param success
  * @param error
  * @returns {*}
  * @constructor
  */
-function ReadyHtml(jloads, object, i, mapFunction, success, error) {
-    const f = 'loadAll ReadyHtml ';
+function ReadyHtml(object, i, mapFunction, success, error) {
+    const f = 'loadAll ReadyHtml';
+
+    log(f, ' i ', i);
+
+    var jloads = new Load(i, success, error);
 
     var elem = jloads.getTarget() || document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     log(f, ' elem ', elem);
-    log(f, ' i ', i);
 
     if (!isEmpty(elem)) {
         loadContentByUrls(jloads, object, mapFunction, success, error);

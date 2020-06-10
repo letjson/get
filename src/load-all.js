@@ -1,6 +1,19 @@
 // load.js
 if (typeof log !== 'function') {
-    const log = console.log;
+
+    var print_log = function (arguments) {
+        var str = ':: ';
+        for (var i in arguments) {
+            str += arguments[i];
+        }
+        console.log(str);
+        return str;
+    }
+    var log = function () {
+        print_log(arguments);
+        // arguments[0] === 'Load' || print_log();
+    }
+
 }
 
 // PUBLIC

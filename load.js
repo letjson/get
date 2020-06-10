@@ -898,7 +898,7 @@ function getOne(jloads, object, i, mapFunction, success, error) {
     elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     console.log('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
 
-    if (i === 'head' || elem) {
+    if (i === 'head' || !isEmpty(elem)) {
         console.log('loadAll getOne ', ' !isEmpty ', elem, !isEmpty(elem));
         success(elem);
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);

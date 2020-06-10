@@ -903,12 +903,12 @@ function getOne(jloads, object, i, mapFunction, success, error) {
         success(elem);
         loadContentByUrls(jloads, object, elem, mapFunction, success, error);
     } else {
+        console.log('loadAll getOne ', ' wait for DOM tree ', i, elem, !isEmpty(elem));
         document.addEventListener("DOMContentLoaded", function () {
             ReadyHtml(jloads, object, i, elem, mapFunction, success, error);
         });
-
     }
-    error(elem);
+    // error(elem);
 }
 
 /**

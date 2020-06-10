@@ -233,11 +233,10 @@ function ReadyHtml(object, i, mapFunction, success, error) {
     const f = 'loadAll ReadyHtml';
 
     log(f, ' i ', i);
-
-    var jloads = new Load(i, success, error);
-
-    var elem = jloads.getTarget() || document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     log(f, ' elem ', elem);
+
+    var jloads = new Load(elem, success, error);
 
     if (!isEmpty(elem)) {
         loadContentByUrls(jloads, object, mapFunction, success, error);

@@ -13,6 +13,7 @@ if (typeof log !== 'function') {
  */
 const includeImage = function (url, target, replace, success, error) {
     const f = 'includeImage';
+
     log(f, ' includeImg url: ', url);
     // JLOADS_DEBUG || log('el', el);
 

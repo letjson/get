@@ -9,18 +9,18 @@ if (typeof log !== 'function') {
  * @returns {HTMLHeadElement}
  */
 function getTarget(target) {
-    this.constructor.name = 'getTarget';
+    const f = 'getTarget';
 
-    // log(this.constructor.name, ' target ', target);
+    // log(f, ' target ', target);
     if (isEmpty(target)) {
         target = document.getElementsByTagName('head')[0];
-        log(this.constructor.name, ' isEmpty HEAD ', target, typeof target, target.innerHTML !== 'undefined',  target.innerHTML.length, Object.keys(target));
+        log(f, ' isEmpty HEAD ', target, typeof target, target.innerHTML !== 'undefined',  target.innerHTML.length, Object.keys(target));
         if (isEmpty(target)) {
             target = document.body;
-            log(this.constructor.name, ' isEmpty BODY ', target);
+            log(f, ' isEmpty BODY ', target);
         }
     }
-    log(this.constructor.name, ' target: ', target);
+    log(f, ' target: ', target);
 
     return target;
 }

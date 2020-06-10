@@ -10,7 +10,7 @@ if (typeof log !== 'function') {
         return str;
     }
     var log = function () {
-        print_log(arguments);
+        return print_log(arguments);
         // arguments[0] === 'Load' || print_log();
     }
 
@@ -18,6 +18,7 @@ if (typeof log !== 'function') {
 
 // PUBLIC
 var elem = document.body;
+
 var mapFunction = {
     'js': 'js',
     'css': 'css',

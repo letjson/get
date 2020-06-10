@@ -181,16 +181,16 @@ function getOne(jloads, object, i, mapFunction, success, error) {
  */
 function loadContentByUrls(jloads, object, elem, mapFunction, success, error) {
 
-    this.constructor.name = 'loadAll loadContent';
+    this.constructor.name = 'loadAll loadContentByUrls';
 
     log(this.constructor.name, ' isArray object, elem, mapFunction', object, isArray(object), elem, mapFunction);
 
     if (isArray(object)) {
         var url = '';
         for (var id in object) {
-            log('loadContentByUrls isArray', ' object ', object);
+            log(this.constructor.name,' isArray', ' id ', id);
             url = object[id];
-            log('loadContentByUrls isArray', ' url ', url, typeof url === 'string');
+            log(this.constructor.name,' isArray', ' url ', url);
 
             if (typeof url === 'string') {
                 try {

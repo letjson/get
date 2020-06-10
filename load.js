@@ -916,6 +916,7 @@ var Load = function (target, success, error) {
 
 
     self.html = function (url) {
+        log(this.constructor.name, ' self.cfg.delay ', self.cfg.delay);
 
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {

@@ -148,7 +148,7 @@ function loadAll(json, success, error, mapFunction) {
     return jloads;
 }
 
-log('exist?',' getOne');
+log('exist?','getOne');
 /**
  *
  * @param jloads
@@ -209,7 +209,7 @@ function getOne(jloads, object, i, mapFunction, success, error) {
     // error(elem);
 }
 
-log('exist?',' loadContentByUrls');
+log('exist?','loadContentByUrls');
 /**
  *
  * @param jloads

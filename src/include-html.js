@@ -1,8 +1,5 @@
 // include-html.js
-if (typeof log !== 'function') {
-    const log = console.log;
-}
-
+jlogs('exist?','includeHtml');
 /**
  *
  * @param url
@@ -14,6 +11,7 @@ if (typeof log !== 'function') {
  */
 function includeHtml(url, target, replace, success, error) {
     const f = 'includeHtml';
+
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }

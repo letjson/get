@@ -1,4 +1,5 @@
 // has-domain.js
+jlogs('exist?','hasDomain');
 /**
  * @param url
  * @returns {boolean}

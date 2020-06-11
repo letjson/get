@@ -1,7 +1,5 @@
 // load.js
-if (typeof log !== 'function') {
-    const log = console.log;
-}
+jlogs('exist?','Load');
 /**
  * @param target
  * @param success

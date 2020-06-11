@@ -1,4 +1,5 @@
 // include-style.js
+jlogs('exist?', 'includeStyle');
 /**
  *
  * @param url

@@ -1,4 +1,5 @@
 // include-script.js
+jlogs('exist?', 'includeScript');
 /**
  *
  * @param url

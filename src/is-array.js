@@ -1,4 +1,5 @@
 // is-array.js
+jlogs('exist?','isArray');
 /**
  *
  * @param val

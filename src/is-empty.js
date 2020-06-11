@@ -1,4 +1,5 @@
 // is-empty.js
+jlogs('exist?','isEmpty');
 /**
  *
  * @param val

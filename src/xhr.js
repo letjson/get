@@ -1,4 +1,5 @@
 // xhr.js
+jlogs('exist?','getXHRObject');
 /**
  * @returns {boolean}
  */

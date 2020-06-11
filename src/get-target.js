@@ -11,16 +11,16 @@ if (typeof log !== 'function') {
 function getTarget(target) {
     const f = 'getTarget';
 
-    // log(f, ' target ', target);
+    //jlogs(f, ' target ', target);
     if (isEmpty(target)) {
         target = document.getElementsByTagName('head')[0];
-        log(f, ' isEmpty HEAD ', target, typeof target, target.innerHTML !== 'undefined',  target.innerHTML.length, Object.keys(target));
+       jlogs(f, ' isEmpty HEAD ', target, typeof target, target.innerHTML !== 'undefined',  target.innerHTML.length, Object.keys(target));
         if (isEmpty(target)) {
             target = document.body;
-            log(f, ' isEmpty BODY ', target);
+           jlogs(f, ' isEmpty BODY ', target);
         }
     }
-    log(f, ' target: ', target);
+   jlogs(f, ' target: ', target);
 
     return target;
 }

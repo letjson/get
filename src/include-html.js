@@ -20,16 +20,16 @@ function includeHtml(url, target, replace, success, error) {
 
     if (typeof success !== 'function') {
         success = function () {
-            log(f, ' success ', "included");
+           jlogs(f, ' success ', "included");
         }
     }
 
     if (typeof error !== 'function') {
         error = function () {
-            log(f, ' error ', "Page not found.");
+           jlogs(f, ' error ', "Page not found.");
         }
     }
-    log(f, ' url ', url);
+   jlogs(f, ' url ', url);
 
     if (url) {
         /* Make an HTTP request using the attribute value as the url name: */
@@ -38,7 +38,7 @@ function includeHtml(url, target, replace, success, error) {
         // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
         xhrObj.onreadystatechange = function () {
 
-            log(f, ' getXHRObject target: ', target);
+           jlogs(f, ' getXHRObject target: ', target);
 
             if (this.readyState == 4) {
                 // document.onload =
@@ -62,10 +62,10 @@ function includeHtml(url, target, replace, success, error) {
 function loadHtmlByStatus(status, responseText, target, success, error) {
     const f = 'loadHtmlByStatus';
 
-    log(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+   jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
 
     if (status == 200) {
-        log(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+       jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
         getTarget(target).insertAdjacentHTML('beforeend', responseText);
         return success(this);
     }

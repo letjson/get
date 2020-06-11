@@ -1,1 +1,1 @@
-const JLOADS_VERSION='1.0.3';
+const JLOADS_VERSION='1.0.4';

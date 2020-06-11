@@ -26,7 +26,7 @@ var E = function (selector, area, error, success) {
 
 
     this.success = function (elem) {
-        log(this.constructor.name, " Element func success(): ", elem);
+       jlogs(this.constructor.name, " Element func success(): ", elem);
     };
 
     this.error = function (elem) {
@@ -66,8 +66,8 @@ var E = function (selector, area, error, success) {
         }
         const elem = document.querySelector(self.cfg.selector);
 
-        log(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
-        log(this.constructor.name, ' first elem ', elem);
+       jlogs(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
+       jlogs(this.constructor.name, ' first elem ', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;
@@ -91,8 +91,8 @@ var E = function (selector, area, error, success) {
 
         const elem = document.querySelectorAll(self.cfg.selector);
 
-        log(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
-        log(this.constructor.name, ' all elem ', elem);
+       jlogs(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
+       jlogs(this.constructor.name, ' all elem ', elem);
 
         if (elem !== null) {
             self.cfg.exist = true;

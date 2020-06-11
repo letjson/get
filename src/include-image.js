@@ -14,23 +14,23 @@ if (typeof log !== 'function') {
 const includeImage = function (url, target, replace, success, error) {
     const f = 'includeImage';
 
-    log(f, ' includeImg url: ', url);
-    // JLOADS_DEBUG || log('el', el);
+   jlogs(f, ' includeImg url: ', url);
+    // JLOADS_DEBUG ||jlogs('el', el);
 
     let img = new Image;
     img.onload = function () {
-        log(f, "include Image onload url: ", url);
-        log(f, "include Image replace: ", replace);
+       jlogs(f, "include Image onload url: ", url);
+       jlogs(f, "include Image replace: ", replace);
 
         if (typeof replace === 'number' && replace === 1) {
             replace = true;
         }
-        // JLOADS_DEBUG || log('typeof self.cfg.replace', typeof self.cfg.replace);
-        log(f, "include Image replace: ", replace);
+        // JLOADS_DEBUG ||jlogs('typeof self.cfg.replace', typeof self.cfg.replace);
+       jlogs(f, "include Image replace: ", replace);
 
 
         if (replace) {
-            log(f, 'includeImage elmnt firstChild: ', elmnt.firstChild);
+           jlogs(f, 'includeImage elmnt firstChild: ', elmnt.firstChild);
             elmnt.removeChild(elmnt.firstChild);
             // let element = document.getElementById("top");
             // while (element.firstChild) {

@@ -290,6 +290,8 @@ function ReadyHtml(object, i, mapFunction, success, error) {
  * @returns {*}
  */
 function waitForElementToDisplay(selector, time, callback) {
+    const f = 'waitForElementToDisplay';
+    log(f, ' selector ', selector);
     if (document.querySelector(selector) != null) {
         // alert("The element is displayed, you can put your code instead of this alert.")
         return callback(selector);

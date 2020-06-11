@@ -164,11 +164,34 @@ function getOne(jloads, object, i, mapFunction, success, error) {
     if (i === 'head') {
         loadContentByUrls(jloads, object, mapFunction, success, error);
         success(jloads.getTarget());
-    } else {
-        log(f, ' wait for DOM tree i ', i);
-        log(f, ' wait for DOM tree target ', jloads.getTarget());
+    } else if (i === 'body')   {
+        log(f, ' wait for body i ', i);
+        log(f, ' wait for body target ', jloads.getTarget());
         document.addEventListener("DOMContentLoaded", function () {
             ReadyHtml(object, i, mapFunction, success, error);
+        });
+    } else {
+        log(f, ' wait for element i ', i);
+        log(f, ' wait for element target ', jloads.getTarget());
+        var MY_SELECTOR = i;
+
+        var observer = new MutationObserver(function(mutations){
+            for (var i=0; i < mutations.length; i++){
+                for (var j=0; j < mutations[i].addedNodes.length; j++){
+                    // We're iterating through _all_ the elements as the parser parses them,
+                    // deciding if they're the one we're looking for.
+                    if (mutations[i].addedNodes[j].matches(MY_SELECTOR)){
+                        ReadyHtml(object, i, mapFunction, success, error);
+                        // We found our element, we're done:
+                        observer.disconnect();
+                    };
+                }
+            }
+        });
+
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
         });
     }
     // error(elem);

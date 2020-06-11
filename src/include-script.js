@@ -11,8 +11,9 @@ jlogs('exist?', 'includeScript');
 function includeScript(url, target, success, error) {
     var scriptTag = document.createElement('script');
     scriptTag.src = url;
-    scriptTag.defer = 'defer';
-    // scriptTag.async = 'async';
+    scriptTag.defer = true;
+    // scriptTag.setAttribute('defer','');
+    // scriptTag.async = true;
     scriptTag.type = 'text/javascript';
 
     scriptTag.onerror = error;

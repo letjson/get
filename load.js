@@ -1,3 +1,4 @@
+const JLOADS_VERSION='1.0.3';
 // load.js
 if (typeof log !== 'function') {
 

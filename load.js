@@ -202,7 +202,8 @@ function getOne(jloads, object, i, mapFunction, success, error) {
             var observer = new MutationObserver(function (mutations, me) {
                 // `mutations` is an array of mutations that occurred
                 // `me` is the MutationObserver instance
-                var canvas = document.getElementById('my-canvas');
+                // var canvas = document.getElementById('my-canvas');
+                var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
                 if (canvas) {
                     // callback executed when canvas was found
                     ReadyHtml(object, i, mapFunction, success, error);

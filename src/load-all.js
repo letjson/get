@@ -1,6 +1,5 @@
 // load.js
 
-// TODO: jloads_log = jlogs
 if (typeof jlogs !== 'function') {
 
     var print_log = function (arguments) {

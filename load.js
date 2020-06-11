@@ -2,7 +2,6 @@
 const JLOADS_VERSION='1.0.4';
 // load.js
 
-// TODO: jloads_log = jlogs
 if (typeof jlogs !== 'function') {
 
     var print_log = function (arguments) {

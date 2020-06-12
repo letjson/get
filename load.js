@@ -80,7 +80,9 @@ function getFunctionName(url, map) {
     var ext = getFileExtension(url)
     jlogs(f, ' url ', url);
     jlogs(f, ' map ', map);
+    jlogs(f, ' ext ', ext);
     var result = map[ext];
+    jlogs(f, ' result ', result);
 
     if (isEmpty(result)) {
         throw new Error('key or Value Is Empty or Key not exits in Map');

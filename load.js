@@ -78,8 +78,8 @@ function getFunctionName(url, map) {
     const f = 'getFunctionName';
 
     var ext = getFileExtension(url)
+    // jlogs(f, ' map ', map);
     jlogs(f, ' url ', url);
-    jlogs(f, ' map ', map);
     jlogs(f, ' ext ', ext);
     var result = map[ext];
     jlogs(f, ' result ', result);

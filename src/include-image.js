@@ -16,7 +16,7 @@ const includeImage = function (url, target, replace, success, error) {
 
 
     let img = new Image;
-    img.onload = function () {
+    // img.onload = function () {
         // jlogs(f, "include Image onload url: ", url);
         // jlogs(f, "include Image replace: ", replace);
 
@@ -38,6 +38,6 @@ const includeImage = function (url, target, replace, success, error) {
         }
         getTarget(target).appendChild(img);
         img.src = url;  // erst nach dem Event Listener!
-    };
+    // };
 
 }

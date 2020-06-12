@@ -1065,8 +1065,8 @@ var Load = function (target, success, error) {
 
             for (var i in url) {
 
+                jlogs(this.constructor.name, ' img url[i]', url[i]);
                 var script_url = self.getEnvUrl(url[i]);
-               jlogs(this.constructor.name, ' img url[i]', url[i]);
 
                 try {
                     var exe = includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);

@@ -3,10 +3,11 @@
 
 # Load JS files
 
-[jloads.github.io/Load/](https://jloads.github.io/Load/)
++ [jloads.github.io/Load/](https://jloads.github.io/Load/)
 
-[load.jloads.com](https://load.jloads.com/)
++ [load.jloads.com](https://load.jloads.com/)
 
++ [changelog.md](changelog.md)
 
 ## environment
 

@@ -1,5 +1,5 @@
 // load.js
-jlogs('exist?','Load');
+jlogs('exist?', 'Load');
 /**
  * @param target
  * @param success
@@ -53,30 +53,30 @@ var Load = function (target, success, error) {
     };
 
     self.getEnv = function (url) {
-       jlogs(this.constructor.name, '.getEnv() url: ', url);
+        jlogs(this.constructor.name, '.getEnv() url: ', url);
 
         if (hasDomain(url)) {
-           jlogs(this.constructor.name, ' url has now own domain: ', url);
+            jlogs(this.constructor.name, ' url has now own domain: ', url);
             return {
                 'domain': ''
             };
         }
         if (self.hasEnv()) {
-           jlogs(this.constructor.name, ' url has env:', self.cfg.env);
+            jlogs(this.constructor.name, ' url has env:', self.cfg.env);
             for (var index in self.cfg.env) {
                 if (self.cfg.env.hasOwnProperty(index)) {
-                   jlogs(this.constructor.name, '.getEnv() function check: ', self.cfg.env[index]['name']);
+                    jlogs(this.constructor.name, '.getEnv() function check: ', self.cfg.env[index]['name']);
 
                     var callback = self.cfg.env[index]['exist'];
                     if (typeof callback === 'function' && callback(self)) {
-                       jlogs(this.constructor.name, '.getEnv() url use env: ', self.cfg.env[index]['name']);
+                        jlogs(this.constructor.name, '.getEnv() url use env: ', self.cfg.env[index]['name']);
                         return self.cfg.env[index];
                     }
                 }
             }
         }
         if (self.getDomain()) {
-           jlogs(this.constructor.name, '.getEnv() cfg domain exist ', self.cfg.domain);
+            jlogs(this.constructor.name, '.getEnv() cfg domain exist ', self.cfg.domain);
             return {
                 'domain': self.getDomain()
             };
@@ -103,27 +103,27 @@ var Load = function (target, success, error) {
         //     self.cfg.domain, typeof self.cfg.domain === 'object' , Object.keys(self.cfg.domain).length === 0);
 
         if (isEmpty(self.cfg.domain)) {
-           jlogs(this.constructor.name, '.getDomain() isEmpty');
+            jlogs(this.constructor.name, '.getDomain() isEmpty');
             return false;
         }
 
         for (var index in self.cfg.domain) {
 
-           jlogs(this.constructor.name, '.getDomain() function check: ', index, self.cfg.domain);
+            jlogs(this.constructor.name, '.getDomain() function check: ', index, self.cfg.domain);
             return self.cfg.domain[index];
-/*
-            if (self.cfg.domain.hasOwnProperty(index)) {
-                console.log('self.cfg.', self.cfg, self.cfg.domain, index);
-                // var callback = self.cfg.domain[index]['exist'];
-                // if (typeof callback === 'function' && callback()) {
-                //    jlogs(this.constructor.name, '.getDomain() url use env:', self.cfg.domain[index]);
-                return self.cfg.domain[index];
-                // }
-            }
-            */
+            /*
+                        if (self.cfg.domain.hasOwnProperty(index)) {
+                            console.log('self.cfg.', self.cfg, self.cfg.domain, index);
+                            // var callback = self.cfg.domain[index]['exist'];
+                            // if (typeof callback === 'function' && callback()) {
+                            //    jlogs(this.constructor.name, '.getDomain() url use env:', self.cfg.domain[index]);
+                            return self.cfg.domain[index];
+                            // }
+                        }
+                        */
 
         }
-       jlogs(this.constructor.name, '.getDomain() for not');
+        jlogs(this.constructor.name, '.getDomain() for not');
         return false;
     };
 
@@ -135,8 +135,8 @@ var Load = function (target, success, error) {
         obj[id] = domain;
         Object.assign(self.cfg.domain, obj);
 
-       jlogs(this.constructor.name, '.addDomain() cfg domain', self.cfg.domain);
-       jlogs(this.constructor.name, '.addDomain() cfg getDomain()', self.getDomain());
+        jlogs(this.constructor.name, '.addDomain() cfg domain', self.cfg.domain);
+        jlogs(this.constructor.name, '.addDomain() cfg getDomain()', self.getDomain());
 
         // self.cfg.domain = domain;
         return self;
@@ -145,7 +145,6 @@ var Load = function (target, success, error) {
     self.domain = function (domain, id) {
         return self.addDomain(domain, id);
     };
-
 
 
     self.target = function (target) {
@@ -214,10 +213,10 @@ var Load = function (target, success, error) {
             var len = url.length - 1;
             for (var i in url) {
                 last = (len == i);
-               jlogs(this.constructor.name, ' js url.length ', len, i, last);
+                jlogs(this.constructor.name, ' js url.length ', len, i, last);
 
                 var script_url = self.getEnvUrl(url[i]);
-               jlogs(this.constructor.name, ' js script_url ', script_url);
+                jlogs(this.constructor.name, ' js script_url ', script_url);
 
                 try {
                     if (last) {
@@ -225,7 +224,7 @@ var Load = function (target, success, error) {
                     } else {
                         var exe = includeScript(script_url, target);
                     }
-                   jlogs(this.constructor.name, ' js ', script_url, exe);
+                    jlogs(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {
                     err('! js ', script_url, err);
                     error();
@@ -241,13 +240,13 @@ var Load = function (target, success, error) {
     self.js = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                   jlogs(this.constructor.name, ' js delayed ', self.cfg.delay, url);
+                    jlogs(this.constructor.name, ' js delayed ', self.cfg.delay, url);
                     self.loadJs(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-           jlogs(this.constructor.name, ' js url ', url);
+            jlogs(this.constructor.name, ' js url ', url);
             self.loadJs(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -265,11 +264,11 @@ var Load = function (target, success, error) {
                 //jlogs(this.constructor.name, ' url:', url, i, url[i]);
 
                 var script_url = self.getEnvUrl(url[i]);
-               jlogs(this.constructor.name, ' loadCss script_url ', script_url);
+                jlogs(this.constructor.name, ' loadCss script_url ', script_url);
 
                 try {
                     var exe = includeStyle(script_url, target, success, error);
-                   jlogs(this.constructor.name, ' loadCss exe ', exe);
+                    jlogs(this.constructor.name, ' loadCss exe ', exe);
                 } catch (err) {
                     err('!load CSS ', script_url, err);
                 }
@@ -285,13 +284,13 @@ var Load = function (target, success, error) {
     self.css = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                   jlogs(this.constructor.name, ' css delayed ', self.cfg.delay, url);
+                    jlogs(this.constructor.name, ' css delayed ', self.cfg.delay, url);
                     self.loadCss(url, self.cfg.target, self.success, self.error);
                 },
                 self.cfg.delay
             );
         } else {
-           jlogs(this.constructor.name, ' css loaded ', url);
+            jlogs(this.constructor.name, ' css loaded ', url);
             self.loadCss(url, self.cfg.target, self.success, self.error);
         }
         return self;
@@ -299,26 +298,25 @@ var Load = function (target, success, error) {
     self.style = self.css;
 
 
-
     self.html = function (url) {
-       jlogs(this.constructor.name, ' self.cfg.delay ', self.cfg.delay);
+        jlogs(this.constructor.name, ' self.cfg.delay ', self.cfg.delay);
 
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                   jlogs(this.constructor.name, ' html delayed ', self.cfg.delay, url);
+                    jlogs(this.constructor.name, ' html delayed ', self.cfg.delay, url);
                     self.loadHtml(url);
                 },
                 self.cfg.delay
             );
         } else {
-           jlogs(this.constructor.name, ' html url ', url);
+            jlogs(this.constructor.name, ' html url ', url);
             self.loadHtml(url);
         }
         return self;
     };
 
     self.loadHtml = function (url) {
-       jlogs(this.constructor.name, ' self.cfg.target ', self.cfg.target);
+        jlogs(this.constructor.name, ' self.cfg.target ', self.cfg.target);
 
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);
@@ -326,18 +324,18 @@ var Load = function (target, success, error) {
             var len = url.length - 1;
             for (var i in url) {
                 last = (len == i);
-               jlogs(this.constructor.name, ' html url.length ', len, i, last);
+                jlogs(this.constructor.name, ' html url.length ', len, i, last);
 
                 var script_url = self.getEnvUrl(url[i]);
-               jlogs(this.constructor.name, ' html script_url ', script_url);
+                jlogs(this.constructor.name, ' html script_url ', script_url);
 
                 try {
                     // if (last) {
-                        var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // } else {
                     //     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // }
-                   jlogs(this.constructor.name, ' html ', script_url, exe);
+                    jlogs(this.constructor.name, ' html ', script_url, exe);
                 } catch (err) {
                     err('! html ', script_url, err);
                     error();
@@ -352,17 +350,16 @@ var Load = function (target, success, error) {
     };
 
 
-
     self.img = function (url) {
         if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
             setTimeout(function () {
-                   jlogs(this.constructor.name, ' image delayed', self.cfg.delay, url);
+                    jlogs(this.constructor.name, ' image delayed', self.cfg.delay, url);
                     self.loadImage(url);
                 },
                 self.cfg.delay
             );
         } else {
-           jlogs(this.constructor.name, ' image loaded ', url, self.cfg.delay);
+            jlogs(this.constructor.name, ' image loaded ', url, self.cfg.delay);
             self.loadImage(url);
         }
         return self;
@@ -379,8 +376,8 @@ var Load = function (target, success, error) {
                 var script_url = self.getEnvUrl(url[i]);
 
                 try {
-                    var exe = includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
-                   jlogs(this.constructor.name, ' img ', script_url, exe);
+                    includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    jlogs(this.constructor.name, ' img ', script_url);
                 } catch (err) {
                     err('! img ', script_url, err);
                 }
@@ -391,7 +388,6 @@ var Load = function (target, success, error) {
         }
         return self;
     };
-
 
 
     return self;

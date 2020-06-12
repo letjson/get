@@ -17,42 +17,9 @@ var mapFunction = {
     'html5': 'html'
 }
 
-jlogs('exist?', 'getFileExtension');
 
-/**
- *
- * @param filename
- * @returns {string}
- */
-function getFileExtension(filename) {
-    return filename.split("?")[0].split("#")[0].split('.').pop();
-}
 
-jlogs('exist?', 'getFunctionName');
-
-/**
- *
- * @param url
- * @param map
- * @returns {*}
- */
-function getFunctionName(url, map) {
-    const f = 'getFunctionName';
-
-    var ext = getFileExtension(url)
-    // jlogs(f, ' map ', map);
-    jlogs(f, ' url ', url);
-    jlogs(f, ' ext ', ext);
-    var result = map[ext];
-    jlogs(f, ' result ', result);
-
-    if (isEmpty(result)) {
-        throw new Error('key or Value Is Empty or Key not exits in Map');
-    }
-    return result;
-}
-
-jlogs('exist?', 'loadAll');
+jlogs('exist?', 'jloadsUrl');
 
 /**
  *
@@ -62,8 +29,8 @@ jlogs('exist?', 'loadAll');
  * @param mapFunction
  * @returns {Load}
  */
-function loadAll(json, success, error, mapFunction) {
-    const f = 'loadAll';
+function jloadsUrl(json, success, error, mapFunction) {
+    const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -72,10 +39,10 @@ function loadAll(json, success, error, mapFunction) {
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         // Configuration
         success = function (data) {
-            console.log('loadAll loaded ', data);
+            console.log(f, ' loaded ', data);
         };
         error = function (data) {
-            console.error('loadAll !loaded ', data);
+            console.error(f, ' !loaded ', data);
         };
     }
 
@@ -95,11 +62,11 @@ function loadAll(json, success, error, mapFunction) {
             'html5': 'html'
         }
     }
-    jlogs(' loadAll', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+    jlogs(' jloadsUrl', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
 
     var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    jlogs('loadAll getOne ', ' elem ', elem, !isEmpty(elem));
+    jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
 
     var jloads = new Load(elem, success, error);
 
@@ -129,7 +96,7 @@ jlogs('exist?', 'getOne');
  * @param error
  */
 function getOne(jloads, object, i, mapFunction, success, error) {
-    const f = 'loadAll getOne';
+    const f = 'jloadsUrl getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
 
@@ -191,7 +158,7 @@ jlogs('exist?', 'loadContentByUrls');
  */
 function loadContentByUrls(jloads, object, mapFunction, success, error) {
 
-    const f = 'loadAll loadContentByUrls';
+    const f = 'jloadsUrl loadContentByUrls';
 
     jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
 
@@ -243,7 +210,7 @@ jlogs('exist?', 'ReadyHtml');
  * @constructor
  */
 function ReadyHtml(object, i, mapFunction, success, error) {
-    const f = 'loadAll ReadyHtml';
+    const f = 'jloadsUrl ReadyHtml';
 
     jlogs(f, ' i ', i);
     var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
@@ -255,33 +222,11 @@ function ReadyHtml(object, i, mapFunction, success, error) {
         loadContentByUrls(jloads, object, mapFunction, success, error);
         success(elem);
     } else {
-        waitForElementToDisplay(i, 40, function (i) {
+        waitFor(i, 40, function (i) {
             var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
             var jloads = new Load(elem, success, error);
             loadContentByUrls(jloads, object, mapFunction, success, error);
         });
         // error(elem);
-    }
-}
-
-jlogs('exist?', 'waitForElementToDisplay');
-
-/**
- *
- * @param selector
- * @param time
- * @param callback
- * @returns {*}
- */
-function waitForElementToDisplay(selector, time, callback) {
-    const f = 'waitForElementToDisplay';
-    jlogs(f, ' selector ', selector);
-    if (document.querySelector(selector) != null) {
-        // alert("The element is displayed, you can put your code instead of this alert.")
-        return callback(selector);
-    } else {
-        setTimeout(function () {
-            waitForElementToDisplay(selector, time, callback);
-        }, time);
     }
 }

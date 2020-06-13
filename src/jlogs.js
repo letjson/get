@@ -1,6 +1,6 @@
 // jlogs.js
 
-(typeof jlogs === 'function') || (jlogs = function () {
+if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
         str += arguments[i];
@@ -8,9 +8,9 @@
     }
     console.log(str);
     return str;
-})
+}
 
-(typeof err === 'function') || (err = function () {
+if (typeof err !== 'function') err = function () {
     var str = ':: ';
     for (var i in arguments) {
         str += arguments[i];
@@ -18,4 +18,4 @@
     }
     console.error(str);
     return str;
-})
+}

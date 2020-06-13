@@ -2,7 +2,7 @@
 const JLOADS_VERSION='1.0.4';
 // jlogs.js
 
-(typeof jlogs === 'function') || (jlogs = function () {
+if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
         str += arguments[i];
@@ -10,9 +10,9 @@ const JLOADS_VERSION='1.0.4';
     }
     console.log(str);
     return str;
-})
+}
 
-(typeof err === 'function') || (err = function () {
+if (typeof err !== 'function') err = function () {
     var str = ':: ';
     for (var i in arguments) {
         str += arguments[i];
@@ -20,7 +20,7 @@ const JLOADS_VERSION='1.0.4';
     }
     console.error(str);
     return str;
-})
+}
 // xhr.js
 jlogs('exist?','getXHRObject');
 /**

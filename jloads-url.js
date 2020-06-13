@@ -904,7 +904,8 @@ function onSelector(selector, callback) {
     jlogs(f, 'selector', selector);
 
     if(selector === 'string'){
-        var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
+        var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+        // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
         jlogs(f, ' elem ', elem);
 
         if (!isEmpty(elem)) {
@@ -958,13 +959,12 @@ function onSelector(selector, callback) {
             // error(elem);
         }
 
-    }
-    if (!isEmpty(selector)) {
+    } else if (!isEmpty(selector)) {
         jlogs(f, 'selector now', selector);
         return callback(selector);
+    } else {
+        jlogs(f, 'elem NOT', elem);
     }
-    jlogs(f, 'elem NOT', elem);
-
 }
 var map = {
     'js': 'js',

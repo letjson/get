@@ -10,13 +10,13 @@ function getTarget(selector) {
     const f = 'getTarget';
 
     if(typeof selector === 'string'){
-        jlogs(f, 'selector', selector);
+        jlogs(f, 'str selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        console.log(f, 'string target', target, typeof target);
+        console.log(f, 'target', target, typeof target);
         return target;
     }
 
-    console.log(f, 'obj target', selector);
+    console.log(f, 'obj selector', selector);
     //jlogs(f, ' target ', target);
     // if (isEmpty(target)) {
     //     target = document.getElementsByTagName('head')[0];

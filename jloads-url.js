@@ -1023,7 +1023,7 @@ var elem = document.body;
     jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
     jlogs('jloadsUrl getOne ', ' Load1 ', Load, typeof Load);
 
-    var jloads = Load(elem, success, error);
+    var jloads = new Load(elem, success, error);
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];

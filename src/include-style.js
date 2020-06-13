@@ -19,8 +19,8 @@ function includeStyle(url, target, success, error) {
     link.onload = success;
     link.onreadystatechange = success;
     onSelector(target, function (selector, element) {
-        jlogs('onSelector includeStyle target, getTarget(target), selector, element ', target, getTarget(target), selector, element);
-        getTarget(target).appendChild(link);
+        jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
+        getTarget(selector).appendChild(link);
     });
     // return getTarget(target).appendChild(link);
 }

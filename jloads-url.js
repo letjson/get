@@ -908,7 +908,7 @@ function onSelector(selector, callback) {
         jlogs(f, ' elem ', elem);
 
         if (!isEmpty(elem)) {
-            return callback(selector);
+            return callback(elem);
         } else {
             // if (i === 'head') {
             //     loadContentByUrls(jloads, object, mapFunction, success, error);
@@ -953,14 +953,14 @@ function onSelector(selector, callback) {
             waitFor(selector, 40, function (i) {
                 // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
                 jlogs(f, 'elem delay', elem);
-                return callback(selector);
+                return callback(elem);
             });
             // error(elem);
         }
 
     }
     if (!isEmpty(selector)) {
-        jlogs(f, 'elem now', elem);
+        jlogs(f, 'selector now', selector);
         return callback(selector);
     }
     jlogs(f, 'elem NOT', elem);

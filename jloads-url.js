@@ -7,9 +7,10 @@ if (typeof jlogs !== 'function') jlogs = function () {
     for (var i in arguments) {
         console.log('--- jlogs', arguments[i], typeof arguments[i]);
 
-        if (typeof arguments[i] === "string") {
+        if (typeof arguments[i] === "number") {
             str += arguments[i];
-
+        } else if (typeof arguments[i] === "string") {
+            str += arguments[i];
             // str += arguments[i].innerHTML;
         } else if (typeof arguments[i] === "object") {
             str += JSON.stringify(arguments[i]);
@@ -24,7 +25,7 @@ if (typeof jlogs !== 'function') jlogs = function () {
 }
 
 function xml2string(node) {
-    if (typeof(XMLSerializer) !== 'undefined') {
+    if (typeof (XMLSerializer) !== 'undefined') {
         var serializer = new XMLSerializer();
         return serializer.serializeToString(node);
     } else if (node.xml) {

@@ -15,29 +15,42 @@ const includeImage = function (url, target, replace, success, error) {
     jlogs(f, ' includeImg target: ', target);
 
 
-    let img = new Image;
     // img.onload = function () {
-        // jlogs(f, "include Image onload url: ", url);
-        // jlogs(f, "include Image replace: ", replace);
+    // jlogs(f, "include Image onload url: ", url);
+    // jlogs(f, "include Image replace: ", replace);
 
-        if (typeof replace === 'number' && replace === 1) {
-            replace = true;
-        }
-        // JLOADS_DEBUG ||jlogs('typeof self.cfg.replace', typeof self.cfg.replace);
-        jlogs(f, "include Image replace: ", replace);
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
+    // JLOADS_DEBUG ||jlogs('typeof self.cfg.replace', typeof self.cfg.replace);
+    jlogs(f, "include Image replace: ", replace);
 
 
-        if (replace) {
-            jlogs(f, 'includeImage getTarget(target): ', getTarget(target));
-            jlogs(f, 'includeImage getTarget(target) firstChild: ', getTarget(target).firstChild);
-            getTarget(target).removeChild(getTarget(target).firstChild);
-            // let element = document.getElementById("top");
-            // while (element.firstChild) {
-            //     element.removeChild(element.firstChild);
-            // }
-        }
-        getTarget(target).appendChild(img);
+    if (replace) {
+        jlogs(f, 'includeImage getTarget(target): ', getTarget(target));
+        jlogs(f, 'includeImage getTarget(target) firstChild: ', getTarget(target).firstChild);
+        // getTarget(target).removeChild(getTarget(target).firstChild);
+
+        onSelector(target, function (selector, element) {
+            console.log('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            element.removeChild(element);
+            let img = new Image;
+            img.src = url;  // erst nach dem Event Listener!
+        });
+        return;
+        // let element = document.getElementById("top");
+        // while (element.firstChild) {
+        //     element.removeChild(element.firstChild);
+        // }
+    }
+    // getTarget(target).appendChild(img);
+
+    onSelector(target, function (selector, element) {
+        console.log('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+        element.removeChild(element);
+        let img = new Image;
         img.src = url;  // erst nach dem Event Listener!
+    });
     // };
 
 }

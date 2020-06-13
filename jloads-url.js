@@ -273,7 +273,11 @@ function includeScript(url, target, success, error) {
     scriptTag.onload = success;
     scriptTag.onreadystatechange = success;
 
-    return getTarget(target).appendChild(scriptTag);
+    onSelector(target, function (selector, element) {
+        jlogs('onSelector includeScript target, getTarget(target), selector, element ', target, getTarget(target), selector, element);
+        getTarget(target).appendChild(scriptTag);
+    });
+    // return getTarget(target).appendChild(scriptTag);
 }
 // include-style.js
 jlogs('exist?', 'includeStyle');
@@ -295,8 +299,11 @@ function includeStyle(url, target, success, error) {
     link.onerror = error;
     link.onload = success;
     link.onreadystatechange = success;
-
-    return getTarget(target).appendChild(link);
+    onSelector(target, function (selector, element) {
+        jlogs('onSelector includeStyle target, getTarget(target), selector, element ', target, getTarget(target), selector, element);
+        getTarget(target).appendChild(link);
+    });
+    // return getTarget(target).appendChild(link);
 }
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:

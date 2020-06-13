@@ -11,7 +11,8 @@ var elem = document.body;
  * @param success
  * @param error
  */
-(typeof loadContentByUrls === 'function') || jlogs('exist?', 'loadContentByUrls') && (function loadContentByUrls(jloads, object, mapFunction, success, error) {
+jlogs('exist?', 'loadContentByUrls');
+if (typeof loadContentByUrls === 'function') function loadContentByUrls(jloads, object, mapFunction, success, error) {
 
     const f = 'jloadsUrl loadContentByUrls';
 
@@ -50,7 +51,7 @@ var elem = document.body;
         jlogs(f, ' isArray ERROR object', object);
         error(object);
     }
-})
+}
 
 
 
@@ -63,7 +64,8 @@ var elem = document.body;
  * @param success
  * @param error
  */
-(typeof getOne === 'function') || jlogs('exist?', 'getOne') && (getOne = function (jloads, object, i, mapFunction, success, error) {
+    jlogs('exist?', 'getOne')
+if (typeof getOne === 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
     const f = 'jloadsUrl getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
@@ -112,7 +114,7 @@ var elem = document.body;
         }
     }
     // error(elem);
-})
+}
 
 /**
  *
@@ -122,7 +124,8 @@ var elem = document.body;
  * @param mapFunction
  * @returns {Load}
  */
-(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') && (jloadsUrl = function (json, success, error, mapFunction) {
+jlogs('exist?', 'jloadsUrl');
+if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error, mapFunction) {
     const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code
@@ -164,7 +167,7 @@ var elem = document.body;
     // success(json);
 
     return jloads;
-})
+}
 
 
 
@@ -179,7 +182,8 @@ var elem = document.body;
  * @returns {*}
  * @constructor
  */
-(typeof ReadyHtml === 'function') || jlogs('exist?', 'ReadyHtml') && (ReadyHtml = function (object, i, mapFunction, success, error) {
+jlogs('exist?', 'ReadyHtml');
+if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
     const f = 'jloadsUrl ReadyHtml';
 
     jlogs(f, ' i ', i);
@@ -199,4 +203,4 @@ var elem = document.body;
         });
         // error(elem);
     }
-})
+}

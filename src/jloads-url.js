@@ -12,7 +12,7 @@ var elem = document.body;
  * @param error
  */
 jlogs('exist?', 'loadContentByUrls');
-if (typeof loadContentByUrls === 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
+if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
 
     const f = 'jloadsUrl loadContentByUrls';
 
@@ -65,7 +65,7 @@ if (typeof loadContentByUrls === 'function') loadContentByUrls = function (jload
  * @param error
  */
 jlogs('exist?', 'getOne');
-if (typeof getOne === 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
+if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
     const f = 'jloadsUrl getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());

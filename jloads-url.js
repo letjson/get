@@ -911,7 +911,7 @@ function onSelector(selector, callback) {
         jlogs(f, ' elem ', elem);
 
         if (!isEmpty(elem)) {
-            return callback(elem);
+            return callback(selector, elem);
         } else {
             // if (i === 'head') {
             //     loadContentByUrls(jloads, object, mapFunction, success, error);
@@ -956,8 +956,8 @@ function onSelector(selector, callback) {
             waitFor(selector, 40, function (selector) {
                 // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
                 console.log('onSelector waitFor selector', selector);
-
-                return callback(selector);
+                var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+                return callback(selector, elem);
             });
             // error(elem);
         }
@@ -967,7 +967,8 @@ function onSelector(selector, callback) {
     //     return callback(selector);
     } else {
         jlogs(f, 'elem NOT', selector);
-        return callback(selector);
+        // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+        return callback(selector, null);
     }
 }
 var map = {

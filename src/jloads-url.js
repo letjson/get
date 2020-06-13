@@ -64,7 +64,7 @@ if (typeof loadContentByUrls === 'function') function loadContentByUrls(jloads, 
  * @param success
  * @param error
  */
-    jlogs('exist?', 'getOne')
+jlogs('exist?', 'getOne');
 if (typeof getOne === 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
     const f = 'jloadsUrl getOne';
 

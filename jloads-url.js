@@ -131,7 +131,7 @@ jlogs('exist?', 'getTarget');
 function getTarget(selector) {
     const f = 'getTarget';
 
-    if(selector === 'string'){
+    if(typeof selector === 'string'){
         jlogs(f, 'selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
         jlogs(f, 'target', target);

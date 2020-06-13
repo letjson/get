@@ -2,22 +2,14 @@
 const JLOADS_VERSION='1.0.4';
 // jlogs.js
 
-if (typeof jlogs !== 'function') {
-
-    var print_log = function (arguments) {
-        var str = ':: ';
-        for (var i in arguments) {
-            str += arguments[i];
-            str += ', ';
-        }
-        console.log(str);
-        return str;
+typeof jlogs === 'function' || function jlogs () {
+    var str = ':: ';
+    for (var i in arguments) {
+        str += arguments[i];
+        str += ', ';
     }
-    var jlogs = function () {
-        return print_log(arguments);
-        // arguments[0] === 'Load' || print_log();
-    }
-
+    console.log(str);
+    return str;
 }
 
 if (typeof err !== 'function') {
@@ -93,12 +85,7 @@ function waitFor(selector, time, callback) {
         }, time);
     }
 }
-// get.js
-
-// PUBLIC
-var elem = document.body;
-
-var mapFunction = {
+var map = {
     'js': 'js',
     'css': 'css',
     'css2': 'css',
@@ -111,10 +98,10 @@ var mapFunction = {
     'html': 'html',
     'html5': 'html'
 }
+// get.js
 
-
-
-jlogs('exist?', 'jloadsUrl');
+// PUBLIC
+var elem = document.body;
 
 /**
  *
@@ -124,7 +111,7 @@ jlogs('exist?', 'jloadsUrl');
  * @param mapFunction
  * @returns {Load}
  */
-typeof jloadsUrl === 'function' || function jloadsUrl (json, success, error, mapFunction) {
+typeof jloadsUrl === 'function' || jlogs('exist?', 'jloadsUrl') || function jloadsUrl (json, success, error, mapFunction) {
     const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code
@@ -1079,8 +1066,8 @@ var Load = function (target, success, error) {
                 try {
                     includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     jlogs(this.constructor.name, ' img ', script_url);
-                } catch (err) {
-                    err('! img ', script_url, err);
+                } catch (e) {
+                    err('! img ', script_url, e);
                 }
             }
         } else {

@@ -1,21 +1,13 @@
 // jlogs.js
 
-if (typeof jlogs !== 'function') {
-
-    var print_log = function (arguments) {
-        var str = ':: ';
-        for (var i in arguments) {
-            str += arguments[i];
-            str += ', ';
-        }
-        console.log(str);
-        return str;
+typeof jlogs === 'function' || function jlogs () {
+    var str = ':: ';
+    for (var i in arguments) {
+        str += arguments[i];
+        str += ', ';
     }
-    var jlogs = function () {
-        return print_log(arguments);
-        // arguments[0] === 'Load' || print_log();
-    }
-
+    console.log(str);
+    return str;
 }
 
 if (typeof err !== 'function') {

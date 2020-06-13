@@ -3,24 +3,6 @@
 // PUBLIC
 var elem = document.body;
 
-var mapFunction = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html'
-}
-
-
-
-jlogs('exist?', 'jloadsUrl');
-
 /**
  *
  * @param json
@@ -29,7 +11,7 @@ jlogs('exist?', 'jloadsUrl');
  * @param mapFunction
  * @returns {Load}
  */
-typeof jloadsUrl === 'function' || function jloadsUrl (json, success, error, mapFunction) {
+typeof jloadsUrl === 'function' || jlogs('exist?', 'jloadsUrl') || function jloadsUrl (json, success, error, mapFunction) {
     const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code

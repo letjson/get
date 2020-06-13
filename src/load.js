@@ -378,8 +378,8 @@ var Load = function (target, success, error) {
                 try {
                     includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     jlogs(this.constructor.name, ' img ', script_url);
-                } catch (err) {
-                    err('! img ', script_url, err);
+                } catch (e) {
+                    err('! img ', script_url, e);
                 }
             }
         } else {

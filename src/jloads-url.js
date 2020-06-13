@@ -49,7 +49,7 @@ var elem = document.body;
 
     var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsUrl getOne ', ' Load ', Load, typeof Load);
+    jlogs('jloadsUrl getOne ', ' Load1 ', Load, typeof Load);
 
     var jloads = Load(elem, success, error);
 

@@ -30,9 +30,9 @@ function includeHtml(url, target, replace, success, error) {
     }
     jlogs(f, ' url ', url);
     // if html content, NOT URL
+    jlogs(f, ' includeHtml HTML target : ', target, getTarget(target));
 
     if (url.length > 100) {
-        jlogs(f, ' includeHtml HTML target : ', target, getTarget(target));
         getTarget(target).insertAdjacentHTML('beforeend', url);
         return success(this);
     } else if (url) {

@@ -307,9 +307,9 @@ function includeHtml(url, target, replace, success, error) {
     }
     jlogs(f, ' url ', url);
     // if html content, NOT URL
+    jlogs(f, ' includeHtml HTML target : ', target, getTarget(target));
 
     if (url.length > 100) {
-        jlogs(f, ' includeHtml HTML target : ', target, getTarget(target));
         getTarget(target).insertAdjacentHTML('beforeend', url);
         return success(this);
     } else if (url) {
@@ -1064,17 +1064,17 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunctio
 
     jlogs(f, ' i ', i);
     var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    jlogs(f, ' elem ', elem);
+    // jlogs(f, ' elem ', elem);
 
-    var jloads = new Load(elem, success, error);
+    var jloads = new Load(i, success, error);
 
     if (!isEmpty(elem)) {
         loadContentByUrls(jloads, object, mapFunction, success, error);
         success(elem);
     } else {
         waitFor(i, 40, function (i) {
-            var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-            var jloads = new Load(elem, success, error);
+            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+            var jloads = new Load(i, success, error);
             loadContentByUrls(jloads, object, mapFunction, success, error);
         });
         // error(elem);

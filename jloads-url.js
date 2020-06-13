@@ -373,8 +373,9 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
 
     if (status == 200) {
         jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
-        onSelector(target, function(selector, element){
-            console.log('onSelector insertAdjacentHTML selector, element, responseText  ', selector, element, responseText, target);
+        onSelector(target, function (selector, element) {
+            console.log('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            console.log('onSelector insertAdjacentHTML responseText  ', responseText);
             element.insertAdjacentHTML('beforeend', responseText);
         });
         return success(this);

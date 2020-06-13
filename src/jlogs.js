@@ -3,7 +3,11 @@
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
-        str += arguments[i];
+        if (typeof arguments[i] === "object") {
+            str += JSON.stringify(obj);
+        } else {
+            str += arguments[i];
+        }
         str += ', ';
     }
     console.log(str);

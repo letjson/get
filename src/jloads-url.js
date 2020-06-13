@@ -149,11 +149,10 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
     jlogs(' jloadsUrl', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
 
-    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsUrl getOne ', ' Load1 ', Load, typeof Load);
-
-    var jloads = new Load(elem, success, error);
+    // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    // jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
+    jlogs('jloadsUrl getOne ', ' i ', i);
+    var jloads = new Load(i, success, error);
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];

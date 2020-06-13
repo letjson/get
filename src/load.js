@@ -331,7 +331,7 @@ var Load = function (target, success, error) {
 
                 try {
                     // if (last) {
-                    var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // } else {
                     //     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // }

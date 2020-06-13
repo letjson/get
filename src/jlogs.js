@@ -16,7 +16,6 @@ if (typeof jlogs !== 'function') jlogs = function () {
             str += JSON.stringify(arguments[i]);
         } else {
             str += xml2string(arguments[i]);
-
         }
         str += ', ';
     }

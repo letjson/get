@@ -7,11 +7,12 @@ jlogs('exist?', 'getTarget');
  * @returns {HTMLHeadElement}
  */
 function onSelector(selector, callback) {
-    const f = 'target';
+    const f = 'onSelector';
 
     jlogs(f, 'selector', selector);
 
-    if(selector === 'string'){
+    if (selector === 'string') {
+
         var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
         jlogs(f, ' elem ', elem);
@@ -67,10 +68,11 @@ function onSelector(selector, callback) {
             // error(elem);
         }
 
-    } else if (!isEmpty(selector)) {
-        jlogs(f, 'selector now', selector);
-        return callback(selector);
+    // } else if (!isEmpty(selector)) {
+    //     jlogs(f, 'selector now', selector);
+    //     return callback(selector);
     } else {
-        jlogs(f, 'elem NOT', elem);
+        jlogs(f, 'elem NOT', selector);
+        return callback(selector);
     }
 }

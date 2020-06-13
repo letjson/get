@@ -11,7 +11,7 @@ function onSelector(selector, callback) {
 
     jlogs(f, 'selector', selector);
 
-    if (selector === 'string') {
+    if (typeof selector === 'string') {
 
         var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;

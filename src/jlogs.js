@@ -5,8 +5,7 @@ if (typeof jlogs !== 'function') jlogs = function () {
     for (var i in arguments) {
         if (typeof arguments[i].innerHTML === "string") {
             str += arguments[i].innerHTML;
-        }
-        if (typeof arguments[i] === "object") {
+        } else if (typeof arguments[i] === "object") {
             str += JSON.stringify(arguments[i].innerHTML);
         } else {
             str += arguments[i];

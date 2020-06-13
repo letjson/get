@@ -73,6 +73,9 @@ function onSelector(selector, callback) {
     } else {
         jlogs(f, 'elem NOT', selector);
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-        return callback(selector, document.body);
+        document.addEventListener("DOMContentLoaded", function () {
+            jlogs(f, 'elem NOT DOMContentLoaded', selector);
+            callback(selector, document.body);
+        });
     }
 }

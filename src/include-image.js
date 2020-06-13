@@ -33,7 +33,8 @@ const includeImage = function (url, target, replace, success, error) {
 
         onSelector(target, function (selector, element) {
             console.log('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            element.removeChild(element);
+            // element.removeChild(element);
+            getTarget(target).removeChild(getTarget(target).firstChild);
             let img = new Image;
             img.src = url;  // erst nach dem Event Listener!
         });

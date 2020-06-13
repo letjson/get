@@ -60,10 +60,11 @@ function onSelector(selector, callback) {
             //         error(e);
             //     }
             // }
-            waitFor(selector, 40, function (i) {
+            waitFor(selector, 40, function (selector) {
                 // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-                jlogs(f, 'elem delay', elem);
-                return callback(elem);
+                console.log('onSelector waitFor selector', selector);
+
+                return callback(selector);
             });
             // error(elem);
         }

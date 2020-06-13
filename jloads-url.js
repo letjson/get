@@ -961,16 +961,13 @@ function onSelector(selector, callback) {
                 console.log('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
                 return callback(selector, elem);
             });
-            // error(elem);
+            return;
         }
 
-    // } else if (!isEmpty(selector)) {
-    //     jlogs(f, 'selector now', selector);
-    //     return callback(selector);
     } else {
         jlogs(f, 'elem NOT', selector);
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-        return callback(selector, null);
+        return callback(selector, document.body);
     }
 }
 var map = {

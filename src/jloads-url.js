@@ -12,7 +12,7 @@ var elem = document.body;
  * @param error
  */
 jlogs('exist?', 'loadContentByUrls');
-if (typeof loadContentByUrls === 'function') function loadContentByUrls(jloads, object, mapFunction, success, error) {
+if (typeof loadContentByUrls === 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
 
     const f = 'jloadsUrl loadContentByUrls';
 

@@ -122,7 +122,7 @@ var elem = document.body;
  * @param mapFunction
  * @returns {Load}
  */
-(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') && (var jloadsUrl = function (json, success, error, mapFunction) {
+(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') && (jloadsUrl = function (json, success, error, mapFunction) {
     const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code

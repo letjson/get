@@ -5,7 +5,9 @@ if (typeof jlogs !== 'function') jlogs = function () {
     for (var i in arguments) {
         console.log('--- jlogs', arguments[i], typeof arguments[i]);
 
-        if (typeof arguments[i] === "number") {
+        if (typeof arguments[i] === "undefined") {
+            str += '';
+        } else if (typeof arguments[i] === "number") {
             str += arguments[i];
         } else if (typeof arguments[i] === "string") {
             str += arguments[i];

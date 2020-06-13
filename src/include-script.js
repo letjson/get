@@ -21,7 +21,7 @@ function includeScript(url, target, success, error) {
     scriptTag.onreadystatechange = success;
 
     onSelector(target, function (selector, element) {
-        jlogs('onSelector includeScript target, getTarget(target), selector, element ', target, getTarget(target), selector, element);
+        jlogs('onSelector includeScript target getTarget(target) selector element: ', target, getTarget(target), selector, element);
         getTarget(target).appendChild(scriptTag);
     });
     // return getTarget(target).appendChild(scriptTag);

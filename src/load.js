@@ -220,9 +220,9 @@ var Load = function (target, success, error) {
 
                 try {
                     if (last) {
-                        var exe = includeScript(script_url, target, success, error);
+                        includeScript(script_url, target, success, error);
                     } else {
-                        var exe = includeScript(script_url, target);
+                        includeScript(script_url, target);
                     }
                     jlogs(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {

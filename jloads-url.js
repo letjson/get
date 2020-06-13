@@ -276,7 +276,7 @@ function includeScript(url, target, success, error) {
     scriptTag.onreadystatechange = success;
 
     onSelector(target, function (selector, element) {
-        jlogs('onSelector includeScript target, getTarget(target), selector, element ', target, getTarget(target), selector, element);
+        jlogs('onSelector includeScript target getTarget(target) selector element: ', target, getTarget(target), selector, element);
         getTarget(target).appendChild(scriptTag);
     });
     // return getTarget(target).appendChild(scriptTag);
@@ -675,9 +675,9 @@ var Load = function (target, success, error) {
 
                 try {
                     if (last) {
-                        var exe = includeScript(script_url, target, success, error);
+                        includeScript(script_url, target, success, error);
                     } else {
-                        var exe = includeScript(script_url, target);
+                        includeScript(script_url, target);
                     }
                     jlogs(this.constructor.name, ' js ', script_url, exe);
                 } catch (err) {
@@ -928,7 +928,7 @@ jlogs('exist?', 'getTarget');
 function onSelector(selector, callback) {
     const f = 'onSelector';
 
-    jlogs(f, 'selector', selector);
+    jlogs(f, 'selector typeof', selector, typeof selector);
 
     if (typeof selector === 'string') {
 
@@ -993,19 +993,18 @@ function onSelector(selector, callback) {
 
         jlogs(f, 'elem NOT', selector);
         selector = 'body';
-        var elem = document.body;
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-        document.addEventListener("DOMContentLoaded", function () {
-            jlogs(f, 'elem NOT DOMContentLoaded', selector);
-            callback(selector, elem);
-        });
-        // waitFor(selector, 40, function (selector) {
+        // document.addEventListener("DOMContentLoaded", function () {
         //     var elem = document.body;
-        //     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-        //     console.log('onSelector waitFor selector', selector);
-        //     console.log('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
-        //     return callback(selector, elem);
+        //     jlogs(f, 'elem NOT DOMContentLoaded', selector);
+        //     callback(selector, elem);
         // });
+        waitFor(selector, 40, function (selector) {
+            var elem = document.body;
+            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+            console.log('onSelector waitFor selector', selector);
+            return callback(selector, elem);
+        });
     }
 }
 var map = {

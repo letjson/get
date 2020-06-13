@@ -9,7 +9,7 @@ jlogs('exist?', 'getTarget');
 function onSelector(selector, callback) {
     const f = 'onSelector';
 
-    jlogs(f, 'selector', selector);
+    jlogs(f, 'selector typeof', selector, typeof selector);
 
     if (typeof selector === 'string') {
 
@@ -74,18 +74,17 @@ function onSelector(selector, callback) {
 
         jlogs(f, 'elem NOT', selector);
         selector = 'body';
-        var elem = document.body;
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-        document.addEventListener("DOMContentLoaded", function () {
-            jlogs(f, 'elem NOT DOMContentLoaded', selector);
-            callback(selector, elem);
-        });
-        // waitFor(selector, 40, function (selector) {
+        // document.addEventListener("DOMContentLoaded", function () {
         //     var elem = document.body;
-        //     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-        //     console.log('onSelector waitFor selector', selector);
-        //     console.log('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
-        //     return callback(selector, elem);
+        //     jlogs(f, 'elem NOT DOMContentLoaded', selector);
+        //     callback(selector, elem);
         // });
+        waitFor(selector, 40, function (selector) {
+            var elem = document.body;
+            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+            console.log('onSelector waitFor selector', selector);
+            return callback(selector, elem);
+        });
     }
 }

@@ -7,13 +7,15 @@ if (typeof jlogs !== 'function') jlogs = function () {
     for (var i in arguments) {
         console.log('--- jlogs', arguments[i], typeof arguments[i]);
 
-        if (typeof arguments[i].innerHTML !== "undefined") {
+        if (typeof arguments[i] === "string") {
+            str += arguments[i];
+
             // str += arguments[i].innerHTML;
-            str += xml2string(arguments[i]);
         } else if (typeof arguments[i] === "object") {
             str += JSON.stringify(arguments[i]);
         } else {
-            str += arguments[i];
+            str += xml2string(arguments[i]);
+
         }
         str += ', ';
     }

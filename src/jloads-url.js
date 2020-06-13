@@ -11,7 +11,7 @@ var elem = document.body;
  * @param mapFunction
  * @returns {Load}
  */
-(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') || (function jloadsUrl(json, success, error, mapFunction) {
+(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') && (function jloadsUrl(json, success, error, mapFunction) {
     const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code
@@ -76,7 +76,7 @@ var elem = document.body;
  * @param success
  * @param error
  */
-(typeof getOne === 'function') || jlogs('exist?', 'getOne') || (function getOne(jloads, object, i, mapFunction, success, error) {
+(typeof getOne === 'function') || jlogs('exist?', 'getOne') && (function getOne(jloads, object, i, mapFunction, success, error) {
     const f = 'jloadsUrl getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
@@ -137,7 +137,7 @@ jlogs('exist?', 'loadContentByUrls');
  * @param success
  * @param error
  */
-(typeof loadContentByUrls === 'function') || jlogs('exist?', 'loadContentByUrls') || (function loadContentByUrls(jloads, object, mapFunction, success, error) {
+(typeof loadContentByUrls === 'function') || jlogs('exist?', 'loadContentByUrls') && (function loadContentByUrls(jloads, object, mapFunction, success, error) {
 
     const f = 'jloadsUrl loadContentByUrls';
 
@@ -189,7 +189,7 @@ jlogs('exist?', 'loadContentByUrls');
  * @returns {*}
  * @constructor
  */
-(typeof ReadyHtml === 'function') || jlogs('exist?', 'ReadyHtml') || (function ReadyHtml(object, i, mapFunction, success, error) {
+(typeof ReadyHtml === 'function') || jlogs('exist?', 'ReadyHtml') && (function ReadyHtml(object, i, mapFunction, success, error) {
     const f = 'jloadsUrl ReadyHtml';
 
     jlogs(f, ' i ', i);

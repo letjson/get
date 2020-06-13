@@ -3,7 +3,7 @@ jlogs('exist?', 'getTarget');
 
 /**
  *
- * @param target
+ * @param selector
  * @returns {HTMLHeadElement}
  */
 function getTarget(selector) {

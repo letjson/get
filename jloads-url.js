@@ -112,6 +112,7 @@ function getTarget(selector) {
     const f = 'getTarget';
 
     var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector); // || document.body;
+    jlogs(f, 'selector', selector, target);
 
     //jlogs(f, ' target ', target);
     if (isEmpty(target)) {

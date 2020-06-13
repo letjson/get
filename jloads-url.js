@@ -134,11 +134,11 @@ function getTarget(selector) {
     if(typeof selector === 'string'){
         jlogs(f, 'selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        console.log(f, '1 target', target);
+        console.log(f, 'string target', target);
         return target;
     }
 
-    console.log(f, '2 target', selector);
+    console.log(f, 'obj target', selector);
     //jlogs(f, ' target ', target);
     // if (isEmpty(target)) {
     //     target = document.getElementsByTagName('head')[0];

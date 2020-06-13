@@ -11,7 +11,8 @@ jlogs('exist?', 'waitFor');
 function waitFor(selector, time, callback) {
     const f = 'waitFor';
     jlogs(f, ' selector ', selector);
-    if (document.querySelector(selector) != null) {
+    jlogs(f, ' selector typeof ', typeof document.querySelector(selector));
+    if (typeof document.querySelector(selector) !== "null") {
         // alert("The element is displayed, you can put your code instead of this alert.")
         return callback(selector);
     } else {

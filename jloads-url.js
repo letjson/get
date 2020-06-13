@@ -990,12 +990,22 @@ function onSelector(selector, callback) {
         }
 
     } else {
+
         jlogs(f, 'elem NOT', selector);
+        selector = 'body';
+        var elem = document.body;
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
         document.addEventListener("DOMContentLoaded", function () {
             jlogs(f, 'elem NOT DOMContentLoaded', selector);
-            callback(selector, document.body);
+            callback(selector, elem);
         });
+        // waitFor(selector, 40, function (selector) {
+        //     var elem = document.body;
+        //     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+        //     console.log('onSelector waitFor selector', selector);
+        //     console.log('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
+        //     return callback(selector, elem);
+        // });
     }
 }
 var map = {

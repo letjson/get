@@ -63,7 +63,7 @@ var elem = document.body;
  * @param success
  * @param error
  */
-(typeof getOne === 'function') || jlogs('exist?', 'getOne') && (function getOne(jloads, object, i, mapFunction, success, error) {
+(typeof getOne === 'function') || jlogs('exist?', 'getOne') && (getOne = function (jloads, object, i, mapFunction, success, error) {
     const f = 'jloadsUrl getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
@@ -179,7 +179,7 @@ var elem = document.body;
  * @returns {*}
  * @constructor
  */
-(typeof ReadyHtml === 'function') || jlogs('exist?', 'ReadyHtml') && (function ReadyHtml(object, i, mapFunction, success, error) {
+(typeof ReadyHtml === 'function') || jlogs('exist?', 'ReadyHtml') && (ReadyHtml = function (object, i, mapFunction, success, error) {
     const f = 'jloadsUrl ReadyHtml';
 
     jlogs(f, ' i ', i);

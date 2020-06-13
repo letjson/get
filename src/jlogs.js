@@ -4,7 +4,7 @@ if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
         if (typeof arguments[i] === "object") {
-            str += JSON.stringify(obj);
+            str += JSON.stringify(arguments[i]);
         } else {
             str += arguments[i];
         }

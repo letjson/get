@@ -2,7 +2,7 @@
 const JLOADS_VERSION='1.0.4';
 // jlogs.js
 
-typeof jlogs === 'function' || function jlogs () {
+typeof jlogs === 'function' || function jlogs() {
     var str = ':: ';
     for (var i in arguments) {
         str += arguments[i];
@@ -12,21 +12,14 @@ typeof jlogs === 'function' || function jlogs () {
     return str;
 }
 
-if (typeof err !== 'function') {
-    var print_error = function (arguments) {
-        var str = ':: ';
-        for (var i in arguments) {
-            str += arguments[i];
-            str += ', ';
-        }
-        console.error(str);
-        return str;
+typeof err === 'function' || function err() {
+    var str = ':: ';
+    for (var i in arguments) {
+        str += arguments[i];
+        str += ', ';
     }
-    var err = function () {
-        return print_error(arguments);
-        // arguments[0] === 'Load' || print_log();
-    }
-
+    console.error(str);
+    return str;
 }
 // get-file-extension.js
 jlogs('exist?', 'getFileExtension');

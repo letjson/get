@@ -8,3 +8,5 @@ dynamic observer, depends element
 jlogs 
 # v1.0.5 
 jloads.content.js 
+# v1.0.6 
+rename to jloads-url.js 

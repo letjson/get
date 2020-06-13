@@ -1,4 +1,4 @@
-// load.js
+// get.js
 
 // PUBLIC
 var elem = document.body;

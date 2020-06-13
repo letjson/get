@@ -93,7 +93,7 @@ function waitFor(selector, time, callback) {
         }, time);
     }
 }
-// load.js
+// get.js
 
 // PUBLIC
 var elem = document.body;

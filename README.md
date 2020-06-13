@@ -5,7 +5,7 @@
 
 + [jloads.github.io/Load/](https://jloads.github.io/Load/)
 
-+ [load.jloads.com](https://load.jloads.com/)
++ [get.jloads.com](https://get.jloads.com/)
 
 + [changelog.md](changelog.md)
 
@@ -16,7 +16,7 @@ npm upgrade
     npm install -g npm
  
 ### production
-[jLoads.Load - load.jloads.com](https://load.jloads.com/)
+[jLoads.Load - get.jloads.com](https://get.jloads.com/)
 
 ### local
 [jLoads.Load - localhost:8080](http://localhost:8080/)
@@ -218,12 +218,12 @@ możliwość wyłączenia cache-owania
 
 aplikacja html 
     
-     <script src="https://jloads.github.io/Load/load.js"></script>
+     <script src="https://jloads.github.io/get/jloads-url.js"></script>
  
 
 framework laravel
 
-    {!! Html::script('https://jloads.github.io/Load/load.js') !!}
+    {!! Html::script('https://jloads.github.io/get/jloads-url.js') !!}
 
 
 ### TODO

@@ -138,7 +138,7 @@ function getTarget(selector) {
         return target;
     }
 
-    jlogs(f, 'target', selector);
+    console.log(f, 'target', selector);
     //jlogs(f, ' target ', target);
     // if (isEmpty(target)) {
     //     target = document.getElementsByTagName('head')[0];

@@ -134,9 +134,11 @@ function getTarget(selector) {
     if(selector === 'string'){
         jlogs(f, 'selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
+        jlogs(f, 'target', target);
+        return target;
     }
 
-    jlogs(f, 'target', target);
+    jlogs(f, 'target', selector);
     //jlogs(f, ' target ', target);
     // if (isEmpty(target)) {
     //     target = document.getElementsByTagName('head')[0];
@@ -148,7 +150,7 @@ function getTarget(selector) {
     // }
     // jlogs(f, 'target', target);
 
-    return target;
+    return selector;
 }
 // e.js
 jlogs('exist?', 'getTarget');

@@ -5,7 +5,7 @@ const JLOADS_VERSION='1.0.4';
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
-        console.log('--- jlogs', arguments[i], typeof arguments[i]);
+        console.log('--- jlogs', typeof arguments[i]);
 
         if (typeof arguments[i] === "undefined") {
             str += '';

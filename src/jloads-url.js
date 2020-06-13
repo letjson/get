@@ -125,7 +125,7 @@ var elem = document.body;
         }
     }
     // error(elem);
-}
+})
 
 jlogs('exist?', 'loadContentByUrls');
 
@@ -137,7 +137,7 @@ jlogs('exist?', 'loadContentByUrls');
  * @param success
  * @param error
  */
-function loadContentByUrls(jloads, object, mapFunction, success, error) {
+(typeof loadContentByUrls === 'function') || jlogs('exist?', 'loadContentByUrls') || (function loadContentByUrls(jloads, object, mapFunction, success, error) {
 
     const f = 'jloadsUrl loadContentByUrls';
 
@@ -176,9 +176,8 @@ function loadContentByUrls(jloads, object, mapFunction, success, error) {
         jlogs(f, ' isArray ERROR object', object);
         error(object);
     }
-}
+})
 
-jlogs('exist?', 'ReadyHtml');
 
 /**
  *
@@ -190,7 +189,7 @@ jlogs('exist?', 'ReadyHtml');
  * @returns {*}
  * @constructor
  */
-function ReadyHtml(object, i, mapFunction, success, error) {
+(typeof ReadyHtml === 'function') || jlogs('exist?', 'ReadyHtml') || (function ReadyHtml(object, i, mapFunction, success, error) {
     const f = 'jloadsUrl ReadyHtml';
 
     jlogs(f, ' i ', i);
@@ -210,4 +209,4 @@ function ReadyHtml(object, i, mapFunction, success, error) {
         });
         // error(elem);
     }
-}
+})

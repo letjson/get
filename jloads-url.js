@@ -5,8 +5,11 @@ const JLOADS_VERSION='1.0.4';
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
+        if (typeof arguments[i].innerHTML === "string") {
+            str += arguments[i].innerHTML;
+        }
         if (typeof arguments[i] === "object") {
-            str += JSON.stringify(arguments[i]);
+            str += JSON.stringify(arguments[i].innerHTML);
         } else {
             str += arguments[i];
         }

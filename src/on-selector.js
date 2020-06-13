@@ -80,11 +80,19 @@ function onSelector(selector, callback) {
         //     jlogs(f, 'elem NOT DOMContentLoaded', selector);
         //     callback(selector, elem);
         // });
-        waitFor(selector, 40, function (selector) {
+        // waitFor(selector, 40, function (selector) {
+        //     var elem = document.body;
+        //     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+        //     console.log('onSelector waitFor selector', selector);
+        // });
+
+
+        document.addEventListener("DOMContentLoaded", function(event) {
             var elem = document.body;
-            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-            console.log('onSelector waitFor selector', selector);
-            return callback(selector, elem);
+            jlogs(f, 'elem NOT DOMContentLoaded selector', selector, elem);
+            jlogs(f, 'elem NOT DOMContentLoaded elem',  elem);
+            callback(selector, elem);
         });
+
     }
 }

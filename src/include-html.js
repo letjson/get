@@ -70,7 +70,9 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
 
     if (status == 200) {
         jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
-        getTarget(target).insertAdjacentHTML('beforeend', responseText);
+        onSelector(target, function(e){
+            e.insertAdjacentHTML('beforeend', responseText);
+        });
         return success(this);
     }
     if (status == 404) {

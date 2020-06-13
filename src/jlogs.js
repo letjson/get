@@ -3,7 +3,7 @@
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
-        console.log(arguments[i]);
+        console.log('--- jlogs', arguments[i], typeof arguments[i]);
 
         if (typeof arguments[i].innerHTML !== "undefined") {
             // str += arguments[i].innerHTML;

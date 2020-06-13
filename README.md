@@ -3,8 +3,6 @@
 
 # Load JS files
 
-+ [jloads.github.io/Load/](https://jloads.github.io/Load/)
-
 + [get.jloads.com](https://get.jloads.com/)
 
 + [changelog.md](changelog.md)
@@ -218,12 +216,12 @@ możliwość wyłączenia cache-owania
 
 aplikacja html 
     
-     <script src="https://jloads.github.io/get/jloads-url.js"></script>
+     <script src="https://get.jloads.com/jloads-url.js"></script>
  
 
 framework laravel
 
-    {!! Html::script('https://jloads.github.io/get/jloads-url.js') !!}
+    {!! Html::script('https://get.jloads.com/jloads-url.js') !!}
 
 
 ### TODO

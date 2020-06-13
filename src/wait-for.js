@@ -11,8 +11,8 @@ jlogs('exist?', 'waitFor');
 function waitFor(selector, time, callback) {
     const f = 'waitFor';
     jlogs(f, ' selector ', selector);
-    console.log(f, ' selector document.querySelector(selector) ', typeof document.querySelector(selector), document.querySelector(selector));
-    console.log(f, ' selector document.querySelectorAll(selector) ', typeof document.querySelectorAll(selector), document.querySelectorAll(selector), document.querySelectorAll(selector).length);
+    // console.log(f, ' selector document.querySelector(selector) ', typeof document.querySelector(selector), document.querySelector(selector));
+    // console.log(f, ' selector document.querySelectorAll(selector) ', typeof document.querySelectorAll(selector), document.querySelectorAll(selector), document.querySelectorAll(selector).length);
     if (typeof document.querySelectorAll(selector) === 'object' && document.querySelectorAll(selector).length > 0) {
         // alert("The element is displayed, you can put your code instead of this alert.")
         return callback(selector);

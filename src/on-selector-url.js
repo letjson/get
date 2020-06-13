@@ -63,8 +63,8 @@ function onSelector(selector, callback) {
             waitFor(selector, 40, function (selector) {
                 var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
                 // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-                console.log('onSelector waitFor selector', selector);
-                console.log('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
+                jlogs('onSelector waitFor selector', selector);
+                jlogs('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
                 return callback(selector, elem);
             });
             return;

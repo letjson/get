@@ -134,11 +134,11 @@ function getTarget(selector) {
     if(typeof selector === 'string'){
         jlogs(f, 'str selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        console.log(f, 'target', target, typeof target);
+        jlogs(f, 'target', target, typeof target);
         return target;
     }
 
-    console.log(f, 'obj selector', selector);
+    jlogs(f, 'obj selector', selector);
     //jlogs(f, ' target ', target);
     // if (isEmpty(target)) {
     //     target = document.getElementsByTagName('head')[0];
@@ -383,8 +383,8 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
     if (status == 200) {
         jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
         onSelector(target, function (selector, element) {
-            console.log('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            console.log('onSelector insertAdjacentHTML responseText  ', responseText);
+            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
             element.insertAdjacentHTML('beforeend', responseText);
         });
         return success(this);
@@ -907,8 +907,8 @@ jlogs('exist?', 'waitFor');
 function waitFor(selector, time, callback) {
     const f = 'waitFor';
     jlogs(f, ' selector ', selector);
-    console.log(f, ' selector document.querySelector(selector) ', typeof document.querySelector(selector), document.querySelector(selector));
-    console.log(f, ' selector document.querySelectorAll(selector) ', typeof document.querySelectorAll(selector), document.querySelectorAll(selector), document.querySelectorAll(selector).length);
+    // console.log(f, ' selector document.querySelector(selector) ', typeof document.querySelector(selector), document.querySelector(selector));
+    // console.log(f, ' selector document.querySelectorAll(selector) ', typeof document.querySelectorAll(selector), document.querySelectorAll(selector), document.querySelectorAll(selector).length);
     if (typeof document.querySelectorAll(selector) === 'object' && document.querySelectorAll(selector).length > 0) {
         // alert("The element is displayed, you can put your code instead of this alert.")
         return callback(selector);
@@ -983,8 +983,8 @@ function onSelector(selector, callback) {
             waitFor(selector, 40, function (selector) {
                 var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
                 // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-                console.log('onSelector waitFor selector', selector);
-                console.log('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
+                jlogs('onSelector waitFor selector', selector);
+                jlogs('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
                 return callback(selector, elem);
             });
             return;

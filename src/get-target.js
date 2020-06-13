@@ -12,11 +12,11 @@ function getTarget(selector) {
     if(typeof selector === 'string'){
         jlogs(f, 'str selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        console.log(f, 'target', target, typeof target);
+        jlogs(f, 'target', target, typeof target);
         return target;
     }
 
-    console.log(f, 'obj selector', selector);
+    jlogs(f, 'obj selector', selector);
     //jlogs(f, ' target ', target);
     // if (isEmpty(target)) {
     //     target = document.getElementsByTagName('head')[0];

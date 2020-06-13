@@ -124,7 +124,7 @@ jlogs('exist?', 'jloadsUrl');
  * @param mapFunction
  * @returns {Load}
  */
-typeof jloadsUrl === 'function' || var jloadsUrl =  function(json, success, error, mapFunction) {
+typeof jloadsUrl === 'function' || function jloadsUrl (json, success, error, mapFunction) {
     const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code

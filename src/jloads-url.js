@@ -11,7 +11,7 @@ var elem = document.body;
  * @param mapFunction
  * @returns {Load}
  */
-typeof jloadsUrl === 'function' || jlogs('exist?', 'jloadsUrl') || function jloadsUrl (json, success, error, mapFunction) {
+(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') || (function jloadsUrl(json, success, error, mapFunction) {
     const f = 'jloadsUrl';
 
     //url is URL of external file, success is the code
@@ -64,9 +64,8 @@ typeof jloadsUrl === 'function' || jlogs('exist?', 'jloadsUrl') || function jloa
     // success(json);
 
     return jloads;
-}
+})
 
-jlogs('exist?', 'getOne');
 
 /**
  *
@@ -77,7 +76,7 @@ jlogs('exist?', 'getOne');
  * @param success
  * @param error
  */
-function getOne(jloads, object, i, mapFunction, success, error) {
+(typeof getOne === 'function') || jlogs('exist?', 'getOne') || (function getOne(jloads, object, i, mapFunction, success, error) {
     const f = 'jloadsUrl getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
@@ -154,7 +153,7 @@ function loadContentByUrls(jloads, object, mapFunction, success, error) {
             if (typeof url === 'string') {
                 try {
                     // base64 in url
-                    if(url.length >200){
+                    if (url.length > 200) {
                         jloads['img'](url);
                     } else {
                         const funcName = getFunctionName(url, mapFunction);

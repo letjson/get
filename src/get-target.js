@@ -12,7 +12,7 @@ function getTarget(selector) {
     if(typeof selector === 'string'){
         jlogs(f, 'selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        console.log(f, 'string target', target);
+        console.log(f, 'string target', target, typeof target);
         return target;
     }
 

@@ -9,6 +9,8 @@ if (typeof jlogs !== 'function') jlogs = function () {
 
         if (typeof arguments[i] === "undefined") {
             str += '';
+        } else if (typeof arguments[i] === "boolean") {
+            str += arguments[i];
         } else if (typeof arguments[i] === "number") {
             str += arguments[i];
         } else if (typeof arguments[i] === "string") {

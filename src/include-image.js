@@ -32,7 +32,7 @@ const includeImage = function (url, target, replace, success, error) {
         // getTarget(target).removeChild(getTarget(target).firstChild);
 
         onSelector(target, function (selector, element) {
-            console.log('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // element.removeChild(element);
             getTarget(target).removeChild(getTarget(target).firstChild);
             let img = new Image;
@@ -48,7 +48,7 @@ const includeImage = function (url, target, replace, success, error) {
     // getTarget(target).appendChild(img);
 
     onSelector(target, function (selector, element) {
-        console.log('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+        jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
         let img = new Image;
         img.src = url;  // erst nach dem Event Listener!
         element.appendChild(img);

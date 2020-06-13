@@ -5,70 +5,56 @@ var elem = document.body;
 
 /**
  *
- * @param json
+ * @param jloads
+ * @param object
+ * @param mapFunction
  * @param success
  * @param error
- * @param mapFunction
- * @returns {Load}
  */
-(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') && (var jloadsUrl = function (json, success, error, mapFunction) {
-    const f = 'jloadsUrl';
+(typeof loadContentByUrls === 'function') || jlogs('exist?', 'loadContentByUrls') && (function loadContentByUrls(jloads, object, mapFunction, success, error) {
 
-    //url is URL of external file, success is the code
-    //to be called from the file, location is the location to
-    //insert the <script> element
+    const f = 'jloadsUrl loadContentByUrls';
 
-    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
-        // Configuration
-        success = function (data) {
-            console.log(f, ' loaded ', data);
-        };
-        error = function (data) {
-            console.error(f, ' !loaded ', data);
-        };
-    }
+    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
 
-    if (typeof mapFunction !== 'object') {
-        // Configuration
-        mapFunction = {
-            'js': 'js',
-            'css': 'css',
-            'css2': 'css',
-            'css3': 'css',
-            'png': 'img',
-            'bmp': 'img',
-            'jpg': 'img',
-            'gif': 'img',
-            'htm': 'html',
-            'html': 'html',
-            'html5': 'html'
+    if (isArray(object)) {
+        var url = '';
+        for (var id in object) {
+            jlogs(f, ' isArray', ' id ', id);
+            url = object[id];
+            jlogs(f, ' isArray', ' url ', url);
+
+            if (typeof url === 'string') {
+                try {
+                    // base64 in url
+                    if (url.length > 200) {
+                        jloads['img'](url);
+                    } else {
+                        const funcName = getFunctionName(url, mapFunction);
+                        jlogs(f, ' funcName ', funcName);
+                        //jlogs(funcName, url, elem);
+                        jloads[funcName](url);
+                    }
+                    success(url);
+                } catch (e) {
+                    //jlogs(f, ' ERROR elem ', elem);
+                    jlogs(f, ' ERROR e ', e);
+                    error(e);
+                }
+
+                // jloads.js([url]);
+                // elem.appendChild(url, funcName);
+            }
         }
-    }
-    jlogs(' jloadsUrl', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
-
-
-    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsUrl getOne ', ' Load1 ', Load, typeof Load);
-
-    var jloads = Load(elem, success, error);
-
-    if (Object.keys(json).length === 1) {
-        var i = Object.keys(json)[0];
-        getOne(jloads, json[i], i, mapFunction, success, error)
     } else {
-        for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
-        }
+        jlogs(f, ' isArray ERROR object', object);
+        error(object);
     }
-    // success(json);
-
-    return jloads;
 })
 
 
-/**
+
+    /**
  *
  * @param jloads
  * @param object
@@ -128,56 +114,59 @@ var elem = document.body;
     // error(elem);
 })
 
-jlogs('exist?', 'loadContentByUrls');
-
 /**
  *
- * @param jloads
- * @param object
- * @param mapFunction
+ * @param json
  * @param success
  * @param error
+ * @param mapFunction
+ * @returns {Load}
  */
-(typeof loadContentByUrls === 'function') || jlogs('exist?', 'loadContentByUrls') && (function loadContentByUrls(jloads, object, mapFunction, success, error) {
+(typeof jloadsUrl === 'function') || jlogs('exist?', 'jloadsUrl') && (var jloadsUrl = function (json, success, error, mapFunction) {
+    const f = 'jloadsUrl';
 
-    const f = 'jloadsUrl loadContentByUrls';
+    //url is URL of external file, success is the code
+    //to be called from the file, location is the location to
+    //insert the <script> element
 
-    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
-
-    if (isArray(object)) {
-        var url = '';
-        for (var id in object) {
-            jlogs(f, ' isArray', ' id ', id);
-            url = object[id];
-            jlogs(f, ' isArray', ' url ', url);
-
-            if (typeof url === 'string') {
-                try {
-                    // base64 in url
-                    if (url.length > 200) {
-                        jloads['img'](url);
-                    } else {
-                        const funcName = getFunctionName(url, mapFunction);
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
-                    }
-                    success(url);
-                } catch (e) {
-                    //jlogs(f, ' ERROR elem ', elem);
-                    jlogs(f, ' ERROR e ', e);
-                    error(e);
-                }
-
-                // jloads.js([url]);
-                // elem.appendChild(url, funcName);
-            }
-        }
-    } else {
-        jlogs(f, ' isArray ERROR object', object);
-        error(object);
+    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
+        // Configuration
+        success = function (data) {
+            console.log(f, ' loaded ', data);
+        };
+        error = function (data) {
+            console.error(f, ' !loaded ', data);
+        };
     }
+
+    if (typeof mapFunction !== 'object' && typeof map === 'object') {
+        // Configuration
+        mapFunction = map;
+    }
+    jlogs(' jloadsUrl', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+
+    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
+    jlogs('jloadsUrl getOne ', ' Load1 ', Load, typeof Load);
+
+    var jloads = Load(elem, success, error);
+
+    if (Object.keys(json).length === 1) {
+        var i = Object.keys(json)[0];
+        getOne(jloads, json[i], i, mapFunction, success, error)
+    } else {
+        for (var i in json) {
+            var object = json[i];
+            getOne(jloads, object, i, mapFunction, success, error)
+        }
+    }
+    // success(json);
+
+    return jloads;
 })
+
+
 
 
 /**

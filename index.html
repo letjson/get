@@ -7,24 +7,6 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <script src="jloads-url.js"></script>
 
-
-    <script>
-        // filtering logs source
-        var print_log = function (arguments) {
-            var str = 'LOG: ';
-            for (var i in arguments) {
-                str += arguments[i];
-            }
-            console.log(str);
-            return str;
-        }
-        var log = function () {
-            // console.log(arguments);
-            print_log(arguments);
-            // arguments[0] === 'Load' || print_log();
-        }
-    </script>
-
     <script>
         // Configuration
         var success = function (data) {
@@ -35,7 +17,7 @@
         };
 
         // Declaration
-        var jloads = new Load(document.body, success, error);
+        var jloads = new Load('body', success, error);
 
         // Environment
         jloads.env("//localhost:8080/", "local", function () {
@@ -53,13 +35,13 @@
 
         // const delayed = JSON.parse(JSON.stringify(jloads));
         // const delayed = Object.assign({}, jloads);
-        var delayed = new Load(document.body, success, error);
+        var delayed = new Load('body', success, error);
         delayed.delay(100);
         // console.log('delayed.cfg', delayed.cfg);
 
         // Declaration for Media
         // const media = Object.assign({}, jloads);
-        var media = new Load(document.body, success, error);
+        var media = new Load('body', success, error);
         media.target('.for_image').replaceOn();
         // console.log('media.cfg', media.cfg);
 

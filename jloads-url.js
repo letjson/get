@@ -1,3 +1,193 @@
+// is-array.js
+jlogs('exist?','isArray');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isArray(val) {
+    return val !== null ||
+        (typeof val === 'object' && Object.keys(val).length > 0)
+        ;
+}
+// is-array.js
+jlogs('exist?','isBoolean');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isBoolean(val) {
+    return val !== null ||
+        (typeof val === 'boolean')
+        ;
+}
+// is-empty.js
+jlogs('exist?','isEmpty');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isEmpty(val) {
+    return val == null ||
+        typeof val === 'undefined' ||
+        (typeof val === 'string' && val.length < 1) ||
+        (typeof val === 'object' &&
+            (
+                !(
+                    (typeof val.innerText !== 'undefined' && val.innerText.length !== 0) ||
+                    (typeof val.innerHTML !== 'undefined' && val.innerHTML.length !== 0)
+                )
+                &&
+                (Object.keys(val).length === 0)
+            )
+        )
+        // (typeof val !== 'boolean')
+        ;
+}
+
+//
+// function isEmpty(obj) {
+//     for (var prop in obj) {
+//         if (obj.hasOwnProperty(prop)) {
+//             return false;
+//         }
+//     }
+//
+//     return JSON.stringify(obj) === JSON.stringify({});
+// }
+// is-array.js
+jlogs('exist?','isNumberGt');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isNumberGt(val, number) {
+    return val !== null ||
+        (typeof val === 'number' && val > number)
+        ;
+}
+// is-array.js
+jlogs('exist?','isNumberLt');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isNumberLt(val, number) {
+    return val !== null ||
+        (typeof val === 'number' && val < number)
+        ;
+}
+// is-array.js
+jlogs('exist?','isNumber');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isNumber(val) {
+    return val !== null ||
+        (typeof val === 'number')
+        ;
+}
+// is-array.js
+jlogs('exist?','isObject');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isObject(val) {
+    return val !== null ||
+        (typeof val === 'object' && Object.keys(val).length > 0)
+        ;
+}
+// is-array.js
+jlogs('exist?','isStringEncoded');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isStringEncoded(val, type) {
+    // base64, md5
+    return val !== null ||
+        (typeof val === 'string' && val.length > 0)
+        ;
+}
+// is-array.js
+jlogs('exist?','isString');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isString(val, type) {
+    // base64, md5
+    return val !== null ||
+        (typeof val === 'string' && val.length > 0)
+        ;
+}
+// is-array.js
+jlogs('exist?','isString');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isString(val) {
+    return val !== null ||
+        (typeof val === 'string' && val.length > 0)
+        ;
+}
+// jlogs.js
+
+if (typeof jlogs !== 'function') jlogs = function () {
+    var str = ':: ';
+    for (var i in arguments) {
+        // console.log('--- jlogs', typeof arguments[i]);
+
+        if (typeof arguments[i] === "undefined") {
+            str += '';
+        } else if (typeof arguments[i] === "boolean") {
+            str += arguments[i];
+        } else if (typeof arguments[i] === "number") {
+            str += arguments[i];
+        } else if (typeof arguments[i] === "string") {
+            str += arguments[i];
+            // str += arguments[i].innerHTML;
+        } else if (typeof arguments[i] === "object") {
+            str += JSON.stringify(arguments[i]);
+        } else {
+            str += xml2string(arguments[i]);
+        }
+        str += ', ';
+    }
+    console.log(str);
+    return str;
+}
+
+function xml2string(node) {
+    if (typeof (XMLSerializer) !== 'undefined') {
+        var serializer = new XMLSerializer();
+        return serializer.serializeToString(node);
+    } else if (node.xml) {
+        return node.xml;
+    }
+}
+
+if (typeof err !== 'function') err = function () {
+    var str = ':: ';
+    for (var i in arguments) {
+        str += arguments[i];
+        str += ', ';
+    }
+    console.error(str);
+    return str;
+}
 // e.js
 jlogs('exist?', 'getTarget');
 /**

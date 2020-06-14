@@ -92,8 +92,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(null);
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }
@@ -111,8 +111,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(rest.getJson(data));
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }
@@ -129,8 +129,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(rest.getJson(data));
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }
@@ -146,8 +146,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(null);
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }

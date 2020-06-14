@@ -1071,10 +1071,10 @@ var Load = function (target, success, error) {
                     } else {
                         includeScript(script_url, target);
                     }
-                    jlogs(this.constructor.name, ' js ', script_url, exe);
-                } catch (err) {
-                    err('! js ', script_url, err);
-                    error();
+                    jlogs(this.constructor.name, ' js ', script_url);
+                } catch (e) {
+                    err('! js ', script_url, e);
+                    // error();
                 }
             }
         } else {
@@ -1116,8 +1116,8 @@ var Load = function (target, success, error) {
                 try {
                     var exe = includeStyle(script_url, target, success, error);
                     jlogs(this.constructor.name, ' loadCss exe ', exe);
-                } catch (err) {
-                    err('!load CSS ', script_url, err);
+                } catch (e) {
+                    err('!load CSS ', script_url, e);
                 }
             }
         } else {
@@ -1182,10 +1182,10 @@ var Load = function (target, success, error) {
                     // } else {
                     //     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // }
-                    jlogs(this.constructor.name, ' html ', script_url, exe);
-                } catch (err) {
-                    err('! html ', script_url, err);
-                    error();
+                    jlogs(this.constructor.name, ' html ', script_url);
+                } catch (e) {
+                    err('! html ', script_url, e);
+                    // error();
                 }
             }
         } else {

@@ -289,36 +289,12 @@ var map = {
  * @param class
  * @constructor
  */
-var Message = function (cfg) {
-    // this.selector = selector;
-    // if (typeof this.selector !== 'string') {
-    //     console.error("is emptz selector for message");
-    // }
+var Message = function (selector, error, success) {
 
-    // RESET if not exist
-    if (typeof cfg !== 'object') {
-        var cfg = {};
-        cfg.class = 'home-messages';
-        cfg.id = 'home-messages';
-        cfg.element = {};
-        cfg.message = '';
-    }
-
-
-    this.getClassname = function () {
-        if (typeof cfg.class !== 'string') {
-            cfg.class = 'home-messages';
-        }
-        return cfg.class;
-    }
-
-
-    this.getElement = function () {
-        if(self.getClassname()){
-            cfg.element = document.getElementsByClassName(self.getClassname())
-        }
-        return cfg.element;
-    }
+    this.selector = 'body';
+    this.message = '';
+    this.error = error;
+    this.success = success;
 
     var self = this;
 
@@ -337,9 +313,12 @@ var Message = function (cfg) {
         var textnode = document.createTextNode(message);         // Create a text node
         node.appendChild(textnode);
 
-        if (self.getElement()) {
-            self.getElement()[0].appendChild(node);
-        } else {
+        try {
+            getTarget(selector).appendChild(node);
+            // success(selector, message);
+        } catch (e) {
+            // error(err);
+            console.error(e);
             console.error('handle element not exist for message');
         }
 
@@ -542,8 +521,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(null);
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }
@@ -561,8 +540,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(rest.getJson(data));
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }
@@ -579,8 +558,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(rest.getJson(data));
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }
@@ -596,8 +575,8 @@ var Rest = function (url, separator, response, error, success) {
         }
         try {
             xhr.send(null);
-        } catch (err) {
-            error(err);
+        } catch (e) {
+            err(e);
         }
         return rest;
     }
@@ -1397,10 +1376,10 @@ var Load = function (target, success, error) {
                     } else {
                         includeScript(script_url, target);
                     }
-                    jlogs(this.constructor.name, ' js ', script_url, exe);
-                } catch (err) {
-                    err('! js ', script_url, err);
-                    error();
+                    jlogs(this.constructor.name, ' js ', script_url);
+                } catch (e) {
+                    err('! js ', script_url, e);
+                    // error();
                 }
             }
         } else {
@@ -1442,8 +1421,8 @@ var Load = function (target, success, error) {
                 try {
                     var exe = includeStyle(script_url, target, success, error);
                     jlogs(this.constructor.name, ' loadCss exe ', exe);
-                } catch (err) {
-                    err('!load CSS ', script_url, err);
+                } catch (e) {
+                    err('!load CSS ', script_url, e);
                 }
             }
         } else {
@@ -1508,10 +1487,10 @@ var Load = function (target, success, error) {
                     // } else {
                     //     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // }
-                    jlogs(this.constructor.name, ' html ', script_url, exe);
-                } catch (err) {
-                    err('! html ', script_url, err);
-                    error();
+                    jlogs(this.constructor.name, ' html ', script_url);
+                } catch (e) {
+                    err('! html ', script_url, e);
+                    // error();
                 }
             }
         } else {

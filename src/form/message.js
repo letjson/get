@@ -1,14 +1,4 @@
-// var HomeMessage = function (name, success, error) {
-//     this.name = name;
-//     this.success = success;
-//     this.error = error;
-//
-//     this.create = function (data) {
-//         restSubmit(this.name, 'GET', data, this.success, this.error);
-//     }
-//
-// };
-
+// message.js
 /**
  *
  * @param class
@@ -70,5 +60,5 @@ var Message = function (cfg) {
 
     }
 
-    return this;
+    return self;
 }

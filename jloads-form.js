@@ -283,17 +283,7 @@ var map = {
     'html': 'html',
     'html5': 'html'
 }
-// var HomeMessage = function (name, success, error) {
-//     this.name = name;
-//     this.success = success;
-//     this.error = error;
-//
-//     this.create = function (data) {
-//         restSubmit(this.name, 'GET', data, this.success, this.error);
-//     }
-//
-// };
-
+// message.js
 /**
  *
  * @param class
@@ -355,7 +345,7 @@ var Message = function (cfg) {
 
     }
 
-    return this;
+    return self;
 }
 // rest-form.js
 if (typeof RESTFORM_DEBUG === 'undefined') {
@@ -458,12 +448,17 @@ var RestForm = function (target, response, error, success) {
 
     return self;
 }
-// var url = "http://localhost:8080/api/v1/users";
-// url = "http://localhost:8080/api/v1/users";
-
-// Get all users
-
-
+// rest.js
+/**
+ *
+ * @param url
+ * @param separator
+ * @param response
+ * @param error
+ * @param success
+ * @returns {Rest}
+ * @constructor
+ */
 var Rest = function (url, separator, response, error, success) {
 
     this.url = url;

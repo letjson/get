@@ -1,9 +1,14 @@
-// var url = "http://localhost:8080/api/v1/users";
-// url = "http://localhost:8080/api/v1/users";
-
-// Get all users
-
-
+// rest.js
+/**
+ *
+ * @param url
+ * @param separator
+ * @param response
+ * @param error
+ * @param success
+ * @returns {Rest}
+ * @constructor
+ */
 var Rest = function (url, separator, response, error, success) {
 
     this.url = url;

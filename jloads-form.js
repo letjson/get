@@ -314,7 +314,7 @@ var Message = function (selector, error, success) {
         node.appendChild(textnode);
 
         try {
-            getTarget(selector).appendChild(node);
+            getTarget(self.selector).appendChild(node);
             // success(selector, message);
         } catch (e) {
             // error(err);

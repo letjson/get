@@ -291,7 +291,7 @@ var map = {
  */
 var Message = function (selector, error, success) {
 
-    this.selector = 'body';
+    this.selector = selector || 'body';
     this.message = '';
     this.error = error;
     this.success = success;

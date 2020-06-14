@@ -1,3 +1,5 @@
+// ver.js
+const JLOADS_VERSION='1.0.4';
 // jlogs.js
 
 if (typeof jlogs !== 'function') jlogs = function () {
@@ -43,8 +45,6 @@ if (typeof err !== 'function') err = function () {
     console.error(str);
     return str;
 }
-// ver.js
-const JLOADS_VERSION='1.0.4';
 // is-array.js
 jlogs('exist?','isArray');
 /**

@@ -14,12 +14,12 @@ var Message = function (selector, error, success) {
     var self = this;
 
 
-    this.getMessage = function () {
-        if (typeof cfg.message !== 'string') {
-            cfg.message = 'Message is empty!';
-        }
-        return cfg.message;
-    }
+    // this.getMessage = function () {
+    //     if (typeof cfg.message !== 'string') {
+    //         cfg.message = 'Message is empty!';
+    //     }
+    //     return cfg.message;
+    // }
 
     this.add = function (message) {
         console.log(message);

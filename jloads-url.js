@@ -1,7 +1,6 @@
 // ver.js
 const JLOADS_VERSION='1.0.4';
 // jlogs.js
-
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
     for (var i in arguments) {
@@ -27,14 +26,6 @@ if (typeof jlogs !== 'function') jlogs = function () {
     return str;
 }
 
-function xml2string(node) {
-    if (typeof (XMLSerializer) !== 'undefined') {
-        var serializer = new XMLSerializer();
-        return serializer.serializeToString(node);
-    } else if (node.xml) {
-        return node.xml;
-    }
-}
 
 if (typeof err !== 'function') err = function () {
     var str = ':: ';
@@ -44,6 +35,26 @@ if (typeof err !== 'function') err = function () {
     }
     console.error(str);
     return str;
+}
+// get-file-extension.js
+jlogs('exist?', 'getFileExtension');
+
+/**
+ *
+ * @param filename
+ * @returns {string}
+ */
+function getFileExtension(filename) {
+    return filename.split("?")[0].split("#")[0].split('.').pop();
+}
+// has-domain.js
+jlogs('exist?','hasDomain');
+/**
+ * @param url
+ * @returns {boolean}
+ */
+var hasDomain = function (url) {
+    return url.indexOf('//') === 0 || url.indexOf('http://') === 0 || url.indexOf('https://') === 0;
 }
 // is-array.js
 jlogs('exist?','isArray');
@@ -190,6 +201,59 @@ function isString(val) {
         (typeof val === 'string' && val.length > 0)
         ;
 }
+//time.js
+jlogs('exist?','time');
+
+var time = Date.now || function () {
+    return +new Date;
+};
+// xhr.js
+jlogs('exist?','getXHRObject');
+/**
+ * @returns {boolean}
+ */
+function getXHRObject() {
+    var xhrObj = false;
+    try {
+        xhrObj = new XMLHttpRequest();
+    } catch (e) {
+        var progid = ['MSXML2.XMLHTTP.5.0', 'MSXML2.XMLHTTP.4.0',
+            'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP', 'Microsoft.XMLHTTP'];
+        for (var i = 0; i < progid.length; ++i) {
+            try {
+                xhrObj = new ActiveXObject(progid[i]);
+            } catch (e) {
+                continue;
+            }
+            break;
+        }
+    } finally {
+
+        return xhrObj;
+    }
+}
+// xml2string.js
+function xml2string(node) {
+    if (typeof (XMLSerializer) !== 'undefined') {
+        var serializer = new XMLSerializer();
+        return serializer.serializeToString(node);
+    } else if (node.xml) {
+        return node.xml;
+    }
+}
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html'
+}
 // e.js
 jlogs('exist?', 'getTarget');
 /**
@@ -291,17 +355,6 @@ var E = function (selector, area, error, success) {
 
     return self;
 };
-// get-file-extension.js
-jlogs('exist?', 'getFileExtension');
-
-/**
- *
- * @param filename
- * @returns {string}
- */
-function getFileExtension(filename) {
-    return filename.split("?")[0].split("#")[0].split('.').pop();
-}
 // get-function-name.js
 jlogs('exist?', 'getFunctionName');
 
@@ -357,15 +410,6 @@ function getTarget(selector) {
     // jlogs(f, 'target', target);
 
     return selector;
-}
-// has-domain.js
-jlogs('exist?','hasDomain');
-/**
- * @param url
- * @returns {boolean}
- */
-var hasDomain = function (url) {
-    return url.indexOf('//') === 0 || url.indexOf('http://') === 0 || url.indexOf('https://') === 0;
 }
 // include-html.js
 jlogs('exist?', 'includeHtml');
@@ -1166,19 +1210,6 @@ var Load = function (target, success, error) {
 
     return self;
 };
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html'
-}
 // get-target.js
 jlogs('exist?', 'getTarget');
 
@@ -1355,12 +1386,6 @@ function onSelector(selector, callback) {
 
     }
 }
-//time.js
-jlogs('exist?','time');
-
-var time = Date.now || function () {
-    return +new Date;
-};
 // wait-for.js
 jlogs('exist?', 'waitFor');
 
@@ -1383,30 +1408,5 @@ function waitFor(selector, time, callback) {
         setTimeout(function () {
             waitFor(selector, time, callback);
         }, time);
-    }
-}
-// xhr.js
-jlogs('exist?','getXHRObject');
-/**
- * @returns {boolean}
- */
-function getXHRObject() {
-    var xhrObj = false;
-    try {
-        xhrObj = new XMLHttpRequest();
-    } catch (e) {
-        var progid = ['MSXML2.XMLHTTP.5.0', 'MSXML2.XMLHTTP.4.0',
-            'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP', 'Microsoft.XMLHTTP'];
-        for (var i = 0; i < progid.length; ++i) {
-            try {
-                xhrObj = new ActiveXObject(progid[i]);
-            } catch (e) {
-                continue;
-            }
-            break;
-        }
-    } finally {
-
-        return xhrObj;
     }
 }

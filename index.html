@@ -28,12 +28,6 @@
         });
         console.log('jloads.cfg', jloads.cfg);
 
-        // const delayed = JSON.parse(JSON.stringify(jloads));
-        // const delayed = Object.assign({}, jloads);
-        var delayed = new Load('body', success, error);
-        delayed.delay(100);
-        // console.log('delayed.cfg', delayed.cfg);
-
         // Declaration for Media
         // const media = Object.assign({}, jloads);
         var media = new Load('body', success, error);

@@ -1,5 +1,5 @@
 // ver.js
-const JLOADS_VERSION='1.0.4';
+const JLOADS_VERSION='1.0.6';
 // jlogs.js
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';

@@ -270,6 +270,7 @@ function xml2string(node) {
         return node.xml;
     }
 }
+// jloads-target.js
 var map = {
     'js': 'js',
     'css': 'css',

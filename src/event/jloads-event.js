@@ -1,6 +1,4 @@
 // jloads-event.js
-
-
 /**
  *
  * @param json

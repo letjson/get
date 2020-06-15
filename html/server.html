@@ -1,0 +1,44 @@
+<div class="server.html">
+
+    <!-- POST method -->
+    <form>
+        <input type="hidden" name="method" value="POST">
+        <p>
+            <label for="server">server</label>
+            <select name="server" id="server">
+                <!--        <option value="1">1.paas.info debian</option>-->
+                <option value="2">1.paas.info ubuntu 18</option>
+                <option value="3">2.paas.info windows server</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="environment">environment</label>
+            <select name="environment" id="environment">
+                <option value="1">python v3.8</option>
+                <option value="1">python + FastAPI</option>
+                <option value="2">nodejs</option>
+                <option value="2">nodejs + Vue</option>
+                <option value="3">php5</option>
+                <option value="3">php7.1</option>
+                <option value="3">php7.4</option>
+                <option value="3">MySQL</option>
+                <option value="3">MariaDB</option>
+                <option value="3">PostgresSQL</option>
+            </select>
+        </p>
+
+        <p>
+            <label for="application">application</label>
+            <select name="application" id="application">
+                <option value="1">/promagen/one.git</option>
+                <option value="2">/faas-ovh/example-php</option>
+                <option value="3">/faas-ovh/example-python</option>
+                <option value="4">/faas-ovh/example-nodejs</option>
+            </select>
+        </p>
+
+        <input type="submit" name="submit" value="Add App">
+
+    </form>
+</div>

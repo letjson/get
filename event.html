@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <title>Platform as a Service - PaaS.info</title>
+
+    <script src="jloads-url.js?4"></script>
+
+    <script>
+
+        jloadsUrl({
+            "head": [
+                "//code.jquery.com/jquery-3.5.1.min.js",
+                "//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
+                "css/style.css",
+                "css/responsive.css",
+                "css/fade-in.css",
+                // "//www.paas.info/cdn/flowtype.js",
+
+            ],
+            "body": [
+                // "//www.paas.info/js/flowtype.js",
+            ],
+            "form": [
+                "js/form.js",
+            ],
+            "#messages": [
+                "js/message.js"
+            ],
+            "#forms": [
+                "html/server.html"
+            ],
+            "#apps": [
+                "html/apps.html"
+            ],
+            "#images": [
+                "//logo.paas.info/2/cover.png"
+            ]
+
+        });
+
+    </script>
+
+
+    <script>
+
+        jloadsEvent({
+            "form.create": {
+                "onload": {
+                    "https://php.jloads.com/index.php": {
+                        "post": {
+                            "ENV": "event",
+                            "SRV": "server",
+                            "APP": "app"
+                        },
+                        "response": {
+                            "table.name": "name",
+                            "#username": "user.name"
+                        }
+                    }
+                },
+                "submit": {
+                    "https://php.jloads.com/index.php": {
+                        "post": {
+                            "ENV": "event",
+                            "SRV": "server",
+                            "APP": "app"
+                        },
+                        "response": {
+                            "table.name": "name",
+                            "#username": "user.name"
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+
+
+
+</head>
+<body>
+
+<div class="container fade-in" id="jloads">
+    <!-- Content here -->
+    <div class="jloads content">
+        <div id="images"></div>
+        <!--    <div id="home-plugins"></div>-->
+        <div id="forms"></div>
+        <div id="apps"></div>
+        <div id="messages" class="messages"></div>
+    </div>
+
+    <div class="footer">
+        <h5>local: <a href="http://localhost:80/" rel="nofollow">localhost:80/</a>
+            | live: <a href="https://www.paas.info/" rel="nofollow">paas.info</a>
+            | supported by: <a href="https://www.paas.info/" rel="nofollow">softreck.com</a>
+            | <a href="https://docs.paas.info" rel="nofollow">docs</a>
+        </h5>
+    </div>
+</div>
+
+
+<style>
+    /* GLOBAL */
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block; /* remove extra space below image */
+    }
+
+    body {
+        /*background-color: #fb7e14;*/
+        /*color: #fffc60;*/
+        font-family: Tahoma;
+        font-size: 25px;
+    }
+
+    h2, h3 {
+        font-size: medium;
+    }
+
+    table th {
+        font-weight: bolder;
+    }
+
+    table td {
+        padding-right: 5px;
+        /*font-weight: normal;*/
+    }
+
+    /* MODULES  Size */
+    .jloads.content,
+    .footer {
+        margin: auto auto;
+        width: 98%;
+        max-width: 1000px;
+    }
+
+    .jloads.content > div {
+        /*border: 1px solid black;*/
+        /*height: 100px;*/
+        margin: 0px;
+        padding: 4px;
+    }
+
+    #images {
+        padding: 0px;
+        height: 100px;
+        max-height: 100px;
+    }
+
+    #forms {
+        height: 250px;
+        min-height: 250px;
+    }
+
+    #table {
+        height: 180px;
+        min-height: 180px;
+    }
+
+    #messages {
+        height: 150px;
+        max-height: 150px;
+        overflow: scroll;
+        color: black;
+    }
+
+    /* MODULES Colors, Fonts */
+    .jloads.content {
+        /*background-color: #333333;*/
+    }
+
+    #home-plugins {
+        /*background-color: #555555;*/
+    }
+
+    #images {
+        /*background-color: #fb7e14;*/
+    }
+
+    #messages {
+        /*background-color: #333333;*/
+        font-family: Consolas, "Courier New";
+        font-size: 10px;
+        color: black;
+    }
+
+
+</style>
+
+</body>
+</html>
+

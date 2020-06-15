@@ -1,0 +1,30 @@
+{
+  "form.create": {
+    "onload": {
+      "https://php.jloads.com/index.php": {
+        "post": {
+          "ENV": "event",
+          "SRV": "server",
+          "APP": "app"
+        },
+        "response": {
+          "table.name": "name",
+          "#username": "user.name"
+        }
+      }
+    },
+    "submit": {
+      "https://php.jloads.com/index.php": {
+        "post": {
+          "ENV": "event",
+          "SRV": "server",
+          "APP": "app"
+        },
+        "response": {
+          "table.name": "name",
+          "#username": "user.name"
+        }
+      }
+    }
+  }
+}

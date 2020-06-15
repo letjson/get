@@ -640,11 +640,7 @@ function includeStyle(url, target, success, error) {
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
-// get.js
-
-// PUBLIC
-var elem = document.body;
-
+// jloads-event.js
 /**
  *
  * @param jloads

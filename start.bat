@@ -6,5 +6,6 @@ IF %ERRORLEVEL% NEQ 0 (
 ) else (
     ::node server.js
     forever start server.js
+    browser.bat
 )
 

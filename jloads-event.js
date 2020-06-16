@@ -270,311 +270,19 @@ function xml2string(node) {
         return node.xml;
     }
 }
-// message.js
-/**
- *
- * @param class
- * @constructor
- */
-var Message = function (selector, error, success) {
-
-    this.selector = selector || 'body';
-    this.message = '';
-    this.error = error;
-    this.success = success;
-
-    var self = this;
-
-
-    // this.getMessage = function () {
-    //     if (typeof cfg.message !== 'string') {
-    //         cfg.message = 'Message is empty!';
-    //     }
-    //     return cfg.message;
-    // }
-
-    this.add = function (message) {
-        console.log(message);
-
-        var node = document.createElement("LI");                 // Create a <li> node
-        var textnode = document.createTextNode(message);         // Create a text node
-        node.appendChild(textnode);
-
-        try {
-            console.log('self.selector', self.selector, getTarget(self.selector));
-            getTarget(self.selector).appendChild(node);
-            // success(selector, message);
-        } catch (e) {
-            // error(err);
-            console.error(e);
-            console.error('handle element not exist for message');
-        }
-
-    }
-
-    return self;
-}
-// rest-form.js
-if (typeof RESTFORM_DEBUG === 'undefined') {
-    var RESTFORM_DEBUG = true;
-}
-/**
- *
- * @param target
- * @param response
- * @param error
- * @param success
- * @returns {RestForm}
- * @constructor
- */
-var RestForm = function (target, response, error, success) {
-
-    this.cfg = {};
-    this.cfg.target = target;
-    this.cfg.method = "GET";
-    this.cfg.url = "";
-    this.cfg.event = "submit";
-
-    // this.cfg.event = "submit";
-
-    // var elmnt = el.first();
-
-    var self = this;
-
-    self.url = function (url) {
-        self.cfg.url = url;
-        return self;
-    }
-
-    self.cfg = function (cfg) {
-        if (typeof cfg === 'undefined') {
-            return self;
-        }
-        if (typeof cfg.target === 'string') {
-            self.cfg.target = cfg.target;
-        }
-        if (typeof cfg.method === 'string') {
-            self.cfg.method = cfg.method;
-        }
-        if (typeof cfg.url === 'string') {
-            self.cfg.url = cfg.url;
-        }
-        if (typeof cfg.event === 'string') {
-            self.cfg.event = cfg.event;
-        }
-        return self;
-    }
-
-    self.target = function (target) {
-        self.cfg.target = target;
-        return self;
-    }
-
-    self.submit = function () {
-
-        self.cfg.element = new E(self.cfg.target);
-        !RESTFORM_DEBUG || console.log('.submit() self.cfg.target', self.cfg.target);
-        !RESTFORM_DEBUG || console.log('.submit() self.cfg.event', self.cfg.event);
-
-        self.cfg.element.all('', function (forms) {
-
-            var rest_form = new Rest(self.cfg.url, '?', response, error, success);
-
-            // var forms = element.getElementsByTagName('form');
-            // var forms = element.getElementsByTagName('form');
-
-            for (var i = 0; i < forms.length; i++) {
-
-                var form = forms[i];
-                //formEvent(forms[i], rest_form, error, success);
-                form.addEventListener(self.cfg.event, function (event) {
-                    event.preventDefault();
-
-                    !RESTFORM_DEBUG || console.log(this);
-
-                    var data = formToObject(this);
-                    var method = data.method;
-
-                    delete data.method;
-                    delete data.submit;
-
-                    !RESTFORM_DEBUG || console.log(method);
-
-                    rest_form.byMethod(method, data);
-                    !RESTFORM_DEBUG || console.log(data);
-
-                    success(event);
-
-
-                });
-            }
-        });
-        // cfg.url;
-        // cfg.method;
-    }
-
-    return self;
-}
-// rest.js
-/**
- *
- * @param url
- * @param separator
- * @param response
- * @param error
- * @param success
- * @returns {Rest}
- * @constructor
- */
-var Rest = function (url, separator, response, error, success) {
-
-    this.url = url;
-    this.separator = '/';
-    this.response = response;
-
-    if (separator !== undefined) {
-        // this.selector = selector + 'id=';
-        this.separator = separator;
-    }
-    // this.error = {};
-    // this.success = {};
-    this.error = error;
-    this.success = success;
-
-    var rest = this;
-
-
-    rest.setUrl = function (url) {
-        response.url = url;
-        return rest;
-    };
-
-    rest.setSeparator = function (separator) {
-        rest.separator = separator;
-        return rest;
-    };
-
-
-    rest.setResponse = function (response) {
-        rest.response = response;
-        return rest;
-    };
-
-
-    this.byMethod = function (method, data) {
-
-
-        if (method === 'GET') {
-            var id = data.id;
-            rest.get(id);
-        }
-        if (method === 'POST') {
-            rest.post(data);
-        }
-        if (method === 'PUT') {
-            var id = data.id;
-            rest.put(id, data);
-        }
-        if (method === 'DELETE') {
-            var id = data.id;
-            rest.delete(id);
-        }
-
-    }
-
-    rest.all = function () {
-
-        var xhr = createCORSRequest('GET', rest.url);
-        if (!xhr) {
-            throw new Error('CORS not supported');
-        }
-        xhr.onload = function () {
-            rest.response(xhr, error, success);
-        }
-        xhr.send(null);
-
-        return rest;
-    }
-
-
-    rest.get = function (id) {
-
-        var xhr = createCORSRequest('GET', rest.url + rest.separator + id);
-        if (!xhr) {
-            throw new Error('CORS not supported');
-        }
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.onload = function () {
-            rest.response(xhr, error, success);
-        }
-        try {
-            xhr.send(null);
-        } catch (e) {
-            err(e);
-        }
-        return rest;
-    }
-
-    // create
-    rest.post = function (data) {
-
-        var xhr = createCORSRequest("POST", rest.url);
-        if (!xhr) {
-            throw new Error('CORS not supported');
-        }
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.onload = function () {
-            rest.response(xhr);
-        }
-        try {
-            xhr.send(rest.getJson(data));
-        } catch (e) {
-            err(e);
-        }
-        return rest;
-    }
-
-    // update
-    rest.put = function (id, data) {
-        var xhr = createCORSRequest("PUT", rest.url + rest.separator + id);
-        if (!xhr) {
-            throw new Error('CORS not supported');
-        }
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.onload = function () {
-            rest.response(xhr, error, success);
-        }
-        try {
-            xhr.send(rest.getJson(data));
-        } catch (e) {
-            err(e);
-        }
-        return rest;
-    }
-
-    rest.delete = function (id) {
-        var xhr = createCORSRequest("DELETE", rest.url + rest.separator + id);
-        if (!xhr) {
-            throw new Error('CORS not supported');
-        }
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.onload = function () {
-            rest.response(xhr, error, success);
-        }
-        try {
-            xhr.send(null);
-        } catch (e) {
-            err(e);
-        }
-        return rest;
-    }
-
-    this.getJson = function (data) {
-        var json = JSON.stringify(data);
-        return json;
-    }
-
-    return this;
+// jloads-target.js
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html'
 }
 // e.js
 jlogs('exist?', 'getTarget');
@@ -1728,6 +1436,312 @@ function waitFor(selector, time, callback) {
         }, time);
     }
 }
+// message.js
+/**
+ *
+ * @param class
+ * @constructor
+ */
+var Message = function (selector, error, success) {
+
+    this.selector = selector || 'body';
+    this.message = '';
+    this.error = error;
+    this.success = success;
+
+    var self = this;
+
+
+    // this.getMessage = function () {
+    //     if (typeof cfg.message !== 'string') {
+    //         cfg.message = 'Message is empty!';
+    //     }
+    //     return cfg.message;
+    // }
+
+    this.add = function (message) {
+        console.log(message);
+
+        var node = document.createElement("LI");                 // Create a <li> node
+        var textnode = document.createTextNode(message);         // Create a text node
+        node.appendChild(textnode);
+
+        try {
+            console.log('self.selector', self.selector, getTarget(self.selector));
+            getTarget(self.selector).appendChild(node);
+            // success(selector, message);
+        } catch (e) {
+            // error(err);
+            console.error(e);
+            console.error('handle element not exist for message');
+        }
+
+    }
+
+    return self;
+}
+// rest-form.js
+if (typeof RESTFORM_DEBUG === 'undefined') {
+    var RESTFORM_DEBUG = true;
+}
+/**
+ *
+ * @param target
+ * @param response
+ * @param error
+ * @param success
+ * @returns {RestForm}
+ * @constructor
+ */
+var RestForm = function (target, response, error, success) {
+
+    this.cfg = {};
+    this.cfg.target = target;
+    this.cfg.method = "GET";
+    this.cfg.url = "";
+    this.cfg.event = "submit";
+
+    // this.cfg.event = "submit";
+
+    // var elmnt = el.first();
+
+    var self = this;
+
+    self.url = function (url) {
+        self.cfg.url = url;
+        return self;
+    }
+
+    self.cfg = function (cfg) {
+        if (typeof cfg === 'undefined') {
+            return self;
+        }
+        if (typeof cfg.target === 'string') {
+            self.cfg.target = cfg.target;
+        }
+        if (typeof cfg.method === 'string') {
+            self.cfg.method = cfg.method;
+        }
+        if (typeof cfg.url === 'string') {
+            self.cfg.url = cfg.url;
+        }
+        if (typeof cfg.event === 'string') {
+            self.cfg.event = cfg.event;
+        }
+        return self;
+    }
+
+    self.target = function (target) {
+        self.cfg.target = target;
+        return self;
+    }
+
+    self.submit = function () {
+
+        self.cfg.element = new E(self.cfg.target);
+        !RESTFORM_DEBUG || console.log('.submit() self.cfg.target', self.cfg.target);
+        !RESTFORM_DEBUG || console.log('.submit() self.cfg.event', self.cfg.event);
+
+        self.cfg.element.all('', function (forms) {
+
+            var rest_form = new Rest(self.cfg.url, '?', response, error, success);
+
+            // var forms = element.getElementsByTagName('form');
+            // var forms = element.getElementsByTagName('form');
+
+            for (var i = 0; i < forms.length; i++) {
+
+                var form = forms[i];
+                //formEvent(forms[i], rest_form, error, success);
+                form.addEventListener(self.cfg.event, function (event) {
+                    event.preventDefault();
+
+                    !RESTFORM_DEBUG || console.log(this);
+
+                    var data = formToObject(this);
+                    var method = data.method;
+
+                    delete data.method;
+                    delete data.submit;
+
+                    !RESTFORM_DEBUG || console.log(method);
+
+                    rest_form.byMethod(method, data);
+                    !RESTFORM_DEBUG || console.log(data);
+
+                    success(event);
+
+
+                });
+            }
+        });
+        // cfg.url;
+        // cfg.method;
+    }
+
+    return self;
+}
+// rest.js
+/**
+ *
+ * @param url
+ * @param separator
+ * @param response
+ * @param error
+ * @param success
+ * @returns {Rest}
+ * @constructor
+ */
+var Rest = function (url, separator, response, error, success) {
+
+    this.url = url;
+    this.separator = '/';
+    this.response = response;
+
+    if (separator !== undefined) {
+        // this.selector = selector + 'id=';
+        this.separator = separator;
+    }
+    // this.error = {};
+    // this.success = {};
+    this.error = error;
+    this.success = success;
+
+    var rest = this;
+
+
+    rest.setUrl = function (url) {
+        response.url = url;
+        return rest;
+    };
+
+    rest.setSeparator = function (separator) {
+        rest.separator = separator;
+        return rest;
+    };
+
+
+    rest.setResponse = function (response) {
+        rest.response = response;
+        return rest;
+    };
+
+
+    this.byMethod = function (method, data) {
+
+
+        if (method === 'GET') {
+            var id = data.id;
+            rest.get(id);
+        }
+        if (method === 'POST') {
+            rest.post(data);
+        }
+        if (method === 'PUT') {
+            var id = data.id;
+            rest.put(id, data);
+        }
+        if (method === 'DELETE') {
+            var id = data.id;
+            rest.delete(id);
+        }
+
+    }
+
+    rest.all = function () {
+
+        var xhr = createCORSRequest('GET', rest.url);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+        xhr.onload = function () {
+            rest.response(xhr, error, success);
+        }
+        xhr.send(null);
+
+        return rest;
+    }
+
+
+    rest.get = function (id) {
+
+        var xhr = createCORSRequest('GET', rest.url + rest.separator + id);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.onload = function () {
+            rest.response(xhr, error, success);
+        }
+        try {
+            xhr.send(null);
+        } catch (e) {
+            err(e);
+        }
+        return rest;
+    }
+
+    // create
+    rest.post = function (data) {
+
+        var xhr = createCORSRequest("POST", rest.url);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.onload = function () {
+            rest.response(xhr);
+        }
+        try {
+            xhr.send(rest.getJson(data));
+        } catch (e) {
+            err(e);
+        }
+        return rest;
+    }
+
+    // update
+    rest.put = function (id, data) {
+        var xhr = createCORSRequest("PUT", rest.url + rest.separator + id);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.onload = function () {
+            rest.response(xhr, error, success);
+        }
+        try {
+            xhr.send(rest.getJson(data));
+        } catch (e) {
+            err(e);
+        }
+        return rest;
+    }
+
+    rest.delete = function (id) {
+        var xhr = createCORSRequest("DELETE", rest.url + rest.separator + id);
+        if (!xhr) {
+            throw new Error('CORS not supported');
+        }
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.onload = function () {
+            rest.response(xhr, error, success);
+        }
+        try {
+            xhr.send(null);
+        } catch (e) {
+            err(e);
+        }
+        return rest;
+    }
+
+    this.getJson = function (data) {
+        var json = JSON.stringify(data);
+        return json;
+    }
+
+    return this;
+}
 // jloads-event.js
 /**
  *
@@ -1740,10 +1754,6 @@ function waitFor(selector, time, callback) {
 jlogs('exist?', 'jloadsEvent');
 if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, error, mapFunction) {
     const f = 'jloadsEvent';
-
-    //url is URL of external file, success is the code
-    //to be called from the file, location is the location to
-    //insert the <script> element
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         // Configuration
@@ -1763,17 +1773,18 @@ if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, er
 
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs('jloadsEvent jloadsEventUrl ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsEvent jloadsEventUrl ', ' i ', i);
-    var jloads = new Load(i, success, error);
+    // jlogs('jloadsEvent selectorEvent ', ' elem ', elem, !isEmpty(elem));
+    jlogs('jloadsEvent selectorEvent selector', selector);
+    var jloads = new Load(selector, success, error);
 
     if (Object.keys(json).length === 1) {
-        var i = Object.keys(json)[0];
-        jloadsEventUrl(jloads, json[i], i, mapFunction, success, error)
+        var selector = Object.keys(json)[0];
+        var event = json[selector];
+        selectorEvent(jloads, selector, event, mapFunction, success, error)
     } else {
-        for (var i in json) {
-            var object = json[i];
-            jloadsEventUrl(jloads, object, i, mapFunction, success, error)
+        for (var selector in json) {
+            var event = json[selector];
+            selectorEvent(jloads, selector, event, mapFunction, success, error)
         }
     }
     // success(json);
@@ -1842,55 +1853,58 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
  * @param success
  * @param error
  */
-jlogs('exist?', 'jloadsEventUrl');
-if (typeof jloadsEventUrl !== 'function') jloadsEventUrl = function (jloads, object, i, mapFunction, success, error) {
-    const f = 'jloadsEvent jloadsEventUrl';
+jlogs('exist?', 'selectorEvent');
+if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selector, event, mapFunction, success, error) {
+    const f = 'jloadsEvent selectorEvent';
 
-    jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
+    jlogs(f, ' event ', event);
+    jlogs(f, ' selector ', selector);
 
-    // TODO: move to class E for smart load content on not existing DOM elements
-    // if (i === 'head' || !isEmpty(jloads.getTarget())) {
-    jlogs(f, ' object i ', object, i);
-    if (i === 'head') {
-        loadUrlData(jloads, object, mapFunction, success, error);
-        success(jloads.getTarget());
-    } else if (i === 'body') {
-        jlogs(f, ' wait for body i ', i);
-        jlogs(f, ' wait for body target ', jloads.getTarget());
-        document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(object, i, mapFunction, success, error);
+    document.addEventListener("DOMContentLoaded", function () {
+        jlogs(f, ' addEventListener eventResponse');
+
+        eventResponse(selector, event, function (xhr) {
+            console.log("xhr", xhr);
+            AddMessage(xhr.status);
+            AddMessage(xhr.statusText);
+            AddMessage(xhr.response);
         });
-    } else {
-        jlogs(f, ' wait for element i ', i);
-        jlogs(f, ' wait for element target ', jloads.getTarget());
+    });
+    /*
+} else {
+    jlogs(f, ' wait for element i ', i);
+    jlogs(f, ' wait for element target ', jloads.getTarget());
 
-        try {
-            // set up the mutation observer
-            var observer = new MutationObserver(function (mutations, me) {
-                // `mutations` is an array of mutations that occurred
-                // `me` is the MutationObserver instance
-                // var canvas = document.getElementById('my-canvas');
-                var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
-                if (canvas) {
-                    // callback executed when canvas was found
-                    ReadyHtml(object, i, mapFunction, success, error);
-                    me.disconnect(); // stop observing
-                    return;
-                }
-            });
+    try {
+        // set up the mutation observer
+        var observer = new MutationObserver(function (mutations, me) {
+            // `mutations` is an array of mutations that occurred
+            // `me` is the MutationObserver instance
+            // var canvas = document.getElementById('my-canvas');
+            var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
+            jlogs(f, ' canvas ', canvas);
 
-            // start observing
-            observer.observe(document, {
-                childList: true,
-                subtree: true
-            });
+            if (canvas) {
+                // callback executed when canvas was found
+                ReadyHtml(object, i, mapFunction, success, error);
+                me.disconnect(); // stop observing
+                return;
+            }
+        });
 
-        } catch (e) {
-            //jlogs(f, ' ERROR elem ', elem);
-            jlogs(f, ' jloadsEventUrl ERROR e ', e);
-            error(e);
-        }
+        // start observing
+        observer.observe(document, {
+            childList: true,
+            subtree: true
+        });
+
+    } catch (e) {
+        //jlogs(f, ' ERROR elem ', elem);
+        jlogs(f, ' selectorEvent ERROR e ', e);
+        error(e);
     }
+}
+*/
     // error(elem);
 }
 
@@ -1905,38 +1919,30 @@ if (typeof jloadsEventUrl !== 'function') jloadsEventUrl = function (jloads, obj
  * @returns {*}
  * @constructor
  */
-jlogs('exist?', 'ReadyHtml');
-if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
-    const f = 'jloadsEvent ReadyHtml';
+jlogs('exist?', 'addEvent');
+if (typeof eventResponse !== 'function') eventResponse = function (selector, event, response) {
+    const f = 'jloadsEvent eventResponse';
+    jlogs(f, ' selector ', selector);
+    jlogs(f, ' event ', event);
 
-    jlogs(f, ' i ', i);
-    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs(f, ' elem ', elem);
-
-    var jloads = new Load(i, success, error);
-
-    if (!isEmpty(elem)) {
-        loadUrlData(jloads, object, mapFunction, success, error);
-        success(elem);
-    } else {
-        waitFor(i, 40, function (i) {
-            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-            var jloads = new Load(i, success, error);
-            loadUrlData(jloads, object, mapFunction, success, error);
-        });
-        // error(elem);
+    var success = function (data) {
+        console.table('FORM success', data);
+    };
+    var error = function (data) {
+        console.error('!FORM', data);
     }
-}
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html'
+
+
+    var form = new RestForm(selector, response, error, success);
+
+    form.cfg({
+        "target": selector,
+        "url": "//api.paas.info/index.php",
+        "method": "GET",
+        "event": "submit"
+    });
+
+    form.url((window.location.hostname === 'localhost') ? "//localhost:8000/index.php" : "//php.jloads.com/index.php");
+
+    form.submit();
 }

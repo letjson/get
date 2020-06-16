@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Platform as a Service - PaaS.info</title>
 
-    <script src="jloads-url.js?4"></script>
+    <script src="jloads-event.js?5"></script>
 
     <script>
 
@@ -16,18 +16,15 @@
             "head": [
                 "//code.jquery.com/jquery-3.5.1.min.js",
                 "//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",
-                "css/style.css",
                 "css/responsive.css",
-                "css/fade-in.css",
-                // "//www.paas.info/cdn/flowtype.js",
-
+                "css/fade-in.css"
             ],
-            "body": [
-                // "//www.paas.info/js/flowtype.js",
-            ],
-            "form": [
-                "js/form.js",
-            ],
+            // "body": [
+            // "//www.paas.info/js/flowtype.js",
+            // ],
+            // "form": [
+            //     "js/form.js",
+            // ],
             "#messages": [
                 "js/message.js"
             ],
@@ -39,6 +36,14 @@
             ],
             "#images": [
                 "//logo.paas.info/2/cover.png"
+            ],
+            ".navbar": [
+                "css/menu.css",
+                "html/menu.html"
+            ],
+            ".footer": [
+                "css/footer.css",
+                "html/footer.html"
             ]
 
         });
@@ -49,30 +54,29 @@
     <script>
 
         jloadsEvent({
-            "form.create": {
+            "form": {
                 "onload": {
-                    "https://php.jloads.com/index.php": {
+                    // "https://php.jloads.com/index.php": {
+                    "http://localhost:8000/index.php": {
                         "post": {
-                            "ENV": "event",
-                            "SRV": "server",
-                            "APP": "app"
+                            "server": "#server",
+                            "environment": "environment",
+                            "application": "application"
                         },
                         "response": {
-                            "table.name": "name",
-                            "#username": "user.name"
+                            "#function": "user.name"
                         }
                     }
                 },
                 "submit": {
-                    "https://php.jloads.com/index.php": {
+                    "http://localhost:8000/index.php": {
                         "post": {
-                            "ENV": "event",
-                            "SRV": "server",
-                            "APP": "app"
+                            "server": "#server",
+                            "environment": "environment",
+                            "application": "application"
                         },
                         "response": {
-                            "table.name": "name",
-                            "#username": "user.name"
+                            "#function": "user.name"
                         }
                     }
                 }
@@ -82,11 +86,20 @@
     </script>
 
 
-
 </head>
 <body>
 
 <div class="container fade-in" id="jloads">
+
+    <div class="status">
+        status
+    </div>
+
+
+    <div class="navbar">
+        menu
+    </div>
+
     <!-- Content here -->
     <div class="jloads content">
         <div id="images"></div>
@@ -96,13 +109,15 @@
         <div id="messages" class="messages"></div>
     </div>
 
-    <div class="footer">
-        <h5>local: <a href="http://localhost:80/" rel="nofollow">localhost:80/</a>
-            | live: <a href="https://www.paas.info/" rel="nofollow">paas.info</a>
-            | supported by: <a href="https://www.paas.info/" rel="nofollow">softreck.com</a>
-            | <a href="https://docs.paas.info" rel="nofollow">docs</a>
-        </h5>
+
+    <div class="content">
+        <div class="for_image">...</div>
     </div>
+
+    <div class="footer">
+        footer
+    </div>
+
 </div>
 
 

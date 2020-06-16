@@ -1,8 +1,6 @@
 @ECHO OFF
-type ".\src\meta\*.js" > .\build-target.bat
-type ".\src\core\*.js" >> .\build-target.bat
-type ".\src\lib\*.js" >> .\build-target.bat
-type ".\src\settings\*.js" >> .\build-target.bat
-type ".\src\form\*.js" >> .\build-target.bat
-type ".\src\*.js" >> .\build-target.bat
-type ".\src\target\*.js" >> .\build-target.bat
+type ".\src\meta\*.js" > .\jloads-target.js
+type ".\src\core\*.js" >> .\jloads-target.js
+type ".\src\lib\*.js" >> .\jloads-target.js
+type ".\src\target\*.js" >> .\jloads-target.js
+type ".\src\*.js" >> .\jloads-target.js

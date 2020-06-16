@@ -20,7 +20,7 @@
         var jloads = new Load('body', success, error);
 
         // Environment
-        jloads.env("//localhost:8080/", "local", function () {
+        jloads.env("//localhost/", "local", function () {
             return window.location.hostname === 'localhost';
         });
         jloads.env("//get.jloads.com/", "production", function () {

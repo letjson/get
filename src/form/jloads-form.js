@@ -85,12 +85,14 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
 
     // jlogs(f, ' isArray target', target, isArray(target));
     console.log(f, ' getTarget(selector)', selector, getTarget(selector));
+    var element = new E(selector);
+    console.log(f, ' E', selector, element.first());
 
 
     if (typeof selector === 'string') {
         try {
-            var element = new E(selector);
-            element.first()
+
+
             element.first().addEventListener(event, function () {
                 jlogs(f, ' addEventListener ', selector, event);
 

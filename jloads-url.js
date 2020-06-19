@@ -331,7 +331,7 @@ var E = function (selector, area, error, success) {
         return self;
     }
 
-    self.first = function (error, success) {
+    self.first = function (success, error) {
         if (typeof success !== 'function') {
             success = self.success;
         }

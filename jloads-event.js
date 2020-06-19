@@ -1521,7 +1521,7 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
 
     const f = 'jloadsForm selectorEventTarget';
 
-    var target = targets[0];
+    var target = Object.keys(targets)[0];
     jlogs('jloadsForm selector event target', selector, event, target);
 
     var n = target.indexOf(">");

@@ -10,3 +10,5 @@ jlogs
 jloads.content.js 
 # v1.0.6 
 rename to jloads-url.js 
+# v1.0.7 
+javascript function routing, checking if exist and delay request or DOMContentLoaded event 

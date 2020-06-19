@@ -94,6 +94,7 @@ Można określić precyzyjnie zdarzenie i zawartość jaka ma ulec zmianie
 
 
 #### przykład
+
        {  
           "#image": {
                "onclick": {
@@ -212,7 +213,17 @@ dotyczy wybranego formularza
             "#form1 .email": "tom@sap.com",
             "#form1 .message": "example message",
         }  
-      
+        
+lista wyboru
+
+        "#form1:onload":{
+            "#form1 .servers":[
+                {"1":"server 1"},
+                {"2":"server 2"},
+                {"3":"server 3"}
+            ]
+        }  
+              
 #### wysłanie danych na podany w formularzu URL i metodą w momencie wysyłania formularza 
       
         "form:submit":{

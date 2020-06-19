@@ -1489,7 +1489,7 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
                     var value = first_target[id][name];
 
                     jlogs(f, ' isArray', ' name ', name);
-                    jlogs(f, ' isArray', ' name ', value);
+                    jlogs(f, ' isArray', ' value ', value);
 
                     var responseText = '<' + target_item + 'name="' + name + '"' + 'value="' + value + '"' + '>';
                     responseText += value;

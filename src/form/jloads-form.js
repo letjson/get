@@ -83,7 +83,8 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
 
     jlogs('jloadsForm target_group, target_task, target_item', target_group, target_task, target_item);
 
-    jlogs(f, ' isArray target', target, isArray(target));
+    // jlogs(f, ' isArray target', target, isArray(target));
+    jlogs(f, ' isArray getTarget(selector)', selector, getTarget(selector));
 
 
     if (typeof selector === 'string') {

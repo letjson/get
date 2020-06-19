@@ -36,7 +36,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
     // jlogs('jloadsForm selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
     jlogs('jloadsForm selectorEvent1 selector', selector);
 
-    var jloads = new Load(selector, success, error);
+    // var jloads = new Load(selector, success, error);
 
     jlogs('jloadsForm Object.keys(json).length', Object.keys(json).length);
 
@@ -44,7 +44,9 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
 
         var selector = Object.keys(json)[0];
         var event = json[selector];
-        // loadUrlData(jloads, selector, event, mapFunction, success, error)
+
+        loadUrlData(selector, event, success, error)
+
     } else {
         for (var selector in json) {
             var event = json[selector];
@@ -66,39 +68,31 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
  * @param error
  */
 jlogs('exist?', 'loadUrlData');
-if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, mapFunction, success, error) {
+if (typeof loadUrlData !== 'function') loadUrlData = function (object, event, success, error) {
 
     const f = 'jloadsForm loadUrlData';
 
-    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
+    jlogs(f, ' isArray object, elem, event', object, isArray(object), event);
 
     if (isArray(object)) {
-        var url = '';
+        var selector = '';
         for (var id in object) {
             jlogs(f, ' isArray', ' id ', id);
-            url = object[id];
-            jlogs(f, ' isArray', ' url ', url);
+            selector = object[id];
+            jlogs(f, ' isArray', ' selector ', selector);
 
-            if (typeof url === 'string') {
+            if (typeof selector === 'string') {
                 try {
-                    // base64 in url
-                    if (url.length > 200) {
-                        jloads['img'](url);
-                    } else {
-                        const funcName = getFunctionName(url, mapFunction);
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
-                    }
-                    success(url);
+                    getTarget(selector).
+                    success(selector);
                 } catch (e) {
                     //jlogs(f, ' ERROR elem ', elem);
                     jlogs(f, ' ERROR e ', e);
                     error(e);
                 }
 
-                // jloads.js([url]);
-                // elem.appendChild(url, funcName);
+                // jloads.js([selector]);
+                // elem.appendChild(selector, funcName);
             }
         }
     } else {

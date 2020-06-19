@@ -118,7 +118,7 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
                     jlogs(f, ' isArray', ' name ', name);
                     jlogs(f, ' isArray', ' value ', value);
 
-                    var responseText = '<' + target_item + 'name="' + name + '"' + 'value="' + value + '"' + '>';
+                    var responseText = '< ' + target_item + ' name="' + name + '"' + ' value="' + value + '"' + ' >';
                     responseText += value;
                     responseText += "</"+target_item+">";
 

@@ -101,6 +101,7 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
 
         getTarget(selector).addEventListener(event, function () {
             jlogs(f, ' addEventListener selector event', selector, event);
+            jlogs(f, ' addEventListener targets', targets);
 
             var first_target = targets[target];
             jlogs(f, ' first_target ', first_target);

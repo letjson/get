@@ -43,10 +43,15 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
         var targets = json[selector_event];
         jlogs('jloadsForm selector event targets', selector, event, targets);
 
-        document.addEventListener("DOMContentLoaded", function(event) {
-            jlogs(f, 'elem wait DOMContentLoaded selector', selector);
+        onSelector(selector, function (select, element) {
+            jlogs(f, 'elem wait DOMContentLoaded select element', select, element);
             selectorEventTarget(selector, event, targets, success, error);
         });
+        //
+        // document.addEventListener("DOMContentLoaded", function(event) {
+        //     jlogs(f, 'elem wait DOMContentLoaded selector event', selector, event);
+        //     selectorEventTarget(selector, event, targets, success, error);
+        // });
 
     } else {
         for (var selector in json) {

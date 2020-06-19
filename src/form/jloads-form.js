@@ -84,13 +84,19 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
     jlogs('jloadsForm target_group, target_task, target_item', target_group, target_task, target_item);
 
     // jlogs(f, ' isArray target', target, isArray(target));
-    jlogs(f, ' isArray getTarget(selector)', selector, getTarget(selector));
+    console.log(f, ' getTarget(selector)', selector, getTarget(selector));
 
 
     if (typeof selector === 'string') {
         try {
-            getTarget(selector).addEventListener(event, function () {
+            var element = new E(selector);
+            element.first()
+            element.first().addEventListener(event, function () {
                 jlogs(f, ' addEventListener ', selector, event);
+
+
+                console.log('.submit() element.first', self.cfg.target);
+                console.log('.submit() self.cfg.event', self.cfg.event);
 
                 var first_target = targets[target];
                 if (isArray(first_target)) {

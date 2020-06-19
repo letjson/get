@@ -41,7 +41,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
         var selector = se[0];
         var event = se[1];
         var targets = json[selector_event];
-        jlogs('jloadsForm selector event target', selector, event, targets);
+        jlogs('jloadsForm selector event targets', selector, event, targets);
 
         selectorEventTarget(selector, event, targets, success, error);
 

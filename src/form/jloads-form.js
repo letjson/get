@@ -113,7 +113,7 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
                     var obj = first_target[id];
                     jlogs(f, ' isArray', ' obj ', obj);
                     var name = Object.keys(first_target[id])[0];
-                    var value = Object.keys(first_target[id])[1];
+                    var value = first_target[id][name];
 
                     jlogs(f, ' isArray', ' name ', name);
                     jlogs(f, ' isArray', ' name ', value);

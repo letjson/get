@@ -113,8 +113,8 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
                         jlogs(f, ' isArray', ' obj ', obj);
                     }
                 } else {
-                    jlogs(f, ' isArray ERROR object', object);
-                    error(object);
+                    jlogs(f, ' isArray ERROR object', selector);
+                    error(selector);
                 }
 
             });

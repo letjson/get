@@ -407,6 +407,9 @@ function getTarget(selector) {
     const f = 'getTarget';
 
     if(typeof selector === 'string'){
+        if(selector === 'html'){
+            return document;
+        }
         jlogs(f, 'str selector', selector);
         var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
         jlogs(f, 'target', target, typeof target);

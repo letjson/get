@@ -1491,10 +1491,10 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
         var se = selector_event.split(":", 2);
         var selector = se[0];
         var event = se[1];
-        var target = json[selector_event];
-        jlogs('jloadsForm selector event target', selector, event, target);
+        var targets = json[selector_event];
+        jlogs('jloadsForm selector event target', selector, event, targets);
 
-        selectorEventTarget(selector, event, target, success, error)
+        selectorEventTarget(selector, event, targets, success, error);
 
     } else {
         for (var selector in json) {
@@ -1517,11 +1517,12 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
  * @param error
  */
 jlogs('exist?', 'selectorEventTarget');
-if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (selector, event, target, success, error) {
+if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (selector, event, targets, success, error) {
 
     const f = 'jloadsForm selectorEventTarget';
-    jlogs('jloadsForm selector event target', selector, event, target);
 
+    var target = targets[0];
+    jlogs('jloadsForm selector event target', selector, event, target);
 
     var n = target.indexOf(">");
     if(n>0){

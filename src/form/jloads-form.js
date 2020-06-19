@@ -69,17 +69,19 @@ jlogs('exist?', 'selectorEventTarget');
 if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (selector, event, target, success, error) {
 
     const f = 'jloadsForm selectorEventTarget';
+    jlogs('jloadsForm selector event target', selector, event, target);
+
 
     var n = target.indexOf(">");
     if(n>0){
         var se = target.split(">", 2);
         var target_group = se[0];
-        var target_event = "append";
+        var target_task = "append";
         var target_item = se[1];
     }
 
 
-    jlogs('jloadsForm selector event target', selector, event, target, target_group, target_event, target_item);
+    jlogs('jloadsForm target_group, target_task, target_item', target_group, target_task, target_item);
 
     jlogs(f, ' isArray target', target, isArray(target));
 

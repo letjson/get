@@ -112,6 +112,11 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
                     jlogs(f, ' isArray', ' id ', id);
                     var obj = first_target[id];
                     jlogs(f, ' isArray', ' obj ', obj);
+                    var name = Object.keys(first_target[id])[0];
+                    var value = Object.keys(first_target[id])[0];
+
+                    jlogs(f, ' isArray', ' name ', name);
+                    jlogs(f, ' isArray', ' name ', value);
                 }
             } else {
                 jlogs(f, ' isArray ERROR object', selector);

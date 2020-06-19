@@ -103,10 +103,10 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
     try {
 
         if (typeof getTarget(selector) !== 'undefined') {
-            append(targets, selector, event, target_group, target_item, f)
+            append(targets, target, selector, event, target_group, target_item, f)
         } else {
             getTarget(selector).addEventListener(event, function () {
-                append(targets, selector, event, target_group, target_item, f)
+                append(targets, target, selector, event, target_group, target_item, f)
             });
         }
 
@@ -123,7 +123,7 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
 }
 
 
-function append(targets, selector, event, target_group, target_item, f) {
+function append(targets, target, selector, event, target_group, target_item, f) {
     jlogs(f, ' addEventListener selector event', selector, event);
     jlogs(f, ' addEventListener targets', targets);
 

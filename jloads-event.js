@@ -1492,9 +1492,9 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
         var selector = se[0];
         var event = se[1];
         var target = json[selector_event];
-        jlogs('jloadsForm selector event', selector, event, target);
+        jlogs('jloadsForm selector event target', selector, event, target[0]);
 
-        loadUrlData(selector, event, target, success, error)
+        selectorEventTarget(selector, event, target[0], success, error)
 
     } else {
         for (var selector in json) {
@@ -1516,18 +1516,24 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
  * @param success
  * @param error
  */
-jlogs('exist?', 'loadUrlData');
-if (typeof loadUrlData !== 'function') loadUrlData = function (selector, event, target, success, error) {
+jlogs('exist?', 'selectorEventTarget');
+if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (selector, event, target, success, error) {
 
-    const f = 'jloadsForm loadUrlData';
+    const f = 'jloadsForm selectorEventTarget';
 
-    jlogs(f, ' isArray object, elem, event', object, isArray(object), event);
+    var se = target.split(">", 2);
+    var target_selector = se[0];
+    var target_event = se[1];
 
-    if (isArray(object)) {
-        var selector = '';
-        for (var id in object) {
+    jlogs('jloadsForm selector event target', selector, event, target, target_selector, target_event);
+
+    jlogs(f, ' isArray target', target, isArray(target));
+
+    if (isArray(target)) {
+        // var selector = '';
+        for (var id in target) {
             jlogs(f, ' isArray', ' id ', id);
-            selector = object[id];
+            selector = target[id];
             jlogs(f, ' isArray', ' selector ', selector);
 
             if (typeof selector === 'string') {

@@ -8,7 +8,7 @@
  * @returns {Load}
  */
 jlogs('exist?', 'jloadsForm');
-if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, error, mapFunction) {
+if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, error) {
     const f = 'jloadsForm';
 
 
@@ -25,16 +25,10 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
         };
     }
 
-    if (typeof mapFunction !== 'object' && typeof map === 'object') {
-        // Configuration
-        mapFunction = map;
-    }
     jlogs(' jloadsForm', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
-
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     // jlogs('jloadsForm selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsForm selectorEvent1 selector', selector);
 
     // var jloads = new Load(selector, success, error);
 
@@ -42,10 +36,14 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
 
     if (Object.keys(json).length === 1) {
 
-        var selector = Object.keys(json)[0];
-        var event = json[selector];
+        var selector_event = Object.keys(json)[0];
+        var se = selector_event.split(":", 2);
+        var selector = se[0];
+        var event = se[1];
+        var target = json[selector_event];
+        jlogs('jloadsForm selector event', selector, event, target);
 
-        loadUrlData(selector, event, success, error)
+        loadUrlData(selector, event, target, success, error)
 
     } else {
         for (var selector in json) {
@@ -68,7 +66,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
  * @param error
  */
 jlogs('exist?', 'loadUrlData');
-if (typeof loadUrlData !== 'function') loadUrlData = function (object, event, success, error) {
+if (typeof loadUrlData !== 'function') loadUrlData = function (selector, event, target, success, error) {
 
     const f = 'jloadsForm loadUrlData';
 
@@ -83,8 +81,7 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (object, event, su
 
             if (typeof selector === 'string') {
                 try {
-                    getTarget(selector).
-                    success(selector);
+                    getTarget(selector).success(selector);
                 } catch (e) {
                     //jlogs(f, ' ERROR elem ', elem);
                     jlogs(f, ' ERROR e ', e);

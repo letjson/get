@@ -117,6 +117,13 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
 
                     jlogs(f, ' isArray', ' name ', name);
                     jlogs(f, ' isArray', ' name ', value);
+
+                    var responseText = '<' + target_item + 'value="' + value + '"' + '>';
+                    responseText += value;
+                    responseText += "</"+target_item+">";
+                    getTarget(target_group).insertAdjacentHTML('beforeend', responseText);
+
+
                 }
             } else {
                 jlogs(f, ' isArray ERROR object', selector);

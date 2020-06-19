@@ -1525,13 +1525,12 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
     jlogs('jloadsForm selector event target', selector, event, target);
 
     var n = target.indexOf(">");
-    if(n>0){
+    if (n > 0) {
         var se = target.split(">", 2);
         var target_group = se[0];
         var target_task = "append";
         var target_item = se[1];
     }
-
 
     jlogs('jloadsForm target_group, target_task, target_item', target_group, target_task, target_item);
 
@@ -1539,14 +1538,16 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
 
     if (isArray(target)) {
         // var selector = '';
-        for (var id in target) {
+        for (var id in targets) {
             jlogs(f, ' isArray', ' id ', id);
-            selector = target[id];
+            target = targets[id];
             jlogs(f, ' isArray', ' selector ', selector);
 
             if (typeof selector === 'string') {
                 try {
-                    getTarget(selector).success(selector);
+                    getTarget(selector).addEventListener(event, function () {
+                        jlogs(f, ' addEventListener ', selector, event);
+                    });
                 } catch (e) {
                     //jlogs(f, ' ERROR elem ', elem);
                     jlogs(f, ' ERROR e ', e);

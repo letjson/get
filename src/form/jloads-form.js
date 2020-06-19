@@ -92,7 +92,10 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
     jlogs(f, 'target_group, target_task, target_item', target_group, target_task, target_item);
 
     // jlogs(f, ' isArray target', target, isArray(target));
-    // console.log(f, ' getTarget(selector)', selector, getTarget(selector));
+    console.log(f, ' getTarget(selector)', selector, getTarget(selector));
+    if (selector === 'html' && event === 'onload') {
+        event = "DOMContentLoaded";
+    }
     // var element = new E(selector);
     // console.log(f, ' E', selector, element.first());
 
@@ -122,7 +125,7 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
                         // + ' name="' + name + '"'
                         + ' value="' + value + '"' + ' >';
                     responseText += value;
-                    responseText += "</"+target_item+">";
+                    responseText += "</" + target_item + ">";
 
                     jlogs(f, ' isArray', ' responseText ', responseText);
 

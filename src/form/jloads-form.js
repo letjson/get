@@ -92,15 +92,12 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
     if (typeof selector === 'string') {
         try {
 
-
             element.first().addEventListener(event, function () {
                 jlogs(f, ' addEventListener ', selector, event);
 
-
-                console.log('.submit() element.first', self.cfg.target);
-                console.log('.submit() self.cfg.event', self.cfg.event);
-
                 var first_target = targets[target];
+                jlogs(f, ' first_target ', first_target);
+
                 if (isArray(first_target)) {
                     // var selector = '';
                     for (var id in first_target) {

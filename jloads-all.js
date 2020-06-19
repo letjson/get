@@ -1467,6 +1467,9 @@ if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, er
         success = function (data) {
             console.log(f, ' loaded ', data);
         };
+    }
+
+    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
         error = function (data) {
             console.error(f, ' !loaded ', data);
         };

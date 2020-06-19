@@ -7,9 +7,10 @@
  * @param mapFunction
  * @returns {Load}
  */
-jlogs('exist?', 'jloadsEvent');
-if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, error, mapFunction) {
-    const f = 'jloadsEvent';
+jlogs('exist?', 'jloadsForm');
+if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, error, mapFunction) {
+    const f = 'jloadsForm';
+
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         // Configuration
@@ -28,22 +29,26 @@ if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, er
         // Configuration
         mapFunction = map;
     }
-    jlogs(' jloadsEvent', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+    jlogs(' jloadsForm', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs('jloadsEvent selectorEvent ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsEvent selectorEvent selector', selector);
+    // jlogs('jloadsForm selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
+    jlogs('jloadsForm selectorEvent1 selector', selector);
+
     var jloads = new Load(selector, success, error);
 
+    jlogs('jloadsForm Object.keys(json).length', Object.keys(json).length);
+
     if (Object.keys(json).length === 1) {
+
         var selector = Object.keys(json)[0];
         var event = json[selector];
-        selectorEvent(jloads, selector, event, mapFunction, success, error)
+        // loadUrlData(jloads, selector, event, mapFunction, success, error)
     } else {
         for (var selector in json) {
             var event = json[selector];
-            selectorEvent(jloads, selector, event, mapFunction, success, error)
+            // selectorEvent1(jloads, selector, event, mapFunction, success, error)
         }
     }
     // success(json);
@@ -63,7 +68,7 @@ if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, er
 jlogs('exist?', 'loadUrlData');
 if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, mapFunction, success, error) {
 
-    const f = 'jloadsEvent loadUrlData';
+    const f = 'jloadsForm loadUrlData';
 
     jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
 
@@ -112,9 +117,9 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
  * @param success
  * @param error
  */
-jlogs('exist?', 'selectorEvent');
-if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selector, event, mapFunction, success, error) {
-    const f = 'jloadsEvent selectorEvent';
+jlogs('exist?', 'selectorEvent1');
+if (typeof selectorEvent1 !== 'function') selectorEvent1 = function (jloads, selector, event, mapFunction, success, error) {
+    const f = 'jloadsForm selectorEvent1';
 
     jlogs(f, ' event ', event);
     jlogs(f, ' selector ', selector);
@@ -129,7 +134,35 @@ if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selec
             AddMessage(xhr.response);
         });
     });
+
+
     /*
+    for (var i = 0; i < forms.length; i++) {
+
+                var form = forms[i];
+                //formEvent(forms[i], rest_form, error, success);
+                form.addEventListener(self.cfg.event, function (event) {
+                    event.preventDefault();
+
+                    !RESTFORM_DEBUG || console.log(this);
+
+                    var data = formToObject(this);
+                    var method = data.method;
+
+                    delete data.method;
+                    delete data.submit;
+
+                    !RESTFORM_DEBUG || console.log(method);
+
+                    rest_form.byMethod(method, data);
+                    !RESTFORM_DEBUG || console.log(data);
+
+                    success(event);
+
+
+                });
+            }
+
 } else {
     jlogs(f, ' wait for element i ', i);
     jlogs(f, ' wait for element target ', jloads.getTarget());
@@ -159,7 +192,7 @@ if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selec
 
     } catch (e) {
         //jlogs(f, ' ERROR elem ', elem);
-        jlogs(f, ' selectorEvent ERROR e ', e);
+        jlogs(f, ' selectorEvent1 ERROR e ', e);
         error(e);
     }
 }
@@ -178,30 +211,30 @@ if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selec
  * @returns {*}
  * @constructor
  */
-jlogs('exist?', 'addEvent');
-if (typeof eventResponse !== 'function') eventResponse = function (selector, event, response) {
-    const f = 'jloadsEvent eventResponse';
-    jlogs(f, ' selector ', selector);
-    jlogs(f, ' event ', event);
-
-    var success = function (data) {
-        console.table('FORM success', data);
-    };
-    var error = function (data) {
-        console.error('!FORM', data);
-    }
-
-
-    var form = new RestForm(selector, response, error, success);
-
-    form.cfg({
-        "target": selector,
-        "url": "//api.paas.info/index.php",
-        "method": "GET",
-        "event": "submit"
-    });
-
-    form.url((window.location.hostname === 'localhost') ? "//localhost:8000/index.php" : "//php.jloads.com/index.php");
-
-    form.submit();
-}
+// jlogs('exist?', 'addEvent');
+// if (typeof eventResponse !== 'function') eventResponse = function (selector, event, response) {
+//     const f = 'jloadsForm eventResponse';
+//     jlogs(f, ' selector ', selector);
+//     jlogs(f, ' event ', event);
+//
+//     var success = function (data) {
+//         console.table('FORM success', data);
+//     };
+//     var error = function (data) {
+//         console.error('!FORM', data);
+//     }
+//
+//
+//     var form = new RestForm(selector, response, error, success);
+//
+//     form.cfg({
+//         "target": selector,
+//         "url": "//api.paas.info/index.php",
+//         "method": "GET",
+//         "event": "submit"
+//     });
+//
+//     form.url((window.location.hostname === 'localhost') ? "//localhost:8000/index.php" : "//php.jloads.com/index.php");
+//
+//     form.submit();
+// }

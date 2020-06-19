@@ -762,10 +762,14 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
         success = function (data) {
             console.log(f, ' loaded ', data);
         };
+    }
+
+    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
         error = function (data) {
             console.error(f, ' !loaded ', data);
         };
     }
+
 
     if (typeof mapFunction !== 'object' && typeof map === 'object') {
         // Configuration
@@ -844,7 +848,16 @@ var Load = function (target, success, error) {
     //insert the <script> element
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
-        throw new TypeError('Object success called on non-object');
+        //throw new TypeError('Object success called on non-object');
+        success = function (data) {
+            console.log(f, ' loaded ', data);
+        };
+    }
+
+    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
+        error = function (data) {
+            console.error(f, ' !loaded ', data);
+        };
     }
 
     this.success = success;

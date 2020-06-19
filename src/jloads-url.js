@@ -133,10 +133,14 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
         success = function (data) {
             console.log(f, ' loaded ', data);
         };
+    }
+
+    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
         error = function (data) {
             console.error(f, ' !loaded ', data);
         };
     }
+
 
     if (typeof mapFunction !== 'object' && typeof map === 'object') {
         // Configuration

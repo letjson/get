@@ -47,7 +47,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
             jlogs(f, 'elem wait DOMContentLoaded select element', select, element);
             selectorEventTarget(selector, event, targets, success, error);
         });
-        //
+
         // document.addEventListener("DOMContentLoaded", function(event) {
         //     jlogs(f, 'elem wait DOMContentLoaded selector event', selector, event);
         //     selectorEventTarget(selector, event, targets, success, error);
@@ -92,14 +92,14 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
     jlogs(f, 'target_group, target_task, target_item', target_group, target_task, target_item);
 
     // jlogs(f, ' isArray target', target, isArray(target));
-    console.log(f, ' getTarget(selector)', selector, getTarget(selector));
-    var element = new E(selector);
-    console.log(f, ' E', selector, element.first());
+    // console.log(f, ' getTarget(selector)', selector, getTarget(selector));
+    // var element = new E(selector);
+    // console.log(f, ' E', selector, element.first());
 
     if (typeof selector === 'string') {
         try {
 
-            element.first().addEventListener(event, function () {
+            getTarget(selector).addEventListener(event, function () {
                 jlogs(f, ' addEventListener selector event', selector, event);
 
                 var first_target = targets[target];

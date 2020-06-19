@@ -121,6 +121,9 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
                     var responseText = '<' + target_item + 'name="' + name + '"' + 'value="' + value + '"' + '>';
                     responseText += value;
                     responseText += "</"+target_item+">";
+
+                    jlogs(f, ' isArray', ' responseText ', responseText);
+
                     getTarget(target_group).insertAdjacentHTML('beforeend', responseText);
 
 

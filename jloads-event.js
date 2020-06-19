@@ -1535,33 +1535,37 @@ if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (s
     jlogs('jloadsForm target_group, target_task, target_item', target_group, target_task, target_item);
 
     jlogs(f, ' isArray target', target, isArray(target));
-    var first_target = targets[target];
-    if (isArray(first_target)) {
-        // var selector = '';
-        for (var id in first_target) {
-            jlogs(f, ' isArray', ' id ', id);
-            var obj = first_target[id];
-            jlogs(f, ' isArray', ' obj ', obj);
 
-            if (typeof selector === 'string') {
-                try {
-                    getTarget(selector).addEventListener(event, function () {
-                        jlogs(f, ' addEventListener ', selector, event);
-                    });
-                } catch (e) {
-                    //jlogs(f, ' ERROR elem ', elem);
-                    jlogs(f, ' ERROR e ', e);
-                    error(e);
+
+    if (typeof selector === 'string') {
+        try {
+            getTarget(selector).addEventListener(event, function () {
+                jlogs(f, ' addEventListener ', selector, event);
+
+                var first_target = targets[target];
+                if (isArray(first_target)) {
+                    // var selector = '';
+                    for (var id in first_target) {
+                        jlogs(f, ' isArray', ' id ', id);
+                        var obj = first_target[id];
+                        jlogs(f, ' isArray', ' obj ', obj);
+                    }
+                } else {
+                    jlogs(f, ' isArray ERROR object', object);
+                    error(object);
                 }
 
-                // jloads.js([selector]);
-                // elem.appendChild(selector, funcName);
-            }
+            });
+        } catch (e) {
+            //jlogs(f, ' ERROR elem ', elem);
+            jlogs(f, ' ERROR e ', e);
+            error(e);
         }
-    } else {
-        jlogs(f, ' isArray ERROR object', object);
-        error(object);
+
+        // jloads.js([selector]);
+        // elem.appendChild(selector, funcName);
     }
+
 }
 
 

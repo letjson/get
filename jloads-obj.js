@@ -2028,7 +2028,7 @@ var Rest = function (url, separator, response, error, success) {
 jlogs('exist?', 'loadContentByUrls');
 if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
 
-    const f = 'jloadsUrl loadContentByUrls';
+    const f = 'jloadsObj loadContentByUrls';
 
     jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
 
@@ -2080,7 +2080,7 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jload
  */
 jlogs('exist?', 'getOne');
 if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
-    const f = 'jloadsUrl getOne';
+    const f = 'jloadsObj getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
 
@@ -2138,9 +2138,9 @@ if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunct
  * @param mapFunction
  * @returns {Load}
  */
-jlogs('exist?', 'jloadsUrl');
-if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error, mapFunction) {
-    const f = 'jloadsUrl';
+jlogs('exist?', 'jloadsObj');
+if (typeof jloadsObj !== 'function') jloadsObj = function (json, success, error, mapFunction) {
+    const f = 'jloadsObj';
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -2164,12 +2164,12 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
         // Configuration
         mapFunction = map;
     }
-    jlogs(' jloadsUrl', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+    jlogs(' jloadsObj', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsUrl getOne ', ' i ', i);
+    // jlogs('jloadsObj getOne ', ' elem ', elem, !isEmpty(elem));
+    jlogs('jloadsObj getOne ', ' i ', i);
     var jloads = new Load(i, success, error);
 
     if (Object.keys(json).length === 1) {
@@ -2201,7 +2201,7 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
  */
 jlogs('exist?', 'ReadyHtml');
 if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
-    const f = 'jloadsUrl ReadyHtml';
+    const f = 'jloadsObj ReadyHtml';
 
     jlogs(f, ' i ', i);
     var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;

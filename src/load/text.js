@@ -58,7 +58,7 @@ function loadTextByStatus(status, responseText, url, success, error) {
 
     if (status == 200) {
         jlogs(f, ' loadText loaded HTML: ', responseText);
-        return success(JSON.parse(responseText), url);
+        return success(responseText, url);
     }
     if (status == 404) {
         getTarget(target).innerHTML = "loadText Page not found.";

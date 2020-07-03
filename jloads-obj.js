@@ -523,21 +523,6 @@ function includeStyle(url, target, success, error) {
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
-// jloads-target.js
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html',
-    'json': 'json'
-}
 // include-html.js
 jlogs('exist?', 'loadJson');
 
@@ -605,6 +590,21 @@ function loadJsonByStatus(status, responseText, url, success, error) {
         return error(this, status);
     }
     return error(responseText);
+}
+// jloads-target.js
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html',
+    'json': 'json'
 }
 // e.js
 jlogs('exist?', 'getTarget');

@@ -17,11 +17,11 @@ function each(array, callback, limit, is_last, is_first) {
 
     if (is_first) {
         obj = firstArray(array);
-        callback(obj);
+        callback(obj,0);
 
     } else if (is_last) {
         obj = lastArray(array);
-        callback(obj);
+        callback(obj,-1);
 
     } else {
 
@@ -37,7 +37,7 @@ function each(array, callback, limit, is_last, is_first) {
             // console.log(obj);
             // console.log(limit, count);
 
-            callback(obj);
+            callback(obj, key);
         }
     }
     // return this;

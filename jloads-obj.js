@@ -2053,7 +2053,7 @@ function loadJson(url, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadJsonByStatus(this.status, this.responseText,  success, error);
+                loadJsonByStatus(this.status, this.responseText,  url, success, error);
 
                 /* Remove the attribute, and call this function once more: */
                 // loadJson(url, success, error);
@@ -2071,12 +2071,12 @@ function loadJson(url, success, error) {
 
 }
 
-function loadJsonByStatus(status, responseText, success, error) {
+function loadJsonByStatus(status, responseText, url,  success, error) {
     const f = 'loadJsonByStatus';
 
     if (status == 200) {
         jlogs(f, ' loadJson loaded HTML: ', responseText);
-        return success(JSON.parse(responseText));
+        return success(JSON.parse(responseText), url);
     }
     if (status == 404) {
         getTarget(target).innerHTML = "loadJson Page not found.";

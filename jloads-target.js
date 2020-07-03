@@ -606,6 +606,74 @@ function loadJsonByStatus(status, responseText, url, success, error) {
     }
     return error(responseText);
 }
+// include-html.js
+jlogs('exist?', 'loadText');
+
+/**
+ *
+ * @param url
+ * @param success
+ * @param error
+ * @returns {html|boolean}
+ */
+function loadText(url, success, error) {
+    const f = 'loadText';
+
+
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
+
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
+
+    if (url.length > 5) {
+
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadTextByStatus(this.status, this.responseText, url, success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // loadText(url, success, error);
+            }
+        }
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader('Content-type', 'application/text; charset=utf-8');
+
+        xhrObj.send();
+        /* Exit the function: */
+        return success(this);
+    }
+    return false;
+
+}
+
+function loadTextByStatus(status, responseText, url, success, error) {
+    const f = 'loadTextByStatus';
+
+    if (status == 200) {
+        jlogs(f, ' loadText loaded HTML: ', responseText);
+        return success(JSON.parse(responseText), url);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "loadText Page not found.";
+        return error(this, status);
+    }
+    return error(responseText);
+}
 // e.js
 jlogs('exist?', 'getTarget');
 /**
@@ -1412,6 +1480,57 @@ var Load = function (target, success, error) {
                     jlogs(this.constructor.name, ' json ', script_url);
                 } catch (e) {
                     err('! json ', script_url, e);
+                    // error();
+                }
+            }
+        } else {
+            loadJson(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
+            // err('apiunit obj: is not object:', obj);
+        }
+
+        return self;
+    };
+
+    self.text = function (url) {
+        jlogs(this.constructor.name, ' self.cfg.delay ', self.cfg.delay);
+
+        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+            setTimeout(function () {
+                    jlogs(this.constructor.name, ' text delayed ', self.cfg.delay, url);
+                    self.loadJson(url);
+                },
+                self.cfg.delay
+            );
+        } else {
+            jlogs(this.constructor.name, ' text url ', url);
+            self.loadJson(url);
+        }
+        return self;
+    };
+
+    self.loadJson = function (url) {
+        jlogs(this.constructor.name, ' self.cfg.target ', self.cfg.target);
+
+        if (typeof url === 'object') {
+            //log(this.constructor.name, 'obj:', obj);
+            var last = false;
+            var len = url.length - 1;
+            for (var i in url) {
+                last = (len == i);
+                jlogs(this.constructor.name, ' text url.length ', len, i, last);
+
+                var script_url = self.getEnvUrl(url[i]);
+                jlogs(this.constructor.name, ' text script_url ', script_url);
+
+                try {
+                    // if (last) {
+                    includeJson(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    // } else {
+                    //     var exe = includeJson(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    // }
+                    jlogs(this.constructor.name, ' text ', script_url);
+                } catch (e) {
+                    err('! text ', script_url, e);
                     // error();
                 }
             }

@@ -450,5 +450,56 @@ var Load = function (target, success, error) {
         return self;
     };
 
+    self.text = function (url) {
+        jlogs(this.constructor.name, ' self.cfg.delay ', self.cfg.delay);
+
+        if (typeof self.cfg.delay === 'number' && self.cfg.delay > 1) {
+            setTimeout(function () {
+                    jlogs(this.constructor.name, ' text delayed ', self.cfg.delay, url);
+                    self.loadJson(url);
+                },
+                self.cfg.delay
+            );
+        } else {
+            jlogs(this.constructor.name, ' text url ', url);
+            self.loadJson(url);
+        }
+        return self;
+    };
+
+    self.loadJson = function (url) {
+        jlogs(this.constructor.name, ' self.cfg.target ', self.cfg.target);
+
+        if (typeof url === 'object') {
+            //log(this.constructor.name, 'obj:', obj);
+            var last = false;
+            var len = url.length - 1;
+            for (var i in url) {
+                last = (len == i);
+                jlogs(this.constructor.name, ' text url.length ', len, i, last);
+
+                var script_url = self.getEnvUrl(url[i]);
+                jlogs(this.constructor.name, ' text script_url ', script_url);
+
+                try {
+                    // if (last) {
+                    includeJson(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    // } else {
+                    //     var exe = includeJson(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    // }
+                    jlogs(this.constructor.name, ' text ', script_url);
+                } catch (e) {
+                    err('! text ', script_url, e);
+                    // error();
+                }
+            }
+        } else {
+            loadJson(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
+            // err('apiunit obj: is not object:', obj);
+        }
+
+        return self;
+    };
+
     return self;
 };

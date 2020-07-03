@@ -34,20 +34,20 @@ if (typeof jloadsObj !== 'function') jloadsObj = function (url, success, error, 
         mapFunction = map;
     }
 
-    var json = {};
+    // var json = {};
 
     if (typeof url === 'string') {
         try {
             // base64 in url
             if (url.length > 2) {
-                json = loadJson(url, success);
+                return loadJson(url, success);
             }
             // success(json, url);
-            return json;
+            // return json;
         } catch (e) {
             //jlogs(f, ' ERROR elem ', elem);
             jlogs(f, ' ERROR e ', e);
-            error(e, url);
+            return error(e, url);
         }
     }
 

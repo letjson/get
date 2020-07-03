@@ -42,3 +42,12 @@ function each(array, callback, limit, is_last, is_first) {
     }
     // return this;
 }
+
+var firstArray = function (array) {
+    var key = array.length - 1;
+    return array[key];
+}
+
+var lastArray = function (array) {
+    return array.slice(-1);
+}

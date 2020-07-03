@@ -10,7 +10,7 @@ jlogs('exist?', 'getFunctionName');
 function getFunctionName(url, map) {
     const f = 'getFunctionName';
 
-    var ext = getFileExtension(url)
+    var ext = getFileExtension(url);
     // jlogs(f, ' map ', map);
     jlogs(f, ' url ', url);
     jlogs(f, ' ext ', ext);

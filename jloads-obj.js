@@ -441,7 +441,7 @@ jlogs('exist?', 'getFunctionName');
 function getFunctionName(url, map) {
     const f = 'getFunctionName';
 
-    var ext = getFileExtension(url)
+    var ext = getFileExtension(url);
     // jlogs(f, ' map ', map);
     jlogs(f, ' url ', url);
     jlogs(f, ' ext ', ext);
@@ -1235,7 +1235,7 @@ var Load = function (target, success, error) {
 
                 try {
                     // if (last) {
-                    includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    html(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // } else {
                     //     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // }
@@ -1246,7 +1246,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            includeHtml(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
+            html(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
             // err('apiunit obj: is not object:', obj);
         }
 
@@ -1280,14 +1280,14 @@ var Load = function (target, success, error) {
                 var script_url = self.getEnvUrl(url[i]);
 
                 try {
-                    includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    image(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     jlogs(this.constructor.name, ' img ', script_url);
                 } catch (e) {
                     err('! img ', script_url, e);
                 }
             }
         } else {
-            includeImage(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
+            image(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
             // err('apiunit obj: is not object:', obj);
         }
         return self;
@@ -2016,120 +2016,75 @@ var Rest = function (url, separator, response, error, success) {
 
     return this;
 }
-// jloads-event.js
+// include-html.js
+jlogs('exist?', 'loadJson');
+
 /**
  *
- * @param jloads
- * @param object
- * @param mapFunction
+ * @param url
  * @param success
  * @param error
+ * @returns {html|boolean}
  */
-jlogs('exist?', 'loadContentByUrls');
-if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
+function loadJson(url, success, error) {
+    const f = 'loadJson';
 
-    const f = 'jloadsObj loadContentByUrls';
 
-    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
 
-    if (isArray(object)) {
-        var url = '';
-        for (var id in object) {
-            jlogs(f, ' isArray', ' id ', id);
-            url = object[id];
-            jlogs(f, ' isArray', ' url ', url);
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
 
-            if (typeof url === 'string') {
-                try {
-                    // base64 in url
-                    if (url.length > 200) {
-                        jloads['img'](url);
-                    } else {
-                        const funcName = getFunctionName(url, mapFunction);
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
-                    }
-                    success(url);
-                } catch (e) {
-                    //jlogs(f, ' ERROR elem ', elem);
-                    jlogs(f, ' ERROR e ', e);
-                    error(e);
-                }
+    if (url.length > 5) {
 
-                // jloads.js([url]);
-                // elem.appendChild(url, funcName);
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadJsonByStatus(this.status, this.responseText,  success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // loadJson(url, success, error);
             }
         }
-    } else {
-        jlogs(f, ' isArray ERROR object', object);
-        error(object);
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+        xhrObj.send();
+        /* Exit the function: */
+        return success(this);
     }
+    return false;
+
 }
 
+function loadJsonByStatus(status, responseText, success, error) {
+    const f = 'loadJsonByStatus';
 
-
-    /**
- *
- * @param jloads
- * @param object
- * @param i
- * @param mapFunction
- * @param success
- * @param error
- */
-jlogs('exist?', 'getOne');
-if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
-    const f = 'jloadsObj getOne';
-
-    jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
-
-    // TODO: move to class E for smart load content on not existing DOM elements
-    // if (i === 'head' || !isEmpty(jloads.getTarget())) {
-    jlogs(f, ' object i ', object, i);
-    if (i === 'head') {
-        loadContentByUrls(jloads, object, mapFunction, success, error);
-        success(jloads.getTarget());
-    } else if (i === 'body') {
-        jlogs(f, ' wait for body i ', i);
-        jlogs(f, ' wait for body target ', jloads.getTarget());
-        document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(object, i, mapFunction, success, error);
-        });
-    } else {
-        jlogs(f, ' wait for element i ', i);
-        jlogs(f, ' wait for element target ', jloads.getTarget());
-
-        try {
-            // set up the mutation observer
-            var observer = new MutationObserver(function (mutations, me) {
-                // `mutations` is an array of mutations that occurred
-                // `me` is the MutationObserver instance
-                // var canvas = document.getElementById('my-canvas');
-                var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
-                if (canvas) {
-                    // callback executed when canvas was found
-                    ReadyHtml(object, i, mapFunction, success, error);
-                    me.disconnect(); // stop observing
-                    return;
-                }
-            });
-
-            // start observing
-            observer.observe(document, {
-                childList: true,
-                subtree: true
-            });
-
-        } catch (e) {
-            //jlogs(f, ' ERROR elem ', elem);
-            jlogs(f, ' getOne ERROR e ', e);
-            error(e);
-        }
+    if (status == 200) {
+        jlogs(f, ' loadJson loaded HTML: ', responseText);
+        return success(JSON.parse(responseText));
     }
-    // error(elem);
+    if (status == 404) {
+        getTarget(target).innerHTML = "loadJson Page not found.";
+        return error(this, status);
+    }
+    return error(responseText);
 }
-
+// jloads-obj.js
 /**
  *
  * @param json
@@ -2139,7 +2094,7 @@ if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunct
  * @returns {Load}
  */
 jlogs('exist?', 'jloadsObj');
-if (typeof jloadsObj !== 'function') jloadsObj = function (json, success, error, mapFunction) {
+if (typeof jloadsObj !== 'function') jloadsObj = function (url, success, error, mapFunction) {
     const f = 'jloadsObj';
 
     //url is URL of external file, success is the code
@@ -2164,60 +2119,24 @@ if (typeof jloadsObj !== 'function') jloadsObj = function (json, success, error,
         // Configuration
         mapFunction = map;
     }
-    jlogs(' jloadsObj', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
+    var json = {};
 
-    // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs('jloadsObj getOne ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsObj getOne ', ' i ', i);
-    var jloads = new Load(i, success, error);
-
-    if (Object.keys(json).length === 1) {
-        var i = Object.keys(json)[0];
-        getOne(jloads, json[i], i, mapFunction, success, error)
-    } else {
-        for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
+    if (typeof url === 'string') {
+        try {
+            // base64 in url
+            if (url.length > 2) {
+                json = loadJson(url, success);
+            }
+            // success(json, url);
+            return json;
+        } catch (e) {
+            //jlogs(f, ' ERROR elem ', elem);
+            jlogs(f, ' ERROR e ', e);
+            error(e, url);
         }
     }
-    // success(json);
-
-    return jloads;
-}
 
 
-
-
-/**
- *
- * @param object
- * @param i
- * @param mapFunction
- * @param success
- * @param error
- * @returns {*}
- * @constructor
- */
-jlogs('exist?', 'ReadyHtml');
-if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
-    const f = 'jloadsObj ReadyHtml';
-
-    jlogs(f, ' i ', i);
-    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs(f, ' elem ', elem);
-
-    var jloads = new Load(i, success, error);
-
-    if (!isEmpty(elem)) {
-        loadContentByUrls(jloads, object, mapFunction, success, error);
-        success(elem);
-    } else {
-        waitFor(i, 40, function (i) {
-            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-            var jloads = new Load(i, success, error);
-            loadContentByUrls(jloads, object, mapFunction, success, error);
-        });
-        // error(elem);
-    }
+    return null;
 }

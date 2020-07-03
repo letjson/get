@@ -427,7 +427,7 @@ jlogs('exist?', 'getFunctionName');
 function getFunctionName(url, map) {
     const f = 'getFunctionName';
 
-    var ext = getFileExtension(url)
+    var ext = getFileExtension(url);
     // jlogs(f, ' map ', map);
     jlogs(f, ' url ', url);
     jlogs(f, ' ext ', ext);
@@ -1221,7 +1221,7 @@ var Load = function (target, success, error) {
 
                 try {
                     // if (last) {
-                    includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    html(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // } else {
                     //     var exe = includeHtml(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     // }
@@ -1232,7 +1232,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            includeHtml(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
+            html(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
             // err('apiunit obj: is not object:', obj);
         }
 
@@ -1266,14 +1266,14 @@ var Load = function (target, success, error) {
                 var script_url = self.getEnvUrl(url[i]);
 
                 try {
-                    includeImage(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
+                    image(script_url, self.cfg.target, self.cfg.replace, self.success, self.error);
                     jlogs(this.constructor.name, ' img ', script_url);
                 } catch (e) {
                     err('! img ', script_url, e);
                 }
             }
         } else {
-            includeImage(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
+            image(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
             // err('apiunit obj: is not object:', obj);
         }
         return self;

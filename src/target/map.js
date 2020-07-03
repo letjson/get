@@ -9,5 +9,6 @@ var map = {
     'gif': 'img',
     'htm': 'html',
     'html': 'html',
-    'html5': 'html'
+    'html5': 'html',
+    'json': 'json'
 }

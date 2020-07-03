@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>get.jloadsObj</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <script src="../jloads-obj.js"></script>
+    <script>
+        var json = jloadsObj("json/obj.json");
+        var jsonName = jloadsObj("json/obj.json").name;
+        var jsonName = jloadsObj("json/obj.json").first(name);
+        var jsonArrayName = jloadsObj("json/obj.json").array(name);
+    </script>
+
+    <style>
+        /* GLOBAL */
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block; /* remove extra space below image */
+        }
+
+        body {
+            /*background-color: #fb7e14;*/
+            /*color: #fffc60;*/
+            font-family: Tahoma;
+        }
+
+        .container > .content,
+        .container > .footer {
+            margin: auto auto;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .for_image {
+            margin: 20px auto;
+        }
+
+        .for_image img {
+            /*width: 450px;*/
+            height: 450px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            /*width: 50%;*/
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="content">
+        <button onclick="loadPinkCss()" class="pink">Load Pink</button>
+        <button onclick="loadBlackCss()">Load Black</button>
+
+        <div class="for_image">...</div>
+    </div>
+
+    <div class="footer">
+        <h5>
+            local: <a href="http://localhost:8080/" rel="nofollow">localhost:8080/</a>
+            | production: <a href="https://get.jloads.com/" rel="nofollow">get.jloads.com</a>
+            | supported by: <a href="https://softreck.com/" rel="nofollow">softreck.com</a>
+            | <a href="https://docs.jloads.com" rel="nofollow">docs</a>
+        </h5>
+    </div>
+</div>
+
+</body>
+</html>

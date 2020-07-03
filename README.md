@@ -36,6 +36,12 @@ rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
 a nie wchodzących w najnowsze frameworki i biblioteki by następnie zajmować się
 usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o aktualizacje.
 
+## Standardy
+
+Programowanie aspektowe (aspect-oriented programming, AOP) to paradygmat tworzenia programów komputerowych wspomagający separację zagadnień i rozdzielenie programu na części w jak największym stopniu niezwiązane funkcjonalnie.
+Zagadnienia te są w dużym stopniu rozłączne pomiędzy sobą pod względem funkcjonalnym. Aby je zrealizować, programista musi poprzeplatać ich implementacje (tzw. warkocz), co czyni kod mniej czytelnym, bardziej podatnym na błędy, trudniejszym w modyfikacji.
+Programowanie aspektowe zapobiega tym negatywnym skutkom oddzielając fizycznie kod każdego zagadnienia poprzez umieszczenie ich w oddzielnych aspektach i logiczne zdefiniowanie punktów interakcji pomiędzy nimi.
+
 ## Funkcjonalność
 możliwe jest ładowanie dynamiczne, poprzez dodawanie przez JS odpowiednich tagów dla:
 

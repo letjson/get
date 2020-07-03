@@ -1,5 +1,5 @@
 // include-html.js
-jlogs('exist?', 'includeHtml');
+jlogs('exist?', 'loadHtml');
 
 /**
  *
@@ -11,7 +11,7 @@ jlogs('exist?', 'includeHtml');
  * @returns {html|boolean}
  */
 function html(url, target, replace, success, error) {
-    const f = 'includeHtml';
+    const f = 'loadHtml';
 
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
@@ -30,7 +30,7 @@ function html(url, target, replace, success, error) {
     }
     jlogs(f, ' url ', url);
     // if html content, NOT URL
-    jlogs(f, ' includeHtml HTML target : ', target, getTarget(target));
+    jlogs(f, ' loadHtml HTML target : ', target, getTarget(target));
 
     if (url.length > 100) {
         getTarget(target).insertAdjacentHTML('beforeend', url);
@@ -49,7 +49,7 @@ function html(url, target, replace, success, error) {
                 loadHtmlByStatus(this.status, this.responseText, target, success, error);
 
                 /* Remove the attribute, and call this function once more: */
-                // includeHtml(url, success, error);
+                // loadHtml(url, success, error);
             }
         }
         xhrObj.open("GET", url, true);
@@ -66,10 +66,10 @@ function html(url, target, replace, success, error) {
 function loadHtmlByStatus(status, responseText, target, success, error) {
     const f = 'loadHtmlByStatus';
 
-    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+    jlogs(f, ' loadHtml waiting for DOM tree ', target, getTarget(target));
 
     if (status == 200) {
-        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+        jlogs(f, ' loadHtml loaded HTML: ', responseText, target, getTarget(target));
         onSelector(target, function (selector, element) {
             jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
             jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
@@ -78,7 +78,7 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
         return success(this);
     }
     if (status == 404) {
-        getTarget(target).innerHTML = "includeHtml Page not found.";
+        getTarget(target).innerHTML = "loadHtml Page not found.";
         return error(this, status);
     }
     return error(this);

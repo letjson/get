@@ -1,5 +1,5 @@
 // include-image.js
-jlogs('exist?', 'includeImage');
+jlogs('exist?', 'loadImage');
 /**
  *
  * @param url
@@ -9,7 +9,7 @@ jlogs('exist?', 'includeImage');
  * @param error
  */
 const image = function (url, target, replace, success, error) {
-    const f = 'includeImage';
+    const f = 'loadImage';
 
     jlogs(f, ' includeImg url: ', url);
     jlogs(f, ' includeImg target: ', target);
@@ -27,8 +27,8 @@ const image = function (url, target, replace, success, error) {
 
 
     if (replace) {
-        jlogs(f, 'includeImage getTarget(target): ', getTarget(target));
-        jlogs(f, 'includeImage getTarget(target) firstChild: ', getTarget(target).firstChild);
+        jlogs(f, 'loadImage getTarget(target): ', getTarget(target));
+        jlogs(f, 'loadImage getTarget(target) firstChild: ', getTarget(target).firstChild);
         // getTarget(target).removeChild(getTarget(target).firstChild);
 
         onSelector(target, function (selector, element) {

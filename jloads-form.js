@@ -323,180 +323,6 @@ function xml2string(node) {
         return node.xml;
     }
 }
-// jloads-target.js
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html'
-}
-// e.js
-jlogs('exist?', 'getTarget');
-/**
- *
- * @param selector
- * @param area
- * @param error
- * @param success
- * @returns {E}
- * @constructor
- */
-var E = function (selector, area, error, success) {
-
-    this.cfg = {};
-    this.cfg.area = document;
-    this.cfg.selector = selector;
-    this.cfg.exist = false;
-
-    if (typeof success === 'function') {
-        this.success = success;
-    } else {
-        this.success = function (elem) {
-            jlogs(this.constructor.name, " Element func success(): ", elem);
-        };
-    }
-
-    if (typeof error === 'function') {
-        this.error = error;
-    } else {
-        this.error = function (elem) {
-            jlogs(this.constructor.name, "! Element func error(): ", elem);
-        };
-    }
-
-    if (typeof this.cfg.selector !== 'string') {
-        jlogs(this.constructor.name, "! Element selector: ", elem);
-    }
-
-
-    var self = this;
-
-
-    self.selector = function (selector) {
-        self.cfg.selector = selector;
-        return self;
-    }
-
-    self.first = function (success, error) {
-        if (typeof success !== 'function') {
-            success = self.success;
-        }
-        if (typeof error !== 'function') {
-            error = self.error;
-        }
-        if (typeof self.cfg.selector !== 'string') {
-            self.cfg.exist = false;
-            error();
-        }
-        const elem = document.querySelector(self.cfg.selector);
-
-        jlogs(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
-        jlogs(this.constructor.name, ' first elem ', elem);
-
-        if (elem !== null) {
-            self.cfg.exist = true;
-            success(elem);
-            return elem;
-        } else {
-            self.cfg.exist = false;
-            error();
-        }
-
-        return elem;
-    }
-
-    self.all = function (error, success) {
-        if (typeof success !== 'function') {
-            success = self.success;
-        }
-        if (typeof error !== 'function') {
-            error = self.error;
-        }
-
-        const elem = document.querySelectorAll(self.cfg.selector);
-
-        jlogs(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
-        jlogs(this.constructor.name, ' all elem ', elem);
-
-        if (elem !== null) {
-            self.cfg.exist = true;
-            success(elem);
-        } else {
-            self.cfg.exist = false;
-            error(elem);
-        }
-
-        return elem;
-    }
-
-    return self;
-};
-// get-function-name.js
-jlogs('exist?', 'getFunctionName');
-
-/**
- *
- * @param url
- * @param map
- * @returns {*}
- */
-function getFunctionName(url, map) {
-    const f = 'getFunctionName';
-
-    var ext = getFileExtension(url);
-    // jlogs(f, ' map ', map);
-    jlogs(f, ' url ', url);
-    jlogs(f, ' ext ', ext);
-    var result = map[ext];
-    jlogs(f, ' result ', result);
-
-    if (isEmpty(result)) {
-        throw new Error('key or Value Is Empty or Key not exits in Map');
-    }
-    return result;
-}
-// get-target.js
-jlogs('exist?', 'getTarget');
-
-/**
- *
- * @param selector
- * @returns {HTMLHeadElement}
- */
-function getTarget(selector) {
-    const f = 'getTarget';
-
-    if(typeof selector === 'string'){
-        if(selector === 'html'){
-            return document;
-        }
-        jlogs(f, 'str selector', selector);
-        var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        jlogs(f, 'target', target, typeof target);
-        return target;
-    }
-
-    jlogs(f, 'obj selector', selector);
-    //jlogs(f, ' target ', target);
-    // if (isEmpty(target)) {
-    //     target = document.getElementsByTagName('head')[0];
-    //     jlogs(f, ' isEmpty HEAD ', target, typeof target, target.innerHTML !== 'undefined', target.innerHTML.length, Object.keys(target));
-    //     if (isEmpty(target)) {
-    //         target = document.body;
-    //         jlogs(f, ' isEmpty BODY ', target);
-    //     }
-    // }
-    // jlogs(f, 'target', target);
-
-    return selector;
-}
 // include-html.js
 jlogs('exist?', 'includeHtml');
 
@@ -697,6 +523,180 @@ function includeStyle(url, target, success, error) {
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
+// jloads-target.js
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html'
+}
+// e.js
+jlogs('exist?', 'getTarget');
+/**
+ *
+ * @param selector
+ * @param area
+ * @param error
+ * @param success
+ * @returns {E}
+ * @constructor
+ */
+var E = function (selector, area, error, success) {
+
+    this.cfg = {};
+    this.cfg.area = document;
+    this.cfg.selector = selector;
+    this.cfg.exist = false;
+
+    if (typeof success === 'function') {
+        this.success = success;
+    } else {
+        this.success = function (elem) {
+            jlogs(this.constructor.name, " Element func success(): ", elem);
+        };
+    }
+
+    if (typeof error === 'function') {
+        this.error = error;
+    } else {
+        this.error = function (elem) {
+            jlogs(this.constructor.name, "! Element func error(): ", elem);
+        };
+    }
+
+    if (typeof this.cfg.selector !== 'string') {
+        jlogs(this.constructor.name, "! Element selector: ", elem);
+    }
+
+
+    var self = this;
+
+
+    self.selector = function (selector) {
+        self.cfg.selector = selector;
+        return self;
+    }
+
+    self.first = function (success, error) {
+        if (typeof success !== 'function') {
+            success = self.success;
+        }
+        if (typeof error !== 'function') {
+            error = self.error;
+        }
+        if (typeof self.cfg.selector !== 'string') {
+            self.cfg.exist = false;
+            error();
+        }
+        const elem = document.querySelector(self.cfg.selector);
+
+        jlogs(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
+        jlogs(this.constructor.name, ' first elem ', elem);
+
+        if (elem !== null) {
+            self.cfg.exist = true;
+            success(elem);
+            return elem;
+        } else {
+            self.cfg.exist = false;
+            error();
+        }
+
+        return elem;
+    }
+
+    self.all = function (error, success) {
+        if (typeof success !== 'function') {
+            success = self.success;
+        }
+        if (typeof error !== 'function') {
+            error = self.error;
+        }
+
+        const elem = document.querySelectorAll(self.cfg.selector);
+
+        jlogs(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
+        jlogs(this.constructor.name, ' all elem ', elem);
+
+        if (elem !== null) {
+            self.cfg.exist = true;
+            success(elem);
+        } else {
+            self.cfg.exist = false;
+            error(elem);
+        }
+
+        return elem;
+    }
+
+    return self;
+};
+// get-function-name.js
+jlogs('exist?', 'getFunctionName');
+
+/**
+ *
+ * @param url
+ * @param map
+ * @returns {*}
+ */
+function getFunctionName(url, map) {
+    const f = 'getFunctionName';
+
+    var ext = getFileExtension(url);
+    // jlogs(f, ' map ', map);
+    jlogs(f, ' url ', url);
+    jlogs(f, ' ext ', ext);
+    var result = map[ext];
+    jlogs(f, ' result ', result);
+
+    if (isEmpty(result)) {
+        throw new Error('key or Value Is Empty or Key not exits in Map');
+    }
+    return result;
+}
+// get-target.js
+jlogs('exist?', 'getTarget');
+
+/**
+ *
+ * @param selector
+ * @returns {HTMLHeadElement}
+ */
+function getTarget(selector) {
+    const f = 'getTarget';
+
+    if(typeof selector === 'string'){
+        if(selector === 'html'){
+            return document;
+        }
+        jlogs(f, 'str selector', selector);
+        var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
+        jlogs(f, 'target', target, typeof target);
+        return target;
+    }
+
+    jlogs(f, 'obj selector', selector);
+    //jlogs(f, ' target ', target);
+    // if (isEmpty(target)) {
+    //     target = document.getElementsByTagName('head')[0];
+    //     jlogs(f, ' isEmpty HEAD ', target, typeof target, target.innerHTML !== 'undefined', target.innerHTML.length, Object.keys(target));
+    //     if (isEmpty(target)) {
+    //         target = document.body;
+    //         jlogs(f, ' isEmpty BODY ', target);
+    //     }
+    // }
+    // jlogs(f, 'target', target);
+
+    return selector;
+}
 // jloads-event.js
 /**
  *

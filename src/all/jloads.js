@@ -1,5 +1,5 @@
-// e.js
-jlogs('exist?', 'E');
+// jloads.js
+jlogs('exist?', 'jloads');
 /**
  *
  * @param selector
@@ -9,7 +9,7 @@ jlogs('exist?', 'E');
  * @returns {E}
  * @constructor
  */
-var E = function (selector, area, error, success) {
+var jloads = function (selector, area, error, success) {
 
     this.cfg = {};
     this.cfg.area = document;
@@ -45,33 +45,6 @@ var E = function (selector, area, error, success) {
         return self;
     }
 
-    self.first = function (success, error) {
-        if (typeof success !== 'function') {
-            success = self.success;
-        }
-        if (typeof error !== 'function') {
-            error = self.error;
-        }
-        if (typeof self.cfg.selector !== 'string') {
-            self.cfg.exist = false;
-            error();
-        }
-        const elem = document.querySelector(self.cfg.selector);
-
-        jlogs(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
-        jlogs(this.constructor.name, ' first elem ', elem);
-
-        if (elem !== null) {
-            self.cfg.exist = true;
-            success(elem);
-            return elem;
-        } else {
-            self.cfg.exist = false;
-            error();
-        }
-
-        return elem;
-    }
 
     self.all = function (error, success) {
         if (typeof success !== 'function') {

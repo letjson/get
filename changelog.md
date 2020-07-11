@@ -14,3 +14,5 @@ rename to jloads-url.js
 javascript function routing, checking if exist and delay request or DOMContentLoaded event 
 # v1.0.8 
 json 
+# v1.0.9 
+move library files to apifunc, such a basic function for many different languages 

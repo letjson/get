@@ -36,11 +36,12 @@ rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
 a nie wchodzących w najnowsze frameworki i biblioteki by następnie zajmować się
 usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o aktualizacje.
 
-## Standardy
 
+## Standardy
 Programowanie aspektowe (aspect-oriented programming, AOP) to paradygmat tworzenia programów komputerowych wspomagający separację zagadnień i rozdzielenie programu na części w jak największym stopniu niezwiązane funkcjonalnie.
 Zagadnienia te są w dużym stopniu rozłączne pomiędzy sobą pod względem funkcjonalnym. Aby je zrealizować, programista musi poprzeplatać ich implementacje (tzw. warkocz), co czyni kod mniej czytelnym, bardziej podatnym na błędy, trudniejszym w modyfikacji.
 Programowanie aspektowe zapobiega tym negatywnym skutkom oddzielając fizycznie kod każdego zagadnienia poprzez umieszczenie ich w oddzielnych aspektach i logiczne zdefiniowanie punktów interakcji pomiędzy nimi.
+
 
 ## Funkcjonalność
 możliwe jest ładowanie dynamiczne, poprzez dodawanie przez JS odpowiednich tagów dla:
@@ -58,15 +59,37 @@ ale jako jeden plik, który pozwala na zaoszczędzenie czasu ładowania i pozwal
 
 Dzięki zastosowaniu rozproszeonej infrastruktury CDN można zwiększyć szybkość ładowania.
  
-## Obecnie są dostępne 2 rozwiązania:
+## Obecnie dostępne są rozwiązania:
 
-+ jloads.url
-+ jloads.content
++ jloads - klasa do wywołania każdego typu poniżej:
+    + jloads.obj
+    + jloads.url
+    + jloads.content
+    + jloads.event
+
+
+### jloads
+klasa do utworzenia dowolnej implementacji objektu jloads
+
+
+### jloads.obj
+loads json object from url as object
+
+            jloadsObj("json/sentence.json", function (obj, url) {
+                console.log(obj["q&a"], url);
+                each(obj["q&a"], function (v,k) {
+                    var varr = v.split(' ');
+                    console.log(k,v,varr);
+                    $('input[name="first"]').val(varr);
+                });
+            });
+
+### jloads.url
+check url an load what exactly is in url
 
 
 ### jloads.target
-
-ma za zadanie rozpoznać typ pliku po rozszerzeniu i go załadować
+funkcja ma za zadanie rozpoznać typ pliku po rozszerzeniu i go załadować
 może zostać przetworzone, i np wszystkie pliki js wstępnie pobrane, by skrócić czas ładowania plików oddzielnie.
 
 W pliku JSON określa się selector i do niego ładuje zawartość pliku

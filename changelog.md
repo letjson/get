@@ -16,3 +16,5 @@ javascript function routing, checking if exist and delay request or DOMContentLo
 json 
 # v1.0.9 
 move library files to apifunc, such a basic function for many different languages 
+# v1.1.1 
+New File solution for fast loading depends of files tree structure 

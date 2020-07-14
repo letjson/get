@@ -477,7 +477,7 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
     jlogs('jloadsTarget getOne ', ' i ', i);
-    var jloads = new Load(i, success, error);
+    var jloads = new Load(i, success, error).domain('localhost');
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];

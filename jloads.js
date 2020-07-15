@@ -1,5 +1,5 @@
 // ver.js
-const JLOADS_VERSION='1.0.6';
+const JLOADS_VERSION='1.1.1';
 // jlogs.js
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
@@ -388,26 +388,6 @@ function includeHtml(url, target, replace, success, error) {
 
 }
 
-function loadHtmlByStatus(status, responseText, target, success, error) {
-    const f = 'loadHtmlByStatus';
-
-    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
-
-    if (status == 200) {
-        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
-        onSelector(target, function (selector, element) {
-            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
-            element.insertAdjacentHTML('beforeend', responseText);
-        });
-        return success(this);
-    }
-    if (status == 404) {
-        getTarget(target).innerHTML = "includeHtml Page not found.";
-        return error(this, status);
-    }
-    return error(this);
-}
 // include-image.js
 jlogs('exist?', 'includeImage');
 /**
@@ -577,16 +557,58 @@ function loadJson(url, success, error) {
     return false;
 
 }
+// load-text-by-status.js
+jlogs('exist?', 'loadTextByStatus');
 
-function loadJsonByStatus(status, responseText, url, success, error) {
-    const f = 'loadJsonByStatus';
+/**
+ *
+ * @param status
+ * @param responseText
+ * @param target
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadHtmlByStatus(status, responseText, target, success, error) {
+    const f = 'loadHtmlByStatus';
+
+    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
 
     if (status == 200) {
-        jlogs(f, ' loadJson loaded HTML: ', responseText);
-        return success(JSON.parse(responseText), url);
+        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            element.insertAdjacentHTML('beforeend', responseText);
+        });
+        return success(this);
     }
     if (status == 404) {
-        getTarget(target).innerHTML = "loadJson Page not found.";
+        getTarget(target).innerHTML = "includeHtml Page not found.";
+        return error(this, status);
+    }
+    return error(this);
+}
+// load-text-by-status.js
+jlogs('exist?', 'loadTextByStatus');
+
+/**
+ * @param status
+ * @param responseText
+ * @param url
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadTextByStatus(status, responseText, url, success, error) {
+    const f = 'loadTextByStatus';
+
+    if (status == 200) {
+        jlogs(f, ' loadText loaded HTML: ', responseText);
+        return success(responseText, url);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "loadText Page not found.";
         return error(this, status);
     }
     return error(responseText);
@@ -646,19 +668,6 @@ function loadText(url, success, error) {
 
 }
 
-function loadTextByStatus(status, responseText, url, success, error) {
-    const f = 'loadTextByStatus';
-
-    if (status == 200) {
-        jlogs(f, ' loadText loaded HTML: ', responseText);
-        return success(responseText, url);
-    }
-    if (status == 404) {
-        getTarget(target).innerHTML = "loadText Page not found.";
-        return error(this, status);
-    }
-    return error(responseText);
-}
 // e.js
 jlogs('exist?', 'E');
 /**
@@ -784,6 +793,67 @@ function getFunctionName(url, map) {
     }
     return result;
 }
+// get-one.js
+/**
+ *
+ * @param jloads
+ * @param object
+ * @param i
+ * @param mapFunction
+ * @param success
+ * @param error
+ */
+jlogs('exist?', 'getOne');
+if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
+    const f = 'jloadsTarget getOne';
+
+    jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
+
+    // TODO: move to class E for smart load content on not existing DOM elements
+    // if (i === 'head' || !isEmpty(jloads.getTarget())) {
+    jlogs(f, ' object i ', object, i);
+    if (i === 'head') {
+        loadContentByUrls(jloads, object, mapFunction, success, error);
+        success(jloads.getTarget());
+    } else if (i === 'body') {
+        jlogs(f, ' wait for body i ', i);
+        jlogs(f, ' wait for body target ', jloads.getTarget());
+        document.addEventListener("DOMContentLoaded", function () {
+            ReadyHtml(object, i, mapFunction, success, error);
+        });
+    } else {
+        jlogs(f, ' wait for element i ', i);
+        jlogs(f, ' wait for element target ', jloads.getTarget());
+
+        try {
+            // set up the mutation observer
+            var observer = new MutationObserver(function (mutations, me) {
+                // `mutations` is an array of mutations that occurred
+                // `me` is the MutationObserver instance
+                // var canvas = document.getElementById('my-canvas');
+                var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
+                if (canvas) {
+                    // callback executed when canvas was found
+                    ReadyHtml(object, i, mapFunction, success, error);
+                    me.disconnect(); // stop observing
+                    return;
+                }
+            });
+
+            // start observing
+            observer.observe(document, {
+                childList: true,
+                subtree: true
+            });
+
+        } catch (e) {
+            //jlogs(f, ' ERROR elem ', elem);
+            jlogs(f, ' getOne ERROR e ', e);
+            error(e);
+        }
+    }
+    // error(elem);
+}
 // get-target.js
 jlogs('exist?', 'getTarget');
 
@@ -874,6 +944,55 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
     // success(json);
 
     return jloads;
+}
+/**
+ *
+ * @param jloads
+ * @param object
+ * @param mapFunction
+ * @param success
+ * @param error
+ */
+jlogs('exist?', 'loadContentByUrls');
+if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
+
+    const f = 'jloadsTarget loadContentByUrls';
+
+    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
+
+    if (isArray(object)) {
+        var url = '';
+        for (var id in object) {
+            jlogs(f, ' isArray', ' id ', id);
+            url = object[id];
+            jlogs(f, ' isArray', ' url ', url);
+
+            if (typeof url === 'string') {
+                try {
+                    // base64 in url
+                    if (url.length > 200) {
+                        jloads['img'](url);
+                    } else {
+                        const funcName = getFunctionName(url, mapFunction);
+                        jlogs(f, ' funcName ', funcName);
+                        //jlogs(funcName, url, elem);
+                        jloads[funcName](url);
+                    }
+                    success(url);
+                } catch (e) {
+                    //jlogs(f, ' ERROR elem ', elem);
+                    jlogs(f, ' ERROR e ', e);
+                    error(e);
+                }
+
+                // jloads.js([url]);
+                // elem.appendChild(url, funcName);
+            }
+        }
+    } else {
+        jlogs(f, ' isArray ERROR object', object);
+        error(object);
+    }
 }
 // load.js
 jlogs('exist?', 'Load');
@@ -1476,6 +1595,39 @@ function onSelector(selector, callback) {
             callback(selector, elem);
         });
 
+    }
+}
+// ready-html.js
+/**
+ *
+ * @param object
+ * @param i
+ * @param mapFunction
+ * @param success
+ * @param error
+ * @returns {*}
+ * @constructor
+ */
+jlogs('exist?', 'ReadyHtml');
+if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
+    const f = 'jloadsTarget ReadyHtml';
+
+    jlogs(f, ' i ', i);
+    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    // jlogs(f, ' elem ', elem);
+
+    var jloads = new Load(i, success, error);
+
+    if (!isEmpty(elem)) {
+        loadContentByUrls(jloads, object, mapFunction, success, error);
+        success(elem);
+    } else {
+        waitFor(i, 40, function (i) {
+            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
+            var jloads = new Load(i, success, error);
+            loadContentByUrls(jloads, object, mapFunction, success, error);
+        });
+        // error(elem);
     }
 }
 // wait-for.js

@@ -1,2 +1,2 @@
 // ver.js
-const JLOADS_VERSION='1.0.6';
+const JLOADS_VERSION='1.1.1';

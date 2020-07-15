@@ -1766,13 +1766,9 @@ jlogs('exist?', 'jloads');
 /**
  *
  * @param selector
- * @param area
- * @param error
- * @param success
- * @returns {E}
- * @constructor
+ * @returns {jloads}
  */
-var jloads = function (selector, area, error, success) {
+var jloads = function (selector) {
 
     this.cfg = {};
     this.cfg.area = document;
@@ -1808,29 +1804,77 @@ var jloads = function (selector, area, error, success) {
         return self;
     }
 
+    var success = function (data) {
+        console.log(f, ' loaded ', data);
+    };
 
-    self.all = function (error, success) {
-        if (typeof success !== 'function') {
-            success = self.success;
+    var error = function (data) {
+        console.error(f, ' !loaded ', data);
+    };
+
+    var mapFunction = map;
+
+    var jloads = new Load(selector, success, error); //.domain('localhost');
+
+
+    self.file = function (json) {
+        const f = 'jloadsFile';
+
+        jlogs(' jloadsFile', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+
+        // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+        var url = Object.keys(json)[0];
+        jlogs('jloadsFile getOne ', ' url ', url);
+
+        if (Object.keys(json).length === 1) {
+
+            const funcName = getFunctionName(url, mapFunction);
+            jlogs(f, ' funcName ', funcName, url);
+            jloads[funcName](url);
+
+            for (var i in json[url]) {
+                var url2 = json[url][i];
+                // getOne(jloads, object, i, mapFunction, success, error)
+                const funcName = getFunctionName(url2, mapFunction);
+                jlogs(f, ' funcName ', funcName, url2);
+                jloads[funcName](url2);
+            }
+
+            // } else {
+            //     for (var i in json) {
+            //         var object = json[i];
+            //         getOne(jloads, object, i, mapFunction, success, error)
+            //     }
         }
-        if (typeof error !== 'function') {
-            error = self.error;
-        }
+        // success(json);
 
-        const elem = document.querySelectorAll(self.cfg.selector);
+        return jloads;
+    }
 
-        jlogs(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
-        jlogs(this.constructor.name, ' all elem ', elem);
 
-        if (elem !== null) {
-            self.cfg.exist = true;
-            success(elem);
+    self.target = function (json) {
+        const f = 'jloadsTarget';
+
+        jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+        // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+        // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
+
+        var i = Object.keys(json)[0];
+        jlogs('jloadsTarget getOne ', ' i ', i);
+
+        if (Object.keys(json).length === 1) {
+            getOne(jloads, json[i], i, mapFunction, success, error)
         } else {
-            self.cfg.exist = false;
-            error(elem);
+            for (var i in json) {
+                var object = json[i];
+                getOne(jloads, object, i, mapFunction, success, error)
+            }
         }
+        // success(json);
 
-        return elem;
+        return jloads;
     }
 
     return self;

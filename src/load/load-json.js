@@ -1,4 +1,4 @@
-// include-html.js
+// load-json.js
 jlogs('exist?', 'loadJson');
 
 /**

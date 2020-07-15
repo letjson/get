@@ -1848,7 +1848,39 @@ var map = {
     'html5': 'html',
     'json': 'json'
 }
-// include-html.js
+// load-html-by-status.js
+jlogs('exist?', 'loadHtmlByStatus');
+
+/**
+ *
+ * @param status
+ * @param responseText
+ * @param target
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadHtmlByStatus(status, responseText, target, success, error) {
+    const f = 'loadHtmlByStatus';
+
+    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+
+    if (status == 200) {
+        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            element.insertAdjacentHTML('beforeend', responseText);
+        });
+        return success(this);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "includeHtml Page not found.";
+        return error(this, status);
+    }
+    return error(this);
+}
+// load-json.js
 jlogs('exist?', 'loadJson');
 
 /**
@@ -1902,38 +1934,6 @@ function loadJson(url, success, error) {
     return false;
 
 }
-// load-html-by-status.js
-jlogs('exist?', 'loadHtmlByStatus');
-
-/**
- *
- * @param status
- * @param responseText
- * @param target
- * @param success
- * @param error
- * @returns {*}
- */
-function loadHtmlByStatus(status, responseText, target, success, error) {
-    const f = 'loadHtmlByStatus';
-
-    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
-
-    if (status == 200) {
-        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
-        onSelector(target, function (selector, element) {
-            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
-            element.insertAdjacentHTML('beforeend', responseText);
-        });
-        return success(this);
-    }
-    if (status == 404) {
-        getTarget(target).innerHTML = "includeHtml Page not found.";
-        return error(this, status);
-    }
-    return error(this);
-}
 // load-text-by-status.js
 jlogs('exist?', 'loadTextByStatus');
 
@@ -1958,7 +1958,7 @@ function loadTextByStatus(status, responseText, url, success, error) {
     }
     return error(responseText);
 }
-// include-html.js
+// load-text.js
 jlogs('exist?', 'loadText');
 
 /**
@@ -2069,6 +2069,26 @@ var jloads = function (selector) {
     var jloads = new Load(selector, success, error); //.domain('localhost');
 
 
+    self.obj = function (url, success, error) {
+        const f = 'jloadsObj';
+
+        if (typeof url === 'string') {
+            try {
+                // base64 in url
+                if (url.length > 2) {
+                    return loadJson(url, success);
+                }
+                // success(json, url);
+                // return json;
+            } catch (e) {
+                //jlogs(f, ' ERROR elem ', elem);
+                jlogs(f, ' ERROR e ', e);
+                return error(e, url);
+            }
+        }
+        return null;
+    }
+
     self.file = function (json) {
         const f = 'jloadsFile';
 
@@ -2092,15 +2112,7 @@ var jloads = function (selector) {
                 jlogs(f, ' funcName ', funcName, url2);
                 jloads[funcName](url2);
             }
-
-            // } else {
-            //     for (var i in json) {
-            //         var object = json[i];
-            //         getOne(jloads, object, i, mapFunction, success, error)
-            //     }
         }
-        // success(json);
-
         return jloads;
     }
 

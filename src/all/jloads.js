@@ -54,6 +54,26 @@ var jloads = function (selector) {
     var jloads = new Load(selector, success, error); //.domain('localhost');
 
 
+    self.obj = function (url, success, error) {
+        const f = 'jloadsObj';
+
+        if (typeof url === 'string') {
+            try {
+                // base64 in url
+                if (url.length > 2) {
+                    return loadJson(url, success);
+                }
+                // success(json, url);
+                // return json;
+            } catch (e) {
+                //jlogs(f, ' ERROR elem ', elem);
+                jlogs(f, ' ERROR e ', e);
+                return error(e, url);
+            }
+        }
+        return null;
+    }
+
     self.file = function (json) {
         const f = 'jloadsFile';
 
@@ -77,15 +97,7 @@ var jloads = function (selector) {
                 jlogs(f, ' funcName ', funcName, url2);
                 jloads[funcName](url2);
             }
-
-            // } else {
-            //     for (var i in json) {
-            //         var object = json[i];
-            //         getOne(jloads, object, i, mapFunction, success, error)
-            //     }
         }
-        // success(json);
-
         return jloads;
     }
 

@@ -1,4 +1,4 @@
-// include-html.js
+// load-text.js
 jlogs('exist?', 'loadText');
 
 /**

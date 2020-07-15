@@ -1884,7 +1884,7 @@ var jloads = function (selector) {
         if (Object.keys(json).length === 1) {
 
 
-            self.jloads.success = function () {
+            var success1 = function () {
                 const f = 'jloads.file';
                 jlogs(f, ' success json[url]', json[url]);
 
@@ -1892,17 +1892,17 @@ var jloads = function (selector) {
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     jlogs(f, ' success url2', url2);
-                    // getOne(jloads, object, i, self.mapFunction, success, error)
                     const funcName = getFunctionName(url2, self.mapFunction);
                     jlogs(f, ' funcName ', funcName);
-
                     self.jloads[funcName](url2);
                 }
             }
 
+            var jloads1 = new Load('head', success1);
+
             const funcName = getFunctionName(url, self.mapFunction);
             jlogs(f, ' funcName ', funcName, url);
-            self.jloads[funcName](url);
+            jloads1[funcName](url);
 
         }
         return self;

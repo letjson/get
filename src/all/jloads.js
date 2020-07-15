@@ -12,27 +12,6 @@ var jloads = function (selector) {
     this.cfg.selector = selector;
     this.cfg.exist = false;
 
-    if (typeof success === 'function') {
-        this.success = success;
-    } else {
-        this.success = function (elem) {
-            jlogs(this.constructor.name, " Element func success(): ", elem);
-        };
-    }
-
-    if (typeof error === 'function') {
-        this.error = error;
-    } else {
-        this.error = function (elem) {
-            jlogs(this.constructor.name, "! Element func error(): ", elem);
-        };
-    }
-
-    if (typeof this.cfg.selector !== 'string') {
-        jlogs(this.constructor.name, "! Element selector: ", elem);
-    }
-
-
     var self = this;
 
 

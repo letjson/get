@@ -1463,6 +1463,30 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
     }
     return error(this);
 }
+// load-json-by-status.js
+jlogs('exist?', 'loadJsonByStatus');
+
+/**
+ * @param status
+ * @param responseText
+ * @param url
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadJsonByStatus(status, responseText, url, success, error) {
+    const f = 'loadJsonByStatus';
+
+    if (status == 200) {
+        jlogs(f, ' loadJson loaded HTML: ', responseText);
+        return success(JSON.parse(responseText), url);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "loadJson Page not found.";
+        return error(this, status);
+    }
+    return error(responseText);
+}
 // load-json.js
 jlogs('exist?', 'loadJson');
 
@@ -1500,7 +1524,7 @@ function loadJson(url, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadTextByStatus(this.status, this.responseText, url, success, error);
+                loadJsonByStatus(this.status, this.responseText, url, success, error);
 
                 /* Remove the attribute, and call this function once more: */
                 // loadJson(url, success, error);
@@ -1515,7 +1539,6 @@ function loadJson(url, success, error) {
         return success(this);
     }
     return false;
-
 }
 // load-text-by-status.js
 jlogs('exist?', 'loadTextByStatus');

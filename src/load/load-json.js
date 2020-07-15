@@ -35,7 +35,7 @@ function loadJson(url, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadTextByStatus(this.status, this.responseText, url, success, error);
+                loadJsonByStatus(this.status, this.responseText, url, success, error);
 
                 /* Remove the attribute, and call this function once more: */
                 // loadJson(url, success, error);
@@ -50,5 +50,4 @@ function loadJson(url, success, error) {
         return success(this);
     }
     return false;
-
 }

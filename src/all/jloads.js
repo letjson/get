@@ -108,16 +108,16 @@ var jloads = function (selector) {
 
 
             var success1 = function () {
+                var jloads2 = new Load('head');
+
                 const f = 'jloads.file';
-                jlogs(f, ' success json[url]', json[url]);
-
-
+                // jlogs(f, ' success json[url]', json[url]);
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     jlogs(f, ' success url2', url2);
                     const funcName = getFunctionName(url2, self.mapFunction);
                     jlogs(f, ' funcName ', funcName);
-                    self.jloads[funcName](url2);
+                    jloads2[funcName](url2);
                 }
             }
 

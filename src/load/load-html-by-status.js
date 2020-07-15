@@ -1,5 +1,5 @@
-// load-text-by-status.js
-jlogs('exist?', 'loadTextByStatus');
+// load-html-by-status.js
+jlogs('exist?', 'loadHtmlByStatus');
 
 /**
  *

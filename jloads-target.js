@@ -1,3 +1,17 @@
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html',
+    'json': 'json'
+}
 // ver.js
 const JLOADS_VERSION='1.1.1';
 // jlogs.js
@@ -1653,20 +1667,6 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
     // success(json);
 
     return jloads;
-}
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html',
-    'json': 'json'
 }
 // load-html-by-status.js
 jlogs('exist?', 'loadHtmlByStatus');

@@ -64,6 +64,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
     // return jloads;
 }
 
+// TODO: base lib APIFUNC, with E
 
 /**
  *

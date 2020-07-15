@@ -1,3 +1,17 @@
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html',
+    'json': 'json'
+}
 // ver.js
 const JLOADS_VERSION='1.1.1';
 // jlogs.js
@@ -1819,20 +1833,6 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
 
     return jloads;
 }
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html',
-    'json': 'json'
-}
 // jloads-event.js
 /**
  *
@@ -1899,6 +1899,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
     // return jloads;
 }
 
+// TODO: base lib APIFUNC, with E
 
 /**
  *

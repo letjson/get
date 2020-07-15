@@ -1,3 +1,17 @@
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html',
+    'json': 'json'
+}
 // ver.js
 const JLOADS_VERSION='1.1.1';
 // jlogs.js
@@ -1814,8 +1828,50 @@ var jloads = function (selector) {
 
     var mapFunction = map;
 
-    var jloads = new Load(selector, success, error); //.domain('localhost');
+    self.jloads = new Load(selector, success, error); //.domain('localhost');
 
+
+    self.form = function (json, success, error) {
+        const f = 'jloadsForm';
+
+        jlogs(' jloadsForm', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+        // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+        // jlogs('jloadsForm selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
+
+        // var jloads = new Load(selector, success, error);
+
+        jlogs('jloadsForm Object.keys(json).length', Object.keys(json).length);
+
+        if (Object.keys(json).length === 1) {
+
+            var selector_event = Object.keys(json)[0];
+            var se = selector_event.split(":", 2);
+            var selector = se[0];
+            var event = se[1];
+            var targets = json[selector_event];
+            jlogs('jloadsForm selector event targets', selector, event, targets);
+
+            onSelector(selector, function (select, element) {
+                jlogs(f, 'elem wait DOMContentLoaded select element', select, element);
+                selectorEventTarget(selector, event, targets, success, error);
+            });
+
+            // document.addEventListener("DOMContentLoaded", function(event) {
+            //     jlogs(f, 'elem wait DOMContentLoaded selector event', selector, event);
+            //     selectorEventTarget(selector, event, targets, success, error);
+            // });
+
+        } else {
+            for (var selector in json) {
+                var event = json[selector];
+                // selectorEvent1(jloads, selector, event, mapFunction, success, error)
+            }
+        }
+        // success(json);
+
+        // return jloads;
+    }
 
     self.obj = function (url, success, error) {
         const f = 'jloadsObj';
@@ -1851,17 +1907,17 @@ var jloads = function (selector) {
 
             const funcName = getFunctionName(url, mapFunction);
             jlogs(f, ' funcName ', funcName, url);
-            jloads[funcName](url);
+            self.jloads[funcName](url);
 
             for (var i in json[url]) {
                 var url2 = json[url][i];
                 // getOne(jloads, object, i, mapFunction, success, error)
                 const funcName = getFunctionName(url2, mapFunction);
                 jlogs(f, ' funcName ', funcName, url2);
-                jloads[funcName](url2);
+                self.jloads[funcName](url2);
             }
         }
-        return jloads;
+        return self;
     }
 
 
@@ -1877,16 +1933,16 @@ var jloads = function (selector) {
         jlogs('jloadsTarget getOne ', ' i ', i);
 
         if (Object.keys(json).length === 1) {
-            getOne(jloads, json[i], i, mapFunction, success, error)
+            getOne(self.jloads, json[i], i, mapFunction, success, error)
         } else {
             for (var i in json) {
                 var object = json[i];
-                getOne(jloads, object, i, mapFunction, success, error)
+                getOne(self.jloads, object, i, mapFunction, success, error)
             }
         }
         // success(json);
 
-        return jloads;
+        return self;
     }
 
     return self;
@@ -2018,18 +2074,4 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
     // success(json);
 
     return jloads;
-}
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html',
-    'json': 'json'
 }

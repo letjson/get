@@ -37,18 +37,32 @@ if (typeof jloadsFile !== 'function') jloadsFile = function (json, success, erro
 
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    var i = Object.keys(json)[0];
-    jlogs('jloadsTarget getOne ', ' i ', i);
+    var url = Object.keys(json)[0];
+    jlogs('jloadsTarget getOne ', ' url ', url);
     var jloads = new Load(i, success, error);
 
-    console.log('!!!', Object.keys(json), json[i], i);
+    console.log('!!!', Object.keys(json), json[i], url);
     if (Object.keys(json).length === 1) {
-        getOne(jloads, json[i], i, mapFunction, success, error)
-    } else {
+
+        //getOne(jloads, json[i], i, mapFunction, success, error)
+
+        const funcName = getFunctionName(url, mapFunction);
+        jlogs(f, ' funcName ', funcName, url);
+        jloads[funcName](url);
+
         for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
+            var url = json[i];
+            // getOne(jloads, object, i, mapFunction, success, error)
+            const funcName = getFunctionName(url, mapFunction);
+            jlogs(f, ' funcName ', funcName, url);
+            jloads[funcName](url);
         }
+
+    // } else {
+    //     for (var i in json) {
+    //         var object = json[i];
+    //         getOne(jloads, object, i, mapFunction, success, error)
+    //     }
     }
     // success(json);
 

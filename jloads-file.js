@@ -1879,12 +1879,16 @@ var jloads = function (selector) {
 
         // jlogs(' jloadsFile', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
         var url = Object.keys(json)[0];
-        jlogs('jloadsFile getOne ', ' url ', url);
+        jlogs(f, ' url ', url);
 
         if (Object.keys(json).length === 1) {
 
 
-            self.jloads.success = function (json){
+            self.jloads.success = function (json) {
+                const f = 'jloads.file';
+
+                jlogs(f, ' success ', json);
+
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     // getOne(jloads, object, i, mapFunction, success, error)

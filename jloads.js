@@ -2382,6 +2382,7 @@ jlogs('exist?', 'jloads');
  * @returns {jloads}
  */
 var jloads = function (selector) {
+    const f = 'jloads';
 
     this.cfg = {};
     this.cfg.area = document;
@@ -2410,7 +2411,7 @@ var jloads = function (selector) {
 
 
     self.form = function (json, success, error) {
-        const f = 'jloadsForm';
+        const f = 'jloads.form';
 
         jlogs(' jloadsForm', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
@@ -2452,7 +2453,7 @@ var jloads = function (selector) {
     }
 
     self.obj = function (url, success, error) {
-        const f = 'jloadsObj';
+        const f = 'jloads.obj';
 
         if (typeof url === 'string') {
             try {
@@ -2472,7 +2473,7 @@ var jloads = function (selector) {
     }
 
     self.file = function (json) {
-        const f = 'jloadsFile';
+        const f = 'jloads.file';
 
         jlogs(' jloadsFile', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
@@ -2500,7 +2501,7 @@ var jloads = function (selector) {
 
 
     self.target = function (json) {
-        const f = 'jloadsTarget';
+        const f = 'jloads.target';
 
         jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 

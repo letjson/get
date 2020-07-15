@@ -37,18 +37,19 @@ if (typeof jloadsFile !== 'function') jloadsFile = function (json, success, erro
 
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    var jloads = new Load(i, success, error).domain('localhost');
+    var i = Object.keys(json)[0];
+    jlogs('jloadsTarget getOne ', ' i ', i);
+    var jloads = new Load(i, success, error);
 
-    console.log('!!!', Object.keys(json).length);
-    // if (Object.keys(json).length === 1) {
-    //     var i = Object.keys(json)[0];
-    //     getOne(jloads, json[i], i, mapFunction, success, error)
-    // } else {
-    //     for (var i in json) {
-    //         var object = json[i];
-    //         getOne(jloads, object, i, mapFunction, success, error)
-    //     }
-    // }
+    console.log('!!!', Object.keys(json), json[i], i);
+    if (Object.keys(json).length === 1) {
+        getOne(jloads, json[i], i, mapFunction, success, error)
+    } else {
+        for (var i in json) {
+            var object = json[i];
+            getOne(jloads, object, i, mapFunction, success, error)
+        }
+    }
     // success(json);
 
     return jloads;

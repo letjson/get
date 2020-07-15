@@ -1802,11 +1802,12 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
+
+    var i = Object.keys(json)[0];
     jlogs('jloadsTarget getOne ', ' i ', i);
-    var jloads = new Load(i, success, error).domain('localhost');
+    var jloads = new Load(i, success, error); //.domain('localhost');
 
     if (Object.keys(json).length === 1) {
-        var i = Object.keys(json)[0];
         getOne(jloads, json[i], i, mapFunction, success, error)
     } else {
         for (var i in json) {

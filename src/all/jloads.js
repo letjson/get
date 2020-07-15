@@ -107,7 +107,7 @@ var jloads = function (selector) {
         if (Object.keys(json).length === 1) {
 
 
-            self.jloads.success = function (json) {
+            self.jloads.success = function () {
                 const f = 'jloads.file';
 
                 jlogs(f, ' success ', json);

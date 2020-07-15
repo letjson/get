@@ -2405,7 +2405,7 @@ var jloads = function (selector) {
         console.error(f, ' !loaded ', data);
     };
 
-    var mapFunction = map;
+    self.mapFunction = map;
 
     self.jloads = new Load(selector, success, error); //.domain('localhost');
 
@@ -2444,7 +2444,7 @@ var jloads = function (selector) {
         } else {
             for (var selector in json) {
                 var event = json[selector];
-                // selectorEvent1(jloads, selector, event, mapFunction, success, error)
+                // selectorEvent1(jloads, selector, event, self.mapFunction, success, error)
             }
         }
         // success(json);
@@ -2491,14 +2491,15 @@ var jloads = function (selector) {
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     jlogs(f, ' success url2', url2);
-                    // getOne(jloads, object, i, mapFunction, success, error)
-                    const funcName = getFunctionName(url2, mapFunction);
+                    // getOne(jloads, object, i, self.mapFunction, success, error)
+                    const funcName = getFunctionName(url2, self.mapFunction);
                     jlogs(f, ' funcName ', funcName);
+
                     self.jloads[funcName](url2);
                 }
             }
 
-            const funcName = getFunctionName(url, mapFunction);
+            const funcName = getFunctionName(url, self.mapFunction);
             jlogs(f, ' funcName ', funcName, url);
             self.jloads[funcName](url);
 
@@ -2515,11 +2516,11 @@ var jloads = function (selector) {
         if (Object.keys(json).length === 1) {
             var selector = Object.keys(json)[0];
             var event = json[selector];
-            selectorEvent(self.jloads, selector, event, mapFunction, success, error)
+            selectorEvent(self.jloads, selector, event, self.mapFunction, success, error)
         } else {
             for (var selector in json) {
                 var event = json[selector];
-                selectorEvent(self.jloads, selector, event, mapFunction, success, error)
+                selectorEvent(self.jloads, selector, event, self.mapFunction, success, error)
             }
         }
 
@@ -2538,11 +2539,11 @@ var jloads = function (selector) {
         jlogs('jloadsTarget getOne ', ' i ', i);
 
         if (Object.keys(json).length === 1) {
-            getOne(self.jloads, json[i], i, mapFunction, success, error)
+            getOne(self.jloads, json[i], i, self.mapFunction, success, error)
         } else {
             for (var i in json) {
                 var object = json[i];
-                getOne(self.jloads, object, i, mapFunction, success, error)
+                getOne(self.jloads, object, i, self.mapFunction, success, error)
             }
         }
         // success(json);

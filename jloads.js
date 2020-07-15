@@ -2472,6 +2472,7 @@ var jloads = function (selector) {
         return null;
     }
 
+
     self.file = function (json) {
         const f = 'jloads.file';
 
@@ -2488,17 +2489,38 @@ var jloads = function (selector) {
             jlogs(f, ' funcName ', funcName, url);
             self.jloads[funcName](url);
 
-            for (var i in json[url]) {
-                var url2 = json[url][i];
-                // getOne(jloads, object, i, mapFunction, success, error)
-                const funcName = getFunctionName(url2, mapFunction);
-                jlogs(f, ' funcName ', funcName, url2);
-                self.jloads[funcName](url2);
+            self.jloads.success = function (){
+                for (var i in json[url]) {
+                    var url2 = json[url][i];
+                    // getOne(jloads, object, i, mapFunction, success, error)
+                    const funcName = getFunctionName(url2, mapFunction);
+                    jlogs(f, ' funcName ', funcName, url2);
+                    self.jloads[funcName](url2);
+                }
             }
         }
         return self;
     }
 
+
+    self.event = function (json) {
+        const f = 'jloads.event';
+
+        jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+        if (Object.keys(json).length === 1) {
+            var selector = Object.keys(json)[0];
+            var event = json[selector];
+            selectorEvent(self.jloads, selector, event, mapFunction, success, error)
+        } else {
+            for (var selector in json) {
+                var event = json[selector];
+                selectorEvent(self.jloads, selector, event, mapFunction, success, error)
+            }
+        }
+
+        return self;
+    }
 
     self.target = function (json) {
         const f = 'jloads.target';

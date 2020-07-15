@@ -37,8 +37,6 @@ if (typeof jloadsFile !== 'function') jloadsFile = function (json, success, erro
 
 
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs('jloadsFile getOne ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsFile getOne ', ' i ', i);
     var jloads = new Load(i, success, error).domain('localhost');
 
     console.log('!!!', Object.keys(json).length);

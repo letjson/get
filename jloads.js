@@ -2485,14 +2485,15 @@ var jloads = function (selector) {
 
             self.jloads.success = function () {
                 const f = 'jloads.file';
+                jlogs(f, ' success json[url]', json[url]);
 
-                jlogs(f, ' success ', json);
 
                 for (var i in json[url]) {
                     var url2 = json[url][i];
+                    jlogs(f, ' success url2', url2);
                     // getOne(jloads, object, i, mapFunction, success, error)
                     const funcName = getFunctionName(url2, mapFunction);
-                    jlogs(f, ' funcName ', funcName, url2);
+                    jlogs(f, ' funcName ', funcName);
                     self.jloads[funcName](url2);
                 }
             }

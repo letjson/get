@@ -2476,20 +2476,14 @@ var jloads = function (selector) {
     self.file = function (json) {
         const f = 'jloads.file';
 
-        jlogs(' jloadsFile', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
-
-
-        // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+        // jlogs(' jloadsFile', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
         var url = Object.keys(json)[0];
         jlogs('jloadsFile getOne ', ' url ', url);
 
         if (Object.keys(json).length === 1) {
 
-            const funcName = getFunctionName(url, mapFunction);
-            jlogs(f, ' funcName ', funcName, url);
-            self.jloads[funcName](url);
 
-            self.jloads.success = function (){
+            self.jloads.success = function (json){
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     // getOne(jloads, object, i, mapFunction, success, error)
@@ -2498,6 +2492,11 @@ var jloads = function (selector) {
                     self.jloads[funcName](url2);
                 }
             }
+
+            const funcName = getFunctionName(url, mapFunction);
+            jlogs(f, ' funcName ', funcName, url);
+            self.jloads[funcName](url);
+
         }
         return self;
     }

@@ -1430,6 +1430,171 @@ function waitFor(selector, time, callback) {
         }, time);
     }
 }
+// load-html-by-status.js
+jlogs('exist?', 'loadHtmlByStatus');
+
+/**
+ *
+ * @param status
+ * @param responseText
+ * @param target
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadHtmlByStatus(status, responseText, target, success, error) {
+    const f = 'loadHtmlByStatus';
+
+    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+
+    if (status == 200) {
+        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            element.insertAdjacentHTML('beforeend', responseText);
+        });
+        return success(this);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "includeHtml Page not found.";
+        return error(this, status);
+    }
+    return error(this);
+}
+// load-json.js
+jlogs('exist?', 'loadJson');
+
+/**
+ *
+ * @param url
+ * @param success
+ * @param error
+ * @returns {html|boolean}
+ */
+function loadJson(url, success, error) {
+    const f = 'loadJson';
+
+
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
+
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
+
+    if (url.length > 5) {
+
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadJsonByStatus(this.status, this.responseText, url, success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // loadJson(url, success, error);
+            }
+        }
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+        xhrObj.send();
+        /* Exit the function: */
+        return success(this);
+    }
+    return false;
+
+}
+// load-text-by-status.js
+jlogs('exist?', 'loadTextByStatus');
+
+/**
+ * @param status
+ * @param responseText
+ * @param url
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadTextByStatus(status, responseText, url, success, error) {
+    const f = 'loadTextByStatus';
+
+    if (status == 200) {
+        jlogs(f, ' loadText loaded HTML: ', responseText);
+        return success(responseText, url);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "loadText Page not found.";
+        return error(this, status);
+    }
+    return error(responseText);
+}
+// load-text.js
+jlogs('exist?', 'loadText');
+
+/**
+ *
+ * @param url
+ * @param success
+ * @param error
+ * @returns {html|boolean}
+ */
+function loadText(url, success, error) {
+    const f = 'loadText';
+
+
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
+
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
+
+    if (url.length > 5) {
+
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadTextByStatus(this.status, this.responseText, url, success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // loadText(url, success, error);
+            }
+        }
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader('Content-type', 'application/text; charset=utf-8');
+
+        xhrObj.send();
+        /* Exit the function: */
+        return success(this);
+    }
+    return false;
+
+}
+
 // include-html.js
 jlogs('exist?', 'includeHtml');
 
@@ -1668,168 +1833,3 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
 
     return jloads;
 }
-// load-html-by-status.js
-jlogs('exist?', 'loadHtmlByStatus');
-
-/**
- *
- * @param status
- * @param responseText
- * @param target
- * @param success
- * @param error
- * @returns {*}
- */
-function loadHtmlByStatus(status, responseText, target, success, error) {
-    const f = 'loadHtmlByStatus';
-
-    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
-
-    if (status == 200) {
-        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
-        onSelector(target, function (selector, element) {
-            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
-            element.insertAdjacentHTML('beforeend', responseText);
-        });
-        return success(this);
-    }
-    if (status == 404) {
-        getTarget(target).innerHTML = "includeHtml Page not found.";
-        return error(this, status);
-    }
-    return error(this);
-}
-// load-json.js
-jlogs('exist?', 'loadJson');
-
-/**
- *
- * @param url
- * @param success
- * @param error
- * @returns {html|boolean}
- */
-function loadJson(url, success, error) {
-    const f = 'loadJson';
-
-
-    if (typeof success !== 'function') {
-        success = function () {
-            jlogs(f, ' success ', "included");
-        }
-    }
-
-    if (typeof error !== 'function') {
-        error = function () {
-            jlogs(f, ' error ', "Page not found.");
-        }
-    }
-    jlogs(f, ' url ', url);
-
-    if (url.length > 5) {
-
-        /* Make an HTTP request using the attribute value as the url name: */
-        var xhrObj = getXHRObject();
-        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
-        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
-        xhrObj.onreadystatechange = function () {
-
-            if (this.readyState == 4) {
-                // document.onload =
-                loadJsonByStatus(this.status, this.responseText, url, success, error);
-
-                /* Remove the attribute, and call this function once more: */
-                // loadJson(url, success, error);
-            }
-        }
-        xhrObj.open("GET", url, true);
-        // xhrObj.responseType = 'text';
-        xhrObj.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-        xhrObj.send();
-        /* Exit the function: */
-        return success(this);
-    }
-    return false;
-
-}
-// load-text-by-status.js
-jlogs('exist?', 'loadTextByStatus');
-
-/**
- * @param status
- * @param responseText
- * @param url
- * @param success
- * @param error
- * @returns {*}
- */
-function loadTextByStatus(status, responseText, url, success, error) {
-    const f = 'loadTextByStatus';
-
-    if (status == 200) {
-        jlogs(f, ' loadText loaded HTML: ', responseText);
-        return success(responseText, url);
-    }
-    if (status == 404) {
-        getTarget(target).innerHTML = "loadText Page not found.";
-        return error(this, status);
-    }
-    return error(responseText);
-}
-// load-text.js
-jlogs('exist?', 'loadText');
-
-/**
- *
- * @param url
- * @param success
- * @param error
- * @returns {html|boolean}
- */
-function loadText(url, success, error) {
-    const f = 'loadText';
-
-
-    if (typeof success !== 'function') {
-        success = function () {
-            jlogs(f, ' success ', "included");
-        }
-    }
-
-    if (typeof error !== 'function') {
-        error = function () {
-            jlogs(f, ' error ', "Page not found.");
-        }
-    }
-    jlogs(f, ' url ', url);
-
-    if (url.length > 5) {
-
-        /* Make an HTTP request using the attribute value as the url name: */
-        var xhrObj = getXHRObject();
-        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
-        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
-        xhrObj.onreadystatechange = function () {
-
-            if (this.readyState == 4) {
-                // document.onload =
-                loadTextByStatus(this.status, this.responseText, url, success, error);
-
-                /* Remove the attribute, and call this function once more: */
-                // loadText(url, success, error);
-            }
-        }
-        xhrObj.open("GET", url, true);
-        // xhrObj.responseType = 'text';
-        xhrObj.setRequestHeader('Content-type', 'application/text; charset=utf-8');
-
-        xhrObj.send();
-        /* Exit the function: */
-        return success(this);
-    }
-    return false;
-
-}
-

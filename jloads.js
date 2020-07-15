@@ -503,171 +503,6 @@ function includeStyle(url, target, success, error) {
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
-// include-html.js
-jlogs('exist?', 'loadJson');
-
-/**
- *
- * @param url
- * @param success
- * @param error
- * @returns {html|boolean}
- */
-function loadJson(url, success, error) {
-    const f = 'loadJson';
-
-
-    if (typeof success !== 'function') {
-        success = function () {
-            jlogs(f, ' success ', "included");
-        }
-    }
-
-    if (typeof error !== 'function') {
-        error = function () {
-            jlogs(f, ' error ', "Page not found.");
-        }
-    }
-    jlogs(f, ' url ', url);
-
-    if (url.length > 5) {
-
-        /* Make an HTTP request using the attribute value as the url name: */
-        var xhrObj = getXHRObject();
-        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
-        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
-        xhrObj.onreadystatechange = function () {
-
-            if (this.readyState == 4) {
-                // document.onload =
-                loadJsonByStatus(this.status, this.responseText, url, success, error);
-
-                /* Remove the attribute, and call this function once more: */
-                // loadJson(url, success, error);
-            }
-        }
-        xhrObj.open("GET", url, true);
-        // xhrObj.responseType = 'text';
-        xhrObj.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-        xhrObj.send();
-        /* Exit the function: */
-        return success(this);
-    }
-    return false;
-
-}
-// load-html-by-status.js
-jlogs('exist?', 'loadHtmlByStatus');
-
-/**
- *
- * @param status
- * @param responseText
- * @param target
- * @param success
- * @param error
- * @returns {*}
- */
-function loadHtmlByStatus(status, responseText, target, success, error) {
-    const f = 'loadHtmlByStatus';
-
-    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
-
-    if (status == 200) {
-        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
-        onSelector(target, function (selector, element) {
-            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
-            element.insertAdjacentHTML('beforeend', responseText);
-        });
-        return success(this);
-    }
-    if (status == 404) {
-        getTarget(target).innerHTML = "includeHtml Page not found.";
-        return error(this, status);
-    }
-    return error(this);
-}
-// load-text-by-status.js
-jlogs('exist?', 'loadTextByStatus');
-
-/**
- * @param status
- * @param responseText
- * @param url
- * @param success
- * @param error
- * @returns {*}
- */
-function loadTextByStatus(status, responseText, url, success, error) {
-    const f = 'loadTextByStatus';
-
-    if (status == 200) {
-        jlogs(f, ' loadText loaded HTML: ', responseText);
-        return success(responseText, url);
-    }
-    if (status == 404) {
-        getTarget(target).innerHTML = "loadText Page not found.";
-        return error(this, status);
-    }
-    return error(responseText);
-}
-// include-html.js
-jlogs('exist?', 'loadText');
-
-/**
- *
- * @param url
- * @param success
- * @param error
- * @returns {html|boolean}
- */
-function loadText(url, success, error) {
-    const f = 'loadText';
-
-
-    if (typeof success !== 'function') {
-        success = function () {
-            jlogs(f, ' success ', "included");
-        }
-    }
-
-    if (typeof error !== 'function') {
-        error = function () {
-            jlogs(f, ' error ', "Page not found.");
-        }
-    }
-    jlogs(f, ' url ', url);
-
-    if (url.length > 5) {
-
-        /* Make an HTTP request using the attribute value as the url name: */
-        var xhrObj = getXHRObject();
-        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
-        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
-        xhrObj.onreadystatechange = function () {
-
-            if (this.readyState == 4) {
-                // document.onload =
-                loadTextByStatus(this.status, this.responseText, url, success, error);
-
-                /* Remove the attribute, and call this function once more: */
-                // loadText(url, success, error);
-            }
-        }
-        xhrObj.open("GET", url, true);
-        // xhrObj.responseType = 'text';
-        xhrObj.setRequestHeader('Content-type', 'application/text; charset=utf-8');
-
-        xhrObj.send();
-        /* Exit the function: */
-        return success(this);
-    }
-    return false;
-
-}
-
 // e.js
 jlogs('exist?', 'E');
 /**
@@ -1761,6 +1596,423 @@ function waitFor(selector, time, callback) {
         }, time);
     }
 }
+// include-html.js
+jlogs('exist?', 'includeHtml');
+
+/**
+ *
+ * @param url
+ * @param target
+ * @param replace
+ * @param success
+ * @param error
+ * @returns {includeHtml|boolean}
+ */
+function includeHtml(url, target, replace, success, error) {
+    const f = 'includeHtml';
+
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
+
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
+
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
+    // if html content, NOT URL
+    jlogs(f, ' includeHtml HTML target : ', target, getTarget(target));
+
+    if (url.length > 100) {
+        getTarget(target).insertAdjacentHTML('beforeend', url);
+        return success(this);
+    } else if (url) {
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            jlogs(f, ' getXHRObject target: ', target);
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadHtmlByStatus(this.status, this.responseText, target, success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // includeHtml(url, success, error);
+            }
+        }
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+        xhrObj.send();
+        /* Exit the function: */
+        return this;
+    }
+    return false;
+
+}
+
+// include-image.js
+jlogs('exist?', 'includeImage');
+/**
+ *
+ * @param url
+ * @param target
+ * @param replace
+ * @param success
+ * @param error
+ */
+const includeImage = function (url, target, replace, success, error) {
+    const f = 'includeImage';
+
+    jlogs(f, ' includeImg url: ', url);
+    jlogs(f, ' includeImg target: ', target);
+
+
+    // img.onload = function () {
+    // jlogs(f, "include Image onload url: ", url);
+    // jlogs(f, "include Image replace: ", replace);
+
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
+    // JLOADS_DEBUG ||jlogs('typeof self.cfg.replace', typeof self.cfg.replace);
+    jlogs(f, "include Image replace: ", replace);
+
+
+    if (replace) {
+        jlogs(f, 'includeImage getTarget(target): ', getTarget(target));
+        jlogs(f, 'includeImage getTarget(target) firstChild: ', getTarget(target).firstChild);
+        // getTarget(target).removeChild(getTarget(target).firstChild);
+
+        onSelector(target, function (selector, element) {
+            jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            // element.removeChild(element);
+            getTarget(target).removeChild(getTarget(target).firstChild);
+            let img = new Image;
+            img.src = url;  // erst nach dem Event Listener!
+            element.appendChild(img);
+        });
+        return;
+        // let element = document.getElementById("top");
+        // while (element.firstChild) {
+        //     element.removeChild(element.firstChild);
+        // }
+    }
+    // getTarget(target).appendChild(img);
+
+    onSelector(target, function (selector, element) {
+        jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
+        let img = new Image;
+        img.src = url;  // erst nach dem Event Listener!
+        element.appendChild(img);
+    });
+    // };
+
+}
+// include-script.js
+jlogs('exist?', 'includeScript');
+/**
+ *
+ * @param url
+ * @param target
+ * @param success
+ * @param error
+ * @returns {HTMLScriptElement}
+ */
+function includeScript(url, target, success, error) {
+    var scriptTag = document.createElement('script');
+    scriptTag.src = url;
+    scriptTag.defer = true;
+    // scriptTag.setAttribute('defer','');
+    // scriptTag.async = true;
+    scriptTag.type = 'text/javascript';
+
+    scriptTag.onerror = error;
+    scriptTag.onload = success;
+    scriptTag.onreadystatechange = success;
+
+    onSelector(target, function (selector, element) {
+        jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
+        getTarget(selector).appendChild(scriptTag);
+    });
+    // return getTarget(target).appendChild(scriptTag);
+}
+// include-style.js
+jlogs('exist?', 'includeStyle');
+/**
+ *
+ * @param url
+ * @param target
+ * @param success
+ * @param error
+ * @returns {HTMLLinkElement}
+ */
+function includeStyle(url, target, success, error) {
+    var link = document.createElement('link');
+    link.href = url;
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.media = 'all';
+
+    link.onerror = error;
+    link.onload = success;
+    link.onreadystatechange = success;
+    onSelector(target, function (selector, element) {
+        jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
+        getTarget(selector).appendChild(link);
+    });
+    // return getTarget(target).appendChild(link);
+}
+// TODO: replce path to id name and check if ID exist
+// FASTEST loading:
+// https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
+// jloads-target.js
+
+/**
+ *
+ * @param json
+ * @param success
+ * @param error
+ * @param mapFunction
+ * @returns {Load}
+ */
+jlogs('exist?', 'jloadsTarget');
+if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, error, mapFunction) {
+    const f = 'jloadsTarget';
+
+    //url is URL of external file, success is the code
+    //to be called from the file, location is the location to
+    //insert the <script> element
+
+    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
+        // Configuration
+        success = function (data) {
+            console.log(f, ' loaded ', data);
+        };
+    }
+
+    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
+        error = function (data) {
+            console.error(f, ' !loaded ', data);
+        };
+    }
+
+
+    if (typeof mapFunction !== 'object' && typeof map === 'object') {
+        // Configuration
+        mapFunction = map;
+    }
+    jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+
+    // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
+
+    var i = Object.keys(json)[0];
+    jlogs('jloadsTarget getOne ', ' i ', i);
+    var jloads = new Load(i, success, error); //.domain('localhost');
+
+    if (Object.keys(json).length === 1) {
+        getOne(jloads, json[i], i, mapFunction, success, error)
+    } else {
+        for (var i in json) {
+            var object = json[i];
+            getOne(jloads, object, i, mapFunction, success, error)
+        }
+    }
+    // success(json);
+
+    return jloads;
+}
+var map = {
+    'js': 'js',
+    'css': 'css',
+    'css2': 'css',
+    'css3': 'css',
+    'png': 'img',
+    'bmp': 'img',
+    'jpg': 'img',
+    'gif': 'img',
+    'htm': 'html',
+    'html': 'html',
+    'html5': 'html',
+    'json': 'json'
+}
+// include-html.js
+jlogs('exist?', 'loadJson');
+
+/**
+ *
+ * @param url
+ * @param success
+ * @param error
+ * @returns {html|boolean}
+ */
+function loadJson(url, success, error) {
+    const f = 'loadJson';
+
+
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
+
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
+
+    if (url.length > 5) {
+
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadJsonByStatus(this.status, this.responseText, url, success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // loadJson(url, success, error);
+            }
+        }
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+        xhrObj.send();
+        /* Exit the function: */
+        return success(this);
+    }
+    return false;
+
+}
+// load-html-by-status.js
+jlogs('exist?', 'loadHtmlByStatus');
+
+/**
+ *
+ * @param status
+ * @param responseText
+ * @param target
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadHtmlByStatus(status, responseText, target, success, error) {
+    const f = 'loadHtmlByStatus';
+
+    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+
+    if (status == 200) {
+        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            element.insertAdjacentHTML('beforeend', responseText);
+        });
+        return success(this);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "includeHtml Page not found.";
+        return error(this, status);
+    }
+    return error(this);
+}
+// load-text-by-status.js
+jlogs('exist?', 'loadTextByStatus');
+
+/**
+ * @param status
+ * @param responseText
+ * @param url
+ * @param success
+ * @param error
+ * @returns {*}
+ */
+function loadTextByStatus(status, responseText, url, success, error) {
+    const f = 'loadTextByStatus';
+
+    if (status == 200) {
+        jlogs(f, ' loadText loaded HTML: ', responseText);
+        return success(responseText, url);
+    }
+    if (status == 404) {
+        getTarget(target).innerHTML = "loadText Page not found.";
+        return error(this, status);
+    }
+    return error(responseText);
+}
+// include-html.js
+jlogs('exist?', 'loadText');
+
+/**
+ *
+ * @param url
+ * @param success
+ * @param error
+ * @returns {html|boolean}
+ */
+function loadText(url, success, error) {
+    const f = 'loadText';
+
+
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
+
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
+
+    if (url.length > 5) {
+
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadTextByStatus(this.status, this.responseText, url, success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // loadText(url, success, error);
+            }
+        }
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader('Content-type', 'application/text; charset=utf-8');
+
+        xhrObj.send();
+        /* Exit the function: */
+        return success(this);
+    }
+    return false;
+
+}
+
 // jloads.js
 jlogs('exist?', 'jloads');
 /**
@@ -1835,78 +2087,6 @@ var jloads = function (selector, area, error, success) {
 
     return self;
 };
-// jloads-target.js
-
-/**
- *
- * @param json
- * @param success
- * @param error
- * @param mapFunction
- * @returns {Load}
- */
-jlogs('exist?', 'jloadsTarget');
-if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, error, mapFunction) {
-    const f = 'jloadsTarget';
-
-    //url is URL of external file, success is the code
-    //to be called from the file, location is the location to
-    //insert the <script> element
-
-    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
-        // Configuration
-        success = function (data) {
-            console.log(f, ' loaded ', data);
-        };
-    }
-
-    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
-        error = function (data) {
-            console.error(f, ' !loaded ', data);
-        };
-    }
-
-
-    if (typeof mapFunction !== 'object' && typeof map === 'object') {
-        // Configuration
-        mapFunction = map;
-    }
-    jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
-
-
-    // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
-
-    var i = Object.keys(json)[0];
-    jlogs('jloadsTarget getOne ', ' i ', i);
-    var jloads = new Load(i, success, error); //.domain('localhost');
-
-    if (Object.keys(json).length === 1) {
-        getOne(jloads, json[i], i, mapFunction, success, error)
-    } else {
-        for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
-        }
-    }
-    // success(json);
-
-    return jloads;
-}
-var map = {
-    'js': 'js',
-    'css': 'css',
-    'css2': 'css',
-    'css3': 'css',
-    'png': 'img',
-    'bmp': 'img',
-    'jpg': 'img',
-    'gif': 'img',
-    'htm': 'html',
-    'html': 'html',
-    'html5': 'html',
-    'json': 'json'
-}
 // jloads-event.js
 /**
  *

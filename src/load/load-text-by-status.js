@@ -13,7 +13,7 @@ function loadTextByStatus(status, responseText, url, success, error) {
     const f = 'loadTextByStatus';
 
     if (status == 200) {
-        jlogs(f, ' loadText loaded HTML: ', responseText);
+        jlogs(f, ' loadText loaded: ', responseText);
         return success(responseText, url);
     }
     if (status == 404) {

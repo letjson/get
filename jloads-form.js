@@ -1629,7 +1629,7 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
     jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
 
     if (status == 200) {
-        jlogs(f, ' includeHtml loaded HTML: ', responseText, target, getTarget(target));
+        jlogs(f, ' includeHtml loaded: ', responseText, target, getTarget(target));
         onSelector(target, function (selector, element) {
             jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
             jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
@@ -1680,7 +1680,7 @@ function loadJson(url, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadJsonByStatus(this.status, this.responseText, url, success, error);
+                loadTextByStatus(this.status, this.responseText, url, success, error);
 
                 /* Remove the attribute, and call this function once more: */
                 // loadJson(url, success, error);
@@ -1712,7 +1712,7 @@ function loadTextByStatus(status, responseText, url, success, error) {
     const f = 'loadTextByStatus';
 
     if (status == 200) {
-        jlogs(f, ' loadText loaded HTML: ', responseText);
+        jlogs(f, ' loadText loaded: ', responseText);
         return success(responseText, url);
     }
     if (status == 404) {

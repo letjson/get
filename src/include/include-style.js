@@ -34,7 +34,9 @@ function includeStyle(url, target, replace, success, error) {
             jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
             // getTarget(selector).appendChild(link);
             getTarget(selector).removeChild(getTarget(selector).firstChild);
+            getTarget(selector).appendChild(link);
         });
+        return success(this);
     }
 
     onSelector(target, function (selector, element) {

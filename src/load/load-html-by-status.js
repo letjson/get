@@ -10,7 +10,7 @@ jlogs('exist?', 'loadHtmlByStatus');
  * @param error
  * @returns {*}
  */
-function loadHtmlByStatus(status, responseText, target, success, error) {
+function loadHtmlByStatus(status, responseText, target, replace, success, error) {
     const f = 'loadHtmlByStatus';
 
     jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
@@ -20,6 +20,7 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
         onSelector(target, function (selector, element) {
             jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
             jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            element.innerHTML = '';
             element.insertAdjacentHTML('beforeend', responseText);
         });
         return success(this);

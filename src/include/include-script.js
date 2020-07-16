@@ -33,7 +33,9 @@ function includeScript(url, target, replace, success, error) {
         onSelector(target, function (selector, element) {
             jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
             getTarget(selector).removeChild(getTarget(selector).firstChild);
+            getTarget(selector).appendChild(scriptTag);
         });
+        return success(this);
     }
     onSelector(target, function (selector, element) {
         jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);

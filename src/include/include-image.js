@@ -40,7 +40,7 @@ function includeImage(url, target, replace, success, error) {
             img.src = url;  // erst nach dem Event Listener!
             element.appendChild(img);
         });
-        return;
+        return success(this);
         // let element = document.getElementById("top");
         // while (element.firstChild) {
         //     element.removeChild(element.firstChild);

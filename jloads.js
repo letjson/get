@@ -951,7 +951,7 @@ function includeHtml(url, target, replace, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadHtmlByStatus(this.status, this.responseText, target, success, error);
+                loadHtmlByStatus(this.status, this.responseText, target, replace, success, error);
 
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);
@@ -1010,7 +1010,7 @@ function includeImage(url, target, replace, success, error) {
             img.src = url;  // erst nach dem Event Listener!
             element.appendChild(img);
         });
-        return;
+        return success(this);
         // let element = document.getElementById("top");
         // while (element.firstChild) {
         //     element.removeChild(element.firstChild);
@@ -1062,7 +1062,9 @@ function includeScript(url, target, replace, success, error) {
         onSelector(target, function (selector, element) {
             jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
             getTarget(selector).removeChild(getTarget(selector).firstChild);
+            getTarget(selector).appendChild(scriptTag);
         });
+        return success(this);
     }
     onSelector(target, function (selector, element) {
         jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
@@ -1106,7 +1108,9 @@ function includeStyle(url, target, replace, success, error) {
             jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
             // getTarget(selector).appendChild(link);
             getTarget(selector).removeChild(getTarget(selector).firstChild);
+            getTarget(selector).appendChild(link);
         });
+        return success(this);
     }
 
     onSelector(target, function (selector, element) {
@@ -1179,7 +1183,7 @@ jlogs('exist?', 'loadHtmlByStatus');
  * @param error
  * @returns {*}
  */
-function loadHtmlByStatus(status, responseText, target, success, error) {
+function loadHtmlByStatus(status, responseText, target, replace, success, error) {
     const f = 'loadHtmlByStatus';
 
     jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
@@ -1189,6 +1193,7 @@ function loadHtmlByStatus(status, responseText, target, success, error) {
         onSelector(target, function (selector, element) {
             jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
             jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            element.innerHTML = '';
             element.insertAdjacentHTML('beforeend', responseText);
         });
         return success(this);

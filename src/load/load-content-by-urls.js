@@ -7,7 +7,7 @@
  * @param error
  */
 jlogs('exist?', 'loadContentByUrls');
-if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
+if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load, object, mapFunction, success, error) {
 
     const f = 'jloadsTarget loadContentByUrls';
 
@@ -24,12 +24,12 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jload
                 try {
                     // base64 in url
                     if (url.length > 200) {
-                        jloads['img'](url);
+                        load['img'](url);
                     } else {
                         const funcName = getFunctionName(url, mapFunction);
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
+                        load[funcName](url);
                     }
                     success(url);
                 } catch (e) {

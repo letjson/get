@@ -177,24 +177,74 @@ var jloads = function (selector) {
     }
     // Load files by path in url bar, similar such event loading, check if url value is changed
     self.url = function (json) {
-        const f = 'jloads.target';
+        const f = 'jloads.url';
 
-        jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+        jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
         // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
         // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
 
         var i = Object.keys(json)[0];
-        jlogs('jloadsTarget getOne ', ' i ', i);
+        jlogs(f, ' getOne ', ' i ', i);
 
-        if (Object.keys(json).length === 1) {
-            getOne(self.jloads, json[i], i, self.mapFunction, success, error)
-        } else {
-            for (var i in json) {
-                var object = json[i];
-                getOne(self.jloads, object, i, self.mapFunction, success, error)
+        // Dynamic loading
+        document.addEventListener("DOMContentLoaded", function (event) {
+            // loadDefaultCss();
+        });
+        // function hashHandler(){
+        //     this.oldHash = window.location.hash;
+        //     this.Check;
+        //
+        //     var that = this;
+        //     var detect = function(){
+        //         if(that.oldHash!=window.location.hash){
+        //             alert("HASH CHANGED - new has" + window.location.hash);
+        //             that.oldHash = window.location.hash;
+        //         }
+        //     };
+        //     this.Check = setInterval(function(){ detect() }, 100);
+        // }
+        //
+        // var hashDetection = new hashHandler();
+        // window.addEventListener('locationchange', function(){
+        //     console.log('location changed!');
+        // })
+        // if (Object.keys(json).length === 1) {
+        window.addEventListener('popstate', function (event) {
+            // Log the state data to the console
+            console.log(f, window.location.hash);
+            console.log(f, self.jloads);
+
+            for (var hash in json) {
+                var list = json[hash];
+                console.log(f,'!!!3', self.jloads, list, hash);
+
+                if (window.location.hash === hash) {
+                    for (var selector in list) {
+                        var l = new Load(selector, success, error); //.domain('localhost');
+                        l.replaceOn();
+                        console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
+
+                        for (var id in list[selector]) {
+                            var url = list[selector][id];
+                            console.log(f, '!!!4 url: ', url);
+                            // getOne(self.jloads, url, selector, self.mapFunction, success, error)
+                            // loadContentByUrls(l, url, self.mapFunction, success, error);
+                            const funcName = getFunctionName(url, self.mapFunction);
+                            jlogs(f, '!!!4 funcName ', funcName);
+                            //jlogs(funcName, url, elem);
+                            l[funcName](url);
+                        }
+                    }
+                }
+
             }
-        }
+            // getOne(self.jloads, json[i], i, self.mapFunction, success, error)
+
+        });
+        // } else {
+
+        // }
         // success(json);
 
         return self;

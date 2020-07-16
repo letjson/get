@@ -1097,7 +1097,7 @@ function includeStyle(url, target, success, error) {
  * @param error
  */
 jlogs('exist?', 'loadContentByUrls');
-if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
+if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load, object, mapFunction, success, error) {
 
     const f = 'jloadsTarget loadContentByUrls';
 
@@ -1114,12 +1114,12 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jload
                 try {
                     // base64 in url
                     if (url.length > 200) {
-                        jloads['img'](url);
+                        load['img'](url);
                     } else {
                         const funcName = getFunctionName(url, mapFunction);
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
+                        load[funcName](url);
                     }
                     success(url);
                 } catch (e) {
@@ -1360,25 +1360,26 @@ function getFunctionName(url, map) {
  * @param error
  */
 jlogs('exist?', 'getOne');
-if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
+if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
 
     // TODO: move to class E for smart load content on not existing DOM elements
-    // if (i === 'head' || !isEmpty(jloads.getTarget())) {
-    jlogs(f, ' object i ', object, i);
-    if (i === 'head') {
-        loadContentByUrls(jloads, object, mapFunction, success, error);
+    // if (selector === 'head' || !isEmpty(jloads.getTarget())) {
+    jlogs(f, ' selector ', selector);
+    jlogs(f, ' url ', url);
+    if (selector === 'head') {
+        loadContentByUrls(jloads, url, mapFunction, success, error);
         success(jloads.getTarget());
-    } else if (i === 'body') {
-        jlogs(f, ' wait for body i ', i);
+    } else if (selector === 'body') {
+        jlogs(f, ' wait for body selector ', selector);
         jlogs(f, ' wait for body target ', jloads.getTarget());
         document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(object, i, mapFunction, success, error);
+            ReadyHtml(url, selector, mapFunction, success, error);
         });
     } else {
-        jlogs(f, ' wait for element i ', i);
+        jlogs(f, ' wait for element selector ', selector);
         jlogs(f, ' wait for element target ', jloads.getTarget());
 
         try {
@@ -1387,10 +1388,10 @@ if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunct
                 // `mutations` is an array of mutations that occurred
                 // `me` is the MutationObserver instance
                 // var canvas = document.getElementById('my-canvas');
-                var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
+                var canvas = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
                 if (canvas) {
                     // callback executed when canvas was found
-                    ReadyHtml(object, i, mapFunction, success, error);
+                    ReadyHtml(url, selector, mapFunction, success, error);
                     me.disconnect(); // stop observing
                     return;
                 }
@@ -2694,24 +2695,74 @@ var jloads = function (selector) {
     }
     // Load files by path in url bar, similar such event loading, check if url value is changed
     self.url = function (json) {
-        const f = 'jloads.target';
+        const f = 'jloads.url';
 
-        jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+        jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
         // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
         // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
 
         var i = Object.keys(json)[0];
-        jlogs('jloadsTarget getOne ', ' i ', i);
+        jlogs(f, ' getOne ', ' i ', i);
 
-        if (Object.keys(json).length === 1) {
-            getOne(self.jloads, json[i], i, self.mapFunction, success, error)
-        } else {
-            for (var i in json) {
-                var object = json[i];
-                getOne(self.jloads, object, i, self.mapFunction, success, error)
+        // Dynamic loading
+        document.addEventListener("DOMContentLoaded", function (event) {
+            // loadDefaultCss();
+        });
+        // function hashHandler(){
+        //     this.oldHash = window.location.hash;
+        //     this.Check;
+        //
+        //     var that = this;
+        //     var detect = function(){
+        //         if(that.oldHash!=window.location.hash){
+        //             alert("HASH CHANGED - new has" + window.location.hash);
+        //             that.oldHash = window.location.hash;
+        //         }
+        //     };
+        //     this.Check = setInterval(function(){ detect() }, 100);
+        // }
+        //
+        // var hashDetection = new hashHandler();
+        // window.addEventListener('locationchange', function(){
+        //     console.log('location changed!');
+        // })
+        // if (Object.keys(json).length === 1) {
+        window.addEventListener('popstate', function (event) {
+            // Log the state data to the console
+            console.log(f, window.location.hash);
+            console.log(f, self.jloads);
+
+            for (var hash in json) {
+                var list = json[hash];
+                console.log(f,'!!!3', self.jloads, list, hash);
+
+                if (window.location.hash === hash) {
+                    for (var selector in list) {
+                        var l = new Load(selector, success, error); //.domain('localhost');
+                        l.replaceOn();
+                        console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
+
+                        for (var id in list[selector]) {
+                            var url = list[selector][id];
+                            console.log(f, '!!!4 url: ', url);
+                            // getOne(self.jloads, url, selector, self.mapFunction, success, error)
+                            // loadContentByUrls(l, url, self.mapFunction, success, error);
+                            const funcName = getFunctionName(url, self.mapFunction);
+                            jlogs(f, '!!!4 funcName ', funcName);
+                            //jlogs(funcName, url, elem);
+                            l[funcName](url);
+                        }
+                    }
+                }
+
             }
-        }
+            // getOne(self.jloads, json[i], i, self.mapFunction, success, error)
+
+        });
+        // } else {
+
+        // }
         // success(json);
 
         return self;

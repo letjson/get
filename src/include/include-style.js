@@ -9,6 +9,8 @@ jlogs('exist?', 'includeStyle');
  * @returns {HTMLLinkElement}
  */
 function includeStyle(url, target, success, error) {
+    const f = 'includeStyle';
+
     var link = document.createElement('link');
     link.href = url;
     link.rel = 'stylesheet';

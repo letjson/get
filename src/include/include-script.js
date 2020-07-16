@@ -9,6 +9,8 @@ jlogs('exist?', 'includeScript');
  * @returns {HTMLScriptElement}
  */
 function includeScript(url, target, success, error) {
+    const f = 'includeScript';
+
     var scriptTag = document.createElement('script');
     scriptTag.src = url;
     scriptTag.defer = true;

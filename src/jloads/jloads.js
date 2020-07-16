@@ -1,11 +1,12 @@
 // jloads.js
 jlogs('exist?', 'jloads');
+
 /**
  *
  * @param selector
  * @returns {jloads}
  */
-function jloads(selector) {
+var jloads = function (selector) {
     const f = 'jloads';
 
     this.cfg = {};

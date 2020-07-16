@@ -1,14 +1,15 @@
 // include-image.js
 jlogs('exist?', 'includeImage');
+
 /**
- *
+ * 
  * @param url
  * @param target
  * @param replace
  * @param success
  * @param error
  */
-const includeImage = function (url, target, replace, success, error) {
+function includeImage(url, target, replace, success, error) {
     const f = 'includeImage';
 
     jlogs(f, ' includeImg url: ', url);

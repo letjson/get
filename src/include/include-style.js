@@ -8,8 +8,11 @@ jlogs('exist?', 'includeStyle');
  * @param error
  * @returns {HTMLLinkElement}
  */
-function includeStyle(url, target, success, error) {
+function includeStyle(url, target, replace, success, error) {
     const f = 'includeStyle';
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
 
     var link = document.createElement('link');
     link.href = url;
@@ -20,6 +23,20 @@ function includeStyle(url, target, success, error) {
     link.onerror = error;
     link.onload = success;
     link.onreadystatechange = success;
+
+    if (replace) {
+        jlogs(f, ' replace getTarget(target): ', getTarget(target));
+        jlogs(f, ' replace getTarget(target) firstChild: ', getTarget(target).firstChild);
+        // getTarget(target).removeChild(getTarget(target).firstChild);
+
+
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
+            // getTarget(selector).appendChild(link);
+            getTarget(selector).removeChild(getTarget(selector).firstChild);
+        });
+    }
+
     onSelector(target, function (selector, element) {
         jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
         getTarget(selector).appendChild(link);

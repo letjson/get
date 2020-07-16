@@ -230,9 +230,9 @@ var Load = function (target, success, error) {
 
                 try {
                     if (last) {
-                        includeScript(script_url, target, success, error);
+                        includeScript(script_url, target,  self.cfg.replace, success, error);
                     } else {
-                        includeScript(script_url, target);
+                        includeScript(script_url, target, self.cfg.replace);
                     }
                     jlogs(this.constructor.name, ' js ', script_url);
                 } catch (e) {
@@ -241,7 +241,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            includeScript(self.getEnvUrl(url), target, success, error);
+            includeScript(self.getEnvUrl(url), target,  self.cfg.replace, success, error);
             // err('apiunit obj: is not object:', obj);
         }
 
@@ -277,14 +277,14 @@ var Load = function (target, success, error) {
                 jlogs(this.constructor.name, ' loadCss script_url ', script_url);
 
                 try {
-                    var exe = includeStyle(script_url, target, success, error);
+                    var exe = includeStyle(script_url, target,  self.cfg.replace, success, error);
                     jlogs(this.constructor.name, ' loadCss exe ', exe);
                 } catch (e) {
                     err('!load CSS ', script_url, e);
                 }
             }
         } else {
-            includeStyle(self.getEnvUrl(url), target, success, error);
+            includeStyle(self.getEnvUrl(url), target,  self.cfg.replace, success, error);
             // err('apiunit obj: is not object:', obj);
         }
 

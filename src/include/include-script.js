@@ -1,5 +1,6 @@
 // include-script.js
 jlogs('exist?', 'includeScript');
+
 /**
  *
  * @param url
@@ -8,8 +9,11 @@ jlogs('exist?', 'includeScript');
  * @param error
  * @returns {HTMLScriptElement}
  */
-function includeScript(url, target, success, error) {
+function includeScript(url, target, replace, success, error) {
     const f = 'includeScript';
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
 
     var scriptTag = document.createElement('script');
     scriptTag.src = url;
@@ -22,6 +26,15 @@ function includeScript(url, target, success, error) {
     scriptTag.onload = success;
     scriptTag.onreadystatechange = success;
 
+    if (replace) {
+        jlogs(f, ' replace getTarget(target): ', getTarget(target));
+        jlogs(f, ' replace getTarget(target) firstChild: ', getTarget(target).firstChild);
+        // getTarget(target).removeChild(getTarget(target).firstChild);
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
+            getTarget(selector).removeChild(getTarget(selector).firstChild);
+        });
+    }
     onSelector(target, function (selector, element) {
         jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
         getTarget(selector).appendChild(scriptTag);

@@ -517,6 +517,186 @@ function includeStyle(url, target, success, error) {
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
+// include-html.js
+jlogs('exist?', 'includeHtml');
+
+/**
+ *
+ * @param url
+ * @param target
+ * @param replace
+ * @param success
+ * @param error
+ * @returns {includeHtml|boolean}
+ */
+function includeHtml(url, target, replace, success, error) {
+    const f = 'includeHtml';
+
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
+
+    if (typeof success !== 'function') {
+        success = function () {
+            jlogs(f, ' success ', "included");
+        }
+    }
+
+    if (typeof error !== 'function') {
+        error = function () {
+            jlogs(f, ' error ', "Page not found.");
+        }
+    }
+    jlogs(f, ' url ', url);
+    // if html content, NOT URL
+    jlogs(f, ' includeHtml HTML target : ', target, getTarget(target));
+
+    if (url.length > 100) {
+        getTarget(target).insertAdjacentHTML('beforeend', url);
+        return success(this);
+    } else if (url) {
+        /* Make an HTTP request using the attribute value as the url name: */
+        var xhrObj = getXHRObject();
+        // xhrObj.setRequestHeader("Content-Type","text/html; charset=UTF-8");
+        // xhrObj.setRequestHeader("Content-Type","multipart/form-data; boundary=something");
+        xhrObj.onreadystatechange = function () {
+
+            jlogs(f, ' getXHRObject target: ', target);
+
+            if (this.readyState == 4) {
+                // document.onload =
+                loadHtmlByStatus(this.status, this.responseText, target, success, error);
+
+                /* Remove the attribute, and call this function once more: */
+                // includeHtml(url, success, error);
+            }
+        }
+        xhrObj.open("GET", url, true);
+        // xhrObj.responseType = 'text';
+        xhrObj.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+        xhrObj.send();
+        /* Exit the function: */
+        return this;
+    }
+    return false;
+
+}
+
+// include-image.js
+jlogs('exist?', 'includeImage');
+/**
+ *
+ * @param url
+ * @param target
+ * @param replace
+ * @param success
+ * @param error
+ */
+const includeImage = function (url, target, replace, success, error) {
+    const f = 'includeImage';
+
+    jlogs(f, ' includeImg url: ', url);
+    jlogs(f, ' includeImg target: ', target);
+
+
+    // img.onload = function () {
+    // jlogs(f, "include Image onload url: ", url);
+    // jlogs(f, "include Image replace: ", replace);
+
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
+    // JLOADS_DEBUG ||jlogs('typeof self.cfg.replace', typeof self.cfg.replace);
+    jlogs(f, "include Image replace: ", replace);
+
+
+    if (replace) {
+        jlogs(f, 'includeImage getTarget(target): ', getTarget(target));
+        jlogs(f, 'includeImage getTarget(target) firstChild: ', getTarget(target).firstChild);
+        // getTarget(target).removeChild(getTarget(target).firstChild);
+
+        onSelector(target, function (selector, element) {
+            jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            // element.removeChild(element);
+            getTarget(target).removeChild(getTarget(target).firstChild);
+            let img = new Image;
+            img.src = url;  // erst nach dem Event Listener!
+            element.appendChild(img);
+        });
+        return;
+        // let element = document.getElementById("top");
+        // while (element.firstChild) {
+        //     element.removeChild(element.firstChild);
+        // }
+    }
+    // getTarget(target).appendChild(img);
+
+    onSelector(target, function (selector, element) {
+        jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
+        let img = new Image;
+        img.src = url;  // erst nach dem Event Listener!
+        element.appendChild(img);
+    });
+    // };
+
+}
+// include-script.js
+jlogs('exist?', 'includeScript');
+/**
+ *
+ * @param url
+ * @param target
+ * @param success
+ * @param error
+ * @returns {HTMLScriptElement}
+ */
+function includeScript(url, target, success, error) {
+    var scriptTag = document.createElement('script');
+    scriptTag.src = url;
+    scriptTag.defer = true;
+    // scriptTag.setAttribute('defer','');
+    // scriptTag.async = true;
+    scriptTag.type = 'text/javascript';
+
+    scriptTag.onerror = error;
+    scriptTag.onload = success;
+    scriptTag.onreadystatechange = success;
+
+    onSelector(target, function (selector, element) {
+        jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
+        getTarget(selector).appendChild(scriptTag);
+    });
+    // return getTarget(target).appendChild(scriptTag);
+}
+// include-style.js
+jlogs('exist?', 'includeStyle');
+/**
+ *
+ * @param url
+ * @param target
+ * @param success
+ * @param error
+ * @returns {HTMLLinkElement}
+ */
+function includeStyle(url, target, success, error) {
+    var link = document.createElement('link');
+    link.href = url;
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.media = 'all';
+
+    link.onerror = error;
+    link.onload = success;
+    link.onreadystatechange = success;
+    onSelector(target, function (selector, element) {
+        jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
+        getTarget(selector).appendChild(link);
+    });
+    // return getTarget(target).appendChild(link);
+}
+// TODO: replce path to id name and check if ID exist
+// FASTEST loading:
+// https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
 // e.js
 jlogs('exist?', 'E');
 /**
@@ -2405,7 +2585,7 @@ jlogs('exist?', 'jloads');
  * @param selector
  * @returns {jloads}
  */
-var jloads = function (selector) {
+function jloads(selector) {
     const f = 'jloads';
 
     this.cfg = {};
@@ -2437,14 +2617,14 @@ var jloads = function (selector) {
     self.form = function (json, success, error) {
         const f = 'jloads.form';
 
-        jlogs(' jloadsForm', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+        jlogs(' jloads.form', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
         // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-        // jlogs('jloadsForm selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
+        // jlogs('jloads.form selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
 
         // var jloads = new Load(selector, success, error);
 
-        jlogs('jloadsForm Object.keys(json).length', Object.keys(json).length);
+        jlogs('jloads.form Object.keys(json).length', Object.keys(json).length);
 
         if (Object.keys(json).length === 1) {
 
@@ -2453,7 +2633,7 @@ var jloads = function (selector) {
             var selector = se[0];
             var event = se[1];
             var targets = json[selector_event];
-            jlogs('jloadsForm selector event targets', selector, event, targets);
+            jlogs('jloads.form selector event targets', selector, event, targets);
 
             onSelector(selector, function (select, element) {
                 jlogs(f, 'elem wait DOMContentLoaded select element', select, element);
@@ -2552,6 +2732,30 @@ var jloads = function (selector) {
     }
 
     self.target = function (json) {
+        const f = 'jloads.target';
+
+        jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+        // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+        // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
+
+        var i = Object.keys(json)[0];
+        jlogs('jloadsTarget getOne ', ' i ', i);
+
+        if (Object.keys(json).length === 1) {
+            getOne(self.jloads, json[i], i, self.mapFunction, success, error)
+        } else {
+            for (var i in json) {
+                var object = json[i];
+                getOne(self.jloads, object, i, self.mapFunction, success, error)
+            }
+        }
+        // success(json);
+
+        return self;
+    }
+    // Load files by path in url bar, similar such event loading, check if url value is changed
+    self.url = function (json) {
         const f = 'jloads.target';
 
         jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);

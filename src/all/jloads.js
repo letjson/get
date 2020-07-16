@@ -5,7 +5,7 @@ jlogs('exist?', 'jloads');
  * @param selector
  * @returns {jloads}
  */
-var jloads = function (selector) {
+function jloads(selector) {
     const f = 'jloads';
 
     this.cfg = {};
@@ -37,14 +37,14 @@ var jloads = function (selector) {
     self.form = function (json, success, error) {
         const f = 'jloads.form';
 
-        jlogs(' jloadsForm', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+        jlogs(' jloads.form', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
         // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-        // jlogs('jloadsForm selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
+        // jlogs('jloads.form selectorEvent1 ', ' elem ', elem, !isEmpty(elem));
 
         // var jloads = new Load(selector, success, error);
 
-        jlogs('jloadsForm Object.keys(json).length', Object.keys(json).length);
+        jlogs('jloads.form Object.keys(json).length', Object.keys(json).length);
 
         if (Object.keys(json).length === 1) {
 
@@ -53,7 +53,7 @@ var jloads = function (selector) {
             var selector = se[0];
             var event = se[1];
             var targets = json[selector_event];
-            jlogs('jloadsForm selector event targets', selector, event, targets);
+            jlogs('jloads.form selector event targets', selector, event, targets);
 
             onSelector(selector, function (select, element) {
                 jlogs(f, 'elem wait DOMContentLoaded select element', select, element);
@@ -152,6 +152,30 @@ var jloads = function (selector) {
     }
 
     self.target = function (json) {
+        const f = 'jloads.target';
+
+        jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+        // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+        // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
+
+        var i = Object.keys(json)[0];
+        jlogs('jloadsTarget getOne ', ' i ', i);
+
+        if (Object.keys(json).length === 1) {
+            getOne(self.jloads, json[i], i, self.mapFunction, success, error)
+        } else {
+            for (var i in json) {
+                var object = json[i];
+                getOne(self.jloads, object, i, self.mapFunction, success, error)
+            }
+        }
+        // success(json);
+
+        return self;
+    }
+    // Load files by path in url bar, similar such event loading, check if url value is changed
+    self.url = function (json) {
         const f = 'jloads.target';
 
         jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);

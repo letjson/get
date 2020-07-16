@@ -1192,7 +1192,7 @@ function loadHtmlByStatus(status, responseText, target, replace, success, error)
         jlogs(f, ' includeHtml loaded: ', responseText, target, getTarget(target));
         onSelector(target, function (selector, element) {
             jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            // jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
             element.innerHTML = '';
             element.insertAdjacentHTML('beforeend', responseText);
         });

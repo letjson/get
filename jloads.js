@@ -902,17 +902,30 @@ function waitForSelector(url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget waitForSelector';
 
     try {
+        jlogs(f, ' url: ', url);
+        jlogs(f, ' selector: ', selector);
         // set up the mutation observer
         var observer = new MutationObserver(function (mutations, me) {
             // `mutations` is an array of mutations that occurred
             // `me` is the MutationObserver instance
             // var canvas = document.getElementById('my-canvas');
-            var canvas = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
-            if (canvas) {
+            var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
+            if (elem) {
                 // callback executed when canvas was found
-                ReadyHtml(url, selector, mapFunction, success, error);
+                // ReadyHtml(url, selector, mapFunction, success, error);
+                var l = new Load(selector, success, error);
+
+                // loadContentByUrls(jloads, object, mapFunction, success, error);
+                const funcName = getFunctionName(url, mapFunction);
+                jlogs(f, ' funcName ', funcName);
+                //jlogs(funcName, url, elem);
+                l[funcName](url);
+
+
                 me.disconnect(); // stop observing
-                return;
+                // return;
+                return success(elem);
+
             }
         });
 
@@ -1236,10 +1249,10 @@ jlogs('exist?', 'loadHtmlByStatus');
 function loadHtmlByStatus(status, responseText, target, replace, success, error) {
     const f = 'loadHtmlByStatus';
 
-    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+    jlogs(f, ' includeHtml waiting for DOM tree ', target);
 
     if (status == 200) {
-        jlogs(f, ' includeHtml loaded: ', target, getTarget(target));
+        jlogs(f, ' includeHtml loaded: ', target);
         onSelector(target, function (selector, element) {
             jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
@@ -1487,6 +1500,7 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
             // });
         } else {
             jlogs(f, ' wait for element selector ', selector);
+            jlogs(f, ' wait for element url ', url);
             // console.log(f, ' wait for element target ', jloads.getTarget(selector));
 
             // waitForSelector(url, selector, mapFunction, success, error)

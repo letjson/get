@@ -13,10 +13,10 @@ jlogs('exist?', 'loadHtmlByStatus');
 function loadHtmlByStatus(status, responseText, target, replace, success, error) {
     const f = 'loadHtmlByStatus';
 
-    jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
+    jlogs(f, ' includeHtml waiting for DOM tree ', target);
 
     if (status == 200) {
-        jlogs(f, ' includeHtml loaded: ', target, getTarget(target));
+        jlogs(f, ' includeHtml loaded: ', target);
         onSelector(target, function (selector, element) {
             jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // jlogs('onSelector insertAdjacentHTML responseText  ', responseText);

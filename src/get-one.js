@@ -42,6 +42,7 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
             // });
         } else {
             jlogs(f, ' wait for element selector ', selector);
+            jlogs(f, ' wait for element url ', url);
             // console.log(f, ' wait for element target ', jloads.getTarget(selector));
 
             // waitForSelector(url, selector, mapFunction, success, error)

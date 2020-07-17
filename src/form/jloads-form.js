@@ -9,7 +9,7 @@
  */
 jlogs('exist?', 'jloadsForm');
 if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, error) {
-    const f = 'jloadsForm';
+    var f = 'jloadsForm';
 
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
@@ -77,7 +77,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
  */
 jlogs('exist?', 'selectorEvent1');
 if (typeof selectorEvent1 !== 'function') selectorEvent1 = function (jloads, selector, event, mapFunction, success, error) {
-    const f = 'jloadsForm selectorEvent1';
+    var f = 'jloadsForm selectorEvent1';
 
     jlogs(f, ' event ', event);
     jlogs(f, ' selector ', selector);
@@ -171,7 +171,7 @@ if (typeof selectorEvent1 !== 'function') selectorEvent1 = function (jloads, sel
  */
 // jlogs('exist?', 'addEvent');
 // if (typeof eventResponse !== 'function') eventResponse = function (selector, event, response) {
-//     const f = 'jloadsForm eventResponse';
+//     var f = 'jloadsForm eventResponse';
 //     jlogs(f, ' selector ', selector);
 //     jlogs(f, ' event ', event);
 //

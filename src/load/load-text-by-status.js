@@ -10,7 +10,7 @@ jlogs('exist?', 'loadTextByStatus');
  * @returns {*}
  */
 function loadTextByStatus(status, responseText, url, success, error) {
-    const f = 'loadTextByStatus';
+    var f = 'loadTextByStatus';
 
     if (status == 200) {
         jlogs(f, ' loadText loaded: ', responseText);

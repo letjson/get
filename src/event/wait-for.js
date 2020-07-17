@@ -9,7 +9,7 @@ jlogs('exist?', 'waitFor');
  * @returns {*}
  */
 function waitFor(selector, time, callback) {
-    const f = 'waitFor';
+    var f = 'waitFor';
     jlogs(f, ' selector ', selector);
     // console.log(f, ' selector document.querySelector(selector) ', typeof document.querySelector(selector), document.querySelector(selector));
     // console.log(f, ' selector document.querySelectorAll(selector) ', typeof document.querySelectorAll(selector), document.querySelectorAll(selector), document.querySelectorAll(selector).length);

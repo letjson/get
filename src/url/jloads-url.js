@@ -9,7 +9,7 @@
  */
 jlogs('exist?', 'jloadsUrl');
 if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error, mapFunction) {
-    const f = 'jloadsUrl';
+    var f = 'jloadsUrl';
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to

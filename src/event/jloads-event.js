@@ -9,7 +9,7 @@
  */
 jlogs('exist?', 'jloadsEvent');
 if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, error, mapFunction) {
-    const f = 'jloadsEvent';
+    var f = 'jloadsEvent';
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         // Configuration

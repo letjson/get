@@ -10,7 +10,7 @@ jlogs('exist?', 'loadJsonByStatus');
  * @returns {*}
  */
 function loadJsonByStatus(status, responseText, url, success, error) {
-    const f = 'loadJsonByStatus';
+    var f = 'loadJsonByStatus';
 
     if (status == 200) {
         jlogs(f, ' loadJson loaded HTML: ', responseText);

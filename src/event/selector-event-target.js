@@ -13,7 +13,7 @@
 jlogs('exist?', 'selectorEventTarget');
 if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (selector, event, targets, success, error) {
 
-    const f = 'jloadsForm selectorEventTarget';
+    var f = 'jloadsForm selectorEventTarget';
 
     var target = Object.keys(targets)[0];
     jlogs(f, 'selector event target', selector, event, target);

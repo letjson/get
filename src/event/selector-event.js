@@ -12,7 +12,7 @@
  */
 jlogs('exist?', 'selectorEvent');
 if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selector, event, mapFunction, success, error) {
-    const f = 'jloadsEvent selectorEvent';
+    var f = 'jloadsEvent selectorEvent';
 
     jlogs(f, ' event ', event);
     jlogs(f, ' selector ', selector);

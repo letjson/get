@@ -10,7 +10,7 @@
  * @constructor
  */
 var Rest = function (url, separator, response, error, success) {
-    const f = 'Rest';
+    var f = 'Rest';
 
     this.url = url;
     this.separator = '/';

@@ -7,7 +7,7 @@ jlogs('exist?', 'getTarget');
  * @returns {HTMLHeadElement}
  */
 function onSelector(selector, callback) {
-    const f = 'onSelector';
+    var f = 'onSelector';
 
     jlogs(f, 'selector typeof', selector, typeof selector);
 

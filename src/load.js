@@ -8,7 +8,7 @@ jlogs('exist?', 'Load');
  * @constructor
  */
 var Load = function (target, success, error) {
-    const f = 'Load';
+    var f = 'Load';
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to

@@ -9,7 +9,7 @@ jlogs('exist?', 'loadJson');
  * @returns {html|boolean}
  */
 function loadJson(url, success, error) {
-    const f = 'loadJson';
+    var f = 'loadJson';
 
 
     if (typeof success !== 'function') {

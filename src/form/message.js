@@ -5,7 +5,7 @@
  * @constructor
  */
 var Message = function (selector, error, success) {
-    const f = 'Message';
+    var f = 'Message';
 
     this.selector = selector || 'body';
     this.message = '';

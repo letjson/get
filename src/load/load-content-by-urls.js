@@ -9,7 +9,7 @@
 jlogs('exist?', 'loadContentByUrls');
 if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load, object, mapFunction, success, error) {
 
-    const f = 'jloadsTarget loadContentByUrls';
+    var f = 'jloadsTarget loadContentByUrls';
 
     jlogs(f, ' isArray object: ', object);
     jlogs(f, ' isArray array: ', isArray(object));
@@ -27,7 +27,7 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
+                        var funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         load[funcName](url);

@@ -12,7 +12,7 @@
  */
 jlogs('exist?', 'eventResponse');
 if (typeof eventResponse !== 'function') eventResponse = function (selector, event, response) {
-    const f = 'jloadsEvent eventResponse';
+    var f = 'jloadsEvent eventResponse';
     jlogs(f, ' selector ', selector);
     jlogs(f, ' event ', event);
 

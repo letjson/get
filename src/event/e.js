@@ -56,7 +56,7 @@ var E = function (selector, area, error, success) {
             self.cfg.exist = false;
             error();
         }
-        const elem = document.querySelector(self.cfg.selector);
+        var elem = document.querySelector(self.cfg.selector);
 
         jlogs(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
         jlogs(this.constructor.name, ' first elem ', elem);
@@ -81,7 +81,7 @@ var E = function (selector, area, error, success) {
             error = self.error;
         }
 
-        const elem = document.querySelectorAll(self.cfg.selector);
+        var elem = document.querySelectorAll(self.cfg.selector);
 
         jlogs(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
         jlogs(this.constructor.name, ' all elem ', elem);

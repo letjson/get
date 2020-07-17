@@ -11,7 +11,7 @@
 jlogs('exist?', 'loadUrlData');
 if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, mapFunction, success, error) {
 
-    const f = 'jloadsEvent loadUrlData';
+    var f = 'jloadsEvent loadUrlData';
 
     jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
 
@@ -28,7 +28,7 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction, 'loadUrlData');
+                        var funcName = getFunctionName(url, mapFunction, 'loadUrlData');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         jloads[funcName](url);

@@ -13,7 +13,7 @@ var map = {
     'json': 'json'
 }
 // ver.js
-const JLOADS_VERSION='1.1.1';
+var JLOADS_VERSION='1.1.1';
 // jlogs.js
 if (typeof jlogs !== 'function') jlogs = function () {
     var str = ':: ';
@@ -390,7 +390,7 @@ jlogs('exist?', 'includeHtml');
  * @returns {includeHtml|boolean}
  */
 function includeHtml(url, target, replace, success, error) {
-    const f = 'includeHtml';
+    var f = 'includeHtml';
 
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
@@ -446,7 +446,7 @@ function includeHtml(url, target, replace, success, error) {
 jlogs('exist?', 'includeImage');
 
 /**
- * 
+ *
  * @param url
  * @param target
  * @param replace
@@ -454,7 +454,7 @@ jlogs('exist?', 'includeImage');
  * @param error
  */
 function includeImage(url, target, replace, success, error) {
-    const f = 'includeImage';
+    var f = 'includeImage';
 
     jlogs(f, ' includeImg url: ', url);
     jlogs(f, ' includeImg target: ', target);
@@ -480,12 +480,12 @@ function includeImage(url, target, replace, success, error) {
             jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // element.removeChild(element);
             getTarget(target).removeChild(getTarget(target).firstChild);
-            let img = new Image;
+            var img = new Image;
             img.src = url;  // erst nach dem Event Listener!
             element.appendChild(img);
         });
         return success(this);
-        // let element = document.getElementById("top");
+        // var element = document.getElementById("top");
         // while (element.firstChild) {
         //     element.removeChild(element.firstChild);
         // }
@@ -494,7 +494,7 @@ function includeImage(url, target, replace, success, error) {
 
     onSelector(target, function (selector, element) {
         jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
-        let img = new Image;
+        var img = new Image;
         img.src = url;  // erst nach dem Event Listener!
         element.appendChild(img);
     });
@@ -513,7 +513,7 @@ jlogs('exist?', 'includeScript');
  * @returns {HTMLScriptElement}
  */
 function includeScript(url, target, replace, success, error) {
-    const f = 'includeScript';
+    var f = 'includeScript';
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }
@@ -557,7 +557,7 @@ jlogs('exist?', 'includeStyle');
  * @returns {HTMLLinkElement}
  */
 function includeStyle(url, target, replace, success, error) {
-    const f = 'includeStyle';
+    var f = 'includeStyle';
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }
@@ -606,7 +606,7 @@ jlogs('exist?', 'getFunctionName');
  * @returns {*}
  */
 function getFunctionName(url, map, parent) {
-    const f = 'getFunctionName / ' + parent;
+    var f = 'getFunctionName / ' + parent;
 
     if (isEmpty(url) || url.length < 2) {
         throw new Error('url not exits');
@@ -641,7 +641,7 @@ function getFunctionName(url, map, parent) {
  */
 jlogs('exist?', 'getOne');
 if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFunction, success, error) {
-    const f = 'jloadsTarget getOne';
+    var f = 'jloadsTarget getOne';
 
     jlogs(f, ' load.getTarget() ', load.getTarget());
 
@@ -685,7 +685,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         // callback executed when canvas was found
 
         // loadContentByUrls(jloads, object, mapFunction, success, error);
-        const funcName = getFunctionName(url, mapFunction, f);
+        var funcName = getFunctionName(url, mapFunction, f);
         jlogs(f, ' funcName ', funcName);
         //jlogs(funcName, url, elem);
         l[funcName](url);
@@ -750,7 +750,7 @@ jlogs('exist?', 'Load');
  * @constructor
  */
 var Load = function (target, success, error) {
-    const f = 'Load';
+    var f = 'Load';
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -1257,7 +1257,7 @@ var Load = function (target, success, error) {
 jlogs('exist?', 'loadContentByUrls');
 if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load, object, mapFunction, success, error) {
 
-    const f = 'jloadsTarget loadContentByUrls';
+    var f = 'jloadsTarget loadContentByUrls';
 
     jlogs(f, ' isArray object: ', object);
     jlogs(f, ' isArray array: ', isArray(object));
@@ -1275,7 +1275,7 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
+                        var funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         load[funcName](url);
@@ -1309,7 +1309,7 @@ jlogs('exist?', 'loadHtmlByStatus');
  * @returns {*}
  */
 function loadHtmlByStatus(status, responseText, target, replace, success, error) {
-    const f = 'loadHtmlByStatus';
+    var f = 'loadHtmlByStatus';
 
     jlogs(f, ' includeHtml waiting for DOM tree ', target);
 
@@ -1341,7 +1341,7 @@ jlogs('exist?', 'loadJsonByStatus');
  * @returns {*}
  */
 function loadJsonByStatus(status, responseText, url, success, error) {
-    const f = 'loadJsonByStatus';
+    var f = 'loadJsonByStatus';
 
     if (status == 200) {
         jlogs(f, ' loadJson loaded HTML: ', responseText);
@@ -1364,7 +1364,7 @@ jlogs('exist?', 'loadJson');
  * @returns {html|boolean}
  */
 function loadJson(url, success, error) {
-    const f = 'loadJson';
+    var f = 'loadJson';
 
 
     if (typeof success !== 'function') {
@@ -1418,7 +1418,7 @@ jlogs('exist?', 'loadTextByStatus');
  * @returns {*}
  */
 function loadTextByStatus(status, responseText, url, success, error) {
-    const f = 'loadTextByStatus';
+    var f = 'loadTextByStatus';
 
     if (status == 200) {
         jlogs(f, ' loadText loaded: ', responseText);
@@ -1441,7 +1441,7 @@ jlogs('exist?', 'loadText');
  * @returns {html|boolean}
  */
 function loadText(url, success, error) {
-    const f = 'loadText';
+    var f = 'loadText';
 
 
     if (typeof success !== 'function') {
@@ -1497,7 +1497,7 @@ function loadText(url, success, error) {
  */
 jlogs('exist?', 'jloadsTarget');
 if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, error, mapFunction) {
-    const f = 'jloadsTarget';
+    var f = 'jloadsTarget';
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
@@ -1601,7 +1601,7 @@ function append(targets, target, selector, event, target_group, target_item, f) 
  */
 jlogs('exist?', 'jloadsForm');
 if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, error) {
-    const f = 'jloadsForm';
+    var f = 'jloadsForm';
 
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
@@ -1669,7 +1669,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
  */
 jlogs('exist?', 'selectorEvent1');
 if (typeof selectorEvent1 !== 'function') selectorEvent1 = function (jloads, selector, event, mapFunction, success, error) {
-    const f = 'jloadsForm selectorEvent1';
+    var f = 'jloadsForm selectorEvent1';
 
     jlogs(f, ' event ', event);
     jlogs(f, ' selector ', selector);
@@ -1763,7 +1763,7 @@ if (typeof selectorEvent1 !== 'function') selectorEvent1 = function (jloads, sel
  */
 // jlogs('exist?', 'addEvent');
 // if (typeof eventResponse !== 'function') eventResponse = function (selector, event, response) {
-//     const f = 'jloadsForm eventResponse';
+//     var f = 'jloadsForm eventResponse';
 //     jlogs(f, ' selector ', selector);
 //     jlogs(f, ' event ', event);
 //
@@ -1795,7 +1795,7 @@ if (typeof selectorEvent1 !== 'function') selectorEvent1 = function (jloads, sel
  * @constructor
  */
 var Message = function (selector, error, success) {
-    const f = 'Message';
+    var f = 'Message';
 
     this.selector = selector || 'body';
     this.message = '';
@@ -1844,8 +1844,8 @@ var Message = function (selector, error, success) {
  * @constructor
  */
 var RestForm = function (target, response, error, success) {
-    // const f = jlogs('RestForm');
-    const f = 'RestForm';
+    // var f = jlogs('RestForm');
+    var f = 'RestForm';
 
     this.cfg = {};
     this.cfg.target = target;
@@ -1953,7 +1953,7 @@ var RestForm = function (target, response, error, success) {
  * @constructor
  */
 var Rest = function (url, separator, response, error, success) {
-    const f = 'Rest';
+    var f = 'Rest';
 
     this.url = url;
     this.separator = '/';
@@ -2114,7 +2114,7 @@ var Rest = function (url, separator, response, error, success) {
  */
 jlogs('exist?', 'jloadsObj');
 if (typeof jloadsObj !== 'function') jloadsObj = function (url, success, error, mapFunction) {
-    const f = 'jloadsObj';
+    var f = 'jloadsObj';
 
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to

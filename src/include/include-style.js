@@ -9,7 +9,7 @@ jlogs('exist?', 'includeStyle');
  * @returns {HTMLLinkElement}
  */
 function includeStyle(url, target, replace, success, error) {
-    const f = 'includeStyle';
+    var f = 'includeStyle';
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }

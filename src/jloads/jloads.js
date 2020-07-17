@@ -7,7 +7,7 @@ jlogs('exist?', 'jloads');
  * @returns {jloads}
  */
 var jloads = function (selector) {
-    const f = 'jloads';
+    var f = 'jloads';
 
     this.cfg = {};
     this.cfg.area = document;
@@ -36,7 +36,7 @@ var jloads = function (selector) {
 
 
     self.form = function (json, success, error) {
-        const f = 'jloads.form';
+        var f = 'jloads.form';
 
         jlogs(' jloads.form', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
@@ -78,7 +78,7 @@ var jloads = function (selector) {
     }
 
     self.obj = function (url, success, error) {
-        const f = 'jloads.obj';
+        var f = 'jloads.obj';
 
         if (typeof url === 'string') {
             try {
@@ -99,7 +99,7 @@ var jloads = function (selector) {
 
 
     self.file = function (json) {
-        const f = 'jloads.file';
+        var f = 'jloads.file';
 
         // jlogs(' jloadsFile', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
         var url = Object.keys(json)[0];
@@ -111,12 +111,12 @@ var jloads = function (selector) {
             var success1 = function () {
                 var jloads2 = new Load('head');
 
-                const f = 'jloads.file';
+                var f = 'jloads.file';
                 // jlogs(f, ' success json[url]', json[url]);
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     jlogs(f, ' success url2', url2);
-                    const funcName = getFunctionName(url2, self.mapFunction, 'self.file');
+                    var funcName = getFunctionName(url2, self.mapFunction, 'self.file');
                     jlogs(f, ' funcName ', funcName);
                     jloads2[funcName](url2);
                 }
@@ -124,7 +124,7 @@ var jloads = function (selector) {
 
             var jloads1 = new Load('head', success1);
 
-            const funcName = getFunctionName(url, self.mapFunction, 'self.file');
+            var funcName = getFunctionName(url, self.mapFunction, 'self.file');
             jlogs(f, ' funcName ', funcName, url);
             jloads1[funcName](url);
 
@@ -134,7 +134,7 @@ var jloads = function (selector) {
 
 
     self.event = function (json) {
-        const f = 'jloads.event';
+        var f = 'jloads.event';
 
         jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
@@ -153,7 +153,7 @@ var jloads = function (selector) {
     }
 
     self.target = function (json) {
-        const f = 'jloads.target';
+        var f = 'jloads.target';
 
         jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
@@ -178,7 +178,7 @@ var jloads = function (selector) {
     }
     // Load files by path in url bar, similar such event loading, check if url value is changed
     self.url = function (json) {
-        const f = 'jloads.url';
+        var f = 'jloads.url';
 
         jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
@@ -237,7 +237,7 @@ var jloads = function (selector) {
                         //     console.log(f, '!!!4 url: ', url);
                         //     // getOne(self.jloads, url, selector, self.mapFunction, success, error)
                         //     // loadContentByUrls(l, url, self.mapFunction, success, error);
-                        //     const funcName = getFunctionName(url, self.mapFunction, 'self.url');
+                        //     var funcName = getFunctionName(url, self.mapFunction, 'self.url');
                         //     jlogs(f, '!!!4 funcName ', funcName);
                         //     //jlogs(funcName, url, elem);
                         //     l[funcName](url);

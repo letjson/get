@@ -9,7 +9,7 @@
  * @param error
  */
 function waitForSelector(url, selector, mapFunction, success, error) {
-    const f = 'jloadsTarget waitForSelector';
+    var f = 'jloadsTarget waitForSelector';
 
     if (isEmpty(url) || url.length < 2) {
         throw new Error('url not exits');
@@ -33,7 +33,7 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 // callback executed when canvas was found
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                const funcName = getFunctionName(url, mapFunction, f);
+                var funcName = getFunctionName(url, mapFunction, f);
                 jlogs(f, ' funcName ', funcName);
                 //jlogs(funcName, url, elem);
                 l[funcName](url);

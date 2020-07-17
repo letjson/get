@@ -7,7 +7,7 @@ jlogs('exist?', 'getTarget');
  * @returns {HTMLHeadElement}
  */
 function getTarget(selector) {
-    const f = 'getTarget';
+    var f = 'getTarget';
 
     if(typeof selector === 'string'){
         if(selector === 'html'){

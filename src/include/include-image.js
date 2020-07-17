@@ -2,7 +2,7 @@
 jlogs('exist?', 'includeImage');
 
 /**
- * 
+ *
  * @param url
  * @param target
  * @param replace
@@ -10,7 +10,7 @@ jlogs('exist?', 'includeImage');
  * @param error
  */
 function includeImage(url, target, replace, success, error) {
-    const f = 'includeImage';
+    var f = 'includeImage';
 
     jlogs(f, ' includeImg url: ', url);
     jlogs(f, ' includeImg target: ', target);
@@ -36,12 +36,12 @@ function includeImage(url, target, replace, success, error) {
             jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // element.removeChild(element);
             getTarget(target).removeChild(getTarget(target).firstChild);
-            let img = new Image;
+            var img = new Image;
             img.src = url;  // erst nach dem Event Listener!
             element.appendChild(img);
         });
         return success(this);
-        // let element = document.getElementById("top");
+        // var element = document.getElementById("top");
         // while (element.firstChild) {
         //     element.removeChild(element.firstChild);
         // }
@@ -50,7 +50,7 @@ function includeImage(url, target, replace, success, error) {
 
     onSelector(target, function (selector, element) {
         jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
-        let img = new Image;
+        var img = new Image;
         img.src = url;  // erst nach dem Event Listener!
         element.appendChild(img);
     });

@@ -9,8 +9,8 @@
  * @constructor
  */
 var RestForm = function (target, response, error, success) {
-    // const f = jlogs('RestForm');
-    const f = 'RestForm';
+    // var f = jlogs('RestForm');
+    var f = 'RestForm';
 
     this.cfg = {};
     this.cfg.target = target;

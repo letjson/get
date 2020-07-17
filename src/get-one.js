@@ -10,7 +10,7 @@
  */
 jlogs('exist?', 'getOne');
 if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFunction, success, error) {
-    const f = 'jloadsTarget getOne';
+    var f = 'jloadsTarget getOne';
 
     jlogs(f, ' load.getTarget() ', load.getTarget());
 
@@ -54,7 +54,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         // callback executed when canvas was found
 
         // loadContentByUrls(jloads, object, mapFunction, success, error);
-        const funcName = getFunctionName(url, mapFunction, f);
+        var funcName = getFunctionName(url, mapFunction, f);
         jlogs(f, ' funcName ', funcName);
         //jlogs(funcName, url, elem);
         l[funcName](url);

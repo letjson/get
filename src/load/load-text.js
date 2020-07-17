@@ -9,7 +9,7 @@ jlogs('exist?', 'loadText');
  * @returns {html|boolean}
  */
 function loadText(url, success, error) {
-    const f = 'loadText';
+    var f = 'loadText';
 
 
     if (typeof success !== 'function') {

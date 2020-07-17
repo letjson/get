@@ -11,7 +11,7 @@ jlogs('exist?', 'loadHtml');
  * @returns {html|boolean}
  */
 function html(url, target, replace, success, error) {
-    const f = 'loadHtml';
+    var f = 'loadHtml';
 
     if (typeof replace === 'number' && replace === 1) {
         replace = true;

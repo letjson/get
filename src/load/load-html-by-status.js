@@ -11,7 +11,7 @@ jlogs('exist?', 'loadHtmlByStatus');
  * @returns {*}
  */
 function loadHtmlByStatus(status, responseText, target, replace, success, error) {
-    const f = 'loadHtmlByStatus';
+    var f = 'loadHtmlByStatus';
 
     jlogs(f, ' includeHtml waiting for DOM tree ', target);
 

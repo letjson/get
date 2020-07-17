@@ -11,7 +11,7 @@ jlogs('exist?', 'includeHtml');
  * @returns {includeHtml|boolean}
  */
 function includeHtml(url, target, replace, success, error) {
-    const f = 'includeHtml';
+    var f = 'includeHtml';
 
     if (typeof replace === 'number' && replace === 1) {
         replace = true;

@@ -10,7 +10,7 @@ jlogs('exist?', 'includeScript');
  * @returns {HTMLScriptElement}
  */
 function includeScript(url, target, replace, success, error) {
-    const f = 'includeScript';
+    var f = 'includeScript';
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }

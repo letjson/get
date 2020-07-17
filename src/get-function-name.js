@@ -8,7 +8,7 @@ jlogs('exist?', 'getFunctionName');
  * @returns {*}
  */
 function getFunctionName(url, map, parent) {
-    const f = 'getFunctionName / ' + parent;
+    var f = 'getFunctionName / ' + parent;
 
     if (isEmpty(url) || url.length < 2) {
         throw new Error('url not exits');

@@ -11,6 +11,14 @@
 function waitForSelector(url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget waitForSelector';
 
+    if (isEmpty(url) || url.length < 2) {
+        throw new Error('url not exits');
+    }
+
+    if (isEmpty(selector) || selector.length < 2) {
+        throw new Error('map not exits');
+    }
+
     try {
         jlogs(f, ' url: ', url);
         jlogs(f, ' selector: ', selector);

@@ -1180,6 +1180,14 @@ if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selec
 function waitForSelector(url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget waitForSelector';
 
+    if (isEmpty(url) || url.length < 2) {
+        throw new Error('url not exits');
+    }
+
+    if (isEmpty(selector) || selector.length < 2) {
+        throw new Error('map not exits');
+    }
+
     try {
         jlogs(f, ' url: ', url);
         jlogs(f, ' selector: ', selector);
@@ -1263,7 +1271,7 @@ jlogs('exist?', 'getFunctionName');
 function getFunctionName(url, map, parent) {
     const f = 'getFunctionName / ' + parent;
 
-    if (isEmpty(url) || map.length < 2) {
+    if (isEmpty(url) || url.length < 2) {
         throw new Error('url not exits');
     }
 
@@ -1355,7 +1363,9 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
                 jlogs(f, ' url3 ', url);
                 jlogs(f, ' list ', list);
-                waitForSelector(url, selector, mapFunction, success, error);
+                getOne(load, url, selector, mapFunction, success, error);
+
+                // waitForSelector(url, selector, mapFunction, success, error);
                 //
                 // waitForSelector(url, selector, mapFunction, function () {
                 //     for (var i in url) {

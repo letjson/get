@@ -10,7 +10,7 @@ jlogs('exist?', 'getFunctionName');
 function getFunctionName(url, map, parent) {
     const f = 'getFunctionName / ' + parent;
 
-    if (isEmpty(url) || map.length < 2) {
+    if (isEmpty(url) || url.length < 2) {
         throw new Error('url not exits');
     }
 

@@ -69,7 +69,9 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
                 jlogs(f, ' url3 ', url);
                 jlogs(f, ' list ', list);
-                waitForSelector(url, selector, mapFunction, success, error);
+                getOne(load, url, selector, mapFunction, success, error);
+
+                // waitForSelector(url, selector, mapFunction, success, error);
                 //
                 // waitForSelector(url, selector, mapFunction, function () {
                 //     for (var i in url) {

@@ -2032,12 +2032,13 @@ function waitForSelector(url, selector, mapFunction, success, error) {
     try {
         jlogs(f, ' url: ', url);
         jlogs(f, ' selector: ', selector);
+        var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
+
         // set up the mutation observer
         var observer = new MutationObserver(function (mutations, me) {
             // `mutations` is an array of mutations that occurred
             // `me` is the MutationObserver instance
             // var canvas = document.getElementById('my-canvas');
-            var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
             if (elem) {
                 // callback executed when canvas was found
                 // ReadyHtml(url, selector, mapFunction, success, error);
@@ -2057,7 +2058,7 @@ function waitForSelector(url, selector, mapFunction, success, error) {
             }
 
             setTimeout(function () {
-                    jlogs(this.constructor.name, ' stop observing ', url);
+                    jlogs(f, ' stop observing ', url);
                     me.disconnect(); // stop observing
                 },
                 2000
@@ -2066,7 +2067,7 @@ function waitForSelector(url, selector, mapFunction, success, error) {
         });
 
         // start observing
-        observer.observe(document, {
+        observer.observe(elem, {
             childList: true,
             subtree: true
         });

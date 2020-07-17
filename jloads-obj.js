@@ -600,13 +600,13 @@ function getFunctionName(url, map, parent) {
  * @param error
  */
 jlogs('exist?', 'getOne');
-if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapFunction, success, error) {
+if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget getOne';
 
-    jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
+    jlogs(f, ' load.getTarget() ', load.getTarget());
 
     // TODO: move to class E for smart load content on not existing DOM elements
-    // if (selector === 'head' || !isEmpty(jloads.getTarget())) {
+    // if (selector === 'head' || !isEmpty(load.getTarget())) {
     jlogs(f, ' selector ', selector);
     jlogs(f, ' url 1', url, typeof url, isString(url), Object.keys(url).length);
 
@@ -618,11 +618,11 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
 
     if (isString(url)) {
         if (selector === 'head') {
-            loadContentByUrls(jloads, url, mapFunction, success, error);
-            success(jloads.getTarget(selector));
+            loadContentByUrls(load, url, mapFunction, success, error);
+            success(load.getTarget(selector));
         // } else if (selector === 'body') {
         //     jlogs(f, ' wait for body selector ', selector);
-        //     jlogs(f, ' wait for body target ', jloads.getTarget(selector));
+        //     jlogs(f, ' wait for body target ', load.getTarget(selector));
 
             // var reload = document.querySelector(selector);
             // reload.addEventListener("load", function (event) {
@@ -634,7 +634,7 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
         } else {
             jlogs(f, ' wait for element selector ', selector);
             jlogs(f, ' wait for element url ', url);
-            // console.log(f, ' wait for element target ', jloads.getTarget(selector));
+            // console.log(f, ' wait for element target ', load.getTarget(selector));
 
             // waitForSelector(url, selector, mapFunction, success, error)
             waitForSelector(url, selector, mapFunction, success, error);
@@ -642,16 +642,16 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
         }
     } else {
         var url1 = Object.keys(url)[0];
-        jlogs(f, ' url1 ', url1);
+        jlogs(f, ' url3 ', url1);
 
         waitForSelector(url1, selector, mapFunction, function () {
             for (var i in url) {
                 var object = url[i];
-                jlogs(f, ' url1 i ', i);
-                jlogs(f, ' url1 object ', object);
+                jlogs(f, ' url4 i ', i);
+                jlogs(f, ' url4 object ', object);
                 for (var ii in object) {
-                    jlogs(f, ' url1 object[ii], ii ', object[ii], ii);
-                    getOne(jloads, object[ii], selector, mapFunction, success, error);
+                    jlogs(f, ' url5 object[ii], ii ', object[ii], ii);
+                    getOne(load, object[ii], selector, mapFunction, success, error);
                 }
             }
         }, error);

@@ -153,6 +153,44 @@ var hasDomain = function (url) {
     return url.indexOf('//') === 0 || url.indexOf('http://') === 0 || url.indexOf('https://') === 0;
 }
 // is-array.js
+jlogs('exist?','isArrayMany');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isArrayMany(val) {
+    return val !== null &&
+        (val instanceof Array && Object.keys(val).length > 1)
+    // obj.constructor.toString().indexOf("Array") != -1
+        ;
+}
+// is-array.js
+jlogs('exist?','isArrayNotEmpty');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isArrayNotEmpty(val) {
+    return val !== null &&
+        (val instanceof Array && Object.keys(val).length > 0)
+        ;
+}
+// is-array.js
+jlogs('exist?','isArrayOne');
+/**
+ *
+ * @param val
+ * @returns {boolean}
+ */
+function isArrayOne(val) {
+    return val !== null &&
+        (val instanceof Array && Object.keys(val).length === 1)
+    // obj.constructor.toString().indexOf("Array") != -1
+        ;
+}
+// is-array.js
 jlogs('exist?','isArray');
 /**
  *
@@ -257,6 +295,7 @@ jlogs('exist?','isObject');
  */
 function isObject(val) {
     return val !== null &&
+        !(val instanceof Array) &&
         (typeof val === 'object' && Object.keys(val).length > 0)
         ;
 }
@@ -1821,25 +1860,14 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         jlogs(f, ' list isArray', isArray(list));
         jlogs(f, ' list isObject', isObject(list));
 
-        waitForSelector(url, selector, mapFunction, function () {
-            for (var i in url) {
-                var object = url[i];
-                jlogs(f, ' url4 i ', i);
-                jlogs(f, ' url4 object ', object);
-                for (var ii in object) {
-                    jlogs(f, ' url5 object[ii], ii ', object[ii], ii);
-                    getOne(load, object[ii], selector, mapFunction, success, error);
-                }
-            }//for
-        }, error);
 
         //
         if (isArray(list)) {
             for (var i in list) {
                 var url = list[i];
 
-                jlogs(f, ' url4 ', url);
-                jlogs(f, ' list ', list);
+                jlogs(f, 'isArray url4 ', url);
+                jlogs(f, 'isArray list ', list);
                 getOne(load, url, selector, mapFunction, success, error);
 
                 // waitForSelector(url, selector, mapFunction, success, error);
@@ -1847,6 +1875,21 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
             }//for
         } else if (isObject(list)) {
+            url = Object.keys(list)[0];
+            jlogs(f, 'isObject url4 ', url);
+            jlogs(f, 'isObject list ', list);
+
+            waitForSelector(url, selector, mapFunction, function () {
+                for (var i in list) {
+                    var object = list[i];
+                    jlogs(f, 'isObject url5 i ', i);
+                    jlogs(f, 'isObject url5 object ', object);
+                    for (var ii in object) {
+                        jlogs(f, 'isObject url5 object[ii], ii ', object[ii], ii);
+                        getOne(load, object[ii], selector, mapFunction, success, error);
+                    }
+                }//for
+            }, error);
 
         }
     }

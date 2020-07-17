@@ -565,8 +565,8 @@ jlogs('exist?', 'getFunctionName');
  * @param map
  * @returns {*}
  */
-function getFunctionName(url, map) {
-    const f = 'getFunctionName';
+function getFunctionName(url, map, parent) {
+    const f = 'getFunctionName / ' + parent;
 
     if (isEmpty(url)) {
         throw new Error('url not exits');
@@ -1195,7 +1195,7 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction);
+                        const funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         load[funcName](url);
@@ -1727,7 +1727,7 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction);
+                        const funcName = getFunctionName(url, mapFunction, 'loadUrlData');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         jloads[funcName](url);
@@ -1873,7 +1873,7 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
 
     if (!isEmpty(elem)) {
         // loadContentByUrls(jloads, object, mapFunction, success, error);
-        const funcName = getFunctionName(url, mapFunction);
+        const funcName = getFunctionName(url, mapFunction, 'ReadyHtml');
         jlogs(f, ' funcName ', funcName);
         //jlogs(funcName, url, elem);
         l[funcName](url);
@@ -2044,7 +2044,7 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 var l = new Load(selector, success, error);
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                const funcName = getFunctionName(url, mapFunction);
+                const funcName = getFunctionName(url, mapFunction, 'waitForSelector');
                 jlogs(f, ' funcName ', funcName);
                 //jlogs(funcName, url, elem);
                 l[funcName](url);

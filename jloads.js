@@ -659,7 +659,7 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction);
+                        const funcName = getFunctionName(url, mapFunction, 'loadUrlData');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         jloads[funcName](url);
@@ -805,7 +805,7 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
 
     if (!isEmpty(elem)) {
         // loadContentByUrls(jloads, object, mapFunction, success, error);
-        const funcName = getFunctionName(url, mapFunction);
+        const funcName = getFunctionName(url, mapFunction, 'ReadyHtml');
         jlogs(f, ' funcName ', funcName);
         //jlogs(funcName, url, elem);
         l[funcName](url);
@@ -976,7 +976,7 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 var l = new Load(selector, success, error);
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                const funcName = getFunctionName(url, mapFunction);
+                const funcName = getFunctionName(url, mapFunction, 'waitForSelector');
                 jlogs(f, ' funcName ', funcName);
                 //jlogs(funcName, url, elem);
                 l[funcName](url);
@@ -1273,7 +1273,7 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction);
+                        const funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         load[funcName](url);
@@ -1492,8 +1492,8 @@ jlogs('exist?', 'getFunctionName');
  * @param map
  * @returns {*}
  */
-function getFunctionName(url, map) {
-    const f = 'getFunctionName';
+function getFunctionName(url, map, parent) {
+    const f = 'getFunctionName / ' + parent;
 
     if (isEmpty(url)) {
         throw new Error('url not exits');
@@ -2771,7 +2771,7 @@ var jloads = function (selector) {
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     jlogs(f, ' success url2', url2);
-                    const funcName = getFunctionName(url2, self.mapFunction);
+                    const funcName = getFunctionName(url2, self.mapFunction,'self.file');
                     jlogs(f, ' funcName ', funcName);
                     jloads2[funcName](url2);
                 }
@@ -2779,7 +2779,7 @@ var jloads = function (selector) {
 
             var jloads1 = new Load('head', success1);
 
-            const funcName = getFunctionName(url, self.mapFunction);
+            const funcName = getFunctionName(url, self.mapFunction,'self.file');
             jlogs(f, ' funcName ', funcName, url);
             jloads1[funcName](url);
 
@@ -2885,7 +2885,7 @@ var jloads = function (selector) {
                             console.log(f, '!!!4 url: ', url);
                             // getOne(self.jloads, url, selector, self.mapFunction, success, error)
                             // loadContentByUrls(l, url, self.mapFunction, success, error);
-                            const funcName = getFunctionName(url, self.mapFunction);
+                            const funcName = getFunctionName(url, self.mapFunction, 'self.url');
                             jlogs(f, '!!!4 funcName ', funcName);
                             //jlogs(funcName, url, elem);
                             l[funcName](url);

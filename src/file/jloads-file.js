@@ -8,7 +8,7 @@
  * @returns {Load}
  */
 jlogs('exist?', 'jloadsFile');
-if (typeof jloadsFile !== 'function') jloadsFile = function (json, success, error, mapFunction) {
+if (typeof jloadsFile !== 'function') waitForSelector = function (json, success, error, mapFunction) {
     const f = 'jloadsFile';
 
     //url is URL of external file, success is the code
@@ -46,14 +46,14 @@ if (typeof jloadsFile !== 'function') jloadsFile = function (json, success, erro
 
         //getOne(jloads, json[i], i, mapFunction, success, error)
 
-        const funcName = getFunctionName(url, mapFunction);
+        const funcName = getFunctionName(url, mapFunction, 'waitForSelector1');
         jlogs(f, ' funcName ', funcName, url);
         jloads[funcName](url);
 
         for (var i in json[url]) {
             var url2 = json[url][i];
             // getOne(jloads, object, i, mapFunction, success, error)
-            const funcName = getFunctionName(url2, mapFunction);
+            const funcName = getFunctionName(url2, mapFunction, 'waitForSelector2');
             jlogs(f, ' funcName ', funcName, url2);
             jloads[funcName](url2);
         }

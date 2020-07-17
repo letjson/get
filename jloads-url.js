@@ -346,8 +346,8 @@ jlogs('exist?', 'getFunctionName');
  * @param map
  * @returns {*}
  */
-function getFunctionName(url, map) {
-    const f = 'getFunctionName';
+function getFunctionName(url, map, parent) {
+    const f = 'getFunctionName / ' + parent;
 
     if (isEmpty(url)) {
         throw new Error('url not exits');
@@ -976,7 +976,7 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction);
+                        const funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         load[funcName](url);

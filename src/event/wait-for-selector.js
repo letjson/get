@@ -26,7 +26,7 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 var l = new Load(selector, success, error);
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                const funcName = getFunctionName(url, mapFunction);
+                const funcName = getFunctionName(url, mapFunction, 'waitForSelector');
                 jlogs(f, ' funcName ', funcName);
                 //jlogs(funcName, url, elem);
                 l[funcName](url);

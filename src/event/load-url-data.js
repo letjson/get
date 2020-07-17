@@ -28,7 +28,7 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        const funcName = getFunctionName(url, mapFunction);
+                        const funcName = getFunctionName(url, mapFunction, 'loadUrlData');
                         jlogs(f, ' funcName ', funcName);
                         //jlogs(funcName, url, elem);
                         jloads[funcName](url);

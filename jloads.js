@@ -987,6 +987,14 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 return success(elem);
 
             }
+
+            setTimeout(function () {
+                    jlogs(this.constructor.name, ' stop observing ', url);
+                    me.disconnect(); // stop observing
+                },
+                9000
+            )
+
         });
 
         // start observing
@@ -2771,7 +2779,7 @@ var jloads = function (selector) {
                 for (var i in json[url]) {
                     var url2 = json[url][i];
                     jlogs(f, ' success url2', url2);
-                    const funcName = getFunctionName(url2, self.mapFunction,'self.file');
+                    const funcName = getFunctionName(url2, self.mapFunction, 'self.file');
                     jlogs(f, ' funcName ', funcName);
                     jloads2[funcName](url2);
                 }
@@ -2779,7 +2787,7 @@ var jloads = function (selector) {
 
             var jloads1 = new Load('head', success1);
 
-            const funcName = getFunctionName(url, self.mapFunction,'self.file');
+            const funcName = getFunctionName(url, self.mapFunction, 'self.file');
             jlogs(f, ' funcName ', funcName, url);
             jloads1[funcName](url);
 
@@ -2872,7 +2880,7 @@ var jloads = function (selector) {
 
             for (var hash in json) {
                 var list = json[hash];
-                console.log(f,'!!!3', self.jloads, list, hash);
+                console.log(f, '!!!3', self.jloads, list, hash);
 
                 if (window.location.hash === hash) {
                     for (var selector in list) {

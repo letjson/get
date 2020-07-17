@@ -1490,17 +1490,7 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
             // console.log(f, ' wait for element target ', jloads.getTarget(selector));
 
             // waitForSelector(url, selector, mapFunction, success, error)
-            waitForSelector(url, selector, mapFunction, function () {
-                for (var i in url) {
-                    var object = url[i];
-                    jlogs(f, ' url1 i ', i);
-                    jlogs(f, ' url1 object ', object);
-                    for (var ii in object) {
-                        jlogs(f, ' url1 object[ii], ii ', object[ii], ii);
-                        getOne(jloads, object[ii], selector, mapFunction, success, error);
-                    }
-                }
-            }, error);
+            waitForSelector(url, selector, mapFunction, success, error);
 
         }
     } else {

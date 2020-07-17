@@ -1463,6 +1463,53 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
 
     return jloads;
 }
+// append.js
+/**
+ *
+ * @param targets
+ * @param target
+ * @param selector
+ * @param event
+ * @param target_group
+ * @param target_item
+ * @param f
+ */
+function append(targets, target, selector, event, target_group, target_item, f) {
+    jlogs(f, ' addEventListener selector event', selector, event);
+    jlogs(f, ' addEventListener targets', targets);
+
+    var first_target = targets[target];
+    jlogs(f, ' first_target ', first_target);
+
+    if (isArray(first_target)) {
+        // var selector = '';
+        for (var id in first_target) {
+            jlogs(f, ' isArray', ' id ', id);
+            var obj = first_target[id];
+            jlogs(f, ' isArray', ' obj ', obj);
+            var name = Object.keys(first_target[id])[0];
+            var value = first_target[id][name];
+
+            jlogs(f, ' isArray', ' name ', name);
+            jlogs(f, ' isArray', ' value ', value);
+
+            var responseText = '<' + target_item
+                // + ' name="' + name + '"'
+                + ' value="' + value + '"' + ' >';
+            responseText += value;
+            responseText += "</" + target_item + ">";
+
+            jlogs(f, ' isArray', ' responseText ', responseText);
+
+            getTarget(target_group).insertAdjacentHTML('beforeend', responseText);
+
+
+        }
+    } else {
+        jlogs(f, ' isArray ERROR object', selector);
+        error(selector);
+    }
+}
 // jloads-event.js
 /**
  *
@@ -1529,102 +1576,7 @@ if (typeof jloadsForm !== 'function') jloadsForm = function (json, success, erro
     // return jloads;
 }
 
-// TODO: base lib APIFUNC, with E
 
-/**
- *
- * @param jloads
- * @param object
- * @param mapFunction
- * @param success
- * @param error
- */
-jlogs('exist?', 'selectorEventTarget');
-if (typeof selectorEventTarget !== 'function') selectorEventTarget = function (selector, event, targets, success, error) {
-
-    const f = 'jloadsForm selectorEventTarget';
-
-    var target = Object.keys(targets)[0];
-    jlogs(f, 'selector event target', selector, event, target);
-
-    var n = target.indexOf(">");
-    if (n > 0) {
-        var se = target.split(">", 2);
-        var target_group = se[0];
-        var target_task = "append";
-        var target_item = se[1];
-    }
-
-    jlogs(f, 'target_group, target_task, target_item', target_group, target_task, target_item);
-
-    // jlogs(f, ' isArray target', target, isArray(target));
-    console.log(f, ' getTarget(selector)', selector, getTarget(selector));
-    if (selector === 'html' && event === 'onload') {
-        event = "DOMContentLoaded";
-    }
-    // var element = new E(selector);
-    // console.log(f, ' E', selector, element.first());
-
-    // if (typeof selector === 'string') {
-    try {
-
-        if (typeof getTarget(selector) !== 'undefined') {
-            append(targets, target, selector, event, target_group, target_item, f)
-        } else {
-            getTarget(selector).addEventListener(event, function () {
-                append(targets, target, selector, event, target_group, target_item, f)
-            });
-        }
-
-    } catch (e) {
-        //jlogs(f, ' ERROR elem ', elem);
-        jlogs(f, ' ERROR e ', e);
-        error(e);
-    }
-
-    // jloads.js([selector]);
-    // elem.appendChild(selector, funcName);
-    // }
-
-}
-
-
-function append(targets, target, selector, event, target_group, target_item, f) {
-    jlogs(f, ' addEventListener selector event', selector, event);
-    jlogs(f, ' addEventListener targets', targets);
-
-    var first_target = targets[target];
-    jlogs(f, ' first_target ', first_target);
-
-    if (isArray(first_target)) {
-        // var selector = '';
-        for (var id in first_target) {
-            jlogs(f, ' isArray', ' id ', id);
-            var obj = first_target[id];
-            jlogs(f, ' isArray', ' obj ', obj);
-            var name = Object.keys(first_target[id])[0];
-            var value = first_target[id][name];
-
-            jlogs(f, ' isArray', ' name ', name);
-            jlogs(f, ' isArray', ' value ', value);
-
-            var responseText = '<' + target_item
-                // + ' name="' + name + '"'
-                + ' value="' + value + '"' + ' >';
-            responseText += value;
-            responseText += "</" + target_item + ">";
-
-            jlogs(f, ' isArray', ' responseText ', responseText);
-
-            getTarget(target_group).insertAdjacentHTML('beforeend', responseText);
-
-
-        }
-    } else {
-        jlogs(f, ' isArray ERROR object', selector);
-        error(selector);
-    }
-}
 
 /**
  *
@@ -1763,6 +1715,7 @@ if (typeof selectorEvent1 !== 'function') selectorEvent1 = function (jloads, sel
  * @constructor
  */
 var Message = function (selector, error, success) {
+    const f = 'Message';
 
     this.selector = selector || 'body';
     this.message = '';
@@ -1780,14 +1733,14 @@ var Message = function (selector, error, success) {
     // }
 
     this.add = function (message) {
-        console.log(message);
+        jlogs(f, message);
 
         var node = document.createElement("LI");                 // Create a <li> node
         var textnode = document.createTextNode(message);         // Create a text node
         node.appendChild(textnode);
 
         try {
-            console.log('self.selector', self.selector, getTarget(self.selector));
+            jlogs(f, 'self.selector', self.selector, getTarget(self.selector));
             getTarget(self.selector).appendChild(node);
             // success(selector, message);
         } catch (e) {
@@ -1801,9 +1754,6 @@ var Message = function (selector, error, success) {
     return self;
 }
 // rest-form.js
-if (typeof RESTFORM_DEBUG === 'undefined') {
-    var RESTFORM_DEBUG = true;
-}
 /**
  *
  * @param target
@@ -1814,6 +1764,8 @@ if (typeof RESTFORM_DEBUG === 'undefined') {
  * @constructor
  */
 var RestForm = function (target, response, error, success) {
+    // const f = jlogs('RestForm');
+    const f = 'RestForm';
 
     this.cfg = {};
     this.cfg.target = target;
@@ -1859,8 +1811,8 @@ var RestForm = function (target, response, error, success) {
     self.submit = function () {
 
         self.cfg.element = new E(self.cfg.target);
-        !RESTFORM_DEBUG || console.log('.submit() self.cfg.target', self.cfg.target);
-        !RESTFORM_DEBUG || console.log('.submit() self.cfg.event', self.cfg.event);
+        jlogs(f, '.submit() self.cfg.target', self.cfg.target);
+        jlogs(f, '.submit() self.cfg.event', self.cfg.event);
 
         self.cfg.element.all('', function (forms) {
 
@@ -1876,18 +1828,16 @@ var RestForm = function (target, response, error, success) {
                 form.addEventListener(self.cfg.event, function (event) {
                     event.preventDefault();
 
-                    !RESTFORM_DEBUG || console.log(this);
-
                     var data = formToObject(this);
                     var method = data.method;
 
                     delete data.method;
                     delete data.submit;
 
-                    !RESTFORM_DEBUG || console.log(method);
+                    jlogs(f, method);
 
                     rest_form.byMethod(method, data);
-                    !RESTFORM_DEBUG || console.log(data);
+                    jlogs(f, data);
 
                     success(event);
 
@@ -1913,6 +1863,7 @@ var RestForm = function (target, response, error, success) {
  * @constructor
  */
 var Rest = function (url, separator, response, error, success) {
+    const f = 'Rest';
 
     this.url = url;
     this.separator = '/';

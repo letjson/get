@@ -5,6 +5,7 @@
  * @constructor
  */
 var Message = function (selector, error, success) {
+    const f = 'Message';
 
     this.selector = selector || 'body';
     this.message = '';
@@ -22,14 +23,14 @@ var Message = function (selector, error, success) {
     // }
 
     this.add = function (message) {
-        console.log(message);
+        jlogs(f, message);
 
         var node = document.createElement("LI");                 // Create a <li> node
         var textnode = document.createTextNode(message);         // Create a text node
         node.appendChild(textnode);
 
         try {
-            console.log('self.selector', self.selector, getTarget(self.selector));
+            jlogs(f, 'self.selector', self.selector, getTarget(self.selector));
             getTarget(self.selector).appendChild(node);
             // success(selector, message);
         } catch (e) {

@@ -1,7 +1,4 @@
 // rest-form.js
-if (typeof RESTFORM_DEBUG === 'undefined') {
-    var RESTFORM_DEBUG = true;
-}
 /**
  *
  * @param target
@@ -12,6 +9,8 @@ if (typeof RESTFORM_DEBUG === 'undefined') {
  * @constructor
  */
 var RestForm = function (target, response, error, success) {
+    // const f = jlogs('RestForm');
+    const f = 'RestForm';
 
     this.cfg = {};
     this.cfg.target = target;
@@ -57,8 +56,8 @@ var RestForm = function (target, response, error, success) {
     self.submit = function () {
 
         self.cfg.element = new E(self.cfg.target);
-        !RESTFORM_DEBUG || console.log('.submit() self.cfg.target', self.cfg.target);
-        !RESTFORM_DEBUG || console.log('.submit() self.cfg.event', self.cfg.event);
+        jlogs(f, '.submit() self.cfg.target', self.cfg.target);
+        jlogs(f, '.submit() self.cfg.event', self.cfg.event);
 
         self.cfg.element.all('', function (forms) {
 
@@ -74,18 +73,16 @@ var RestForm = function (target, response, error, success) {
                 form.addEventListener(self.cfg.event, function (event) {
                     event.preventDefault();
 
-                    !RESTFORM_DEBUG || console.log(this);
-
                     var data = formToObject(this);
                     var method = data.method;
 
                     delete data.method;
                     delete data.submit;
 
-                    !RESTFORM_DEBUG || console.log(method);
+                    jlogs(f, method);
 
                     rest_form.byMethod(method, data);
-                    !RESTFORM_DEBUG || console.log(data);
+                    jlogs(f, data);
 
                     success(event);
 

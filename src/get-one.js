@@ -45,7 +45,8 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
                 jlogs(f, ' url1 i ', i);
                 jlogs(f, ' url1 object ', object);
                 for (var ii in object) {
-                    getOne(jloads, object[ii], ii, mapFunction, success, error);
+                    jlogs(f, ' url1 object[ii], ii ', object[ii], ii);
+                    getOne(jloads, object[ii], selector, mapFunction, success, error);
                 }
             }
         }, error)

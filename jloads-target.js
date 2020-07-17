@@ -349,6 +349,14 @@ jlogs('exist?', 'getFunctionName');
 function getFunctionName(url, map) {
     const f = 'getFunctionName';
 
+    if (isEmpty(url)) {
+        throw new Error('url not exits');
+    }
+
+    if (isEmpty(map)) {
+        throw new Error('map not exits');
+    }
+
     var ext = getFileExtension(url);
     // jlogs(f, ' map ', map);
     jlogs(f, ' url ', url);
@@ -359,6 +367,7 @@ function getFunctionName(url, map) {
     if (isEmpty(result)) {
         throw new Error('key or Value Is Empty or Key not exits in Map');
     }
+
     return result;
 }
 // get-one.js
@@ -380,7 +389,13 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
     // TODO: move to class E for smart load content on not existing DOM elements
     // if (selector === 'head' || !isEmpty(jloads.getTarget())) {
     jlogs(f, ' selector ', selector);
-    jlogs(f, ' url ', url, typeof url, isString(url));
+    jlogs(f, ' url 1', url, typeof url, isString(url), Object.keys(url).length);
+
+    if (isArray(url) && Object.keys(url).length === 1) {
+        url = url[0];
+    }
+
+    jlogs(f, ' url 2 ', url, typeof url, isString(url));
 
     if (isString(url)) {
         if (selector === 'head') {

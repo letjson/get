@@ -155,13 +155,13 @@ var jloads = function (selector) {
     self.target = function (json) {
         const f = 'jloads.target';
 
-        jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+        jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
         // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
         // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
 
         var i = Object.keys(json)[0];
-        jlogs('jloadsTarget getOne ', ' i ', i);
+        jlogs(f, ' i ', i);
 
         if (Object.keys(json).length === 1) {
             getOne(self.jloads, json[i], i, self.mapFunction, success, error)

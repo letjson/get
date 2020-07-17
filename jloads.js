@@ -160,7 +160,7 @@ jlogs('exist?','isArray');
  * @returns {boolean}
  */
 function isArray(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'object' && Object.keys(val).length > 0)
         ;
 }
@@ -172,7 +172,7 @@ jlogs('exist?','isBoolean');
  * @returns {boolean}
  */
 function isBoolean(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'boolean')
         ;
 }
@@ -219,7 +219,7 @@ jlogs('exist?','isNumberGt');
  * @returns {boolean}
  */
 function isNumberGt(val, number) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'number' && val > number)
         ;
 }
@@ -231,7 +231,7 @@ jlogs('exist?','isNumberLt');
  * @returns {boolean}
  */
 function isNumberLt(val, number) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'number' && val < number)
         ;
 }
@@ -243,7 +243,7 @@ jlogs('exist?','isNumber');
  * @returns {boolean}
  */
 function isNumber(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'number')
         ;
 }
@@ -255,7 +255,7 @@ jlogs('exist?','isObject');
  * @returns {boolean}
  */
 function isObject(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'object' && Object.keys(val).length > 0)
         ;
 }
@@ -268,7 +268,7 @@ jlogs('exist?','isStringEncoded');
  */
 function isStringEncoded(val, type) {
     // base64, md5
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'string' && val.length > 0)
         ;
 }
@@ -281,7 +281,7 @@ jlogs('exist?','isString');
  */
 function isString(val, type) {
     // base64, md5
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'string' && val.length > 0)
         ;
 }
@@ -293,7 +293,7 @@ jlogs('exist?','isString');
  * @returns {boolean}
  */
 function isString(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'string' && val.length > 0)
         ;
 }
@@ -790,23 +790,32 @@ function onSelector(selector, callback) {
  * @constructor
  */
 jlogs('exist?', 'ReadyHtml');
-if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
+if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget ReadyHtml';
 
-    jlogs(f, ' i ', i);
-    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    jlogs(f, 'url:', url);
+    jlogs(f, 'selector:', selector);
+    // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.body;
+    var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+
+    console.log(f, ' elem ', elem);
     // jlogs(f, ' elem ', elem);
 
-    var jloads = new Load(i, success, error);
+    var l = new Load(selector, success, error);
 
     if (!isEmpty(elem)) {
-        loadContentByUrls(jloads, object, mapFunction, success, error);
-        success(elem);
+        // loadContentByUrls(jloads, object, mapFunction, success, error);
+        const funcName = getFunctionName(url, mapFunction);
+        jlogs(f, ' funcName ', funcName);
+        //jlogs(funcName, url, elem);
+        l[funcName](url);
+
+        return success(elem);
     } else {
-        waitFor(i, 40, function (i) {
-            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-            var jloads = new Load(i, success, error);
-            loadContentByUrls(jloads, object, mapFunction, success, error);
+        waitFor(selector, 40, function (i) {
+            // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+            var l = new Load(i, success, error);
+            loadContentByUrls(l, url, mapFunction, success, error);
         });
         // error(elem);
     }
@@ -879,6 +888,46 @@ if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selec
 }
 
 
+// wait-for-selector.js
+
+/**
+ *
+ * @param url
+ * @param selector
+ * @param mapFunction
+ * @param success
+ * @param error
+ */
+function waitForSelector(url, selector, mapFunction, success, error) {
+    const f = 'jloadsTarget waitForSelector';
+
+    try {
+        // set up the mutation observer
+        var observer = new MutationObserver(function (mutations, me) {
+            // `mutations` is an array of mutations that occurred
+            // `me` is the MutationObserver instance
+            // var canvas = document.getElementById('my-canvas');
+            var canvas = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
+            if (canvas) {
+                // callback executed when canvas was found
+                ReadyHtml(url, selector, mapFunction, success, error);
+                me.disconnect(); // stop observing
+                return;
+            }
+        });
+
+        // start observing
+        observer.observe(document, {
+            childList: true,
+            subtree: true
+        });
+
+    } catch (e) {
+        //jlogs(f, ' ERROR elem ', elem);
+        jlogs(f, ' getOne ERROR e ', e);
+        error(e);
+    }
+}
 // wait-for.js
 jlogs('exist?', 'waitFor');
 
@@ -1135,7 +1184,8 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
 
     const f = 'jloadsTarget loadContentByUrls';
 
-    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
+    jlogs(f, ' isArray object: ', object);
+    jlogs(f, ' isArray array: ', isArray(object));
 
     if (isArray(object)) {
         var url = '';
@@ -1403,49 +1453,41 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
     // TODO: move to class E for smart load content on not existing DOM elements
     // if (selector === 'head' || !isEmpty(jloads.getTarget())) {
     jlogs(f, ' selector ', selector);
-    jlogs(f, ' url ', url);
-    if (selector === 'head') {
-        loadContentByUrls(jloads, url, mapFunction, success, error);
-        success(jloads.getTarget());
-    } else if (selector === 'body') {
-        jlogs(f, ' wait for body selector ', selector);
-        jlogs(f, ' wait for body target ', jloads.getTarget());
-        document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(url, selector, mapFunction, success, error);
-        });
-    } else {
-        jlogs(f, ' wait for element selector ', selector);
-        jlogs(f, ' wait for element target ', jloads.getTarget());
+    jlogs(f, ' url ', url, typeof url, isString(url));
 
-        try {
-            // set up the mutation observer
-            var observer = new MutationObserver(function (mutations, me) {
-                // `mutations` is an array of mutations that occurred
-                // `me` is the MutationObserver instance
-                // var canvas = document.getElementById('my-canvas');
-                var canvas = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
-                if (canvas) {
-                    // callback executed when canvas was found
-                    ReadyHtml(url, selector, mapFunction, success, error);
-                    me.disconnect(); // stop observing
-                    return;
-                }
+    if (isString(url)) {
+        if (selector === 'head') {
+            loadContentByUrls(jloads, url, mapFunction, success, error);
+            success(jloads.getTarget());
+        } else if (selector === 'body') {
+            jlogs(f, ' wait for body selector ', selector);
+            jlogs(f, ' wait for body target ', jloads.getTarget());
+            document.addEventListener("DOMContentLoaded", function () {
+                ReadyHtml(url, selector, mapFunction, success, error);
             });
+        } else {
+            jlogs(f, ' wait for element selector ', selector);
+            jlogs(f, ' wait for element target ', jloads.getTarget());
 
-            // start observing
-            observer.observe(document, {
-                childList: true,
-                subtree: true
-            });
-
-        } catch (e) {
-            //jlogs(f, ' ERROR elem ', elem);
-            jlogs(f, ' getOne ERROR e ', e);
-            error(e);
+            waitForSelector(url, selector, mapFunction, success, error)
         }
+    } else {
+        var url1 = Object.keys(url)[0];
+        jlogs(f, ' url1 ', url1);
+
+        waitForSelector(url1, selector, mapFunction, function () {
+            for (var i in url) {
+                var object = url[i];
+                jlogs(f, ' url1 i ', i);
+                jlogs(f, ' url1 object ', object);
+                getOne(jloads, object, i, mapFunction, success, error)
+            }
+        }, error)
     }
     // error(elem);
 }
+
+
 // load.js
 jlogs('exist?', 'Load');
 /**
@@ -2708,13 +2750,13 @@ var jloads = function (selector) {
     self.target = function (json) {
         const f = 'jloads.target';
 
-        jlogs(' jloadsTarget', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+        jlogs(f, ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
 
         // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
         // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
 
         var i = Object.keys(json)[0];
-        jlogs('jloadsTarget getOne ', ' i ', i);
+        jlogs(f, ' i ', i);
 
         if (Object.keys(json).length === 1) {
             getOne(self.jloads, json[i], i, self.mapFunction, success, error)
@@ -2804,7 +2846,8 @@ var jloads = function (selector) {
     }
 
     return self;
-};// jloads.js
+};
+// jloads.js
 jlogs('exist?', 'jl');
 
 var jl = new jloads();

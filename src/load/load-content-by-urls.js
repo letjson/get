@@ -11,7 +11,8 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
 
     const f = 'jloadsTarget loadContentByUrls';
 
-    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
+    jlogs(f, ' isArray object: ', object);
+    jlogs(f, ' isArray array: ', isArray(object));
 
     if (isArray(object)) {
         var url = '';

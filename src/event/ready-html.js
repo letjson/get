@@ -10,23 +10,32 @@
  * @constructor
  */
 jlogs('exist?', 'ReadyHtml');
-if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
+if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget ReadyHtml';
 
-    jlogs(f, ' i ', i);
-    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    jlogs(f, 'url:', url);
+    jlogs(f, 'selector:', selector);
+    // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.body;
+    var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+
+    console.log(f, ' elem ', elem);
     // jlogs(f, ' elem ', elem);
 
-    var jloads = new Load(i, success, error);
+    var l = new Load(selector, success, error);
 
     if (!isEmpty(elem)) {
-        loadContentByUrls(jloads, object, mapFunction, success, error);
-        success(elem);
+        // loadContentByUrls(jloads, object, mapFunction, success, error);
+        const funcName = getFunctionName(url, mapFunction);
+        jlogs(f, ' funcName ', funcName);
+        //jlogs(funcName, url, elem);
+        l[funcName](url);
+
+        return success(elem);
     } else {
-        waitFor(i, 40, function (i) {
-            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-            var jloads = new Load(i, success, error);
-            loadContentByUrls(jloads, object, mapFunction, success, error);
+        waitFor(selector, 40, function (i) {
+            // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+            var l = new Load(i, success, error);
+            loadContentByUrls(l, url, mapFunction, success, error);
         });
         // error(elem);
     }

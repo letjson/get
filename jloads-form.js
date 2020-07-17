@@ -160,7 +160,7 @@ jlogs('exist?','isArray');
  * @returns {boolean}
  */
 function isArray(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'object' && Object.keys(val).length > 0)
         ;
 }
@@ -172,7 +172,7 @@ jlogs('exist?','isBoolean');
  * @returns {boolean}
  */
 function isBoolean(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'boolean')
         ;
 }
@@ -219,7 +219,7 @@ jlogs('exist?','isNumberGt');
  * @returns {boolean}
  */
 function isNumberGt(val, number) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'number' && val > number)
         ;
 }
@@ -231,7 +231,7 @@ jlogs('exist?','isNumberLt');
  * @returns {boolean}
  */
 function isNumberLt(val, number) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'number' && val < number)
         ;
 }
@@ -243,7 +243,7 @@ jlogs('exist?','isNumber');
  * @returns {boolean}
  */
 function isNumber(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'number')
         ;
 }
@@ -255,7 +255,7 @@ jlogs('exist?','isObject');
  * @returns {boolean}
  */
 function isObject(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'object' && Object.keys(val).length > 0)
         ;
 }
@@ -268,7 +268,7 @@ jlogs('exist?','isStringEncoded');
  */
 function isStringEncoded(val, type) {
     // base64, md5
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'string' && val.length > 0)
         ;
 }
@@ -281,7 +281,7 @@ jlogs('exist?','isString');
  */
 function isString(val, type) {
     // base64, md5
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'string' && val.length > 0)
         ;
 }
@@ -293,7 +293,7 @@ jlogs('exist?','isString');
  * @returns {boolean}
  */
 function isString(val) {
-    return val !== null ||
+    return val !== null &&
         (typeof val === 'string' && val.length > 0)
         ;
 }
@@ -385,7 +385,7 @@ function includeHtml(url, target, replace, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadHtmlByStatus(this.status, this.responseText, target, success, error);
+                loadHtmlByStatus(this.status, this.responseText, target, replace, success, error);
 
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);
@@ -404,15 +404,16 @@ function includeHtml(url, target, replace, success, error) {
 
 // include-image.js
 jlogs('exist?', 'includeImage');
+
 /**
- *
+ * 
  * @param url
  * @param target
  * @param replace
  * @param success
  * @param error
  */
-const includeImage = function (url, target, replace, success, error) {
+function includeImage(url, target, replace, success, error) {
     const f = 'includeImage';
 
     jlogs(f, ' includeImg url: ', url);
@@ -443,7 +444,7 @@ const includeImage = function (url, target, replace, success, error) {
             img.src = url;  // erst nach dem Event Listener!
             element.appendChild(img);
         });
-        return;
+        return success(this);
         // let element = document.getElementById("top");
         // while (element.firstChild) {
         //     element.removeChild(element.firstChild);
@@ -462,6 +463,7 @@ const includeImage = function (url, target, replace, success, error) {
 }
 // include-script.js
 jlogs('exist?', 'includeScript');
+
 /**
  *
  * @param url
@@ -470,7 +472,12 @@ jlogs('exist?', 'includeScript');
  * @param error
  * @returns {HTMLScriptElement}
  */
-function includeScript(url, target, success, error) {
+function includeScript(url, target, replace, success, error) {
+    const f = 'includeScript';
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
+
     var scriptTag = document.createElement('script');
     scriptTag.src = url;
     scriptTag.defer = true;
@@ -482,6 +489,17 @@ function includeScript(url, target, success, error) {
     scriptTag.onload = success;
     scriptTag.onreadystatechange = success;
 
+    if (replace) {
+        jlogs(f, ' replace getTarget(target): ', getTarget(target));
+        jlogs(f, ' replace getTarget(target) firstChild: ', getTarget(target).firstChild);
+        // getTarget(target).removeChild(getTarget(target).firstChild);
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
+            getTarget(selector).removeChild(getTarget(selector).firstChild);
+            getTarget(selector).appendChild(scriptTag);
+        });
+        return success(this);
+    }
     onSelector(target, function (selector, element) {
         jlogs('onSelector includeScript target getTarget(target) selector element: ', selector, element);
         getTarget(selector).appendChild(scriptTag);
@@ -498,7 +516,12 @@ jlogs('exist?', 'includeStyle');
  * @param error
  * @returns {HTMLLinkElement}
  */
-function includeStyle(url, target, success, error) {
+function includeStyle(url, target, replace, success, error) {
+    const f = 'includeStyle';
+    if (typeof replace === 'number' && replace === 1) {
+        replace = true;
+    }
+
     var link = document.createElement('link');
     link.href = url;
     link.rel = 'stylesheet';
@@ -508,6 +531,22 @@ function includeStyle(url, target, success, error) {
     link.onerror = error;
     link.onload = success;
     link.onreadystatechange = success;
+
+    if (replace) {
+        jlogs(f, ' replace getTarget(target): ', getTarget(target));
+        jlogs(f, ' replace getTarget(target) firstChild: ', getTarget(target).firstChild);
+        // getTarget(target).removeChild(getTarget(target).firstChild);
+
+
+        onSelector(target, function (selector, element) {
+            jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
+            // getTarget(selector).appendChild(link);
+            getTarget(selector).removeChild(getTarget(selector).firstChild);
+            getTarget(selector).appendChild(link);
+        });
+        return success(this);
+    }
+
     onSelector(target, function (selector, element) {
         jlogs('onSelector includeStyle target, getTarget(target), selector, element ',  selector, element);
         getTarget(selector).appendChild(link);
@@ -517,146 +556,6 @@ function includeStyle(url, target, success, error) {
 // TODO: replce path to id name and check if ID exist
 // FASTEST loading:
 // https://www.oreilly.com/library/view/even-faster-web/9780596803773/ch04.html
-// e.js
-jlogs('exist?', 'E');
-/**
- *
- * @param selector
- * @param area
- * @param error
- * @param success
- * @returns {E}
- * @constructor
- */
-var E = function (selector, area, error, success) {
-
-    this.cfg = {};
-    this.cfg.area = document;
-    this.cfg.selector = selector;
-    this.cfg.exist = false;
-
-    if (typeof success === 'function') {
-        this.success = success;
-    } else {
-        this.success = function (elem) {
-            jlogs(this.constructor.name, " Element func success(): ", elem);
-        };
-    }
-
-    if (typeof error === 'function') {
-        this.error = error;
-    } else {
-        this.error = function (elem) {
-            jlogs(this.constructor.name, "! Element func error(): ", elem);
-        };
-    }
-
-    if (typeof this.cfg.selector !== 'string') {
-        jlogs(this.constructor.name, "! Element selector: ", elem);
-    }
-
-
-    var self = this;
-
-
-    self.selector = function (selector) {
-        self.cfg.selector = selector;
-        return self;
-    }
-
-    self.first = function (success, error) {
-        if (typeof success !== 'function') {
-            success = self.success;
-        }
-        if (typeof error !== 'function') {
-            error = self.error;
-        }
-        if (typeof self.cfg.selector !== 'string') {
-            self.cfg.exist = false;
-            error();
-        }
-        const elem = document.querySelector(self.cfg.selector);
-
-        jlogs(this.constructor.name, ' first self.cfg.selector ', self.cfg.selector);
-        jlogs(this.constructor.name, ' first elem ', elem);
-
-        if (elem !== null) {
-            self.cfg.exist = true;
-            success(elem);
-            return elem;
-        } else {
-            self.cfg.exist = false;
-            error();
-        }
-
-        return elem;
-    }
-
-    self.all = function (error, success) {
-        if (typeof success !== 'function') {
-            success = self.success;
-        }
-        if (typeof error !== 'function') {
-            error = self.error;
-        }
-
-        const elem = document.querySelectorAll(self.cfg.selector);
-
-        jlogs(this.constructor.name, ' all self.cfg.selector ', self.cfg.selector);
-        jlogs(this.constructor.name, ' all elem ', elem);
-
-        if (elem !== null) {
-            self.cfg.exist = true;
-            success(elem);
-        } else {
-            self.cfg.exist = false;
-            error(elem);
-        }
-
-        return elem;
-    }
-
-    return self;
-};
-// event-response.js
-
-/**
- *
- * @param object
- * @param i
- * @param mapFunction
- * @param success
- * @param error
- * @returns {*}
- * @constructor
- */
-jlogs('exist?', 'eventResponse');
-if (typeof eventResponse !== 'function') eventResponse = function (selector, event, response) {
-    const f = 'jloadsEvent eventResponse';
-    jlogs(f, ' selector ', selector);
-    jlogs(f, ' event ', event);
-
-    var success = function (data) {
-        console.table('FORM success', data);
-    };
-    var error = function (data) {
-        console.error('!FORM', data);
-    }
-
-
-    var form = new RestForm(selector, response, error, success);
-
-    form.cfg({
-        "target": selector,
-        "url": "//api.paas.info/index.php",
-        "method": "GET",
-        "event": "submit"
-    });
-
-    form.url((window.location.hostname === 'localhost') ? "//localhost:8000/index.php" : "//php.jloads.com/index.php");
-
-    form.submit();
-}
 // get-function-name.js
 jlogs('exist?', 'getFunctionName');
 
@@ -692,196 +591,49 @@ function getFunctionName(url, map) {
  * @param error
  */
 jlogs('exist?', 'getOne');
-if (typeof getOne !== 'function') getOne = function (jloads, object, i, mapFunction, success, error) {
+if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapFunction, success, error) {
     const f = 'jloadsTarget getOne';
 
     jlogs(f, ' jloads.getTarget() ', jloads.getTarget());
 
     // TODO: move to class E for smart load content on not existing DOM elements
-    // if (i === 'head' || !isEmpty(jloads.getTarget())) {
-    jlogs(f, ' object i ', object, i);
-    if (i === 'head') {
-        loadContentByUrls(jloads, object, mapFunction, success, error);
-        success(jloads.getTarget());
-    } else if (i === 'body') {
-        jlogs(f, ' wait for body i ', i);
-        jlogs(f, ' wait for body target ', jloads.getTarget());
-        document.addEventListener("DOMContentLoaded", function () {
-            ReadyHtml(object, i, mapFunction, success, error);
-        });
-    } else {
-        jlogs(f, ' wait for element i ', i);
-        jlogs(f, ' wait for element target ', jloads.getTarget());
+    // if (selector === 'head' || !isEmpty(jloads.getTarget())) {
+    jlogs(f, ' selector ', selector);
+    jlogs(f, ' url ', url, typeof url, isString(url));
 
-        try {
-            // set up the mutation observer
-            var observer = new MutationObserver(function (mutations, me) {
-                // `mutations` is an array of mutations that occurred
-                // `me` is the MutationObserver instance
-                // var canvas = document.getElementById('my-canvas');
-                var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
-                if (canvas) {
-                    // callback executed when canvas was found
-                    ReadyHtml(object, i, mapFunction, success, error);
-                    me.disconnect(); // stop observing
-                    return;
-                }
+    if (isString(url)) {
+        if (selector === 'head') {
+            loadContentByUrls(jloads, url, mapFunction, success, error);
+            success(jloads.getTarget());
+        } else if (selector === 'body') {
+            jlogs(f, ' wait for body selector ', selector);
+            jlogs(f, ' wait for body target ', jloads.getTarget());
+            document.addEventListener("DOMContentLoaded", function () {
+                ReadyHtml(url, selector, mapFunction, success, error);
             });
+        } else {
+            jlogs(f, ' wait for element selector ', selector);
+            jlogs(f, ' wait for element target ', jloads.getTarget());
 
-            // start observing
-            observer.observe(document, {
-                childList: true,
-                subtree: true
-            });
-
-        } catch (e) {
-            //jlogs(f, ' ERROR elem ', elem);
-            jlogs(f, ' getOne ERROR e ', e);
-            error(e);
+            waitForSelector(url, selector, mapFunction, success, error)
         }
+    } else {
+        var url1 = Object.keys(url)[0];
+        jlogs(f, ' url1 ', url1);
+
+        waitForSelector(url1, selector, mapFunction, function () {
+            for (var i in url) {
+                var object = url[i];
+                jlogs(f, ' url1 i ', i);
+                jlogs(f, ' url1 object ', object);
+                getOne(jloads, object, i, mapFunction, success, error)
+            }
+        }, error)
     }
     // error(elem);
 }
-// get-target.js
-jlogs('exist?', 'getTarget');
-
-/**
- *
- * @param selector
- * @returns {HTMLHeadElement}
- */
-function getTarget(selector) {
-    const f = 'getTarget';
-
-    if(typeof selector === 'string'){
-        if(selector === 'html'){
-            return document;
-        }
-        jlogs(f, 'str selector', selector);
-        var target = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        jlogs(f, 'target', target, typeof target);
-        return target;
-    }
-
-    jlogs(f, 'obj selector', selector);
-    //jlogs(f, ' target ', target);
-    // if (isEmpty(target)) {
-    //     target = document.getElementsByTagName('head')[0];
-    //     jlogs(f, ' isEmpty HEAD ', target, typeof target, target.innerHTML !== 'undefined', target.innerHTML.length, Object.keys(target));
-    //     if (isEmpty(target)) {
-    //         target = document.body;
-    //         jlogs(f, ' isEmpty BODY ', target);
-    //     }
-    // }
-    // jlogs(f, 'target', target);
-
-    return selector;
-}
-// jloads-url.js
-/**
- *
- * @param json
- * @param success
- * @param error
- * @param mapFunction
- * @returns {Load}
- */
-jlogs('exist?', 'jloadsUrl');
-if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error, mapFunction) {
-    const f = 'jloadsUrl';
-
-    //url is URL of external file, success is the code
-    //to be called from the file, location is the location to
-    //insert the <script> element
-
-    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
-        // Configuration
-        success = function (data) {
-            console.log(f, ' loaded ', data);
-        };
-    }
-
-    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
-        error = function (data) {
-            console.error(f, ' !loaded ', data);
-        };
-    }
 
 
-    if (typeof mapFunction !== 'object' && typeof map === 'object') {
-        // Configuration
-        mapFunction = map;
-    }
-    jlogs(' jloadsUrl', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
-
-
-    // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
-    jlogs('jloadsUrl getOne ', ' i ', i);
-    var jloads = new Load(i, success, error);
-
-    if (Object.keys(json).length === 1) {
-        var i = Object.keys(json)[0];
-        getOne(jloads, json[i], i, mapFunction, success, error)
-    } else {
-        for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
-        }
-    }
-    // success(json);
-
-    return jloads;
-}
-/**
- *
- * @param jloads
- * @param object
- * @param mapFunction
- * @param success
- * @param error
- */
-jlogs('exist?', 'loadContentByUrls');
-if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (jloads, object, mapFunction, success, error) {
-
-    const f = 'jloadsTarget loadContentByUrls';
-
-    jlogs(f, ' isArray object, elem, mapFunction', object, isArray(object), mapFunction);
-
-    if (isArray(object)) {
-        var url = '';
-        for (var id in object) {
-            jlogs(f, ' isArray', ' id ', id);
-            url = object[id];
-            jlogs(f, ' isArray', ' url ', url);
-
-            if (typeof url === 'string') {
-                try {
-                    // base64 in url
-                    if (url.length > 200) {
-                        jloads['img'](url);
-                    } else {
-                        const funcName = getFunctionName(url, mapFunction);
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
-                    }
-                    success(url);
-                } catch (e) {
-                    //jlogs(f, ' ERROR elem ', elem);
-                    jlogs(f, ' ERROR e ', e);
-                    error(e);
-                }
-
-                // jloads.js([url]);
-                // elem.appendChild(url, funcName);
-            }
-        }
-    } else {
-        jlogs(f, ' isArray ERROR object', object);
-        error(object);
-    }
-}
 // load.js
 jlogs('exist?', 'Load');
 /**
@@ -1114,9 +866,9 @@ var Load = function (target, success, error) {
 
                 try {
                     if (last) {
-                        includeScript(script_url, target, success, error);
+                        includeScript(script_url, target,  self.cfg.replace, success, error);
                     } else {
-                        includeScript(script_url, target);
+                        includeScript(script_url, target, self.cfg.replace);
                     }
                     jlogs(this.constructor.name, ' js ', script_url);
                 } catch (e) {
@@ -1125,7 +877,7 @@ var Load = function (target, success, error) {
                 }
             }
         } else {
-            includeScript(self.getEnvUrl(url), target, success, error);
+            includeScript(self.getEnvUrl(url), target,  self.cfg.replace, success, error);
             // err('apiunit obj: is not object:', obj);
         }
 
@@ -1161,14 +913,14 @@ var Load = function (target, success, error) {
                 jlogs(this.constructor.name, ' loadCss script_url ', script_url);
 
                 try {
-                    var exe = includeStyle(script_url, target, success, error);
+                    var exe = includeStyle(script_url, target,  self.cfg.replace, success, error);
                     jlogs(this.constructor.name, ' loadCss exe ', exe);
                 } catch (e) {
                     err('!load CSS ', script_url, e);
                 }
             }
         } else {
-            includeStyle(self.getEnvUrl(url), target, success, error);
+            includeStyle(self.getEnvUrl(url), target,  self.cfg.replace, success, error);
             // err('apiunit obj: is not object:', obj);
         }
 
@@ -1388,227 +1140,54 @@ var Load = function (target, success, error) {
 
     return self;
 };
-// get-target.js
-jlogs('exist?', 'getTarget');
-
-/**
- *
- * @param selector
- * @returns {HTMLHeadElement}
- */
-function onSelector(selector, callback) {
-    const f = 'onSelector';
-
-    jlogs(f, 'selector typeof', selector, typeof selector);
-
-    if (typeof selector === 'string') {
-
-        var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-        // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector) || document.getElementsByTagName('head')[0] || document.body;
-        jlogs(f, ' elem ', elem);
-
-        if (!isEmpty(elem)) {
-            return callback(selector, elem);
-        } else {
-            // if (i === 'head') {
-            //     loadContentByUrls(jloads, object, mapFunction, success, error);
-            //     success(jloads.getTarget());
-            // } else if (i === 'body') {
-            //     jlogs(f, ' wait for body i ', i);
-            //     jlogs(f, ' wait for body target ', jloads.getTarget());
-            //     document.addEventListener("DOMContentLoaded", function () {
-            //         ReadyHtml(object, i, mapFunction, success, error);
-            //     });
-            // } else {
-            //     jlogs(f, ' wait for element i ', i);
-            //     jlogs(f, ' wait for element target ', jloads.getTarget());
-            //
-            //     try {
-            //         // set up the mutation observer
-            //         var observer = new MutationObserver(function (mutations, me) {
-            //             // `mutations` is an array of mutations that occurred
-            //             // `me` is the MutationObserver instance
-            //             // var canvas = document.getElementById('my-canvas');
-            //             var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
-            //             if (canvas) {
-            //                 // callback executed when canvas was found
-            //                 ReadyHtml(object, i, mapFunction, success, error);
-            //                 me.disconnect(); // stop observing
-            //                 return;
-            //             }
-            //         });
-            //
-            //         // start observing
-            //         observer.observe(document, {
-            //             childList: true,
-            //             subtree: true
-            //         });
-            //
-            //     } catch (e) {
-            //         //jlogs(f, ' ERROR elem ', elem);
-            //         jlogs(f, ' getOne ERROR e ', e);
-            //         error(e);
-            //     }
-            // }
-            waitFor(selector, 40, function (selector) {
-                var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-                // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-                jlogs('onSelector waitFor selector', selector);
-                jlogs('onSelector waitFor document.querySelectorAll', document.querySelectorAll(selector));
-                return callback(selector, elem);
-            });
-            return;
-        }
-
-    } else {
-
-        jlogs(f, 'elem NOT', selector);
-        selector = 'body';
-        // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     var elem = document.body;
-        //     jlogs(f, 'elem NOT DOMContentLoaded', selector);
-        //     callback(selector, elem);
-        // });
-        // waitFor(selector, 40, function (selector) {
-        //     var elem = document.body;
-        //     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-        //     console.log('onSelector waitFor selector', selector);
-        // });
-
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            var elem = document.body;
-            jlogs(f, 'elem NOT DOMContentLoaded selector', selector, elem);
-            jlogs(f, 'elem NOT DOMContentLoaded elem',  elem);
-            callback(selector, elem);
-        });
-
-    }
-}
-// ready-html.js
-/**
- *
- * @param object
- * @param i
- * @param mapFunction
- * @param success
- * @param error
- * @returns {*}
- * @constructor
- */
-jlogs('exist?', 'ReadyHtml');
-if (typeof ReadyHtml !== 'function') ReadyHtml = function (object, i, mapFunction, success, error) {
-    const f = 'jloadsTarget ReadyHtml';
-
-    jlogs(f, ' i ', i);
-    var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
-    // jlogs(f, ' elem ', elem);
-
-    var jloads = new Load(i, success, error);
-
-    if (!isEmpty(elem)) {
-        loadContentByUrls(jloads, object, mapFunction, success, error);
-        success(elem);
-    } else {
-        waitFor(i, 40, function (i) {
-            // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i);
-            var jloads = new Load(i, success, error);
-            loadContentByUrls(jloads, object, mapFunction, success, error);
-        });
-        // error(elem);
-    }
-}
-// selector-event.js
-
-
 /**
  *
  * @param jloads
  * @param object
- * @param i
  * @param mapFunction
  * @param success
  * @param error
  */
-jlogs('exist?', 'selectorEvent');
-if (typeof selectorEvent !== 'function') selectorEvent = function (jloads, selector, event, mapFunction, success, error) {
-    const f = 'jloadsEvent selectorEvent';
+jlogs('exist?', 'loadContentByUrls');
+if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load, object, mapFunction, success, error) {
 
-    jlogs(f, ' event ', event);
-    jlogs(f, ' selector ', selector);
+    const f = 'jloadsTarget loadContentByUrls';
 
-    document.addEventListener("DOMContentLoaded", function () {
-        jlogs(f, ' addEventListener eventResponse');
+    jlogs(f, ' isArray object: ', object);
+    jlogs(f, ' isArray array: ', isArray(object));
 
-        eventResponse(selector, event, function (xhr) {
-            console.log("xhr", xhr);
-            AddMessage(xhr.status);
-            AddMessage(xhr.statusText);
-            AddMessage(xhr.response);
-        });
-    });
-    /*
-} else {
-    jlogs(f, ' wait for element i ', i);
-    jlogs(f, ' wait for element target ', jloads.getTarget());
+    if (isArray(object)) {
+        var url = '';
+        for (var id in object) {
+            jlogs(f, ' isArray', ' id ', id);
+            url = object[id];
+            jlogs(f, ' isArray', ' url ', url);
 
-    try {
-        // set up the mutation observer
-        var observer = new MutationObserver(function (mutations, me) {
-            // `mutations` is an array of mutations that occurred
-            // `me` is the MutationObserver instance
-            // var canvas = document.getElementById('my-canvas');
-            var canvas = document.querySelectorAll(i)[0] || document.querySelectorAll(i)
-            jlogs(f, ' canvas ', canvas);
+            if (typeof url === 'string') {
+                try {
+                    // base64 in url
+                    if (url.length > 200) {
+                        load['img'](url);
+                    } else {
+                        const funcName = getFunctionName(url, mapFunction);
+                        jlogs(f, ' funcName ', funcName);
+                        //jlogs(funcName, url, elem);
+                        load[funcName](url);
+                    }
+                    success(url);
+                } catch (e) {
+                    //jlogs(f, ' ERROR elem ', elem);
+                    jlogs(f, ' ERROR e ', e);
+                    error(e);
+                }
 
-            if (canvas) {
-                // callback executed when canvas was found
-                ReadyHtml(object, i, mapFunction, success, error);
-                me.disconnect(); // stop observing
-                return;
+                // jloads.js([url]);
+                // elem.appendChild(url, funcName);
             }
-        });
-
-        // start observing
-        observer.observe(document, {
-            childList: true,
-            subtree: true
-        });
-
-    } catch (e) {
-        //jlogs(f, ' ERROR elem ', elem);
-        jlogs(f, ' selectorEvent ERROR e ', e);
-        error(e);
-    }
-}
-*/
-    // error(elem);
-}
-
-
-// wait-for.js
-jlogs('exist?', 'waitFor');
-
-/**
- *
- * @param selector
- * @param time
- * @param callback
- * @returns {*}
- */
-function waitFor(selector, time, callback) {
-    const f = 'waitFor';
-    jlogs(f, ' selector ', selector);
-    // console.log(f, ' selector document.querySelector(selector) ', typeof document.querySelector(selector), document.querySelector(selector));
-    // console.log(f, ' selector document.querySelectorAll(selector) ', typeof document.querySelectorAll(selector), document.querySelectorAll(selector), document.querySelectorAll(selector).length);
-    if (typeof document.querySelectorAll(selector) === 'object' && document.querySelectorAll(selector).length > 0) {
-        // alert("The element is displayed, you can put your code instead of this alert.")
-        return callback(selector);
+        }
     } else {
-        setTimeout(function () {
-            waitFor(selector, time, callback);
-        }, time);
+        jlogs(f, ' isArray ERROR object', object);
+        error(object);
     }
 }
 // load-html-by-status.js
@@ -1623,16 +1202,17 @@ jlogs('exist?', 'loadHtmlByStatus');
  * @param error
  * @returns {*}
  */
-function loadHtmlByStatus(status, responseText, target, success, error) {
+function loadHtmlByStatus(status, responseText, target, replace, success, error) {
     const f = 'loadHtmlByStatus';
 
     jlogs(f, ' includeHtml waiting for DOM tree ', target, getTarget(target));
 
     if (status == 200) {
-        jlogs(f, ' includeHtml loaded: ', responseText, target, getTarget(target));
+        jlogs(f, ' includeHtml loaded: ', target, getTarget(target));
         onSelector(target, function (selector, element) {
-            jlogs('onSelector insertAdjacentHTML selector, element ', selector, target, element);
-            jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
+            // jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
+            element.innerHTML = '';
             element.insertAdjacentHTML('beforeend', responseText);
         });
         return success(this);

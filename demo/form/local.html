@@ -1,0 +1,96 @@
+<!-- POST method -->
+<form>
+    <input type="hidden" name="method" value="POST">
+
+    <p>
+    <fieldset>
+        <!--        <label for="subdomain">IP</label>-->
+        <!--        <input type="text" name="subdomain" id="subdomain" value="012">-->
+
+        <!--        <label for="hostname">hostname</label>-->
+        <!--        <select name="hostname" id="hostname">-->
+        <!--            &lt;!&ndash;        <option value="1">1.faas.ovh debian</option>&ndash;&gt;-->
+        <!--            <option value="1">.localhost</option>-->
+        <!--            <option value="2">.faas.ovh</option>-->
+        <!--            <option value="3">.faasapp.com</option>-->
+        <!--        </select> -->
+        <!--    -->
+        <label for="ip">ip</label>
+        <input type="text" name="ip" id="ip" value="127.0.0.1">
+
+    </fieldset>
+    </p>
+
+
+    <p>
+    <fieldset>
+        <label for="platform">platform</label>
+        <select name="platform" id="platform">
+            <option value="1">Current System</option>
+            <option value="2">Docker</option>
+            <option value="3">Local Network</option>
+        </select>
+        <button class="add">+</button>
+
+    </fieldset>
+    </p>
+
+    <p>
+    <fieldset>
+        <label for="environment">environment</label>
+        <select name="environment" id="environment">
+            <option value="1">python v3.8 + Django</option>
+            <option value="2">python v3.8 + Flask</option>
+            <option value="3">python + FastAPI</option>
+            <option value="4">nodejs</option>
+            <option value="5">nodejs + Vue</option>
+            <option value="6">php5 + Apache2</option>
+            <option value="7">php7.4 + Apache2</option>
+            <option value="8">php7.4 + NGINX</option>
+            <option value="9">MySQL</option>
+            <option value="10">MariaDB</option>
+            <option value="11">PostgresSQL</option>
+        </select>
+        <button class="add">+</button>
+
+    </fieldset>
+    </p>
+
+    <p>
+    <fieldset>
+        <label for="sourcecode">sourcecode</label>
+        <select name="sourcecode" id="sourcecode">
+            <option value="code/extension.js">extension.js</option>
+            <option value="code/server.js">faas-ovh/form/server.js</option>
+            <!--            <option value="code/server.php">faas-ovh/form/server.php</option>-->
+        </select>
+        <button class="add">+</button>
+
+    </fieldset>
+    </p>
+
+    <article autofocus>
+
+        <p>
+            <!--            The <code>sublime</code> keymap defines many Sublime Text-specific-->
+            <!--            bindings for CodeMirror. </p>-->
+            <!--        <p>-->
+            Write below <code>Code</code> which should be executed by selected <code>Server</code> and
+            <code>Environment</code>
+        </p>
+
+    </article>
+
+    <!--        <label for="code">code</label>-->
+    <textarea name="code" id="code" class="code"
+    <!--              style="display: none" -->
+    autofocus></textarea>
+
+    <p>
+    <fieldset>
+        <input type="submit" name="submit" class="submit" value="Run">
+    </fieldset>
+    </p>
+
+</form>
+

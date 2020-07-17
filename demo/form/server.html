@@ -1,0 +1,107 @@
+<!-- POST method -->
+<form>
+    <input type="hidden" name="method" value="POST">
+
+    <!--    <p>-->
+    <!--    <fieldset>-->
+    <!--        <label for="domain">domain</label>-->
+    <!--        <input type="text" name="domain" id="domain" value="1.faasapp.com">-->
+    <!--    </fieldset>-->
+    <!--    </p>-->
+
+    <fieldset>
+        <label for="ip">Ip X.X.X.X:</label>
+        <button class="del_ip del_button">-</button>
+
+        <select name="ip" id="ip" class="add_list">
+            <option value="127.0.0.1">127.0.0.1</option>
+            <option value="127.123.121.11">127.123.121.119</option>
+        </select>
+        <input type="text" name="add_ip" id="add_ip" class="add_input" value="">
+        <button class="add_ip add_button">+</button>
+    </fieldset>
+
+
+    <!--    <p>-->
+    <!--    <fieldset>-->
+    <!--        &lt;!&ndash;        <label for="platform">platform</label>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <select name="platform" id="platform">&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <option value="3">RPi</option>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <option value="6">IoT</option>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <option value="4">VPS</option>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </select>&ndash;&gt;-->
+    <!--        &lt;!&ndash;    </fieldset>&ndash;&gt;-->
+    <!--        &lt;!&ndash;    </p>&ndash;&gt;-->
+
+    <!--        &lt;!&ndash;    <p>&ndash;&gt;-->
+    <!--        &lt;!&ndash;    <fieldset>&ndash;&gt;-->
+    <!--        <label for="system">system</label>-->
+    <!--        <select name="system" id="system">-->
+    <!--            <option value="1">debian 10</option>-->
+    <!--            <option value="2">ubuntu 18</option>-->
+    <!--            <option value="3">windows 10</option>-->
+    <!--        </select>-->
+    <!--    </fieldset>-->
+    <!--    </p>-->
+
+    <fieldset>
+        <label for="environment">Environment:</label>
+        <button class="del_environment del_button">-</button>
+
+        <select name="environment" id="environment" class="add_list">
+            <option value="1">python v3.8 + Django</option>
+            <option value="2">python v3.8 + Flask</option>
+            <option value="3">python + FastAPI</option>
+            <option value="4">nodejs + express</option>
+            <option value="5">nodejs + Vue</option>
+            <option value="6">php5 + Apache2</option>
+            <option value="7">php7.4 + Apache2</option>
+            <option value="8">php7.4 + NGINX</option>
+            <option value="9">MySQL</option>
+            <option value="10">MariaDB</option>
+            <option value="11">PostgresSQL</option>
+        </select>
+        <input type="text" name="add_environment" id="add_environment" class="add_input" value="">
+        <button class="add_environment add_button">+</button>
+    </fieldset>
+
+    <fieldset>
+        <label for="sourcecode">Sourcecode:</label>
+        <button class="del_sourcecode del_button">-</button>
+
+        <select name="sourcecode" id="sourcecode" class="add_list">
+            <option value="code/extension.js">extension.js</option>
+            <option value="code/server.js">faas-ovh/form/server.js</option>
+            <option value="code/server.php">faas-ovh/form/server.php</option>
+        </select>
+        <input type="text" name="add_sourcecode" id="add_sourcecode" class="add_input" value="">
+        <button class="add_sourcecode add_button">+</button>
+    </fieldset>
+
+    <article autofocus>
+
+        <p>
+            <!--            The <code>sublime</code> keymap defines many Sublime Text-specific-->
+            <!--            bindings for CodeMirror. </p>-->
+            <!--        <p>-->
+            Write below <code>Code</code> which should be executed by selected <code>Server</code> and
+            <code>Environment</code>
+        </p>
+
+    </article>
+
+    <!--        <label for="code">code</label>-->
+    <textarea name="code"
+              id="code"
+              class="code"
+              style="display: none"
+              autofocus></textarea>
+
+    <p>
+    <fieldset>
+        <input type="submit" name="submit" class="submit" value="Run">
+    </fieldset>
+    </p>
+
+</form>
+

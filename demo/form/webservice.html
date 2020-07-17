@@ -1,0 +1,118 @@
+<!-- POST method -->
+<form>
+    <input type="hidden" name="method" value="POST">
+
+    <h2>Sourcecode</h2>
+
+    <span>
+        Select <code>frontend</code> or/and <code>backend</code> or/and <code>database</code> which should be executed on environment.
+    </span>
+
+    <fieldset>
+        <label for="frontend">Frontend sourcecode, github: organisation/repository</label>
+        <br>
+        <button class="del_frontend del_button">-</button>
+
+        <select name="frontend" id="frontend" class="add_list">
+            <option value="goethe-pl/app">goethe-pl/app</option>
+        </select>
+        <input type="text" name="add_frontend" id="add_frontend" class="add_input" value="">
+
+        <button class="add_frontend add_button">+</button>
+    </fieldset>
+
+
+    <fieldset>
+        <label for="backend">Backend sourcecode, github: organisation/repository</label>
+        <br>
+        <button class="del_backend del_button">-</button>
+
+        <select name="backend" id="backend" class="add_list">
+            <option value="goethe-pl/app-python">goethe-pl/app-python</option>
+        </select>
+        <input type="text" name="add_backend" id="add_backend" class="add_input" value="">
+
+        <button class="add_backend add_button">+</button>
+    </fieldset>
+
+
+    <fieldset>
+        <label for="database">Database sql statements, github: organisation/repository</label>
+        <br>
+        <button class="del_database del_button">-</button>
+
+        <select name="database" id="database" class="add_list">
+            <option value="goethe-pl/app-python">goethe-pl/app-mysql</option>
+            <option value="goethe-pl/app-python">goethe-pl/app-postgresql</option>
+            <option value="goethe-pl/app-python">goethe-pl/app-redis</option>
+        </select>
+        <input type="text" name="add_database" id="add_database" class="add_input" value="">
+
+        <button class="add_database add_button">+</button>
+    </fieldset>
+
+
+    <!--        <label for="code">code</label>-->
+    <textarea name="code"
+              id="code"
+              class="code"
+              style="display: none"
+              autofocus></textarea>
+
+    <h2>Environment</h2>
+
+    <span>
+        Select <code>https Server</code> on <code>Server</code> with  <code>domain</code>
+    </span>
+
+    <fieldset>
+        <label for="https">HTTPS Server</label>
+        <br>
+        <button class="del_https del_button">-</button>
+
+        <select name="https" id="https" class="add_list">
+            <option value="apache2">Apache2</option>
+            <option value="nginx">NGINX</option>
+        </select>
+        <input type="text" name="add_https" id="add_https" class="add_input" value="">
+        <button class="add_https add_button">+</button>
+    </fieldset>
+
+
+    <h2>Infrastructure</h2>
+
+    <span>
+        Connect to environment on  <code>Server</code> to <code>internet domain</code>
+    </span>
+
+    <fieldset>
+        <label for="domain">Domain</label>
+        <br>
+        <button class="del_domain del_button">-</button>
+
+        <select name="domain" id="domain" class="add_list">
+            <option value="2.faas.ovh">2.faas.ovh</option>
+        </select>
+        <input type="text" name="add_domain" id="add_domain" class="add_input" value="">
+        <button class="add_domain add_button">+</button>
+    </fieldset>
+
+
+    <fieldset>
+        <label for="ip">IP Server</label>
+        <br>
+        <button class="del_ip del_button">-</button>
+
+        <select name="ip" id="ip" class="add_list">
+            <option value="212.227.200.232">212.227.200.232</option>
+        </select>
+        <input type="text" name="add_ip" id="add_ip" class="add_input" value="">
+        <button class="add_ip add_button">+</button>
+    </fieldset>
+
+    <fieldset class="last">
+        <input type="submit" name="submit" class="submit" value="Run">
+    </fieldset>
+
+</form>
+

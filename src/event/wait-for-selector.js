@@ -42,7 +42,7 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                     jlogs(this.constructor.name, ' stop observing ', url);
                     me.disconnect(); // stop observing
                 },
-                9000
+                2000
             )
 
         });

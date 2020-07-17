@@ -437,6 +437,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         var list = url;
         jlogs(f, ' url4 ', url);
         jlogs(f, ' list ', list);
+        jlogs(f, ' list isArray', isArray(list));
+        jlogs(f, ' list isObject', isObject(list));
 
         waitForSelector(url, selector, mapFunction, function () {
             for (var i in url) {
@@ -451,19 +453,21 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         }, error);
 
         //
-        // if (isArray(list)) {
-        //     for (var i in list) {
-        //         var url = list[i];
-        //
-        //         jlogs(f, ' url4 ', url);
-        //         jlogs(f, ' list ', list);
-        //         getOne(load, url, selector, mapFunction, success, error);
-        //
-        //         // waitForSelector(url, selector, mapFunction, success, error);
-        //         //
-        //
-        //     }//for
-        // }//if
+        if (isArray(list)) {
+            for (var i in list) {
+                var url = list[i];
+
+                jlogs(f, ' url4 ', url);
+                jlogs(f, ' list ', list);
+                getOne(load, url, selector, mapFunction, success, error);
+
+                // waitForSelector(url, selector, mapFunction, success, error);
+                //
+
+            }//for
+        } else if (isObject(list)) {
+
+        }
     }
     // error(elem);
 }

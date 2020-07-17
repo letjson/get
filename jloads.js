@@ -1649,6 +1649,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
                 jlogs(f, 'isArray url5 ', url);
                 jlogs(f, 'isArray list ', list);
+                jlogs(f, 'isArray selector ', selector);
+
                 getOne(load, url, selector, mapFunction, success, error);
 
                 // waitForSelector(url, selector, mapFunction, success, error);
@@ -1660,8 +1662,9 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
             url = Object.keys(list)[0];
             jlogs(f, 'isObject url5 ', url);
             jlogs(f, 'isObject list ', list);
+            jlogs(f, 'isObject selector ', selector);
 
-            waitForSelector(url, selector, mapFunction, function () {
+            getOne(load, url, selector, mapFunction, function () {
                 for (var i in list) {
                     var object = list[i];
                     jlogs(f, 'isObject url6 i ', i);

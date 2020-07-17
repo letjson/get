@@ -626,7 +626,9 @@ if (typeof getOne !== 'function') getOne = function (jloads, url, selector, mapF
                 var object = url[i];
                 jlogs(f, ' url1 i ', i);
                 jlogs(f, ' url1 object ', object);
-                getOne(jloads, object, i, mapFunction, success, error)
+                for (var ii in object) {
+                    getOne(jloads, object[ii], ii, mapFunction, success, error);
+                }
             }
         }, error)
     }

@@ -18,15 +18,14 @@ function waitForSelector(url, selector, mapFunction, success, error) {
         var observer = new MutationObserver(function (mutations, me) {
             // `mutations` is an array of mutations that occurred
             // `me` is the MutationObserver instance
-            // var canvas = document.getElementById('my-canvas');
-            var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
-            if (elem) {
+            var l = new Load(selector, success, error);
+
+            // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+            // if (elem) {
                 // callback executed when canvas was found
-                // ReadyHtml(url, selector, mapFunction, success, error);
-                var l = new Load(selector, success, error);
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                const funcName = getFunctionName(url, mapFunction, 'waitForSelector');
+                const funcName = getFunctionName(url, mapFunction, f);
                 jlogs(f, ' funcName ', funcName);
                 //jlogs(funcName, url, elem);
                 l[funcName](url);
@@ -36,20 +35,20 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 // return;
                 return success(elem);
 
-            }
+            // }
 
-            setTimeout(function () {
-                    jlogs(f, ' stop observing ', url);
-                    me.disconnect(); // stop observing
-                },
-                2000
-            )
+            // setTimeout(function () {
+            //         jlogs(f, ' stop observing ', url);
+            //         me.disconnect(); // stop observing
+            //     },
+            //     2000
+            // )
 
         });
 
         // start observing
         observer.observe(document, {
-            childList: false,
+            childList: true,
             subtree: false
         });
 

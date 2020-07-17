@@ -160,17 +160,18 @@ var jloads = function (selector) {
         // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
         // jlogs('jloadsTarget getOne ', ' elem ', elem, !isEmpty(elem));
 
-        var i = Object.keys(json)[0];
-        jlogs(f, ' i ', i);
+        // var i = Object.keys(json)[0];
+        // jlogs(f, ' i ', i);
+        jlogs(f, ' json ', json);
 
-        if (Object.keys(json).length === 1) {
-            getOne(self.jloads, json[i], i, self.mapFunction, success, error)
-        } else {
+        // if (Object.keys(json).length === 1) {
+        //     getOne(self.jloads, json[i], i, self.mapFunction, success, error)
+        // } else {
             for (var i in json) {
                 var object = json[i];
                 getOne(self.jloads, object, i, self.mapFunction, success, error)
             }
-        }
+        // }
         // success(json);
 
         return self;

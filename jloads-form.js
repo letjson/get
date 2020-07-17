@@ -617,9 +617,9 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
     jlogs(f, ' url 2 ', url, typeof url, isString(url));
 
     if (isString(url)) {
-        if (selector === 'head') {
-            loadContentByUrls(load, url, mapFunction, success, error);
-            success(load.getTarget(selector));
+        // if (selector === 'head') {
+        //     loadContentByUrls(load, url, mapFunction, success, error);
+        //     success(load.getTarget(selector));
             // } else if (selector === 'body') {
             //     jlogs(f, ' wait for body selector ', selector);
             //     jlogs(f, ' wait for body target ', load.getTarget(selector));
@@ -631,33 +631,48 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
             //
             //     ReadyHtml(url, selector, mapFunction, success, error);
             // });
-        } else {
+        // } else {
             jlogs(f, ' wait for element selector ', selector);
             jlogs(f, ' wait for element url ', url);
             // console.log(f, ' wait for element target ', load.getTarget(selector));
 
             // waitForSelector(url, selector, mapFunction, success, error)
-            waitForSelector(url, selector, mapFunction, success, error);
+            // waitForSelector(url, selector, mapFunction, success, error);
 
-        }
+            var l = new Load(selector, success, error);
+            // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+            // if (elem) {
+            // callback executed when canvas was found
+
+            // loadContentByUrls(jloads, object, mapFunction, success, error);
+            const funcName = getFunctionName(url, mapFunction, f);
+            jlogs(f, ' funcName ', funcName);
+            //jlogs(funcName, url, elem);
+            l[funcName](url);
+        // }
+
+
     } else {
-        if (isArray(url)) {
-            for (var i in url) {
-                var object = url[i];
-                jlogs(f, ' url3 ', url3);
-                jlogs(f, ' object ', object);
+        var list = url;
+        if (isArray(list)) {
+            for (var i in list) {
+                var url = list[i];
 
-                waitForSelector(url3, selector, mapFunction, function () {
-                    for (var i in url) {
-                        var object = url[i];
-                        jlogs(f, ' url4 i ', i);
-                        jlogs(f, ' url4 object ', object);
-                        for (var ii in object) {
-                            jlogs(f, ' url5 object[ii], ii ', object[ii], ii);
-                            getOne(load, object[ii], selector, mapFunction, success, error);
-                        }
-                    }//for
-                }, error);
+                jlogs(f, ' url3 ', url);
+                jlogs(f, ' list ', list);
+                waitForSelector(url, selector, mapFunction, success, error);
+                //
+                // waitForSelector(url, selector, mapFunction, function () {
+                //     for (var i in url) {
+                //         var object = url[i];
+                //         jlogs(f, ' url4 i ', i);
+                //         jlogs(f, ' url4 object ', object);
+                //         for (var ii in object) {
+                //             jlogs(f, ' url5 object[ii], ii ', object[ii], ii);
+                //             getOne(load, object[ii], selector, mapFunction, success, error);
+                //         }
+                //     }//for
+                // }, error);
             }//for
         }//if
     }
@@ -2041,15 +2056,14 @@ function waitForSelector(url, selector, mapFunction, success, error) {
         var observer = new MutationObserver(function (mutations, me) {
             // `mutations` is an array of mutations that occurred
             // `me` is the MutationObserver instance
-            // var canvas = document.getElementById('my-canvas');
-            var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector)
-            if (elem) {
+            var l = new Load(selector, success, error);
+
+            // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
+            // if (elem) {
                 // callback executed when canvas was found
-                // ReadyHtml(url, selector, mapFunction, success, error);
-                var l = new Load(selector, success, error);
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                const funcName = getFunctionName(url, mapFunction, 'waitForSelector');
+                const funcName = getFunctionName(url, mapFunction, f);
                 jlogs(f, ' funcName ', funcName);
                 //jlogs(funcName, url, elem);
                 l[funcName](url);
@@ -2059,20 +2073,20 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 // return;
                 return success(elem);
 
-            }
+            // }
 
-            setTimeout(function () {
-                    jlogs(f, ' stop observing ', url);
-                    me.disconnect(); // stop observing
-                },
-                2000
-            )
+            // setTimeout(function () {
+            //         jlogs(f, ' stop observing ', url);
+            //         me.disconnect(); // stop observing
+            //     },
+            //     2000
+            // )
 
         });
 
         // start observing
         observer.observe(document, {
-            childList: false,
+            childList: true,
             subtree: false
         });
 

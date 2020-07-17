@@ -49,8 +49,8 @@ function waitForSelector(url, selector, mapFunction, success, error) {
 
         // start observing
         observer.observe(document, {
-            childList: true,
-            subtree: true
+            childList: false,
+            subtree: false
         });
 
     } catch (e) {

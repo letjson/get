@@ -2409,6 +2409,16 @@ var RestForm = function (target, response, error, success) {
 
     var self = this;
 
+    self.method = function (method) {
+        self.cfg.method = method;
+        return self;
+    }
+
+    self.event = function (event) {
+        self.cfg.event = event;
+        return self;
+    }
+
     self.url = function (url) {
         self.cfg.url = url;
         return self;

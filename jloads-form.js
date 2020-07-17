@@ -620,9 +620,9 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         if (selector === 'head') {
             loadContentByUrls(load, url, mapFunction, success, error);
             success(load.getTarget(selector));
-        // } else if (selector === 'body') {
-        //     jlogs(f, ' wait for body selector ', selector);
-        //     jlogs(f, ' wait for body target ', load.getTarget(selector));
+            // } else if (selector === 'body') {
+            //     jlogs(f, ' wait for body selector ', selector);
+            //     jlogs(f, ' wait for body target ', load.getTarget(selector));
 
             // var reload = document.querySelector(selector);
             // reload.addEventListener("load", function (event) {
@@ -641,20 +641,25 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
         }
     } else {
-        var url1 = Object.keys(url)[0];
-        jlogs(f, ' url3 ', url1);
-
-        waitForSelector(url1, selector, mapFunction, function () {
+        if (isArray(url)) {
             for (var i in url) {
                 var object = url[i];
-                jlogs(f, ' url4 i ', i);
-                jlogs(f, ' url4 object ', object);
-                for (var ii in object) {
-                    jlogs(f, ' url5 object[ii], ii ', object[ii], ii);
-                    getOne(load, object[ii], selector, mapFunction, success, error);
-                }
-            }
-        }, error);
+                jlogs(f, ' url3 ', url3);
+                jlogs(f, ' object ', object);
+
+                waitForSelector(url3, selector, mapFunction, function () {
+                    for (var i in url) {
+                        var object = url[i];
+                        jlogs(f, ' url4 i ', i);
+                        jlogs(f, ' url4 object ', object);
+                        for (var ii in object) {
+                            jlogs(f, ' url5 object[ii], ii ', object[ii], ii);
+                            getOne(load, object[ii], selector, mapFunction, success, error);
+                        }
+                    }//for
+                }, error);
+            }//for
+        }//if
     }
     // error(elem);
 }

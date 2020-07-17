@@ -568,11 +568,11 @@ jlogs('exist?', 'getFunctionName');
 function getFunctionName(url, map, parent) {
     const f = 'getFunctionName / ' + parent;
 
-    if (isEmpty(url)) {
+    if (isEmpty(url) || map.length < 2) {
         throw new Error('url not exits');
     }
 
-    if (isEmpty(map)) {
+    if (isEmpty(map) || map.length < 2) {
         throw new Error('map not exits');
     }
 

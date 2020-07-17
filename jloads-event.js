@@ -161,7 +161,8 @@ jlogs('exist?','isArray');
  */
 function isArray(val) {
     return val !== null &&
-        (typeof val === 'object' && Object.keys(val).length > 0)
+        (val instanceof Array)
+    // obj.constructor.toString().indexOf("Array") != -1
         ;
 }
 // is-array.js

@@ -300,6 +300,9 @@ rozszerzona:
     
 #### przykład
 
+poniższe przykłady pochodzą z jednego z projektów firmy [Softreck](https://softreck.com/)
++ [faas , frontend app](https://github.com/faas-ovh/www)
+
 #### ładowanie skryptów do poszczególnych elementów strony poprzez xpath, gdy element nie jest jeszcze gotowy/załadowany do drzewa DOM, to jloads czeka i załaduje go gdy będzie to możliwe 
 
         // Load core of application

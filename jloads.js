@@ -2814,7 +2814,9 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
  * @returns {boolean}
  */
 function urlLoad(self, json, success, error) {
-    if(!isString(window.location.hash)){
+    var f = 'jloads.url urlLoad';
+
+    if (!isString(window.location.hash)) {
         return false;
     }
 

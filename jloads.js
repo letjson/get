@@ -2940,8 +2940,10 @@ var jloads = function (selector) {
 
         // Dynamic loading
         document.addEventListener("DOMContentLoaded", function (event) {
-            // loadDefaultCss();
+            //check if exist hash, if yes, than execute below
+            urlLoad(self, json, success, error);
         });
+
         // function hashHandler(){
         //     this.oldHash = window.location.hash;
         //     this.Check;
@@ -2965,37 +2967,7 @@ var jloads = function (selector) {
             // Log the state data to the console
             console.log(f, window.location.hash);
             console.log(f, self.jloads);
-
-            for (var hash in json) {
-                var list = json[hash];
-                console.log(f, '!!!3', self.jloads, list, hash);
-
-                if (window.location.hash === hash) {
-                    for (var selector in list) {
-                        var l = new Load(selector, success, error); //.domain('localhost');
-                        l.replaceOn();
-                        // console.log(f, '!!!4 l: ', l, self.mapFunction);
-                        console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
-
-                        var url = list[selector];
-                        console.log(f, '!!!4 url: ', url);
-
-                        getOne(l, url, selector, self.mapFunction, success, error);
-                        //
-                        // for (var id in list[selector]) {
-                        //     var url = list[selector][id];
-                        //     console.log(f, '!!!4 url: ', url);
-                        //     // getOne(self.jloads, url, selector, self.mapFunction, success, error)
-                        //     // loadContentByUrls(l, url, self.mapFunction, success, error);
-                        //     var funcName = getFunctionName(url, self.mapFunction, 'self.url');
-                        //     jlogs(f, '!!!4 funcName ', funcName);
-                        //     //jlogs(funcName, url, elem);
-                        //     l[funcName](url);
-                        // }
-                    }
-                }
-
-            }
+            urlLoad(self, json, success, error);
             // getOne(self.jloads, json[i], i, self.mapFunction, success, error)
 
         });
@@ -3009,6 +2981,44 @@ var jloads = function (selector) {
 
     return self;
 };
+
+function urlLoad(self, json, success, error) {
+    if(!isString(window.location.hash)){
+        return false;
+    }
+
+    for (var hash in json) {
+
+        var list = json[hash];
+        console.log(f, '!!!3', self.jloads, list, hash);
+
+        if (window.location.hash === hash) {
+            for (var selector in list) {
+                var l = new Load(selector, success, error); //.domain('localhost');
+                l.replaceOn();
+                // console.log(f, '!!!4 l: ', l, self.mapFunction);
+                console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
+
+                var url = list[selector];
+                console.log(f, '!!!4 url: ', url);
+
+                getOne(l, url, selector, self.mapFunction, success, error);
+                //
+                // for (var id in list[selector]) {
+                //     var url = list[selector][id];
+                //     console.log(f, '!!!4 url: ', url);
+                //     // getOne(self.jloads, url, selector, self.mapFunction, success, error)
+                //     // loadContentByUrls(l, url, self.mapFunction, success, error);
+                //     var funcName = getFunctionName(url, self.mapFunction, 'self.url');
+                //     jlogs(f, '!!!4 funcName ', funcName);
+                //     //jlogs(funcName, url, elem);
+                //     l[funcName](url);
+                // }
+            }
+        }
+
+    }
+}
 // jloads.js
 jlogs('exist?', 'jl');
 

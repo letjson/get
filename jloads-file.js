@@ -2022,7 +2022,8 @@ function loadHtmlByStatus(status, responseText, target, replace, success, error)
         onSelector(target, function (selector, element) {
             jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
-            if(replace){
+            if (replace) {
+                jlogs(f, 'replace', replace);
                 element.innerHTML = '';
             }
             element.insertAdjacentHTML('beforeend', responseText);

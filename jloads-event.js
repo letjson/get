@@ -1841,6 +1841,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         // waitForSelector(url, selector, mapFunction, success, error);
 
         var l = new Load(selector, success, error);
+        l.replaceOff();
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
         // if (elem) {
         // callback executed when canvas was found

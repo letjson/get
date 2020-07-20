@@ -2748,6 +2748,109 @@ var Rest = function (url, separator, response, error, success) {
 
     return this;
 }
+// jloads-url.js
+/**
+ *
+ * @param json
+ * @param success
+ * @param error
+ * @param mapFunction
+ * @returns {Load}
+ */
+jlogs('exist?', 'jloadsUrl');
+if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error, mapFunction) {
+    var f = 'jloadsUrl';
+
+    //url is URL of external file, success is the code
+    //to be called from the file, location is the location to
+    //insert the <script> element
+
+    if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
+        // Configuration
+        success = function (data) {
+            console.log(f, ' loaded ', data);
+        };
+    }
+
+    if (typeof error !== 'function' && (typeof error !== 'object' || error === null)) {
+        error = function (data) {
+            console.error(f, ' !loaded ', data);
+        };
+    }
+
+
+    if (typeof mapFunction !== 'object' && typeof map === 'object') {
+        // Configuration
+        mapFunction = map;
+    }
+    jlogs(' jloadsUrl', ' json ', json, Object.keys(json).length, Object.keys(json)[0]);
+
+
+    // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
+    // jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
+    jlogs('jloadsUrl getOne ', ' i ', i);
+    var jloads = new Load(i, success, error);
+
+    if (Object.keys(json).length === 1) {
+        var i = Object.keys(json)[0];
+        getOne(jloads, json[i], i, mapFunction, success, error)
+    } else {
+        for (var i in json) {
+            var object = json[i];
+            getOne(jloads, object, i, mapFunction, success, error)
+        }
+    }
+    // success(json);
+
+    return jloads;
+}
+// url-load.js
+/**
+ *
+ * @param self
+ * @param json
+ * @param success
+ * @param error
+ * @returns {boolean}
+ */
+function urlLoad(self, json, success, error) {
+    if(!isString(window.location.hash)){
+        return false;
+    }
+
+    for (var hash in json) {
+
+        var list = json[hash];
+        console.log(f, '!!!3', self.jloads, list, hash);
+
+        if (window.location.hash === hash) {
+            for (var selector in list) {
+
+                var l = new Load(selector, success, error); //.domain('localhost');
+                l.replaceOn();
+                // console.log(f, '!!!4 l: ', l, self.mapFunction);
+                console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
+
+                var url = list[selector];
+                console.log(f, '!!!4 url: ', url);
+
+                getOne(l, url, selector, self.mapFunction, success, error);
+                //
+                // for (var id in list[selector]) {
+                //     var url = list[selector][id];
+                //     console.log(f, '!!!4 url: ', url);
+                //     // getOne(self.jloads, url, selector, self.mapFunction, success, error)
+                //     // loadContentByUrls(l, url, self.mapFunction, success, error);
+                //     var funcName = getFunctionName(url, self.mapFunction, 'self.url');
+                //     jlogs(f, '!!!4 funcName ', funcName);
+                //     //jlogs(funcName, url, elem);
+                //     l[funcName](url);
+                // }
+            }
+        }
+
+    }
+}
 // jloads.js
 jlogs('exist?', 'jloads');
 
@@ -2981,44 +3084,6 @@ var jloads = function (selector) {
 
     return self;
 };
-
-function urlLoad(self, json, success, error) {
-    if(!isString(window.location.hash)){
-        return false;
-    }
-
-    for (var hash in json) {
-
-        var list = json[hash];
-        console.log(f, '!!!3', self.jloads, list, hash);
-
-        if (window.location.hash === hash) {
-            for (var selector in list) {
-                var l = new Load(selector, success, error); //.domain('localhost');
-                l.replaceOn();
-                // console.log(f, '!!!4 l: ', l, self.mapFunction);
-                console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
-
-                var url = list[selector];
-                console.log(f, '!!!4 url: ', url);
-
-                getOne(l, url, selector, self.mapFunction, success, error);
-                //
-                // for (var id in list[selector]) {
-                //     var url = list[selector][id];
-                //     console.log(f, '!!!4 url: ', url);
-                //     // getOne(self.jloads, url, selector, self.mapFunction, success, error)
-                //     // loadContentByUrls(l, url, self.mapFunction, success, error);
-                //     var funcName = getFunctionName(url, self.mapFunction, 'self.url');
-                //     jlogs(f, '!!!4 funcName ', funcName);
-                //     //jlogs(funcName, url, elem);
-                //     l[funcName](url);
-                // }
-            }
-        }
-
-    }
-}
 // jloads.js
 jlogs('exist?', 'jl');
 

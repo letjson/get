@@ -8,6 +8,7 @@ type ".\src\include\*.js" >> .\jloads.js
 type ".\src\load\*.js" >> .\jloads.js
 type ".\src\*.js" >> .\jloads.js
 type ".\src\form\*.js" >> .\jloads.js
+type ".\src\url\*.js" >> .\jloads.js
 type ".\src\jloads\*.js" >> .\jloads.js
 type ".\src\all\*.js" >> .\jloads.js
 uglifyjs jloads.js -o jloads.min.js -c -m

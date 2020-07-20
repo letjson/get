@@ -1591,7 +1591,7 @@ function loadHtmlByStatus(status, responseText, target, replace, success, error)
             jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
             if (replace) {
-                jlogs(f, 'replace', replace);
+                jlogs(f, 'replaced', replace);
                 element.innerHTML = '';
             }
             element.insertAdjacentHTML('beforeend', responseText);

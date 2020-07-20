@@ -1372,7 +1372,7 @@ function loadHtmlByStatus(status, responseText, target, replace, success, error)
             jlogs(f, 'onSelector insertAdjacentHTML selector, element ', selector, target, element);
             // jlogs('onSelector insertAdjacentHTML responseText  ', responseText);
             if (replace) {
-                jlogs(f, 'replace', replace);
+                jlogs(f, 'replaced', replace);
                 element.innerHTML = '';
             }
             element.insertAdjacentHTML('beforeend', responseText);
@@ -2837,8 +2837,9 @@ function urlLoad(self, json, success, error) {
 
             for (var selector in list) {
 
-                getTarget(selector).innerHTML = '';
-
+                if(selector !== 'head' && selector !== 'body' && (selector.indexOf('#') === 0 || selector.indexOf('.') === 0)){
+                    getTarget(selector).innerHTML = '';
+                }
 
                 var l = new Load(selector, success, error); //.domain('localhost');
                 l.replaceOn();

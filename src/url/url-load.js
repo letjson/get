@@ -25,8 +25,9 @@ function urlLoad(self, json, success, error) {
 
             for (var selector in list) {
 
-                getTarget(selector).innerHTML = '';
-
+                if(selector !== 'head' && selector !== 'body' && (selector.indexOf('#') === 0 || selector.indexOf('.') === 0)){
+                    getTarget(selector).innerHTML = '';
+                }
 
                 var l = new Load(selector, success, error); //.domain('localhost');
                 l.replaceOn();

@@ -1394,6 +1394,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         //jlogs(funcName, url, elem);
         l[funcName](url);
         // }
+        
 
 
     } else {

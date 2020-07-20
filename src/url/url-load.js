@@ -20,7 +20,13 @@ function urlLoad(self, json, success, error) {
         console.log(f, '!!!3', self.jloads, list, hash);
 
         if (window.location.hash === hash) {
+
+
+
             for (var selector in list) {
+
+                getTarget(selector).innerHTML = '';
+
 
                 var l = new Load(selector, success, error); //.domain('localhost');
                 l.replaceOn();

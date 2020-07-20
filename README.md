@@ -299,31 +299,141 @@ rozszerzona:
     
     
 #### przykład
-    {
-        {
-            "xpath": "head"
-            "type": "js"
-            "content": ""
-        }
-      "head": [
-        "//code.jquery.com/jquery-3.5.1.min.js",
-        "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
-        "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css",
-        "//app.wapka.pl/css/style.css"
-      ],
-      "body": [
-        "//app.wapka.pl/html/body.html"
-      ],
-      "#form": [
-        "//app.wapka.pl/html/create.html",
-        "//app.wapka.pl/js/create.js"
-      ],
-      "#image": [
-        "//logo.wapka.pl/wapka-300.png"
-      ]
-   }
-   
 
+#### ładowanie skryptów do poszczególnych elementów strony poprzez xpath, gdy element nie jest jeszcze gotowy/załadowany do drzewa DOM, to jloads czeka i załaduje go gdy będzie to możliwe 
+
+        // Load core of application
+        jl.target({
+            "head": [
+                "css/fade-in.css",
+                "form/form.js",
+                "form/form.css",
+                "form/inputs.css",
+            ],
+            "#forms": {
+                "form/app.html": [
+                    "form/submit.js",
+                    "form/edit_list.js",
+                ]
+            },
+            "#messages": [
+                "js/messages.js"
+            ],
+            "#images": [
+                "//logo.faas.ovh/4/cover.png",
+            ],
+            "#menu": [
+                "html/menu.html",
+            ],
+            "footer": [
+                "html/footer.html"
+            ]
+        });
+        
+#### ładowanie skryptów w zależności od hierarchii, najpierw jQuery a następnie Bootstrap 
+        
+        // load content ASAP with dependencies, that jquery must be first and after that bootstrap
+        jl.file({
+            "//code.jquery.com/jquery-3.5.1.min.js": [
+                "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
+                "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            ]
+        });
+   
+#### ładowanie zawartości w zalezności od wywołanego url 
+
+        // Load dynamically contents depends url #hash
+        jl.url({
+            "#app": {
+                "#forms": {
+                    "form/app.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#app_man": {
+                "#forms": {
+                    "form/app_man.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#server": {
+                "#forms": {
+                    "form/server.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#webservice": {
+                "#forms": {
+                    "form/webservice.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#cloud": {
+                "#forms": {
+                    "form/cloud.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#local": {
+                "#forms": {
+                    "form/local.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#iot": {
+                "#forms": {
+                    "form/iot.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#api": {
+                "#forms": {
+                    "form/api.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#api_func": {
+                "#forms": {
+                    "form/api_func.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#api_storage": {
+                "#forms": {
+                    "form/api_storage.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            },
+            "#test": {
+                "#forms": {
+                    "form/test.html": [
+                        "form/submit.js",
+                        "form/edit_list.js"
+                    ]
+                }
+            }
+        });
+                
 ## konfiguracja
 obsługiwane funkcje
 
@@ -418,6 +528,12 @@ Calls:
     + format url:  doc.html?name=version&name=version&...
 
 + 
+
+
+### Listeners
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+
 
 ---
 [gitter]: https://gitter.im/UnitApi/community

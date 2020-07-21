@@ -542,3 +542,19 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
 [gitter]: https://gitter.im/UnitApi/community
 [gitter]: https://gitter.im/jloads/community
 
+
+### github npm
+
+Use `publishConfig` option in your package.json
+    
+    "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+
+Authenticate
+    https://github.com/settings/tokens
+    
+    npm login --registry=https://npm.pkg.github.com/
+
+Publish
+    
+    npm publish
+

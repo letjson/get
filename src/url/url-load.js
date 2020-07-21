@@ -21,8 +21,6 @@ function urlLoad(self, json, success, error) {
 
         if (window.location.hash === hash) {
 
-
-
             for (var selector in list) {
 
                 if(selector !== 'head' && selector !== 'body' && (selector.indexOf('#') === 0 || selector.indexOf('.') === 0)){
@@ -38,17 +36,7 @@ function urlLoad(self, json, success, error) {
                 console.log(f, '!!!4 url: ', url);
 
                 getOne(l, url, selector, self.mapFunction, success, error);
-                //
-                // for (var id in list[selector]) {
-                //     var url = list[selector][id];
-                //     console.log(f, '!!!4 url: ', url);
-                //     // getOne(self.jloads, url, selector, self.mapFunction, success, error)
-                //     // loadContentByUrls(l, url, self.mapFunction, success, error);
-                //     var funcName = getFunctionName(url, self.mapFunction, 'self.url');
-                //     jlogs(f, '!!!4 funcName ', funcName);
-                //     //jlogs(funcName, url, elem);
-                //     l[funcName](url);
-                // }
+
             }
         }
 

@@ -31,5 +31,9 @@
     "html-minifier": "^4.0.0",
     "node-static": "^0.7.11",
     "uglify-js": "^3.10.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
+

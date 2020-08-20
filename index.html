@@ -16,20 +16,11 @@
             console.error('!loaded', data);
         };
 
-        // Declaration
-        var jl = new Load('body', success, error);
-
-        // Environment
-        // jl.env("//localhost/", "local", function () {
-        //     return window.location.hostname === 'localhost';
-        // });
-        // jl.env("//get.jloads.com/", "production", function () {
-        //     return window.location.hostname !== 'localhost';
-        // });
         console.log('jloads.cfg', jl.cfg);
 
         // Declaration for Media
         // const media = Object.assign({}, jloads);
+        var color = new Load('body', success, error);
         var media = new Load('body', success, error);
         media.target('.for_image').replaceOn();
         // console.log('media.cfg', media.cfg);
@@ -63,8 +54,8 @@
         // Dynamic loading
 
         function loadPinkCss() {
-            jl.cacheOff().css([
-                "/demo/css/pink.css",
+            color.css([
+                "/demo/css/pink.css"
             ]);
             media.img([
                 "https://logo.jloads.com/4/cover.png",
@@ -72,8 +63,8 @@
         }
 
         function loadBlackCss() {
-            jl.cacheOff().css([
-                "/demo/css/black.css",
+            color.css([
+                    "/demo/css/black.css"
             ]);
             media.img([
                 "https://logo.jloads.com/6/cover.png",

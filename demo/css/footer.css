@@ -15,12 +15,12 @@
 /* Style the links inside the navigation bar */
 .footer a {
     float: left;
-    display: block;
+    /*display: block;*/
     color: #dddddd;
     text-align: center;
-    padding: 14px 16px;
+    padding: 4px 6px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 14px;
 }
 
 /* Change the color of links on hover */

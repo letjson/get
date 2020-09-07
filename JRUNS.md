@@ -94,7 +94,16 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
 
 
 # layers
-## Stream layer
+
+
+## Meta Layer
+
++ name
++ version
++ description
+
+
+## Stream / Config layer
 
     from -> to 
                 -> by 
@@ -103,15 +112,14 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
                 -> sort
                 
 
-## Exception layer                
+## Exception / Live Management layer                
 
 + not executed
 + executed, Failed
 
 
-## Information Layer
+## Information / Message / log Layer
     
 + info
-+ log
 + warning
 + error

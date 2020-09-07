@@ -136,10 +136,26 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
 
 ## Code for layers
 
-    out = in;
-    
     in.config
+        + from
+        + to 
+        + by 
+        + as
+        + filter 
+        + sort
+        
     in.meta
+        + name
+        + version
+        + description
+        
+    out = jruns(in);       
     
-    out.info
+    out.log
+        + info
+        + warning
+        + error
+        
     out.exception
+        + exit
+        + run

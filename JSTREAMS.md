@@ -7,11 +7,14 @@ przyklad jak mozna wykorzystac zapis podobny do streamowania/routowania
 
 JS-script
 
-  from("https://get.jloads.com/users.csv").to("table#users").by("LoadUsers");
+    from("https://get.jloads.com/users.csv").to("table#users").by("LoadUsers");
   
-{  
-  "from: https://get.jloads.com/users.csv",
-  "to": "table#users",
-  "by": "LoadUsers"
-}
+  
+JSON-def
+
+    {  
+      "from: https://get.jloads.com/users.csv",
+      "to": "table#users",
+      "by": "LoadUsers"
+    }
         

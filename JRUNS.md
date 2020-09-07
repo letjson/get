@@ -42,3 +42,15 @@ JSON-config
       "to": "table#users",
       "by": "https://get.jloads.com/load_users.js"
     }
+    
+    
+# more
+
+        from("file:c:\dir")
+        .filter()
+        .xpath(expression)
+        .to("jms :aQueue");
+        
+        from("file:data/inbox")
+.filter().xpath("/order[not(@test)]")
+.to("jms:queue:order")

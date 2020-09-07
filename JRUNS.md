@@ -136,6 +136,7 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
 
 ## Code for layers
 
+    var in = Array()
     in.config
         + from
         + to 
@@ -149,13 +150,29 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
         + version
         + description
         
-    out = jruns(in);       
+    out = new jRuns(in);
     
+    out.queue
+        .first
+        .end
+        .current
+        .next
+        .all
+        
     out.log
-        + info
-        + warning
-        + error
+        .info
+        .warning
+        .error
         
     out.exception
-        + exit
-        + run
+        .exit
+        .run
+
+
+## Uzycie w kodzie
+moze byc uzupelniany in.config - jako objekt json
+
+Moze byc jako objekt po wykonaniu wykorzytsany do dalszego przetwarzania
+
+    out2 = new jRuns(out.all);
+    

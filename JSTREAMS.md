@@ -10,10 +10,10 @@ JS-script
     from("https://get.jloads.com/users.csv").to("table#users").by("LoadUsers");
   
   
-JSON-def
+JSON-config
 
     {  
-      "from: https://get.jloads.com/users.csv",
+      "from: "https://get.jloads.com/users.csv",
       "to": "table#users",
       "by": "LoadUsers"
     }

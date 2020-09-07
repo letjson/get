@@ -136,8 +136,10 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
 
 ## Code for layers
 
-    q
-    q.config
-    q.meta
-    q.info
-    q.exception
+    out = in;
+    
+    in.config
+    in.meta
+    
+    out.info
+    out.exception

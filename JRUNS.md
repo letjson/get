@@ -76,17 +76,42 @@ SpringRouteBuilder
 https://access.redhat.com/node/2583501/fluent%20builders/Fluent%20Builders
 
 
-Multiple independent inputs
+# Multiple independent inputs
+
 The simplest way to specify multiple inputs is using the multi-argument form of the from() DSL command, for example:
 
-from("URI1", "URI2", "URI3").to("DestinationUri");
+    from("URI1", "URI2", "URI3").to("DestinationUri");
 
 Or you can use the following equivalent syntax:
 
-from("URI1").from("URI2").from("URI3").to("DestinationUri");
+    from("URI1").from("URI2").from("URI3").to("DestinationUri");
 
 In both of these examples, exchanges from each of the input endpoints, URI1, URI2, and URI3, are processed independently of each other and in separate threads. In fact, you can think of the preceding route as being equivalent to the following three separate routes:
 
     from("URI1").to("DestinationUri");
     from("URI2").to("DestinationUri");
     from("URI3").to("DestinationUri");
+
+
+# layers
+## Stream layer
+
+    from -> to 
+                -> by 
+                -> as
+                -> filter 
+                -> sort
+                
+
+## Exception layer                
+
++ not executed
++ executed, Failed
+
+
+## Information Layer
+    
++ info
++ log
++ warning
++ error

@@ -116,6 +116,14 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
 
 + not executed
 + executed, Failed
++ queue
+    + config    
+    + element
+    + source: from/to
+    + sorting
+    + filtering
+    + assigment
+    + function
 
 
 ## Information / Message / log Layer
@@ -123,3 +131,13 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
 + info
 + warning
 + error
+
+
+
+## Code for layers
+
+    q
+    q.config
+    q.meta
+    q.info
+    q.exception

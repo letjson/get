@@ -19,7 +19,11 @@ ograniczajac skutki niezaladowanych plikow/funkcji/elementow DOM
 + sort (up|date|time)
 + filter (xpath|file|exp)
 + msg(info|warning|error|log)
++ limit (10)
 
+
+# Graph
+reprezentacja graifczna tych zapytan w svg
 
 # Local function
 

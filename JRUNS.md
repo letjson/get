@@ -6,6 +6,11 @@ przyklad jak mozna wykorzystac zapis podobny do streamowania/routowania
     file/http -> DOM-xpath -> Javascript (local function)/ (external file)
 
 
+Rozwiazanie pozwala na kontrolowanie kazdego elemetnu
+pozwalajac na uruchomienie w czasie, gdy wszystko juz zostalo zaladowane
+ograniczajac skutki niezaladowanych plikow/funkcji/elementow DOM
+
+
 # Local function
 
 JS-script

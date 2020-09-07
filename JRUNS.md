@@ -10,6 +10,16 @@ Rozwiazanie pozwala na kontrolowanie kazdego elemetnu
 pozwalajac na uruchomienie w czasie, gdy wszystko juz zostalo zaladowane
 ograniczajac skutki niezaladowanych plikow/funkcji/elementow DOM
 
+# Commands
+    
++ from (source)
++ to (source)
++ by (function for processing between)
++ as (datamodel to use)
++ sort (up|date|time)
++ filter (xpath|file|exp)
++ msg(info|warning|error|log)
+
 
 # Local function
 
@@ -56,3 +66,7 @@ JSON-config
         .filter()
         .xpath("/order[not(@test)]")
         .to("jms:queue:order")
+
+
+SpringRouteBuilder
+https://access.redhat.com/node/2583501/fluent%20builders/Fluent%20Builders

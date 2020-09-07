@@ -52,5 +52,8 @@ JSON-config
         .to("jms :aQueue");
         
         from("file:data/inbox")
-.filter().xpath("/order[not(@test)]")
-.to("jms:queue:order")
+        
+        
+       from("file:c:\dir") 
+    .filter().xpath("/order[not(@test)]")
+    .to("jms:queue:order")

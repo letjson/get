@@ -101,6 +101,8 @@ In both of these examples, exchanges from each of the input endpoints, URI1, URI
 + name
 + version
 + description
++ url docs
++ url git
 
 
 ## Stream / Config layer
@@ -175,4 +177,21 @@ moze byc uzupelniany in.config - jako objekt json
 Moze byc jako objekt po wykonaniu wykorzytsany do dalszego przetwarzania
 
     out2 = new jRuns(out.all);
+    
+## Example 1
+
+    in.config
+        + from
+    
+    in1 = in
+    in1.config
+        + to 
+        + by 
+        
+    in2 = in
+    in2.config
+        + to 
+        + by 
+        
+    out = new jRuns(in);
     

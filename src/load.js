@@ -13,6 +13,29 @@ var Load = function (cfg) {
     //to be called from the file, location is the location to
     //insert the <script> element
 
+    this.cfg = {};
+    this.cfg.env = {};
+    this.cfg.env_id = 0;
+    this.cfg.domain = {};
+    this.cfg.target = 'body';
+    this.cfg.delay = 0;
+    this.cfg.cache = 1;
+    this.cfg.replace = 0;
+    this.cfg.success = 0;
+    this.cfg.error = 0;
+
+    if(!isEmpty(cfg)) {
+        if(!isEmpty(cfg.env)) this.cfg.env = cfg.env;
+        if(!isEmpty(cfg.env_id)) this.cfg.env_id = cfg.env_id;
+        if(!isEmpty(cfg.domain)) this.cfg.domain = cfg.domain;
+        if(!isEmpty(cfg.target)) this.cfg.target = cfg.target;
+        if(!isEmpty(cfg.delay)) this.cfg.delay = cfg.delay;
+        if(!isEmpty(cfg.cache)) this.cfg.cache = cfg.cache;
+        if(!isEmpty(cfg.replace)) this.cfg.replace = cfg.replace;
+        if(!isEmpty(cfg.success)) success = cfg.success;
+        if(!isEmpty(cfg.error)) error = cfg.error;
+    }
+
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         //throw new TypeError('Object success called on non-object');
         success = function (data) {
@@ -29,29 +52,6 @@ var Load = function (cfg) {
     this.success = success;
     this.error = error;
 
-
-    this.cfg = {};
-    this.cfg.env = {};
-    this.cfg.env_id = 0;
-    this.cfg.domain = {};
-    this.cfg.target = 'body';
-    this.cfg.delay = 0;
-    this.cfg.cache = 1;
-    this.cfg.replace = 0;
-    this.cfg.success = 0;
-    this.cfg.error = 0;
-
-    if(!isEmpty(cfg)) {
-        if(isEmpty(cfg.env)) this.cfg.env = cfg.env;
-        if(isEmpty(cfg.env_id)) this.cfg.env_id = cfg.env_id;
-        if(isEmpty(cfg.domain)) this.cfg.domain = cfg.domain;
-        if(isEmpty(cfg.target)) this.cfg.target = cfg.target;
-        if(isEmpty(cfg.delay)) this.cfg.delay = cfg.delay;
-        if(isEmpty(cfg.cache)) this.cfg.cache = cfg.cache;
-        if(isEmpty(cfg.replace)) this.cfg.replace = cfg.replace;
-        if(isEmpty(cfg.success)) this.cfg.success = cfg.success;
-        if(isEmpty(cfg.error)) this.cfg.error = cfg.error;
-    }
 
 
     var self = this;

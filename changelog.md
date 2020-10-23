@@ -18,3 +18,5 @@ json
 move library files to apifunc, such a basic function for many different languages 
 # v1.1.1 
 New File solution for fast loading depends of files tree structure 
+# v1.2.0 
+Config. not variable on the defining the class: new Load(cfg) 

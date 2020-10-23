@@ -1,13 +1,12 @@
 // load.js
 jlogs('exist?', 'Load');
 /**
- * @param target
- * @param success
- * @param error
+ *
+ * @param cfg
  * @returns {Load}
  * @constructor
  */
-var Load = function (target, success, error) {
+var Load = function (cfg) {
     var f = 'Load';
 
     //url is URL of external file, success is the code
@@ -35,16 +34,30 @@ var Load = function (target, success, error) {
     this.cfg.env = {};
     this.cfg.env_id = 0;
     this.cfg.domain = {};
-    this.cfg.target = target;
+    this.cfg.target = 'body';
     this.cfg.delay = 0;
     this.cfg.cache = 1;
     this.cfg.replace = 0;
+    this.cfg.success = 0;
+    this.cfg.error = 0;
+
+    if(!isEmpty(cfg)) {
+        if(isEmpty(cfg.env)) this.cfg.env = cfg.env;
+        if(isEmpty(cfg.env_id)) this.cfg.env_id = cfg.env_id;
+        if(isEmpty(cfg.domain)) this.cfg.domain = cfg.domain;
+        if(isEmpty(cfg.target)) this.cfg.target = cfg.target;
+        if(isEmpty(cfg.delay)) this.cfg.delay = cfg.delay;
+        if(isEmpty(cfg.cache)) this.cfg.cache = cfg.cache;
+        if(isEmpty(cfg.replace)) this.cfg.replace = cfg.replace;
+        if(isEmpty(cfg.success)) this.cfg.success = cfg.success;
+        if(isEmpty(cfg.error)) this.cfg.error = cfg.error;
+    }
 
 
     var self = this;
 
 
-    this.env = function (domain, name, callback) {
+    self.env = function (domain, name, callback) {
         self.cfg.env_id++;
         self.cfg.env[self.cfg.env_id] = {};
         self.cfg.env[self.cfg.env_id]['domain'] = domain;

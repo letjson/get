@@ -2888,7 +2888,7 @@ var jloads = function (cfg) {
         this.cfg.area = cfg.area;
 
     if (isEmpty(cfg.selector))
-        this.cfg.selector = selector;
+        this.cfg.selector = "body";
     else
         this.cfg.selector = cfg.selector;
 
@@ -2917,7 +2917,7 @@ var jloads = function (cfg) {
 
     if (isEmpty(cfg.jloads)) {
         this.jloads = new Load({
-            "selector": selector,
+            "selector": this.cfg.selector,
             "success": success,
             "error": error,
         });

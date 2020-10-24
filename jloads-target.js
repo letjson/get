@@ -425,7 +425,6 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
     var f = 'jloadsTarget getOne';
 
     jlogs(f, ' load.getTarget() ', load.getTarget());
-    jlogs(f, ' load.isReplaceOn() ', load.isReplaceOn());
 
     // TODO: move to class E for smart load content on not existing DOM elements
     // if (selector === 'head' || !isEmpty(load.getTarget())) {
@@ -434,8 +433,9 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
     if (isArray(url) && Object.keys(url).length === 1 && isString(url[0])) {
         url = url[0];
+        load.replaceOn();
     }
-
+    jlogs(f, ' load.isReplaceOn() ', load.isReplaceOn());
     jlogs(f, ' url 2 ', url, typeof url, isString(url));
 
     if (isString(url)) {

@@ -2900,8 +2900,8 @@ function urlLoad(self, json, success, error) {
 
             }
         }
-
     }
+    return true;
 }
 // jloads.js
 jlogs('exist?', 'jloads');

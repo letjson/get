@@ -27,8 +27,13 @@
         };
 
         // Declaration
-        var l = new Load('body', success, error);
-
+        // var l = new Load('body', success, error);
+        var jl = new Load({
+            selector: "body",
+            success: success,
+            error: error,
+            replace: 1,
+        });
         // Environment
         // l.env("//localhost:80/", "local", function () {
         //     return window.location.hostname === 'localhost';
@@ -39,17 +44,21 @@
         console.log('l.cfg', l.cfg);
 
 
-        // const delayed = JSON.parse(JSON.stringify(loads));
-        // const delayed = Object.assign({}, loads);
-        var delayed = new Load('body', success, error);
-        delayed.delay(100);
-
         // Declaration for Media
-        // const media = Object.assign({}, loads);
-        var media = new Load('body', success, error);
-        media.target('.for_image').replaceOn();
-        // console.log('media.cfg', media.cfg);
-        // l.domain("//get.jloads.com/");
+        var color = new Load({
+            selector: "body",
+            success: success,
+            error: error,
+        });
+
+        //var media = new Load('body', success, error);
+        var media = new Load({
+            selector: "body",
+            target: "for_image",
+            success: success,
+            error: error,
+            replace: 1,
+        });
 
     </script>
 

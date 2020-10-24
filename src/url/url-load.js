@@ -23,12 +23,18 @@ function urlLoad(self, json, success, error) {
 
             for (var selector in list) {
 
-                if(selector !== 'head' && selector !== 'body' && (selector.indexOf('#') === 0 || selector.indexOf('.') === 0)){
+                if (selector !== 'head' && selector !== 'body' && (selector.indexOf('#') === 0 || selector.indexOf('.') === 0)) {
                     getTarget(selector).innerHTML = '';
                 }
 
-                var l = new Load(selector, success, error); //.domain('localhost');
-                l.replaceOn();
+                // var l = new Load(selector, success, error); //.domain('localhost');
+                var l = new Load({
+                    selector: this.cfg.selector,
+                    success: success,
+                    error: error,
+                    replace: 1,
+                });
+
                 // console.log(f, '!!!4 l: ', l, self.mapFunction);
                 console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
 

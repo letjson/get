@@ -29,7 +29,7 @@ function urlLoad(self, json, success, error) {
 
                 // var l = new Load(selector, success, error); //.domain('localhost');
                 var l = new Load({
-                    selector: selector,
+                    target: selector,
                     success: success,
                     error: error,
                     replace: 1,

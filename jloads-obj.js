@@ -679,8 +679,13 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         // waitForSelector(url, selector, mapFunction, success, error)
         // waitForSelector(url, selector, mapFunction, success, error);
 
-        var l = new Load(selector, success, error);
-        l.replaceOff();
+        var l = new Load({
+            target: selector,
+            success: success,
+            error: error,
+            replace: 0,
+        });
+        //l.replaceOff();
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
         // if (elem) {
         // callback executed when canvas was found
@@ -691,7 +696,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         //jlogs(funcName, url, elem);
         l[funcName](url);
         // }
-        
+
 
 
     } else {
@@ -1548,8 +1553,12 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
 
     var i = Object.keys(json)[0];
     jlogs('jloadsTarget getOne ', ' i ', i);
-    var jloads = new Load(i, success, error); //.domain('localhost');
-
+    var jloads = new Load({
+        target: i,
+        success: success,
+        error: error,
+        replace: 1,
+    });
     if (Object.keys(json).length === 1) {
         getOne(jloads, json[i], i, mapFunction, success, error)
     } else {

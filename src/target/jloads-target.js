@@ -42,8 +42,12 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
 
     var i = Object.keys(json)[0];
     jlogs('jloadsTarget getOne ', ' i ', i);
-    var jloads = new Load(i, success, error); //.domain('localhost');
-
+    var jloads = new Load({
+        target: i,
+        success: success,
+        error: error,
+        replace: 1,
+    });
     if (Object.keys(json).length === 1) {
         getOne(jloads, json[i], i, mapFunction, success, error)
     } else {

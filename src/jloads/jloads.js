@@ -142,7 +142,12 @@ var jloads = function (cfg) {
 
 
             var success1 = function () {
-                var jloads2 = new Load('head');
+                var jloads2 = new Load({
+                    target: "head",
+                    success: success,
+                    error: error,
+                    //replace: 1,
+                });
 
                 var f = 'jloads.file';
                 // jlogs(f, ' success json[url]', json[url]);
@@ -155,7 +160,12 @@ var jloads = function (cfg) {
                 }
             }
 
-            var jloads1 = new Load('head', success1);
+            var jloads1 = new Load({
+                target: "head",
+                success: success,
+                error: error,
+                //replace: 1,
+            });
 
             var funcName = getFunctionName(url, self.mapFunction, 'self.file');
             jlogs(f, ' funcName ', funcName, url);

@@ -21,7 +21,12 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
     console.log(f, ' elem ', elem);
     // jlogs(f, ' elem ', elem);
 
-    var l = new Load(selector, success, error);
+    var l = new Load({
+        target: selector,
+        success: success,
+        error: error,
+       // replace: 1,
+    });
 
     if (!isEmpty(elem)) {
         // loadContentByUrls(jloads, object, mapFunction, success, error);
@@ -34,7 +39,12 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
     } else {
         waitFor(selector, 40, function (i) {
             // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-            var l = new Load(i, success, error);
+            var l = new Load({
+                target: i,
+                success: success,
+                error: error,
+                //replace: 1,
+            });
             loadContentByUrls(l, url, mapFunction, success, error);
         });
         // error(elem);

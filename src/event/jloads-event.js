@@ -34,7 +34,12 @@ if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, er
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     // jlogs('jloadsEvent selectorEvent ', ' elem ', elem, !isEmpty(elem));
     jlogs('jloadsEvent selectorEvent selector', selector);
-    var jloads = new Load(selector, success, error);
+    var jloads = new Load({
+        target: selector,
+        success: success,
+        error: error,
+        //replace: 1,
+    });
 
     if (Object.keys(json).length === 1) {
         var selector = Object.keys(json)[0];

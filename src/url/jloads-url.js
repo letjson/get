@@ -39,7 +39,12 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     // jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
     jlogs('jloadsUrl getOne ', ' i ', i);
-    var jloads = new Load(i, success, error);
+    var jloads = new Load({
+        target: i,
+        success: success,
+        error: error,
+        //replace: 1,
+    });
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];

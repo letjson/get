@@ -26,7 +26,12 @@ function waitForSelector(url, selector, mapFunction, success, error) {
         var observer = new MutationObserver(function (mutations, me) {
             // `mutations` is an array of mutations that occurred
             // `me` is the MutationObserver instance
-            var l = new Load(selector, success, error);
+            var l = new Load({
+                target: selector,
+                success: success,
+                error: error,
+                //replace: 1,
+            });
 
             // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
             // if (elem) {

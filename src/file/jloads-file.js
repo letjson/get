@@ -39,7 +39,12 @@ if (typeof jloadsFile !== 'function') waitForSelector = function (json, success,
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     var url = Object.keys(json)[0];
     jlogs('jloadsFile getOne ', ' url ', url);
-    var jloads = new Load(i, success, error);
+    var jloads = new Load({
+        target: i,
+        success: success,
+        error: error,
+        //replace: 1,
+    });
 
     console.log('!!!', Object.keys(json), json[url], url);
     if (Object.keys(json).length === 1) {

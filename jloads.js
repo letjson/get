@@ -652,7 +652,12 @@ if (typeof jloadsEvent !== 'function') jloadsEvent = function (json, success, er
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     // jlogs('jloadsEvent selectorEvent ', ' elem ', elem, !isEmpty(elem));
     jlogs('jloadsEvent selectorEvent selector', selector);
-    var jloads = new Load(selector, success, error);
+    var jloads = new Load({
+        target: selector,
+        success: success,
+        error: error,
+        //replace: 1,
+    });
 
     if (Object.keys(json).length === 1) {
         var selector = Object.keys(json)[0];
@@ -841,7 +846,12 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
     console.log(f, ' elem ', elem);
     // jlogs(f, ' elem ', elem);
 
-    var l = new Load(selector, success, error);
+    var l = new Load({
+        target: selector,
+        success: success,
+        error: error,
+       // replace: 1,
+    });
 
     if (!isEmpty(elem)) {
         // loadContentByUrls(jloads, object, mapFunction, success, error);
@@ -854,7 +864,12 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
     } else {
         waitFor(selector, 40, function (i) {
             // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
-            var l = new Load(i, success, error);
+            var l = new Load({
+                target: i,
+                success: success,
+                error: error,
+                //replace: 1,
+            });
             loadContentByUrls(l, url, mapFunction, success, error);
         });
         // error(elem);
@@ -1016,7 +1031,12 @@ function waitForSelector(url, selector, mapFunction, success, error) {
         var observer = new MutationObserver(function (mutations, me) {
             // `mutations` is an array of mutations that occurred
             // `me` is the MutationObserver instance
-            var l = new Load(selector, success, error);
+            var l = new Load({
+                target: selector,
+                success: success,
+                error: error,
+                //replace: 1,
+            });
 
             // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
             // if (elem) {
@@ -1625,8 +1645,13 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         // waitForSelector(url, selector, mapFunction, success, error)
         // waitForSelector(url, selector, mapFunction, success, error);
 
-        var l = new Load(selector, success, error);
-        l.replaceOff();
+        var l = new Load({
+            target: selector,
+            success: success,
+            error: error,
+            replace: 0,
+        });
+        //l.replaceOff();
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
         // if (elem) {
         // callback executed when canvas was found
@@ -1637,7 +1662,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         //jlogs(funcName, url, elem);
         l[funcName](url);
         // }
-        
+
 
 
     } else {
@@ -2808,7 +2833,12 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     // jlogs('jloadsUrl getOne ', ' elem ', elem, !isEmpty(elem));
     jlogs('jloadsUrl getOne ', ' i ', i);
-    var jloads = new Load(i, success, error);
+    var jloads = new Load({
+        target: i,
+        success: success,
+        error: error,
+        //replace: 1,
+    });
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];
@@ -2854,7 +2884,7 @@ function urlLoad(self, json, success, error) {
 
                 // var l = new Load(selector, success, error); //.domain('localhost');
                 var l = new Load({
-                    selector: selector,
+                    target: selector,
                     success: success,
                     error: error,
                     replace: 1,
@@ -3017,7 +3047,12 @@ var jloads = function (cfg) {
 
 
             var success1 = function () {
-                var jloads2 = new Load('head');
+                var jloads2 = new Load({
+                    target: "head",
+                    success: success,
+                    error: error,
+                    //replace: 1,
+                });
 
                 var f = 'jloads.file';
                 // jlogs(f, ' success json[url]', json[url]);
@@ -3030,7 +3065,12 @@ var jloads = function (cfg) {
                 }
             }
 
-            var jloads1 = new Load('head', success1);
+            var jloads1 = new Load({
+                target: "head",
+                success: success,
+                error: error,
+                //replace: 1,
+            });
 
             var funcName = getFunctionName(url, self.mapFunction, 'self.file');
             jlogs(f, ' funcName ', funcName, url);

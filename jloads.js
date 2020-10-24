@@ -2923,9 +2923,9 @@ var jloads = function (cfg) {
 
     if (isEmpty(cfg.jloads)) {
         this.jloads = new Load({
-            "selector": this.cfg.selector,
-            "success": success,
-            "error": error,
+            target: this.cfg.selector,
+            success: success,
+            error: error,
         });
     } else {
         this.jloads = cfg.jloads;

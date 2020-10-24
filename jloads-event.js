@@ -1925,6 +1925,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
             /// and load isObject list , {"page/text.html":["menu/radio.html"]},
 
             var afterLoaded = function () {
+                jlogs(f, 'afterLoaded ', selector, list[url]);
 
                 var l = new Load({
                     target: selector,

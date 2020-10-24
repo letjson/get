@@ -102,8 +102,16 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
             /// Wait for first isObject url5 , page/text.html,
             /// and load isObject list , {"page/text.html":["menu/radio.html"]},
-            getOne(load, url, selector, mapFunction, function () {
-                getOne(load, list[url], selector, mapFunction, success, error);
+
+            var afterLoaded = function () {
+
+                var l = new Load({
+                    target: selector,
+                    success: success,
+                    error: error,
+                    replace: 0,
+                });
+                getOne(l, list[url], selector, mapFunction);
                 /*
                 for (var i in list[url]) {
                     var object = list[i];
@@ -118,7 +126,15 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                 }//for
                 */
 
-            }, error);
+            };
+
+            var load = new Load({
+                target: selector,
+                success: afterLoaded,
+                error: error,
+                replace: 1,
+            });
+            getOne(load, url, selector, mapFunction);
 
         }
     }

@@ -48,7 +48,7 @@ function includeHtml(url, target, replace, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadHtmlByStatus(this.status, this.responseText, target, replace, success, error);
+                loadHtmlByStatus(this.status, this.responseText, target, replace, success, error, url);
 
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);

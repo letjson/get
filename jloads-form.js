@@ -427,7 +427,7 @@ function includeHtml(url, target, replace, success, error) {
 
             if (this.readyState == 4) {
                 // document.onload =
-                loadHtmlByStatus(this.status, this.responseText, target, replace, success, error);
+                loadHtmlByStatus(this.status, this.responseText, target, replace, success, error, url);
 
                 /* Remove the attribute, and call this function once more: */
                 // includeHtml(url, success, error);
@@ -1340,10 +1340,10 @@ jlogs('exist?', 'loadHtmlByStatus');
  * @returns {*}
  */
 // loadHtmlByStatus(this.status, this.responseText, target, replace, success, error);
-function loadHtmlByStatus(status, responseText, target, replace, success, error) {
+function loadHtmlByStatus(status, responseText, target, replace, success, error, url) {
     var f = 'loadHtmlByStatus';
 
-    jlogs(f, ' includeHtml waiting for DOM tree ', target);
+    jlogs(f, ' includeHtml waiting for DOM tree: ', target, url);
 
     if (status == 200) {
         jlogs(f, ' includeHtml loaded: ', target);

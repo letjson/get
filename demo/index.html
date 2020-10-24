@@ -29,7 +29,7 @@
         // Declaration
         // var l = new Load('body', success, error);
         var jl = new Load({
-            selector: "body",
+            target: "body",
             success: success,
             error: error,
             replace: 1,
@@ -46,14 +46,13 @@
 
         // Declaration for Media
         var color = new Load({
-            selector: "body",
+            target: "body",
             success: success,
             error: error,
         });
 
         //var media = new Load('body', success, error);
         var media = new Load({
-            selector: "body",
             target: ".for_image",
             success: success,
             error: error,

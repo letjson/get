@@ -22,14 +22,13 @@
         // const media = Object.assign({}, jloads);
         // var color = new Load('body', success, error);
         var color = new Load({
-            selector: "body",
+            target: "body",
             success: success,
             error: error,
         });
         //var media = new Load('body', success, error);
         //media.target('.for_image').replaceOn();
         var media = new Load({
-            selector: "body",
             target: ".for_image",
             success: success,
             error: error,

@@ -19,7 +19,7 @@
         // Declaration
         // var jl = new Load('body', success, error);
         var jl = new Load({
-            selector: "body",
+            target: "body",
             success: success,
             error: error,
         });
@@ -34,7 +34,6 @@
 
         // Declaration for Media
         var media = new Load({
-            selector: "body",
             target: ".for_image",
             success: success,
             error: error,

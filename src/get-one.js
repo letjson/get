@@ -72,8 +72,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
     } else {
         var list = url;
-        jlogs(f, ' url4 ', url);
-        jlogs(f, ' list ', list);
+        jlogs(f, ' list from url4 ', list);
         jlogs(f, ' list isArray', isArray(list));
         jlogs(f, ' list isObject', isObject(list));
 
@@ -98,10 +97,13 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
             url = Object.keys(list)[0];
             jlogs(f, 'isObject url5 ', url);
             jlogs(f, 'isObject list ', list);
+            jlogs(f, 'isObject list[url] ', list[url]);
             jlogs(f, 'isObject selector ', selector);
 
+            /// Wait for first isObject url5 , page/text.html,
+            /// and load isObject list , {"page/text.html":["menu/radio.html"]},
             getOne(load, url, selector, mapFunction, function () {
-                for (var i in list) {
+                for (var i in list[url]) {
                     var object = list[i];
                     jlogs(f, 'isObject url6 i ', i);
                     jlogs(f, 'isObject url6 object ', object);

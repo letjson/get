@@ -1621,7 +1621,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
     if (isArray(url) && Object.keys(url).length === 1 && isString(url[0])) {
         url = url[0];
-        load.replaceOn();
+        //load.replaceOn();
     }
     jlogs(f, ' load.isReplaceOn() ', load.isReplaceOn());
     jlogs(f, ' url 2 ', url, typeof url, isString(url));
@@ -1680,7 +1680,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                     error: error,
                     replace: 0,
                 });
-                getOne(l, list[url], selector, mapFunction);
+                getOne(l, list[url], selector, mapFunction, success, error);
             };
 
             var load = new Load({
@@ -1689,7 +1689,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                 error: error,
                 replace: 1,
             });
-            getOne(load, url, selector, mapFunction);
+            getOne(load, url, selector, mapFunction, success, error);
 
         }
     }

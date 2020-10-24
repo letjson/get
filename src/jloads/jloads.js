@@ -3,36 +3,65 @@ jlogs('exist?', 'jloads');
 
 /**
  *
- * @param selector
+ * @param cfg
  * @returns {jloads}
  */
-var jloads = function (selector) {
+var jloads = function (cfg) {
     var f = 'jloads';
 
+    // SETTINGS
     this.cfg = {};
-    this.cfg.area = document;
-    this.cfg.selector = selector;
-    this.cfg.exist = false;
 
+    if (isEmpty(cfg.area))
+        this.cfg.area = document;
+    else
+        this.cfg.area = cfg.area;
+
+    if (isEmpty(cfg.selector))
+        this.cfg.selector = selector;
+    else
+        this.cfg.selector = cfg.selector;
+
+    if (isEmpty(cfg.exist))
+        this.cfg.exist = false;
+    else
+        this.cfg.exist = cfg.exist;
+
+    if (isEmpty(cfg.success)) {
+        var success = function (data) {
+            console.log(f, ' loaded ', data);
+        };
+    } else {
+        success = cfg.success;
+    }
+
+    if (isEmpty(cfg.error)) {
+        var error = function (data) {
+            console.error(f, ' !loaded ', data);
+        };
+    } else {
+        error = cfg.error;
+    }
+    if (isEmpty(cfg.jloads)) {
+        this.jloads = new Load({
+            "selector": selector,
+            "success": success,
+            "error": error,
+        });
+    } else {
+        this.jloads = cfg.jloads;
+    }
+
+    // PRIVATE
     var self = this;
-
 
     self.selector = function (selector) {
         self.cfg.selector = selector;
         return self;
     }
 
-    var success = function (data) {
-        console.log(f, ' loaded ', data);
-    };
-
-    var error = function (data) {
-        console.error(f, ' !loaded ', data);
-    };
 
     self.mapFunction = map;
-
-    self.jloads = new Load(selector, success, error); //.domain('localhost');
 
 
     self.form = function (json, success, error) {
@@ -167,10 +196,10 @@ var jloads = function (selector) {
         // if (Object.keys(json).length === 1) {
         //     getOne(self.jloads, json[i], i, self.mapFunction, success, error)
         // } else {
-            for (var i in json) {
-                var object = json[i];
-                getOne(self.jloads, object, i, self.mapFunction, success, error)
-            }
+        for (var i in json) {
+            var object = json[i];
+            getOne(self.jloads, object, i, self.mapFunction, success, error)
+        }
         // }
         // success(json);
 

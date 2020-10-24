@@ -13,6 +13,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
     var f = 'jloadsTarget getOne';
 
     jlogs(f, ' load.getTarget() ', load.getTarget());
+    jlogs(f, ' load.isReplaceOn() ', load.isReplaceOn());
 
     // TODO: move to class E for smart load content on not existing DOM elements
     // if (selector === 'head' || !isEmpty(load.getTarget())) {

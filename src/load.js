@@ -226,7 +226,12 @@ var Load = function (cfg) {
         self.cfg.replace = 1;
         return self;
     };
-
+    self.isReplaceOn = function () {
+        return self.cfg.replace == 1;
+    };
+    self.getReplace = function () {
+        return self.cfg.replace;
+    };
 
     self.loadJs = function (url, target, success, error) {
 

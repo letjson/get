@@ -1610,6 +1610,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
     var f = 'jloadsTarget getOne';
 
     jlogs(f, ' load.getTarget() ', load.getTarget());
+    jlogs(f, ' load.isReplaceOn() ', load.isReplaceOn());
 
     // TODO: move to class E for smart load content on not existing DOM elements
     // if (selector === 'head' || !isEmpty(load.getTarget())) {
@@ -1941,7 +1942,12 @@ var Load = function (cfg) {
         self.cfg.replace = 1;
         return self;
     };
-
+    self.isReplaceOn = function () {
+        return self.cfg.replace == 1;
+    };
+    self.getReplace = function () {
+        return self.cfg.replace;
+    };
 
     self.loadJs = function (url, target, success, error) {
 

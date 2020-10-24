@@ -1118,6 +1118,7 @@ jlogs('exist?', 'loadHtmlByStatus');
  * @param error
  * @returns {*}
  */
+// loadHtmlByStatus(this.status, this.responseText, target, replace, success, error);
 function loadHtmlByStatus(status, responseText, target, replace, success, error) {
     var f = 'loadHtmlByStatus';
 
@@ -1311,12 +1312,14 @@ jlogs('exist?', 'includeHtml');
  * @param error
  * @returns {includeHtml|boolean}
  */
+//includeHtml(self.getEnvUrl(url), self.cfg.target, self.cfg.replace, self.success, self.error);
 function includeHtml(url, target, replace, success, error) {
     var f = 'includeHtml';
 
     if (typeof replace === 'number' && replace === 1) {
         replace = true;
     }
+    jlogs(f, ' replace ', replace);
 
     if (typeof success !== 'function') {
         success = function () {

@@ -2287,7 +2287,7 @@ var Load = function (cfg) {
     };
 
     self.loadHtml = function (url) {
-        jlogs(this.constructor.name, ' self.cfg.target ', self.cfg.target);
+        jlogs(this.constructor.name, ' self.cfg.target ', self.cfg.target, url, typeof url);
 
         if (typeof url === 'object') {
             //log(this.constructor.name, 'obj:', obj);

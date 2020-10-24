@@ -736,6 +736,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
             /// Wait for first isObject url5 , page/text.html,
             /// and load isObject list , {"page/text.html":["menu/radio.html"]},
             getOne(load, url, selector, mapFunction, function () {
+                getOne(load, list[url], selector, mapFunction, success, error);
+                /*
                 for (var i in list[url]) {
                     var object = list[i];
                     jlogs(f, 'isObject url6 i ', i);
@@ -747,6 +749,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                         getOne(load, object[ii], selector, mapFunction, success, error);
                     }
                 }//for
+                */
+
             }, error);
 
         }

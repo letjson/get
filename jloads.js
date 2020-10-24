@@ -2880,6 +2880,7 @@ var jloads = function (cfg) {
 
     // SETTINGS
     this.cfg = {};
+    if (isEmpty(cfg)) cfg = {};
 
     if (isEmpty(cfg.area))
         this.cfg.area = document;
@@ -2896,21 +2897,24 @@ var jloads = function (cfg) {
     else
         this.cfg.exist = cfg.exist;
 
+    var success = null;
     if (isEmpty(cfg.success)) {
-        var success = function (data) {
+        success = function (data) {
             console.log(f, ' loaded ', data);
         };
     } else {
         success = cfg.success;
     }
 
+    var error = null;
     if (isEmpty(cfg.error)) {
-        var error = function (data) {
+        error = function (data) {
             console.error(f, ' !loaded ', data);
         };
     } else {
         error = cfg.error;
     }
+
     if (isEmpty(cfg.jloads)) {
         this.jloads = new Load({
             "selector": selector,

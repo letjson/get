@@ -461,12 +461,12 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         // waitForSelector(url, selector, mapFunction, success, error)
         // waitForSelector(url, selector, mapFunction, success, error);
 
-        var l = new Load({
-            target: selector,
-            success: success,
-            error: error,
-            replace: 0,
-        });
+        // var l = new Load({
+        //     target: selector,
+        //     success: success,
+        //     error: error,
+        //     replace: 0,
+        // });
         //l.replaceOff();
         // var elem = document.querySelectorAll(selector)[0] || document.querySelectorAll(selector);
         // if (elem) {
@@ -476,7 +476,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
         var funcName = getFunctionName(url, mapFunction, f);
         jlogs(f, ' funcName ', funcName);
         //jlogs(funcName, url, elem);
-        l[funcName](url);
+        //l[funcName](url);
+        load[funcName](url);
         // }
 
 

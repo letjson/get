@@ -43,7 +43,7 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
         target: i,
         success: success,
         error: error,
-        //replace: 1,
+        replace: 1,
     });
 
     if (Object.keys(json).length === 1) {

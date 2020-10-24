@@ -46,6 +46,8 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
         replace: 1,
     });
 
+    jlogs(f, ' load.isReplaceOn() ', jloads.isReplaceOn());
+
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];
         getOne(jloads, json[i], i, mapFunction, success, error)

@@ -37,6 +37,7 @@ function urlLoad(self, json, success, error) {
 
                 // console.log(f, '!!!4 l: ', l, self.mapFunction);
                 console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
+                jlogs(f, ' load.isReplaceOn() ', l.isReplaceOn());
 
                 var url = list[selector];
                 console.log(f, '!!!4 url: ', url);

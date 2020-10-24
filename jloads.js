@@ -2846,6 +2846,8 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
         replace: 1,
     });
 
+    jlogs(f, ' load.isReplaceOn() ', jloads.isReplaceOn());
+
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];
         getOne(jloads, json[i], i, mapFunction, success, error)
@@ -2898,6 +2900,7 @@ function urlLoad(self, json, success, error) {
 
                 // console.log(f, '!!!4 l: ', l, self.mapFunction);
                 console.log(f, '!!!4 selector: ', selector, l, self.mapFunction);
+                jlogs(f, ' load.isReplaceOn() ', l.isReplaceOn());
 
                 var url = list[selector];
                 console.log(f, '!!!4 url: ', url);

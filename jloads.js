@@ -1704,6 +1704,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                     jlogs(f, 'isObject url6 object ', object);
                     for (var ii in object) {
                         jlogs(f, 'isObject url5 object[ii], ii ', object[ii], ii);
+
+                        load.replaceOn();
                         getOne(load, object[ii], selector, mapFunction, success, error);
                     }
                 }//for

@@ -1389,7 +1389,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
         jlogs(f, ' wait for element selector ', selector);
         jlogs(f, ' wait for element url ', url);
         // console.log(f, ' wait for element target ', load.getTarget(selector));
-        var funcName = getFunctionName(url, mapFunction, f);
+        var funcName = getFunctionName(url, map, f);
         jlogs(f, ' funcName ', funcName);
         //jlogs(funcName, url, elem);
         //l[funcName](url);
@@ -1412,7 +1412,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
                 jlogs(f, 'isArray selector ', selector);
 
                 getOne(new Load({
-                        mapFunction: mapFunction,
+                        mapFunction: map,
                         url: url,
                         target: selector,
                         success: load.success,
@@ -1441,7 +1441,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
                 jlogs(f, 'afterLoaded ', selector, list[url]);
 
                 getOne(new Load({
-                        mapFunction: mapFunction,
+                        mapFunction: map,
                         url: list[url],
                         target: selector,
                         success: load.success,
@@ -1452,7 +1452,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
             };
 
             getOne(new Load({
-                    mapFunction: mapFunction,
+                    mapFunction: map,
                     url: url,
                     target: load.selector,
                     success: afterLoaded,

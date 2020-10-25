@@ -9,11 +9,13 @@
  * @param error
  */
 jlogs('exist?', 'getOne');
-if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFunction, success, error) {
+// if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFunction, success, error) {
+if (typeof getOne !== 'function') getOne = function (load) {
     var f = 'jloadsTarget getOne';
 
     jlogs(f, ' load.getTarget() ', load.getTarget());
-
+    var url = load.cfg.url;
+    var selector = load.cfg.target;
     // TODO: move to class E for smart load content on not existing DOM elements
     // if (selector === 'head' || !isEmpty(load.getTarget())) {
     jlogs(f, ' selector ', selector);
@@ -57,8 +59,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                         mapFunction: mapFunction,
                         url: url,
                         target: selector,
-                        success: success,
-                        error: error,
+                        success: load.success,
+                        error: load.error,
                         replace: 0,
                     })
                 );
@@ -86,8 +88,8 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                         mapFunction: mapFunction,
                         url: list[url],
                         target: selector,
-                        success: success,
-                        error: error,
+                        success: load.success,
+                        error: load.error,
                         replace: 0,
                     })
                 );
@@ -96,7 +98,7 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
             getOne(new Load({
                     mapFunction: mapFunction,
                     url: url,
-                    target: selector,
+                    target: load.selector,
                     success: afterLoaded,
                     error: error,
                     replace: 1,

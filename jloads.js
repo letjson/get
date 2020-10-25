@@ -1737,6 +1737,7 @@ var Load = function (cfg) {
     if (!isEmpty(cfg.success)) success = cfg.success;
     if (!isEmpty(cfg.error)) error = cfg.error;
 
+    console.log(f, ' cfg updated:', this.cfg);
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         //throw new TypeError('Object success called on non-object');

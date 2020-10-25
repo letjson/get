@@ -1707,7 +1707,6 @@ jlogs('exist?', 'Load');
  */
 var Load = function (cfg) {
     var f = 'Load';
-
     //url is URL of external file, success is the code
     //to be called from the file, location is the location to
     //insert the <script> element
@@ -1723,17 +1722,21 @@ var Load = function (cfg) {
     this.cfg.success = 0;
     this.cfg.error = 0;
 
-    if(!isEmpty(cfg)) {
-        if(!isEmpty(cfg.env)) this.cfg.env = cfg.env;
-        if(!isEmpty(cfg.env_id)) this.cfg.env_id = cfg.env_id;
-        if(!isEmpty(cfg.domain)) this.cfg.domain = cfg.domain;
-        if(!isEmpty(cfg.target)) this.cfg.target = cfg.target;
-        if(!isEmpty(cfg.delay)) this.cfg.delay = cfg.delay;
-        if(!isEmpty(cfg.cache)) this.cfg.cache = cfg.cache;
-        if(!isEmpty(cfg.replace)) this.cfg.replace = cfg.replace;
-        if(!isEmpty(cfg.success)) success = cfg.success;
-        if(!isEmpty(cfg.error)) error = cfg.error;
+    if (isEmpty(cfg)) {
+        cfg = {};
     }
+    console.log(f, ' cfg ', cfg);
+
+    if (!isEmpty(cfg.env)) this.cfg.env = cfg.env;
+    if (!isEmpty(cfg.env_id)) this.cfg.env_id = cfg.env_id;
+    if (!isEmpty(cfg.domain)) this.cfg.domain = cfg.domain;
+    if (!isEmpty(cfg.target)) this.cfg.target = cfg.target;
+    if (!isEmpty(cfg.delay)) this.cfg.delay = cfg.delay;
+    if (!isEmpty(cfg.cache)) this.cfg.cache = cfg.cache;
+    if (!isEmpty(cfg.replace)) this.cfg.replace = cfg.replace;
+    if (!isEmpty(cfg.success)) success = cfg.success;
+    if (!isEmpty(cfg.error)) error = cfg.error;
+
 
     if (typeof success !== 'function' && (typeof success !== 'object' || success === null)) {
         //throw new TypeError('Object success called on non-object');
@@ -1750,7 +1753,6 @@ var Load = function (cfg) {
 
     this.success = success;
     this.error = error;
-
 
 
     var self = this;
@@ -1947,7 +1949,7 @@ var Load = function (cfg) {
 
                 try {
                     if (last) {
-                        includeScript(script_url, target,  self.cfg.replace, success, error);
+                        includeScript(script_url, target, self.cfg.replace, success, error);
                     } else {
                         includeScript(script_url, target, self.cfg.replace);
                     }
@@ -1958,7 +1960,7 @@ var Load = function (cfg) {
                 }
             }
         } else {
-            includeScript(self.getEnvUrl(url), target,  self.cfg.replace, success, error);
+            includeScript(self.getEnvUrl(url), target, self.cfg.replace, success, error);
             // err('apiunit obj: is not object:', obj);
         }
 
@@ -1994,14 +1996,14 @@ var Load = function (cfg) {
                 jlogs(this.constructor.name, ' loadCss script_url ', script_url);
 
                 try {
-                    var exe = includeStyle(script_url, target,  self.cfg.replace, success, error);
+                    var exe = includeStyle(script_url, target, self.cfg.replace, success, error);
                     jlogs(this.constructor.name, ' loadCss exe ', exe);
                 } catch (e) {
                     err('!load CSS ', script_url, e);
                 }
             }
         } else {
-            includeStyle(self.getEnvUrl(url), target,  self.cfg.replace, success, error);
+            includeStyle(self.getEnvUrl(url), target, self.cfg.replace, success, error);
             // err('apiunit obj: is not object:', obj);
         }
 

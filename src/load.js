@@ -15,23 +15,30 @@ var Load = function (cfg) {
     this.cfg = {};
     this.cfg.env = {};
     this.cfg.env_id = 0;
+    this.cfg.json = {};
     this.cfg.domain = {};
     this.cfg.target = 'body';
+    this.cfg.url = '';
+    this.cfg.mapFunction = {};
     this.cfg.delay = 0;
     this.cfg.cache = 1;
     this.cfg.replace = 0;
     this.cfg.success = 0;
     this.cfg.error = 0;
 
+
     if (isEmpty(cfg)) {
         cfg = {};
     }
-    console.log(f, ' cfg ', cfg);
+    console.log(f, ' cfg input:', cfg, !isEmpty(cfg.target));
 
     if (!isEmpty(cfg.env)) this.cfg.env = cfg.env;
     if (!isEmpty(cfg.env_id)) this.cfg.env_id = cfg.env_id;
+    if (!isEmpty(cfg.json)) this.cfg.json = cfg.json;
     if (!isEmpty(cfg.domain)) this.cfg.domain = cfg.domain;
     if (!isEmpty(cfg.target)) this.cfg.target = cfg.target;
+    if (!isEmpty(cfg.url)) this.cfg.url = cfg.url;
+    if (!isEmpty(cfg.mapFunction)) this.cfg.mapFunction = cfg.mapFunction;
     if (!isEmpty(cfg.delay)) this.cfg.delay = cfg.delay;
     if (!isEmpty(cfg.cache)) this.cfg.cache = cfg.cache;
     if (!isEmpty(cfg.replace)) this.cfg.replace = cfg.replace;

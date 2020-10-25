@@ -42,18 +42,38 @@ if (typeof jloadsTarget !== 'function') jloadsTarget = function (json, success, 
 
     var i = Object.keys(json)[0];
     jlogs('jloadsTarget getOne ', ' i ', i);
-    var jloads = new Load({
-        target: i,
-        success: success,
-        error: error,
-        replace: 1,
-    });
+    // var jloads = new Load({
+    //     target: i,
+    //     success: success,
+    //     error: error,
+    //     replace: 1,
+    // });
     if (Object.keys(json).length === 1) {
-        getOne(jloads, json[i], i, mapFunction, success, error)
+        //getOne(jloads, json[i], i, mapFunction, success, error);
+        getOne(new Load({
+                json: json[i],
+                mapFunction: mapFunction,
+                url: json[i],
+                target: i,
+                success: success,
+                error: error,
+                replace: 1,
+            })
+        );
     } else {
         for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
+            // var object = json[i];
+            // getOne(jloads, object, i, mapFunction, success, error);
+            getOne(new Load({
+                    json: json[i],
+                    mapFunction: mapFunction,
+                    url: json[i],
+                    target: i,
+                    success: success,
+                    error: error,
+                    replace: 1,
+                })
+            );
         }
     }
     // success(json);

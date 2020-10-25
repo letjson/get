@@ -42,7 +42,17 @@ function urlLoad(self, json, success, error) {
                 var url = list[selector];
                 console.log(f, '!!!4 url: ', url);
 
-                getOne(l, url, selector, self.mapFunction, success, error);
+                // getOne(l, url, selector, self.mapFunction, success, error);
+                getOne(new Load({
+                        json: list[selector],
+                        mapFunction: self.mapFunction,
+                        url: list[selector],
+                        target: selector,
+                        success: success,
+                        error: error,
+                        replace: 1,
+                    })
+                );
 
             }
         }

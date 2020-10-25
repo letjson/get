@@ -53,7 +53,15 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                 jlogs(f, 'isArray list ', list);
                 jlogs(f, 'isArray selector ', selector);
 
-                getOne(load, url, selector, mapFunction, success, error);
+                getOne(new Load({
+                        mapFunction: mapFunction,
+                        url: url,
+                        target: selector,
+                        success: success,
+                        error: error,
+                        replace: 0,
+                    })
+                );
 
                 // waitForSelector(url, selector, mapFunction, success, error);
                 //
@@ -74,22 +82,26 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
                 jlogs(f, 'afterLoaded ', selector, list[url]);
 
-                var l = new Load({
-                    target: selector,
-                    success: success,
-                    error: error,
-                    replace: 0,
-                });
-                getOne(l, list[url], selector, mapFunction, success, error);
+                getOne(new Load({
+                        mapFunction: mapFunction,
+                        url: list[url],
+                        target: selector,
+                        success: success,
+                        error: error,
+                        replace: 0,
+                    })
+                );
             };
 
-            var load = new Load({
-                target: selector,
-                success: afterLoaded,
-                error: error,
-                replace: 1,
-            });
-            getOne(load, url, selector, mapFunction, success, error);
+            getOne(new Load({
+                    mapFunction: mapFunction,
+                    url: url,
+                    target: selector,
+                    success: afterLoaded,
+                    error: error,
+                    replace: 1,
+                })
+            );
 
         }
     }

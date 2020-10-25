@@ -50,11 +50,31 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];
-        getOne(jloads, json[i], i, mapFunction, success, error)
+        //getOne(jloads, json[i], i, mapFunction, success, error);
+        getOne(new Load({
+                json: json[i],
+                mapFunction: mapFunction,
+                url: json[i],
+                target: i,
+                success: success,
+                error: error,
+                replace: 1,
+            })
+        );
     } else {
         for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
+            // var object = json[i];
+            // getOne(jloads, object, i, mapFunction, success, error)
+            getOne(new Load({
+                    json: json[i],
+                    mapFunction: mapFunction,
+                    url: json[i],
+                    target: i,
+                    success: success,
+                    error: error,
+                    replace: 1,
+                })
+            );
         }
     }
     // success(json);

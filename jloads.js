@@ -1653,7 +1653,15 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
                 jlogs(f, 'isArray list ', list);
                 jlogs(f, 'isArray selector ', selector);
 
-                getOne(load, url, selector, mapFunction, success, error);
+                getOne(new Load({
+                        mapFunction: mapFunction,
+                        url: url,
+                        target: selector,
+                        success: success,
+                        error: error,
+                        replace: 0,
+                    })
+                );
 
                 // waitForSelector(url, selector, mapFunction, success, error);
                 //
@@ -1674,22 +1682,26 @@ if (typeof getOne !== 'function') getOne = function (load, url, selector, mapFun
 
                 jlogs(f, 'afterLoaded ', selector, list[url]);
 
-                var l = new Load({
-                    target: selector,
-                    success: success,
-                    error: error,
-                    replace: 0,
-                });
-                getOne(l, list[url], selector, mapFunction, success, error);
+                getOne(new Load({
+                        mapFunction: mapFunction,
+                        url: list[url],
+                        target: selector,
+                        success: success,
+                        error: error,
+                        replace: 0,
+                    })
+                );
             };
 
-            var load = new Load({
-                target: selector,
-                success: afterLoaded,
-                error: error,
-                replace: 1,
-            });
-            getOne(load, url, selector, mapFunction, success, error);
+            getOne(new Load({
+                    mapFunction: mapFunction,
+                    url: url,
+                    target: selector,
+                    success: afterLoaded,
+                    error: error,
+                    replace: 1,
+                })
+            );
 
         }
     }
@@ -1714,23 +1726,30 @@ var Load = function (cfg) {
     this.cfg = {};
     this.cfg.env = {};
     this.cfg.env_id = 0;
+    this.cfg.json = {};
     this.cfg.domain = {};
     this.cfg.target = 'body';
+    this.cfg.url = '';
+    this.cfg.mapFunction = {};
     this.cfg.delay = 0;
     this.cfg.cache = 1;
     this.cfg.replace = 0;
     this.cfg.success = 0;
     this.cfg.error = 0;
 
+
     if (isEmpty(cfg)) {
         cfg = {};
     }
-    console.log(f, ' cfg ', cfg);
+    console.log(f, ' cfg input:', cfg, !isEmpty(cfg.target));
 
     if (!isEmpty(cfg.env)) this.cfg.env = cfg.env;
     if (!isEmpty(cfg.env_id)) this.cfg.env_id = cfg.env_id;
+    if (!isEmpty(cfg.json)) this.cfg.json = cfg.json;
     if (!isEmpty(cfg.domain)) this.cfg.domain = cfg.domain;
     if (!isEmpty(cfg.target)) this.cfg.target = cfg.target;
+    if (!isEmpty(cfg.url)) this.cfg.url = cfg.url;
+    if (!isEmpty(cfg.mapFunction)) this.cfg.mapFunction = cfg.mapFunction;
     if (!isEmpty(cfg.delay)) this.cfg.delay = cfg.delay;
     if (!isEmpty(cfg.cache)) this.cfg.cache = cfg.cache;
     if (!isEmpty(cfg.replace)) this.cfg.replace = cfg.replace;
@@ -2836,11 +2855,31 @@ if (typeof jloadsUrl !== 'function') jloadsUrl = function (json, success, error,
 
     if (Object.keys(json).length === 1) {
         var i = Object.keys(json)[0];
-        getOne(jloads, json[i], i, mapFunction, success, error)
+        //getOne(jloads, json[i], i, mapFunction, success, error);
+        getOne(new Load({
+                json: json[i],
+                mapFunction: mapFunction,
+                url: json[i],
+                target: i,
+                success: success,
+                error: error,
+                replace: 1,
+            })
+        );
     } else {
         for (var i in json) {
-            var object = json[i];
-            getOne(jloads, object, i, mapFunction, success, error)
+            // var object = json[i];
+            // getOne(jloads, object, i, mapFunction, success, error)
+            getOne(new Load({
+                    json: json[i],
+                    mapFunction: mapFunction,
+                    url: json[i],
+                    target: i,
+                    success: success,
+                    error: error,
+                    replace: 1,
+                })
+            );
         }
     }
     // success(json);
@@ -2891,7 +2930,17 @@ function urlLoad(self, json, success, error) {
                 var url = list[selector];
                 console.log(f, '!!!4 url: ', url);
 
-                getOne(l, url, selector, self.mapFunction, success, error);
+                // getOne(l, url, selector, self.mapFunction, success, error);
+                getOne(new Load({
+                        json: list[selector],
+                        mapFunction: self.mapFunction,
+                        url: list[selector],
+                        target: selector,
+                        success: success,
+                        error: error,
+                        replace: 1,
+                    })
+                );
 
             }
         }
@@ -3111,8 +3160,18 @@ var jloads = function (cfg) {
         //     getOne(self.jloads, json[i], i, self.mapFunction, success, error)
         // } else {
         for (var i in json) {
-            var object = json[i];
-            getOne(self.jloads, object, i, self.mapFunction, success, error)
+            //var object = json[i];
+            //getOne(self.jloads, object, i, self.mapFunction, success, error);
+            getOne(new Load({
+                    json: json[i],
+                    mapFunction: self.mapFunction,
+                    url: json[i],
+                    target: i,
+                    success: success,
+                    error: error,
+                    replace: 1,
+                })
+            );
         }
         // }
         // success(json);

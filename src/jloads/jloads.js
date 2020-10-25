@@ -211,8 +211,18 @@ var jloads = function (cfg) {
         //     getOne(self.jloads, json[i], i, self.mapFunction, success, error)
         // } else {
         for (var i in json) {
-            var object = json[i];
-            getOne(self.jloads, object, i, self.mapFunction, success, error)
+            //var object = json[i];
+            //getOne(self.jloads, object, i, self.mapFunction, success, error);
+            getOne(new Load({
+                    json: json[i],
+                    mapFunction: self.mapFunction,
+                    url: json[i],
+                    target: i,
+                    success: success,
+                    error: error,
+                    replace: 1,
+                })
+            );
         }
         // }
         // success(json);

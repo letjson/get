@@ -237,11 +237,49 @@ var Load = function (cfg) {
         return self;
     };
     self.isReplaceOn = function () {
-        return self.cfg.replace == 1;
+        return self.cfg.replace === 1;
     };
     self.getReplace = function () {
         return self.cfg.replace;
     };
+
+    self.url = function (url) {
+        self.cfg.url = url;
+        return self;
+    };
+    self.getUrl = function () {
+        return self.cfg.url;
+    };
+    self.setUrl = function (url) {
+        self.cfg.url = url;
+        return self;
+    };
+
+
+    self.map = function (map) {
+        self.cfg.mapFunction = map;
+        return self;
+    };
+    self.getMap = function () {
+        return self.cfg.mapFunction;
+    };
+    self.setMap = function (map) {
+        self.cfg.mapFunction = map;
+        return self;
+    };
+    /// LOADS
+
+    self.run = function () {
+        var funcName = getFunctionName(get.getUrl(), self.getMap(), f);
+        jlogs(f, ' funcName ', funcName);
+        jlogs(f, ' get.getUrl() ', get.getUrl());
+        //jlogs(funcName, url, elem);
+        //l[funcName](url);
+        self[funcName](get.getUrl());
+
+        return self;
+    };
+
 
     self.loadJs = function (url, target, success, error) {
 

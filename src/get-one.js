@@ -32,12 +32,10 @@ if (typeof getOne !== 'function') getOne = function (load) {
 
         jlogs(f, ' wait for element selector ', selector);
         jlogs(f, ' wait for element url ', url);
+        load.setUrl(url);
+        load.setMap(url);
+        load.run();
         // console.log(f, ' wait for element target ', load.getTarget(selector));
-        var funcName = getFunctionName(url, map, f);
-        jlogs(f, ' funcName ', funcName);
-        //jlogs(funcName, url, elem);
-        //l[funcName](url);
-        load[funcName](url);
 
     } else {
         var list = url;

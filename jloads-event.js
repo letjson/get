@@ -925,10 +925,9 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadUrlData');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
+                        jloads.setUrl(url);
+                        jloads.setMap(mapFunction);
+                        jloads.run();
                     }
                     success(url);
                 } catch (e) {
@@ -1076,10 +1075,9 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
 
     if (!isEmpty(elem)) {
         // loadContentByUrls(jloads, object, mapFunction, success, error);
-        var funcName = getFunctionName(url, mapFunction, 'ReadyHtml');
-        jlogs(f, ' funcName ', funcName);
-        //jlogs(funcName, url, elem);
-        l[funcName](url);
+        l.setUrl(url);
+        l.setMap(mapFunction);
+        l.run();
 
         return success(elem);
     } else {
@@ -1264,11 +1262,9 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 // callback executed when canvas was found
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                var funcName = getFunctionName(url, mapFunction, f);
-                jlogs(f, ' funcName ', funcName);
-                //jlogs(funcName, url, elem);
-                l[funcName](url);
-
+            l.setUrl(url);
+            l.setMap(mapFunction);
+            l.run();
 
                 me.disconnect(); // stop observing
                 // return;
@@ -1571,10 +1567,9 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        load[funcName](url);
+                        load.setUrl(url);
+                        load.setMap(mapFunction);
+                        load.run();
                     }
                     success(url);
                 } catch (e) {
@@ -1854,7 +1849,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
         jlogs(f, ' wait for element selector ', selector);
         jlogs(f, ' wait for element url ', url);
         load.setUrl(url);
-        load.setMap(url);
+        load.setMap(map);
         load.run();
         // console.log(f, ' wait for element target ', load.getTarget(selector));
 
@@ -2202,12 +2197,12 @@ var Load = function (cfg) {
     /// LOADS
 
     self.run = function () {
-        var funcName = getFunctionName(get.getUrl(), self.getMap(), f);
+        var funcName = getFunctionName(self.getUrl(), self.getMap(), f);
         jlogs(f, ' funcName ', funcName);
-        jlogs(f, ' get.getUrl() ', get.getUrl());
+        jlogs(f, ' get.getUrl() ', self.getUrl());
         //jlogs(funcName, url, elem);
         //l[funcName](url);
-        self[funcName](get.getUrl());
+        self[funcName](self.getUrl());
 
         return self;
     };
@@ -3471,10 +3466,9 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadUrlData');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
+                        jloads.setUrl(url);
+                        jloads.setMap(mapFunction);
+                        jloads.run();
                     }
                     success(url);
                 } catch (e) {
@@ -3622,10 +3616,9 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
 
     if (!isEmpty(elem)) {
         // loadContentByUrls(jloads, object, mapFunction, success, error);
-        var funcName = getFunctionName(url, mapFunction, 'ReadyHtml');
-        jlogs(f, ' funcName ', funcName);
-        //jlogs(funcName, url, elem);
-        l[funcName](url);
+        l.setUrl(url);
+        l.setMap(mapFunction);
+        l.run();
 
         return success(elem);
     } else {
@@ -3810,11 +3803,9 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 // callback executed when canvas was found
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                var funcName = getFunctionName(url, mapFunction, f);
-                jlogs(f, ' funcName ', funcName);
-                //jlogs(funcName, url, elem);
-                l[funcName](url);
-
+            l.setUrl(url);
+            l.setMap(mapFunction);
+            l.run();
 
                 me.disconnect(); // stop observing
                 // return;

@@ -925,10 +925,9 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadUrlData');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
+                        jloads.setUrl(url);
+                        jloads.setMap(mapFunction);
+                        jloads.run();
                     }
                     success(url);
                 } catch (e) {
@@ -1076,10 +1075,9 @@ if (typeof ReadyHtml !== 'function') ReadyHtml = function (url, selector, mapFun
 
     if (!isEmpty(elem)) {
         // loadContentByUrls(jloads, object, mapFunction, success, error);
-        var funcName = getFunctionName(url, mapFunction, 'ReadyHtml');
-        jlogs(f, ' funcName ', funcName);
-        //jlogs(funcName, url, elem);
-        l[funcName](url);
+        l.setUrl(url);
+        l.setMap(mapFunction);
+        l.run();
 
         return success(elem);
     } else {
@@ -1264,11 +1262,9 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 // callback executed when canvas was found
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                var funcName = getFunctionName(url, mapFunction, f);
-                jlogs(f, ' funcName ', funcName);
-                //jlogs(funcName, url, elem);
-                l[funcName](url);
-
+            l.setUrl(url);
+            l.setMap(mapFunction);
+            l.run();
 
                 me.disconnect(); // stop observing
                 // return;
@@ -1389,7 +1385,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
         jlogs(f, ' wait for element selector ', selector);
         jlogs(f, ' wait for element url ', url);
         load.setUrl(url);
-        load.setMap(url);
+        load.setMap(map);
         load.run();
         // console.log(f, ' wait for element target ', load.getTarget(selector));
 
@@ -1737,12 +1733,12 @@ var Load = function (cfg) {
     /// LOADS
 
     self.run = function () {
-        var funcName = getFunctionName(get.getUrl(), self.getMap(), f);
+        var funcName = getFunctionName(self.getUrl(), self.getMap(), f);
         jlogs(f, ' funcName ', funcName);
-        jlogs(f, ' get.getUrl() ', get.getUrl());
+        jlogs(f, ' get.getUrl() ', self.getUrl());
         //jlogs(funcName, url, elem);
         //l[funcName](url);
-        self[funcName](get.getUrl());
+        self[funcName](self.getUrl());
 
         return self;
     };
@@ -2066,10 +2062,9 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        load[funcName](url);
+                        load.setUrl(url);
+                        load.setMap(mapFunction);
+                        load.run();
                     }
                     success(url);
                 } catch (e) {
@@ -2326,28 +2321,35 @@ if (typeof jloadsFile !== 'function') waitForSelector = function (json, success,
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     var url = Object.keys(json)[0];
     jlogs('jloadsFile getOne ', ' url ', url);
-    var jloads = new Load({
+    var l = new Load({
         target: i,
         success: success,
         error: error,
         //replace: 1,
     });
 
-    console.log('!!!', Object.keys(json), json[url], url);
+    console.log(f, "load file:", Object.keys(json), json[url], url);
     if (Object.keys(json).length === 1) {
 
         //getOne(jloads, json[i], i, mapFunction, success, error)
 
-        var funcName = getFunctionName(url, mapFunction, 'waitForSelector1');
-        jlogs(f, ' funcName ', funcName, url);
-        jloads[funcName](url);
+        l.setUrl(url);
+        l.setMap(mapFunction);
+        l.run();
 
+        // TODO: moze cos nie dzialac z target lub elementami, dodatkowo spradzic
         for (var i in json[url]) {
             var url2 = json[url][i];
             // getOne(jloads, object, i, mapFunction, success, error)
-            var funcName = getFunctionName(url2, mapFunction, 'waitForSelector2');
-            jlogs(f, ' funcName ', funcName, url2);
-            jloads[funcName](url2);
+            var l2 = new Load({
+                target: i,
+                success: success,
+                error: error,
+                //replace: 1,
+            });
+            l2.setUrl(json[url][i]);
+            l2.setMap(mapFunction);
+            l2.run();
         }
 
     // } else {
@@ -2358,7 +2360,7 @@ if (typeof jloadsFile !== 'function') waitForSelector = function (json, success,
     }
     // success(json);
 
-    return jloads;
+    return l;
 }
 // jloads-target.js
 

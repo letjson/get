@@ -27,10 +27,9 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        load[funcName](url);
+                        load.setUrl(url);
+                        load.setMap(mapFunction);
+                        load.run();
                     }
                     success(url);
                 } catch (e) {

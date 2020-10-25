@@ -28,10 +28,9 @@ if (typeof loadUrlData !== 'function') loadUrlData = function (jloads, object, m
                     if (url.length > 200) {
                         jloads['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadUrlData');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        jloads[funcName](url);
+                        jloads.setUrl(url);
+                        jloads.setMap(mapFunction);
+                        jloads.run();
                     }
                     success(url);
                 } catch (e) {

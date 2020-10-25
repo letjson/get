@@ -38,11 +38,9 @@ function waitForSelector(url, selector, mapFunction, success, error) {
                 // callback executed when canvas was found
 
                 // loadContentByUrls(jloads, object, mapFunction, success, error);
-                var funcName = getFunctionName(url, mapFunction, f);
-                jlogs(f, ' funcName ', funcName);
-                //jlogs(funcName, url, elem);
-                l[funcName](url);
-
+            l.setUrl(url);
+            l.setMap(mapFunction);
+            l.run();
 
                 me.disconnect(); // stop observing
                 // return;

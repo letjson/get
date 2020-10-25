@@ -445,7 +445,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
         jlogs(f, ' wait for element selector ', selector);
         jlogs(f, ' wait for element url ', url);
         load.setUrl(url);
-        load.setMap(url);
+        load.setMap(map);
         load.run();
         // console.log(f, ' wait for element target ', load.getTarget(selector));
 
@@ -793,12 +793,12 @@ var Load = function (cfg) {
     /// LOADS
 
     self.run = function () {
-        var funcName = getFunctionName(get.getUrl(), self.getMap(), f);
+        var funcName = getFunctionName(self.getUrl(), self.getMap(), f);
         jlogs(f, ' funcName ', funcName);
-        jlogs(f, ' get.getUrl() ', get.getUrl());
+        jlogs(f, ' get.getUrl() ', self.getUrl());
         //jlogs(funcName, url, elem);
         //l[funcName](url);
-        self[funcName](get.getUrl());
+        self[funcName](self.getUrl());
 
         return self;
     };
@@ -1122,10 +1122,9 @@ if (typeof loadContentByUrls !== 'function') loadContentByUrls = function (load,
                     if (url.length > 200) {
                         load['img'](url);
                     } else {
-                        var funcName = getFunctionName(url, mapFunction, 'loadContentByUrls');
-                        jlogs(f, ' funcName ', funcName);
-                        //jlogs(funcName, url, elem);
-                        load[funcName](url);
+                        load.setUrl(url);
+                        load.setMap(mapFunction);
+                        load.run();
                     }
                     success(url);
                 } catch (e) {

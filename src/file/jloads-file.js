@@ -39,28 +39,35 @@ if (typeof jloadsFile !== 'function') waitForSelector = function (json, success,
     // var elem = document.querySelectorAll(i)[0] || document.querySelectorAll(i) || document.body;
     var url = Object.keys(json)[0];
     jlogs('jloadsFile getOne ', ' url ', url);
-    var jloads = new Load({
+    var l = new Load({
         target: i,
         success: success,
         error: error,
         //replace: 1,
     });
 
-    console.log('!!!', Object.keys(json), json[url], url);
+    console.log(f, "load file:", Object.keys(json), json[url], url);
     if (Object.keys(json).length === 1) {
 
         //getOne(jloads, json[i], i, mapFunction, success, error)
 
-        var funcName = getFunctionName(url, mapFunction, 'waitForSelector1');
-        jlogs(f, ' funcName ', funcName, url);
-        jloads[funcName](url);
+        l.setUrl(url);
+        l.setMap(mapFunction);
+        l.run();
 
+        // TODO: moze cos nie dzialac z target lub elementami, dodatkowo spradzic
         for (var i in json[url]) {
             var url2 = json[url][i];
             // getOne(jloads, object, i, mapFunction, success, error)
-            var funcName = getFunctionName(url2, mapFunction, 'waitForSelector2');
-            jlogs(f, ' funcName ', funcName, url2);
-            jloads[funcName](url2);
+            var l2 = new Load({
+                target: i,
+                success: success,
+                error: error,
+                //replace: 1,
+            });
+            l2.setUrl(json[url][i]);
+            l2.setMap(mapFunction);
+            l2.run();
         }
 
     // } else {
@@ -71,5 +78,5 @@ if (typeof jloadsFile !== 'function') waitForSelector = function (json, success,
     }
     // success(json);
 
-    return jloads;
+    return l;
 }

@@ -151,12 +151,14 @@ var jloads = function (cfg) {
 
                 var f = 'jloads.file';
                 // jlogs(f, ' success json[url]', json[url]);
+                // TODO: sprawdzic czy nie powniny ladowac sie inne targety, a nie tylko domyslny: head
                 for (var i in json[url]) {
                     var url2 = json[url][i];
+
                     jlogs(f, ' success url2', url2);
-                    var funcName = getFunctionName(url2, self.mapFunction, 'self.file');
-                    jlogs(f, ' funcName ', funcName);
-                    jloads2[funcName](url2);
+                    jloads2.setUrl(url2);
+                    jloads2.setMap(mapFunction);
+                    jloads2.run();
                 }
             }
 
@@ -167,10 +169,12 @@ var jloads = function (cfg) {
                 //replace: 1,
             });
 
-            var funcName = getFunctionName(url, self.mapFunction, 'self.file');
-            jlogs(f, ' funcName ', funcName, url);
-            jloads1[funcName](url);
-
+            // var funcName = getFunctionName(url, self.mapFunction, 'self.file');
+            // jlogs(f, ' funcName ', funcName, url);
+            // jloads1[funcName](url);
+            jloads1.setUrl(url);
+            jloads1.setMap(self.mapFunction);
+            jloads1.run();
         }
         return self;
     }

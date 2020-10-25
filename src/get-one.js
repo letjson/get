@@ -33,7 +33,7 @@ if (typeof getOne !== 'function') getOne = function (load) {
         jlogs(f, ' wait for element selector ', selector);
         jlogs(f, ' wait for element url ', url);
         load.setUrl(url);
-        load.setMap(url);
+        load.setMap(map);
         load.run();
         // console.log(f, ' wait for element target ', load.getTarget(selector));
 

@@ -270,12 +270,12 @@ var Load = function (cfg) {
     /// LOADS
 
     self.run = function () {
-        var funcName = getFunctionName(get.getUrl(), self.getMap(), f);
+        var funcName = getFunctionName(self.getUrl(), self.getMap(), f);
         jlogs(f, ' funcName ', funcName);
-        jlogs(f, ' get.getUrl() ', get.getUrl());
+        jlogs(f, ' get.getUrl() ', self.getUrl());
         //jlogs(funcName, url, elem);
         //l[funcName](url);
-        self[funcName](get.getUrl());
+        self[funcName](self.getUrl());
 
         return self;
     };

@@ -729,9 +729,9 @@ if (typeof getOne !== 'function') getOne = function (load) {
             getOne(new Load({
                     mapFunction: map,
                     url: url,
-                    target: load.selector,
+                    target: selector,
                     success: afterLoaded,
-                    error: error,
+                    error: load.error,
                     replace: 1,
                 })
             );

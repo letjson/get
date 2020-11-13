@@ -12,6 +12,22 @@
 
 + [changelog.md](changelog.md)
 
+## TODO
+
+ikonografiki są ładowane bezposrednio z serwisów
++ intergacja z SERWISAMI publicznymi  REST    
+    
+    jloads podaje dane wejsciowe
+    
+    {
+        "https://www.crunchbase.com/organization/openbrand": {
+            "name":"mama",
+            "type":" string"
+        
+        }
+    }
+    
+
 ## environment
 
 npm upgrade

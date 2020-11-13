@@ -20,5 +20,5 @@ move library files to apifunc, such a basic function for many different language
 New File solution for fast loading depends of files tree structure 
 # v1.2.0 
 Config. not variable on the defining the class: new Load(cfg) 
-# v1.2.1 
-TEST, ein Besipiel 
+# v1.2.1
+TEST, ein Besipiel

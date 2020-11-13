@@ -17,16 +17,28 @@
 ikonografiki są ładowane bezposrednio z serwisów
 + intergacja z SERWISAMI publicznymi  REST    
     
-    jloads podaje dane wejsciowe
-    
-    {
-        "https://www.crunchbase.com/organization/openbrand": {
+jloads podaje dane wejsciowe, simple version only GET:
+        
+        
+    {        
+        "https://www.crunchbase.com/organization/openbrand": {                        
             "name":"mama",
             "type":" string"
         
         }
     }
-    
+
+more details about connections:
+
+    {        
+        "URL": "https://www.crunchbase.com/organization/openbrand",
+        "TYPE" : "GET"
+        "DATA": {                        
+            "name":"mama",
+            "type":" string"
+        
+        }
+    }    
 
 ## environment
 

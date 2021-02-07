@@ -19,9 +19,15 @@ usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o a
 
 # Przykładowe implementacje:
 
+Faas
 + [FaaS](https://www.faas.ovh/)
-+ [flat . plainedit .com](https://edit.ovh/)
-+ [gramatyka .de](https://www.gramatyka.de/)
+
+edytor
++ [edit](https://edit.ovh/)
+
+gramatyka
++ [www.gramatyka .de](https://www.gramatyka.de/)
++ [tom-sapletta-com/gramatyka-de: Nauka Gramatyki Niemieckiej poprzez matrycę](https://github.com/tom-sapletta-com/gramatyka-de)
 
 ## Standardy
 Programowanie aspektowe (aspect-oriented programming, AOP) to paradygmat tworzenia programów komputerowych wspomagający separację zagadnień i rozdzielenie programu na części w jak największym stopniu niezwiązane funkcjonalnie.

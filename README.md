@@ -6,69 +6,22 @@
 + [github.com/jloads](https://github.com/jloads/)
 + [github.com/jloads/get](https://github.com/jloads/get)
 
-# Load JS files
+# Example
 
 + [get.jloads.com](https://get.jloads.com/)
 
 + [changelog.md](changelog.md)
-
-## TODO
-
-ikonografiki są ładowane bezposrednio z serwisów
-+ intergacja z SERWISAMI publicznymi  REST    
-    
-jloads podaje dane wejsciowe, simple version only GET:
-        
-        
-    {        
-        "https://www.crunchbase.com/organization/openbrand": {                        
-            "name":"mama",
-            "type":" string"
-        
-        }
-    }
-
-more details about connections:
-
-    {        
-        "URL": "https://www.crunchbase.com/organization/openbrand",
-        "TYPE" : "GET"
-        "DATA": {                        
-            "name":"mama",
-            "type":" string"
-        
-        }
-    }    
-
-## environment
-
-npm upgrade
-
-    npm install -g npm
- 
-### production
-[jLoads.Load - get.jloads.com](https://get.jloads.com/)
-
-### local
-[jLoads.Load - localhost:8080](http://localhost:8080/)
-
-start 
-    
-    start.bat
-    
-start as process in backgrund
-[forever - npm](https://www.npmjs.com/package/forever)
-    
-    npm install forever -g
-    
-    start2.bat    
-    forever start server.js
 
 ## jLoads
 rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
 a nie wchodzących w najnowsze frameworki i biblioteki by następnie zajmować się
 usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o aktualizacje.
 
+# Przykładowe implementacje:
+
++ [FaaS](https://www.faas.ovh/)
++ [flat . plainedit .com](https://edit.ovh/)
++ [gramatyka .de](https://www.gramatyka.de/)
 
 ## Standardy
 Programowanie aspektowe (aspect-oriented programming, AOP) to paradygmat tworzenia programów komputerowych wspomagający separację zagadnień i rozdzielenie programu na części w jak największym stopniu niezwiązane funkcjonalnie.
@@ -513,6 +466,34 @@ framework laravel
     {!! Html::script('https://get.jloads.com/jloads-url.js') !!}
 
 
+
+
+## environment
+
+npm upgrade
+
+    npm install -g npm
+ 
+### production
+[jLoads.Load - get.jloads.com](https://get.jloads.com/)
+
+### local
+[jLoads.Load - localhost:8080](http://localhost:8080/)
+
+start 
+    
+    start.bat
+    
+start as process in backgrund
+[forever - npm](https://www.npmjs.com/package/forever)
+    
+    npm install forever -g
+    
+    start2.bat    
+    forever start server.js
+
+
+
 ### TODO
 
 ### Environment friendly
@@ -564,6 +545,36 @@ Calls:
     + format url:  doc.html?name=version&name=version&...
 
 + 
+
+
+## TODO:IDEA
+
+ikonografiki są ładowane bezposrednio z serwisów
++ intergacja z SERWISAMI publicznymi  REST    
+    
+jloads podaje dane wejsciowe, simple version only GET:
+        
+        
+    {        
+        "https://www.crunchbase.com/organization/openbrand": {                        
+            "name":"mama",
+            "type":" string"
+        
+        }
+    }
+
+more details about connections:
+
+    {        
+        "URL": "https://www.crunchbase.com/organization/openbrand",
+        "TYPE" : "GET"
+        "DATA": {                        
+            "name":"mama",
+            "type":" string"
+        
+        }
+    }    
+
 
 
 ### Listeners

@@ -21,9 +21,11 @@ usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o a
 
 Formularz
 + [FaaS](https://www.faas.ovh/)
++ [faas-ovh/www: Website](https://github.com/faas-ovh/www)
 
 Edytor
 + [edit](https://edit.ovh/)
++ [plainedit/flat: Edit is an example on ovh domain](https://github.com/plainedit/flat)
 
 Aplikacja do nauki gramatyki
 + [www.gramatyka .de](https://www.gramatyka.de/)

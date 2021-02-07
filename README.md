@@ -19,13 +19,13 @@ usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o a
 
 # Przykładowe implementacje:
 
-Faas
+Formularz
 + [FaaS](https://www.faas.ovh/)
 
-edytor
+Edytor
 + [edit](https://edit.ovh/)
 
-gramatyka
+Aplikacja do nauki gramatyki
 + [www.gramatyka .de](https://www.gramatyka.de/)
 + [tom-sapletta-com/gramatyka-de: Nauka Gramatyki Niemieckiej poprzez matrycę](https://github.com/tom-sapletta-com/gramatyka-de)
 

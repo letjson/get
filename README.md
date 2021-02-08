@@ -26,23 +26,23 @@
 2. Load to Your project
 
 
-     <script src="//get.jloads.com/jloads.min.js">
-         // Jloads is loading any media and content dynamically
-     </script>
+       <script src="//get.jloads.com/jloads.min.js">
+           // Jloads is loading any media and content dynamically
+       </script>
 
 
 3. Add dependences, example with jquery and bootstrap, asynchronus, without special tags, only jloads logic to controll JS loading
 
 
-    <script>
-        // load content ASAP with dependencies, that jquery must be first and after that bootstrap
-        jl.file({
-            "//code.jquery.com/jquery-3.5.1.min.js": [
-                "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
-                "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-            ]
-        });
-    </script>
+       <script>
+           // load content ASAP with dependencies, that jquery must be first and after that bootstrap
+           jl.file({
+               "//code.jquery.com/jquery-3.5.1.min.js": [
+                   "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js",
+                   "//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+               ]
+           });
+       </script>
 
 
 

@@ -14,22 +14,25 @@
 
 + Obecnie rozwiązanie jLoads dotyczy frontendu, ale trwają pracę nad wykorzystaniem NodeJS do wsparcia backendu.
 
-## jLoads projects
+## More ...
  + [All projects on github](https://github.com/jloads/)
-
-## Current project 
- + [jloads](https://github.com/jloads/get/)
+ + [jLoads on github](https://github.com/jloads/get/)
  + [changelog.md](changelog.md)
  
-## [download jloads.js](https://get.jloads.com/jloads.min.js)
+## How to use? 
 
-Load to Your project
+1. [download jloads.js](https://get.jloads.com/jloads.min.js)
 
-    <script src="//get.jloads.com/jloads.min.js">
-        // Jloads is loading any media and content dynamically
-    </script>
+2. Load to Your project
 
-Load with dependences, example with jquery and bootstrap, asynchronus, without special tags, only jloads logic to controll JS loading
+
+     <script src="//get.jloads.com/jloads.min.js">
+         // Jloads is loading any media and content dynamically
+     </script>
+
+
+3. Add dependences, example with jquery and bootstrap, asynchronus, without special tags, only jloads logic to controll JS loading
+
 
     <script>
         // load content ASAP with dependencies, that jquery must be first and after that bootstrap
@@ -43,7 +46,8 @@ Load with dependences, example with jquery and bootstrap, asynchronus, without s
 
 
 
-# Przykładowe MVP, implementacje z biblioteką jLoads
+# Przykładowe MVP
+implementacja MVP z biblioteką jLoads
 
 ### Proste przeładowanie tła, tekstu, grafiki
 + [get.jloads.com](https://get.jloads.com/)

@@ -2,12 +2,14 @@
 [![gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
 
-# Biblioteka jLoads, wspiera streamowanie interfejsu aplikacji w natywnym JS 
+# Biblioteka jLoads
++ jLoads wspiera streamowanie interfejsu aplikacji w natywnym JS 
 
-jLoads to rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
++ jLoads to rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
 a nie wchodzących w najnowsze frameworki i biblioteki by następnie zajmować się
 usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o ich aktualizacje.
 
++ Obecnie rozwiązanie jLoads dotyczy frontendu, ale trwają pracę nad wykorzystaniem NodeJS do wsparcia backendu.
 
 ## jLoads projects
  + [All projects on github](https://github.com/jloads/)

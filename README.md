@@ -4,11 +4,13 @@
 ![logo.jloads.com](https://logo.jloads.com/6/cover.png)
 
 # Biblioteka jLoads
-+ jLoads wspiera streamowanie interfejsu aplikacji w natywnym JS 
++ jLoads oferuje streamowanie interfejsu aplikacji w natywnym JS 
 
-+ jLoads to rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
-a nie wchodzących w najnowsze frameworki i biblioteki by następnie zajmować się
-usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o ich aktualizacje.
++ jLoads wspiera natywne rozwiązania, ułatwia pracę z kodem zastanym (legacy code)
+
++ jLoads został stworzony dla programistów szukających prostych rozwiązań, by ułatwić modularyzację aplikacji
+
++ jLoads wspiera proces refaktoryzacji, gdyż pozwala poprzez modularyzację ominięcie pułapek stojących za najnowszymi wersjami frameworków oraz troszczeniem się o ich aktualizacje.
 
 + Obecnie rozwiązanie jLoads dotyczy frontendu, ale trwają pracę nad wykorzystaniem NodeJS do wsparcia backendu.
 

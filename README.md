@@ -21,9 +21,11 @@
  
 ## How to use? 
 
-1. [download jloads.js](https://get.jloads.com/jloads.min.js)
+1a. [download jloads.js](https://get.jloads.com/jloads.min.js)
 
-2. Load to Your project
+OR 
+
+1b. Load to Your project
 
 
        <script src="//get.jloads.com/jloads.min.js">
@@ -31,7 +33,7 @@
        </script>
 
 
-3. Add dependences, example with jquery and bootstrap, asynchronus, without special tags, only jloads logic to controll JS loading
+2. Add dependences, example with jquery and bootstrap, asynchronus, without special tags, only jloads logic to controll JS loading
 
 
        <script>

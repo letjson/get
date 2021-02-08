@@ -1,6 +1,7 @@
 [![License Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=true)](http://www.apache.org/licenses/LICENSE-2.0)
 [![gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
+![logo.jloads.com](https://logo.jloads.com/6/cover.png)
 
 # Biblioteka jLoads
 + jLoads wspiera streamowanie interfejsu aplikacji w natywnym JS 

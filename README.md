@@ -1,6 +1,14 @@
 [![License Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=true)](http://www.apache.org/licenses/LICENSE-2.0)
 [![gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
+
+# Biblioteka jLoads, wspiera streamowanie interfejsu aplikacji w natywnym JS 
+
+jLoads to rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
+a nie wchodzących w najnowsze frameworki i biblioteki by następnie zajmować się
+usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o ich aktualizacje.
+
+
 ## jLoads projects
  + [All projects on github](https://github.com/jloads/)
 
@@ -30,13 +38,7 @@ Load with dependences, example with jquery and bootstrap, asynchronus, without s
 
 
 
-
-## jLoads
-rozwiązanie dla programistów szukających prostych, natywnych rozwiązań
-a nie wchodzących w najnowsze frameworki i biblioteki by następnie zajmować się
-usuwaniem problemów wynikających z ich zastosowania oraz troszczeniem się o aktualizacje.
-
-# Przykładowe implementacje:
+# Przykładowe MVP, implementacje z biblioteką jLoads
 
 ### Proste przeładowanie tła, tekstu, grafiki
 + [get.jloads.com](https://get.jloads.com/)

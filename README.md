@@ -18,14 +18,22 @@
  + [All projects on github](https://github.com/jloads/)
  + [jLoads on github](https://github.com/jloads/get/)
  + [changelog.md](changelog.md)
- 
+
+
+## List of jloads modules
++ [jloads.js](jloads.js)
++ [jloads-event.js](jloads-event.js)
++ [jloads-file.js](jloads-file.js)
++ [jloads-form.js](jloads-form.js)
++ [jloads-obj.js](jloads-obj.js)
++ [jloads-target.js](jloads-target.js)
++ [jloads-url.js](jloads-url.js)
+
 ## How to use? 
 
-1a. [download jloads.js](https://get.jloads.com/jloads.min.js)
 
-OR 
 
-1b. Load to Your project
+Load to Your project [download jloads.js](https://get.jloads.com/jloads.min.js)
 
 
        <script src="//get.jloads.com/jloads.min.js">
@@ -33,7 +41,7 @@ OR
        </script>
 
 
-2. Add dependences, example with jquery and bootstrap, asynchronus, without special tags, only jloads logic to controll JS loading
+Add dependences, example with jquery and bootstrap, asynchronus, without special tags, only jloads logic to controll JS loading
 
 
        <script>
@@ -47,22 +55,3 @@ OR
        </script>
 
 
-
-# Przykładowe MVP
-implementacja MVP z biblioteką jLoads
-
-### Proste przeładowanie tła, tekstu, grafiki
-+ [get.jloads.com](https://get.jloads.com/)
-
-
-### Formularz
-+ [FaaS](https://www.faas.ovh/)
-+ [faas-ovh/www: Website](https://github.com/faas-ovh/www)
-
-### Edytor
-+ [edit](https://edit.ovh/)
-+ [plainedit/flat: Edit is an example on ovh domain](https://github.com/plainedit/flat)
-
-### Aplikacja do nauki gramatyki
-+ [www.gramatyka .de](https://www.gramatyka.de/)
-+ [tom-sapletta-com/gramatyka-de: Nauka Gramatyki Niemieckiej poprzez matrycę](https://github.com/tom-sapletta-com/gramatyka-de)
